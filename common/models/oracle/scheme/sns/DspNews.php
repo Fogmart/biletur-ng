@@ -75,6 +75,7 @@ class DspNews extends DspBaseModel implements InvalidateModels {
 	public function getInvalidateField() {
 		return 'WHNCHNG';
 	}
+
 	const ATTR_ID = 'ID';
 	const ATTR_CID = 'CID';
 	const ATTR_NEWSBANDID = 'NEWSBANDID';

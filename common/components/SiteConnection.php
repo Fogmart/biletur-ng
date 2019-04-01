@@ -13,8 +13,7 @@ use apaoww\oci8\Oci8DbConnection;
 class SiteConnection extends Oci8DbConnection {
 	public function initConnection() {
 		parent::initConnection();
-
-		$this->pdo->exec("alter session set NLS_DATE_FORMAT='dd-mm-yy hh24:mi:ss'");
+		$this->pdo->exec("ALTER SESSION SET NLS_TIME_FORMAT = 'HH24:MI:SS' NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS' NLS_TIMESTAMP_TZ_FORMAT = 'YYYY-MM-DD HH24:MI:SS TZH:TZM'");
 	}
 }
 

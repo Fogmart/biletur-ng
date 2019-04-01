@@ -5,6 +5,7 @@ namespace common\components;
 use Yii;
 use yii\base\Component;
 use yii\caching\TagDependency;
+use yii\db\Exception;
 use yii\db\Expression;
 
 /**
@@ -17,7 +18,7 @@ class SyncData extends Component {
 
 	/**
 	 * @param \common\interfaces\LinkedModels | \yii\db\ActiveRecord | string $modelClass
-	 * @param bool                                                                $byDate
+	 * @param bool                                                            $byDate
 	 *
 	 * @author  Исаков Владислав <visakov@biletur.ru>
 	 */
@@ -25,7 +26,7 @@ class SyncData extends Component {
 
 		$internalField = $modelClass::getInternalInvalidateField();
 		$lastChangedDate = $modelClass::find()
-			->select(new Expression('MAX("' . $modelClass::getInternalInvalidateField() . '") as ' . $internalField))
+			->select(new Expression('MAX("' . $modelClass::getInternalInvalidateField() . '") as "' . $internalField . '"'))
 			->one();
 
 		$lastChangedDate = $lastChangedDate->$internalField;
@@ -38,7 +39,7 @@ class SyncData extends Component {
 			}
 		}
 
-		$lastChangedDate = date('d-m-Y H:i:s', strtotime($lastChangedDate));
+		$lastChangedDate = date('Y-m-d H:i:s', strtotime($lastChangedDate));
 
 		$diffCount = $modelClass::getLinkedModel()[$modelClass]::find()
 			->andWhere(['>', $modelClass::getOuterInvalidateField(), $lastChangedDate])
@@ -51,11 +52,12 @@ class SyncData extends Component {
 		$diff = $modelClass::getLinkedModel()[$modelClass]::find()
 			->andWhere(['>', $modelClass::getOuterInvalidateField(), $lastChangedDate])
 			->orderBy($modelClass::getOuterInvalidateField())
-			->limit(10)
+			->limit(500)
 			->all();
 
 		/** @var \yii\db\ActiveRecord $oneDiff */
 		foreach ($diff as $oneDiff) {
+
 			$model = $modelClass::find()
 				->andWhere([$modelClass::getOldIdField() => $oneDiff->getPrimaryKey()])
 				->one();
@@ -75,12 +77,12 @@ class SyncData extends Component {
 			}
 			$model->save();
 			/*
-						try {
-
-						}
-						catch (Exception $exception) {
-							continue;
-						}*/
+			try {
+				$model->save();
+			}
+			catch (\Exception $exception) {
+				continue;
+			}*/
 		}
 
 		TagDependency::invalidate(Yii::$app->cache, [$modelClass]);
