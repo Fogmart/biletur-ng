@@ -6,7 +6,7 @@ use common\modules\news\models\News;
 use yii\console\Controller;
 
 /**
- * Контроллер синхронизации данных с Ораклом ДСП
+ * Контроллер синхронизации данных с Ораклом ДСП и другими внешними источниками
  *
  * @package app\commands
  *
@@ -24,5 +24,16 @@ class SyncController extends Controller {
 		//Синхронизация новостей
 		SyncData::execute(News::class);
 
+	}
+
+	/**
+	 * Обновление базы данных ip адресов
+	 *
+	 * @throws \yii\base\Exception
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function actionUpdateIpGeoBase() {
+		\Yii::$app->ipgeobase->updateDB();
 	}
 }

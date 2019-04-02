@@ -2,6 +2,8 @@
 
 namespace frontend\controllers;
 
+use common\base\helpers\Dump;
+use common\components\FrontendController;
 use common\models\LoginForm;
 use common\modules\news\models\News;
 use frontend\models\ContactForm;
@@ -21,7 +23,7 @@ use yii\web\Controller;
 /**
  * Site controller
  */
-class SiteController extends Controller {
+class SiteController extends FrontendController {
 	/**
 	 * {@inheritdoc}
 	 */
@@ -79,8 +81,7 @@ class SiteController extends Controller {
 			->select(new Expression('MAX("' . News::getInternalInvalidateField() . '") as "' . $internalField . '"'))
 			->one();
 
-		print_r($lastChangedDate);DIE;
-
+		Dump::dDie(Yii::$app->ipgeobase->getLocation('212.122.4.2'));
 
 		return $this->render('index');
 	}

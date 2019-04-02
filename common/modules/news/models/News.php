@@ -8,7 +8,7 @@ use Yii;
 use yii\db\ActiveRecord;
 
 /**
- * Модель Ноовстей
+ * Модель Новостей
  *
  * @author isakov.v
  *
@@ -29,7 +29,7 @@ use yii\db\ActiveRecord;
 class News extends ActiveRecord implements LinkedModels {
 
 	public static function tableName() {
-		return '{{%NEWS}}';
+		return '{{%news}}';
 	}
 
 	public static function getTitle($id) {

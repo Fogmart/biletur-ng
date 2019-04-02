@@ -24,8 +24,10 @@
     "yiisoft/yii2-bootstrap": "~2.0.0",
     "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
     "apaoww/yii2-oci8": "dev-master",
+    "sfedosimov/yii2-oci8pdo": "*",
     "ext-json": "*",
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "himiklab/yii2-ipgeobase-component" : "*"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",
@@ -46,6 +48,10 @@
     {
       "type": "composer",
       "url": "https://asset-packagist.org"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/sfedosimov/yii2-oci8pdo.git"
     }
   ]
 }

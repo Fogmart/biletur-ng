@@ -2,8 +2,7 @@
 
 namespace common\components;
 
-use common\models\oracle\scheme\sns\IpRange;
-use common\models\oracle\scheme\sns\Towns;
+use common\models\Town;
 use Yii;
 use yii\base\Component;
 use yii\base\Exception;
@@ -26,11 +25,11 @@ class Environment extends Component {
 	public $defaultArrCityId;
 	/** @var string Идентификатор зоны туров по-умолчанию */
 	public $defaultTourZone;
-	/** @var Towns Переменная города для которого отображается сайт. */
+	/** @var Town Переменная города для которого отображается сайт. */
 	private $_city;
 	/** @var string $_language Язык сайта */
 	private $_language;
-	/** @var  Airports Аэропорт по-умолчанию для табло/расписания */
+	/** @var  Airport Аэропорт по-умолчанию для табло/расписания */
 	private $_airport;
 
 	/**
@@ -41,7 +40,7 @@ class Environment extends Component {
 	}
 
 	/**
-	 * @return Airports
+	 * @return Airport
 	 */
 	public function getAirport() {
 
@@ -51,10 +50,10 @@ class Environment extends Component {
 
 		if (null === $this->_airport || $this->_airport->IATACODE === null) {
 			$cacheKey = 'Environment::getAirport(' . $this->defaultAirportCode . ')';
-			$this->_airport = Yii::$app->memcache->get($cacheKey);
+			$this->_airport = Yii::$app->cache->get($cacheKey);
 			if (false === $this->_airport) {
-				$this->_airport = Airports::findOne(['IATACODE' => $this->defaultAirportCode]);
-				Yii::$app->memcache->set($cacheKey, $this->_airport, 0, new TagDependency([Airports::className()]));
+				$this->_airport = Airport::findOne(['IATACODE' => $this->defaultAirportCode]);
+				Yii::$app->cache->set($cacheKey, $this->_airport, 0, new TagDependency([Airport::className()]));
 			}
 		}
 
@@ -63,7 +62,7 @@ class Environment extends Component {
 
 	/**
 	 * Получение аэропорта по городу окружения
-	 * @return Airports
+	 * @return Airport
 	 */
 	private function _getAirportByCity() {
 		if (null === $this->_city) {
@@ -71,10 +70,10 @@ class Environment extends Component {
 		}
 
 		$cacheKey = 'Environment::getAirportByCity(' . $this->_city->CODE . ')';
-		$this->_airport = Yii::$app->memcache->get($cacheKey);
+		$this->_airport = Yii::$app->cache->get($cacheKey);
 		if (false === $this->_airport) {
-			$this->_airport = Airports::findOne(['TOWNCODE' => $this->_city->CODE]);
-			Yii::$app->memcache->set($cacheKey, $this->_airport, 0, new TagDependency([Airports::className()]));
+			$this->_airport = Airport::findOne(['TOWNCODE' => $this->_city->CODE]);
+			Yii::$app->cache->set($cacheKey, $this->_airport, 0, new TagDependency([Airport::className()]));
 		}
 
 		return $this->_airport;
@@ -85,7 +84,7 @@ class Environment extends Component {
 	 *
 	 * @author isakov.v
 	 *
-	 * @return \common\models\scheme\sns\Towns
+	 * @return \common\models\scheme\sns\Town
 	 * @throws Exception
 	 */
 	public function getCity() {
@@ -111,16 +110,16 @@ class Environment extends Component {
 			// Если не получили город ни одним из методов - присваиваем город по умолчанию.
 			if (null === $this->_city && isset($this->defaultCityId)) {
 				$cacheKey = 'Environment::getCity(' . $this->defaultCityId . ')';
-				$this->_city = Yii::$app->memcache->get($cacheKey);
+				$this->_city = Yii::$app->cache->get($cacheKey);
 
 				if (false === $this->_city) {
-					$this->_city = Towns::find()->with(['arrCity'])->where(['ID' => $this->defaultCityId])->one();
+					$this->_city = Town::find()->with(['arrCity'])->where(['ID' => $this->defaultCityId])->one();
 					if (null === $this->_city) {
 						throw new Exception('Ошибка: Невозможно определить город, и присвоить город по умолчанию.');
 					}
 					else {
-						Yii::$app->memcache->set(
-							$cacheKey, $this->_city, 24 * 60 * 60, new TagDependency([Towns::className()])
+						Yii::$app->cache->set(
+							$cacheKey, $this->_city, 24 * 60 * 60, new TagDependency([Town::className()])
 						);
 					}
 				}
@@ -152,12 +151,12 @@ class Environment extends Component {
 			$cityId = Yii::$app->request->cookies['current_path'];
 			if (null !== $cityId) {
 				$cacheKey = 'Environment::getCity(' . $cityId . ')';
-				$cacheCity = Yii::$app->memcache->get($cacheKey);
+				$cacheCity = Yii::$app->cache->get($cacheKey);
 				if (false === $cacheCity) {
-					$this->_city = Towns::find()->with(['arrCity'])->where(['ID' => $cityId->value])->one();
+					$this->_city = Town::find()->with(['arrCity'])->where(['ID' => $cityId->value])->one();
 					if (null !== $this->_city) {
-						Yii::$app->memcache->set(
-							$cacheKey, $this->_city, 24 * 60 * 60, new TagDependency([Towns::className()])
+						Yii::$app->cache->set(
+							$cacheKey, $this->_city, 24 * 60 * 60, new TagDependency([Town::className()])
 						);
 					}
 				}
@@ -187,7 +186,7 @@ class Environment extends Component {
 			}
 
 			$cacheKey = 'Environment::getCity(' . $ip . ')';
-			$cacheCity = Yii::$app->memcache->get($cacheKey);
+			$cacheCity = Yii::$app->cache->get($cacheKey);
 			if (false === $cacheCity) {
 				/** @var IpRange $geoCity */
 				$geoCity = IpRange::find()
@@ -196,10 +195,10 @@ class Environment extends Component {
 					->one();
 
 				if (null !== $geoCity) {
-					$this->_city = Towns::find()->with(['arrCity'])->where(['ID' => $geoCity->CITYID])->one();
+					$this->_city = Town::find()->with(['arrCity'])->where(['ID' => $geoCity->CITYID])->one();
 					if (null !== $this->_city) {
-						Yii::$app->memcache->set(
-							$cacheKey, $this->_city, 24 * 60 * 60, new TagDependency([Towns::className()])
+						Yii::$app->cache->set(
+							$cacheKey, $this->_city, 24 * 60 * 60, new TagDependency([Town::className()])
 						);
 					}
 				}
@@ -222,7 +221,7 @@ class Environment extends Component {
 	 * @param $cityId
 	 */
 	public function setCityById($cityId) {
-		$this->_city = Towns::find()->with(['arrCity'])->where(['ID' => $cityId])->one();
+		$this->_city = Town::find()->with(['arrCity'])->where(['ID' => $cityId])->one();
 		if (null !== $this->_city) {
 			// Записываем id города в куку, для быстрого обнаружения
 			Yii::$app->response->cookies->add(
@@ -310,13 +309,13 @@ class Environment extends Component {
 
 		if (null !== $subdomain) {
 			$cacheKey = 'Environment::getCity(' . $subdomain . ')';
-			$cacheCity = Yii::$app->memcache->get($cacheKey);
+			$cacheCity = Yii::$app->cache->get($cacheKey);
 
 			if (false === $cacheCity) {
-				$this->_city = Towns::findOne(['ename' => $subdomain]);
+				$this->_city = Town::findOne(['ename' => $subdomain]);
 				if (null !== $this->_city) {
-					Yii::$app->memcache->set(
-						$cacheKey, $this->_city, 24 * 60 * 60, new TagDependency([Towns::className()])
+					Yii::$app->cache->set(
+						$cacheKey, $this->_city, 24 * 60 * 60, new TagDependency([Town::className()])
 					);
 				}
 			}

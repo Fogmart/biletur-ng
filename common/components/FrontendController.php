@@ -2,6 +2,7 @@
 
 namespace common\components;
 
+use common\base\helpers\Dump;
 use Yii;
 use yii\web\Controller;
 
@@ -12,10 +13,17 @@ use yii\web\Controller;
  *
  */
 class FrontendController extends Controller {
+	public function init() {
+		parent::init();
+
+		Dump::dDie('ddd');
+
+	}
+
 	/**
 	 * @inheritdoc
 	 */
-	public function getViewPath() {
+	/*public function getViewPath() {
 		return parent::getViewPath() . '/' . Yii::$app->env->getLanguage();
-	}
+	}*/
 }

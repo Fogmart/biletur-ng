@@ -28,6 +28,20 @@ use common\models\oracle\scheme\DspBaseModel;
  */
 class DspCountries extends DspBaseModel {
 
+	const ATTR_ID = 'ID';
+	const ATTR_CODE = 'CODE';
+	const ATTR_NAME = 'NAME';
+	const ATTR_RNAME = 'RNAME';
+	const ATTR_ENAME = 'ENAME';
+	const ATTR_SHWINGUIDE = 'SHWINGUIDE';
+	const ATTR_YNDXWTHRID = 'YNDXWTHRID';
+	const ATTR_FLAGNAME = 'FLAGNAME';
+	const ATTR_ID_AURA = 'ID_AURA';
+	const ATTR_WHOCRT = 'WHOCRT';
+	const ATTR_WHNCRT = 'WHNCRT';
+	const ATTR_WHOUPD = 'WHOUPD';
+	const ATTR_WHNUPD = 'WHNUPD';
+
 	/**
 	 * @return string
 	 */
@@ -50,5 +64,4 @@ class DspCountries extends DspBaseModel {
 	public function getInvalidateField() {
 		return 'WHNUPD';
 	}
-
 }

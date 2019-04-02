@@ -3,7 +3,7 @@
  * @author Исаков Владислав <visakov@biletur.ru>
  */
 
-namespace common\modules\site\news;
+namespace common\modules\seo;
 
 
 use yii\base\Module;

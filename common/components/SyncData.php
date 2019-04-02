@@ -57,7 +57,6 @@ class SyncData extends Component {
 
 		/** @var \yii\db\ActiveRecord $oneDiff */
 		foreach ($diff as $oneDiff) {
-
 			$model = $modelClass::find()
 				->andWhere([$modelClass::getOldIdField() => $oneDiff->getPrimaryKey()])
 				->one();
@@ -75,14 +74,14 @@ class SyncData extends Component {
 				$field = $modelClass::getLinkedFields()[$attribute];
 				$model->$field = $filteredVal;
 			}
-			$model->save();
-			/*
+			//$model->save();
+
 			try {
 				$model->save();
 			}
 			catch (\Exception $exception) {
 				continue;
-			}*/
+			}
 		}
 
 		TagDependency::invalidate(Yii::$app->cache, [$modelClass]);

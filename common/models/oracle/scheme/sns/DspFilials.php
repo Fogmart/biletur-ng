@@ -37,6 +37,26 @@ use yii\caching\TagDependency;
  */
 class DspFilials extends DspBaseModel {
 
+	const ATTR_ID = 'ID';
+	const ATTR_FILIAL = 'FILIAL';
+	const ATTR_AURCODE = 'AURCODE';
+	const ATTR_NAME = 'NAME';
+	const ATTR_ORGID = 'ORGID';
+	const ATTR_GROUPS = 'GROUPS';
+	const ATTR_BEGDATE = 'BEGDATE';
+	const ATTR_ENDDATE = 'ENDDATE';
+	const ATTR_BOSSID = 'BOSSID';
+	const ATTR_BOSSNAME = 'BOSSNAME';
+	const ATTR_RANG = 'RANG';
+	const ATTR_WHOCRT = 'WHOCRT';
+	const ATTR_WHNCRT = 'WHNCRT';
+	const ATTR_WHOUPD = 'WHOUPD';
+	const ATTR_WHNUPD = 'WHNUPD';
+	const ATTR_DFLTACNTID = 'DFLTACNTID';
+	const ATTR_REGION = 'REGION';
+	const ATTR_SRKNSIFLDR = 'SRKNSIFLDR';
+
+
 	/**
 	 * @return string
 	 */

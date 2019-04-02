@@ -35,6 +35,28 @@ use common\models\oracle\scheme\DspBaseModel;
  */
 class DspOrgPhones extends DspBaseModel {
 
+	const ATTR_ID = 'ID';
+	const ATTR_ORGID = 'ORGID';
+	const ATTR_STAFFID = 'STAFFID';
+	const ATTR_DEPID = 'DEPID';
+	const ATTR_PLACEID = 'PLACEID';
+	const ATTR_PHONETYPE = 'PHONETYPE';
+	const ATTR_CNTRYPCOD = 'CNTRYPCOD';
+	const ATTR_CITYPCODE = 'CITYPCODE';
+	const ATTR_PHONENUM = 'PHONENUM';
+	const ATTR_PHONEUSE = 'PHONEUSE';
+	const ATTR_WHOCRT = 'WHOCRT';
+	const ATTR_WHNCRT = 'WHNCRT';
+	const ATTR_WHOCHNG = 'WHOCHNG';
+	const ATTR_WHNCHNG = 'WHNCHNG';
+	const ATTR_HIDEINWEB = 'HIDEINWEB';
+	const ATTR_LOCID = 'LOCID';
+	const ATTR_BEGDATE = 'BEGDATE';
+	const ATTR_ENDDATE = 'ENDDATE';
+	const ATTR_SRVCTYPEID = 'SRVCTYPEID';
+	const ATTR_HIDEINDSP = 'HIDEINDSP';
+	const ATTR_NORM_NUM = 'NORM_NUM';
+
 	/**
 	 * @return string
 	 */
@@ -57,5 +79,4 @@ class DspOrgPhones extends DspBaseModel {
 	public function getInvalidateField() {
 		return 'WHNCHNG';
 	}
-
 }

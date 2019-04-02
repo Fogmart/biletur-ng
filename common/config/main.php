@@ -1,7 +1,8 @@
 <?php
 
-use common\modules\site\news\MNews;
-use common\modules\site\news\MSeo;
+use common\components\IpGeoBase;
+use common\modules\news\MNews;
+use common\modules\seo\MSeo;
 
 return [
 	'aliases'    => [
@@ -18,8 +19,20 @@ return [
 		],
 	],
 	'components' => [
-		'cache' => [
+		'env'       => [
+			'class'              => common\components\Environment::class,
+			'defaultCityId'      => '_1CK0R7WDW',
+			'defaultLanguage'    => 'ru',
+			'defaultAirportCode' => 'VVO',
+			'defaultArrCityId'   => '957979',
+			'defaultTourZone'    => 3
+		],
+		'cache'     => [
 			'class' => 'yii\caching\FileCache',
+		],
+		'ipgeobase' => [
+			'class'      => IpGeoBase::class,
+			'useLocalDB' => false,
 		],
 	],
 ];

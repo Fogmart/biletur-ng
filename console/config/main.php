@@ -18,7 +18,7 @@ return [
 	'controllerMap' => [
 		'migrate' => [
 			'class' => 'yii\console\controllers\MigrateController',
-			'migrationTable' => '{{%MIGRATIONS}}',
+			'migrationTable' => '{{%migrations}}',
 		],
 	],
     'components' => [

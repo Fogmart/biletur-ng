@@ -1,15 +1,16 @@
 <?php
 
-use yii\db\Migration;
 use yii\db\Schema;
 
 /**
  * Class m190325_054540_add_table_news
  */
-class m190325_054540_add_table_news extends OracleMigration {
+class m190325_054540_add_table_news extends \common\components\OracleMigration {
+	private $_tableName = 'news';
 
 	public function safeUp() {
-		$this->createTable('NEWS', [
+
+		$this->createTable($this->_tableName, [
 			'id'           => $this->createPk(),
 			'old_id'       => Schema::TYPE_INTEGER . ' NOT NULL',
 			'category_id'  => Schema::TYPE_SMALLINT . ' NOT NULL',
@@ -25,8 +26,8 @@ class m190325_054540_add_table_news extends OracleMigration {
 		]);
 
 
-		$this->createIndex('ix-old-id', 'NEWS', 'old_id', true);
-		$this->createIndex('ix-cat-dt-pub-l', 'NEWS', ['category_id', 'date', 'is_published', 'lang']);
+		$this->createIndex(null, $this->_tableName, 'old_id', true);
+		$this->createIndex(null, $this->_tableName, ['category_id', 'date', 'is_published', 'lang']);
 	}
 
 	/**

@@ -47,6 +47,36 @@ use common\models\oracle\scheme\DspBaseModel;
  * @property \common\models\oracle\scheme\sns\DspOrgDogs  $dogs
  */
 class DspOrgs extends DspBaseModel {
+
+	const ATTR_ID = 'ID';
+	const ATTR_PREID = 'PREID';
+	const ATTR_PARID = 'PARID';
+	const ATTR_ID1C = 'ID1C';
+	const ATTR_IDAURA = 'IDAURA';
+	const ATTR_NAME = 'NAME';
+	const ATTR_ORGTYPE = 'ORGTYPE';
+	const ATTR_CRCCNVTYPE = 'CRCCNVTYPE';
+	const ATTR_ORGFORM = 'ORGFORM';
+	const ATTR_INN = 'INN';
+	const ATTR_KPP = 'KPP';
+	const ATTR_OKONH = 'OKONH';
+	const ATTR_OKPO = 'OKPO';
+	const ATTR_GRP = 'GRP';
+	const ATTR_PHONE = 'PHONE';
+	const ATTR_FAX = 'FAX';
+	const ATTR_EMAIL = 'EMAIL';
+	const ATTR_ISSUPPLIER = 'ISSUPPLIER';
+	const ATTR_ISPAYALL = 'ISPAYALL';
+	const ATTR_ISDEMO = 'ISDEMO';
+	const ATTR_SRVFILID = 'SRVFILID';
+	const ATTR_ENDDATE = 'ENDDATE';
+	const ATTR_WHOCRT = 'WHOCRT';
+	const ATTR_WHNCRT = 'WHNCRT';
+	const ATTR_WHOCHNG = 'WHOCHNG';
+	const ATTR_WHNCHNG = 'WHNCHNG';
+	const ATTR_WEBSITE = 'WEBSITE';
+	const ATTR_WHNUPD = 'WHNUPD';
+
 	/**
 	 * @return string
 	 */
