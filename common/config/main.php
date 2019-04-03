@@ -3,13 +3,16 @@
 use common\components\IpGeoBase;
 use common\modules\news\MNews;
 use common\modules\seo\MSeo;
+use common\modules\message\MMessage;
 
 return [
+	'language' => 'ru-RU',
 	'aliases'    => [
-		'@bower' => '@vendor/bower-asset',
-		'@npm'   => '@vendor/npm-asset',
+		'@bower'   => '@vendor/bower-asset',
+		'@npm'     => '@vendor/npm-asset',
 	],
 	'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
+
 	'modules'    => [
 		'news' => [
 			'class' => MNews::class,
@@ -17,6 +20,9 @@ return [
 		'seo'  => [
 			'class' => MSeo::class,
 		],
+		'message' => [
+			'class' => MMessage::class,
+		]
 	],
 	'components' => [
 		'env'       => [

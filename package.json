@@ -15,9 +15,5 @@
     "webpack": "3.11"
   },
   "dependencies": {
-    "@vuex-orm/core": "^0.31.6",
-    "axios": "^0.15.3",
-    "vue": "^2.5.14",
-    "vue-router": "^3.0.1"
-  }
+   }
 }

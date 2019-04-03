@@ -1,4 +1,5 @@
 <?php
+namespace app\migrations;
 
 use common\components\OracleMigration;
 use yii\db\Schema;

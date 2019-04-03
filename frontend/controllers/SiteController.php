@@ -81,7 +81,7 @@ class SiteController extends FrontendController {
 			->select(new Expression('MAX("' . News::getInternalInvalidateField() . '") as "' . $internalField . '"'))
 			->one();
 
-		Dump::dDie(Yii::$app->ipgeobase->getLocation('212.122.4.2'));
+
 
 		return $this->render('index');
 	}

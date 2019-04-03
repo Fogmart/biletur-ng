@@ -21,7 +21,6 @@ class Yii extends BaseYii {
 
 /**
  *
- *
  * @property-read \common\components\SiteConnection $db
  * @property-read \common\components\DspConnection  $dbDsp
  * @property-read Mailer                            $mailer

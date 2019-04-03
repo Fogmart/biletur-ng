@@ -49,7 +49,7 @@ class UtilController extends Controller {
 			$classFile .= 'namespace common\models;' . PHP_EOL . PHP_EOL;
 		}
 
-		$classFile .= 'use use yii\db\ActiveRecord;' . PHP_EOL . PHP_EOL;
+		$classFile .= 'use yii\db\ActiveRecord;' . PHP_EOL . PHP_EOL;
 
 		$classFile .= '/**' . PHP_EOL . PHP_EOL;
 		$classFile .= '* Поля таблицы:' . PHP_EOL;
@@ -78,7 +78,13 @@ class UtilController extends Controller {
 		$classFile .= PHP_EOL . PHP_EOL;
 
 		$classFile .= '	public static function tableName() {' . PHP_EOL;
-		$classFile .= "		return '{{" . strtoupper($this->scheme) . "." . strtoupper($this->createTb) . "}}';" . PHP_EOL;
+		if ($this->fieldUpper) {
+			$classFile .= "		return '{{" . strtoupper($this->scheme) . "." . strtoupper($this->createTb) . "}}';" . PHP_EOL;
+		}
+		else {
+			$classFile .= "		return ' . $this->createTb . ';" . PHP_EOL;
+		}
+
 		$classFile .= '	}' . PHP_EOL . PHP_EOL;
 
 		$classFile .= '	public function attributeLabels() {' . PHP_EOL;

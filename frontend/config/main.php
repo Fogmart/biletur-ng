@@ -41,8 +41,11 @@ return [
 			'enablePrettyUrl' => true,
 			'showScriptName'  => false,
 			'rules'           => [
-				''                               => 'site/index',
-				'<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
+				''                                                              => 'site/index',
+				'<module:[\w-]+>/<controller:[\w-]+>/<action:[\w-]+>/<id:\d+>]' => '<module>/<controller>/<action>',
+				'<controller:\w+>/<action:\w+>/'                                => '<controller>/<action>',
+				'message-widget/<object>/<objectId>/<userName>' => 'message/message/widget'
+
 			],
 		],
 	],

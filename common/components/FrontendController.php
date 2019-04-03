@@ -2,9 +2,9 @@
 
 namespace common\components;
 
-use common\base\helpers\Dump;
 use Yii;
 use yii\web\Controller;
+use common\base\helpers\StringHelper;
 
 /**
  * @author isakov.v
@@ -15,15 +15,48 @@ use yii\web\Controller;
 class FrontendController extends Controller {
 	public function init() {
 		parent::init();
+	}
 
-		Dump::dDie('ddd');
 
+	/**
+	 * Получение ссылки на указанное действие исходя из контроллера.
+	 *
+	 * @author Isakov Vladislav
+	 *
+	 * @param string $actionName   Название действия
+	 * @param array  $actionParams Дополнительные параметры
+	 *
+	 *
+	 * @return string
+	 */
+	public static function getActionUrl($actionName, array $actionParams = []) {
+		$prefix = null;
+
+		$controllerName = preg_replace('/Controller$/', '', StringHelper::basename(static::className()));
+		$controllerName = mb_strtolower(preg_replace('~(?!\b)([A-Z])~', '-\\1', $controllerName)); // Преобразуем название контроллера к формату url (aaa-bbb-ccc-..)
+
+		$actionParams[0] = implode('/', [
+			$controllerName,
+			$actionName,
+		]);
+		$actionParams[0] = '/' . $prefix . $actionParams[0];
+
+		$url = Yii::$app->urlManager->createUrl($actionParams);
+
+		return $url;
 	}
 
 	/**
-	 * @inheritdoc
+	 * Получение пространства имён (namespace) для класса.
+	 * Лучше использовать этот метод вместо задания namespace'а обычным текстом.
+	 * Таким образом, будет более простая разработка, автокомплит, поиск зависимостей и т.д.
+	 *
+	 * @author Isakov Vladislav
+	 *
+	 * @return string
 	 */
-	/*public function getViewPath() {
-		return parent::getViewPath() . '/' . Yii::$app->env->getLanguage();
-	}*/
+	public static function getNamespace() {
+		return StringHelper::dirname(static::class);
+	}
+
 }

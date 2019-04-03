@@ -17,11 +17,11 @@ mix.js('vendor/bower-asset/jquery/dist/jquery.js', 'frontend/web/js/vendor.js')
     .version();
 
 mix.sass('frontend/assets/src/sass/biletur.scss', 'frontend/web/css')
-    .options({
+   /* .options({
         postCss: [
             require('postcss-css-variables')()
         ]
-    })
+    })*/
     .version();
 
 mix.setPublicPath('frontend/web/');
