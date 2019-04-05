@@ -2,6 +2,7 @@
 namespace console\controllers;
 
 use common\components\SyncData;
+use common\models\Country;
 use common\modules\news\models\News;
 use yii\console\Controller;
 
@@ -24,6 +25,8 @@ class SyncController extends Controller {
 		//Синхронизация новостей
 		SyncData::execute(News::class);
 
+		//Синхронизация стран
+		SyncData::execute(Country::class);
 	}
 
 	/**

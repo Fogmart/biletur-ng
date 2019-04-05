@@ -201,6 +201,7 @@ class News extends ActiveRecord implements LinkedModels {
 		'0000000007' => self::LOCAL_ARR_NEWS,
 		'000000000B' => self::LOCAL_OTHER_NEWS
 	];
+
 	const PUBLIC_CATEGORY = [
 		self::AVIASALE_NEWS,
 		self::PASSENGER_NEWS,

@@ -127,9 +127,24 @@ a.desc:after {
   opacity: 0;
 }
 
-
 .loading {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.banner-button {
+  height: 60px;
+  background: #dd1e26;
+  font-weight: 700;
+  color: #ffffff;
+  background: -moz-linear-gradient(top, #dd1e26 0%, #9d1c20 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #dd1e26), color-stop(100%, #9d1c20));
+  background: -webkit-linear-gradient(top, #dd1e26 0%, #9d1c20 100%);
+  background: -o-linear-gradient(top, #dd1e26 0%, #9d1c20 100%);
+  background: -ms-linear-gradient(top, #dd1e26 0%, #9d1c20 100%);
+  background: linear-gradient(to bottom, #dd1e26 0%, #9d1c20 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dd1e26', endColorstr='#9d1c20', GradientType=0);
+  margin-top: 5px;
+  font-size: 15px;
 }

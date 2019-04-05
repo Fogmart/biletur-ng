@@ -4,7 +4,6 @@ namespace common\models;
 
 use common\interfaces\LinkedModels;
 use common\models\oracle\scheme\sns\DspCountries;
-use common\models\oracle\scheme\sns\DspTowns;
 use yii\db\ActiveRecord;
 
 /**
@@ -90,7 +89,17 @@ class Country extends ActiveRecord implements LinkedModels {
 	 */
 	public static function getLinkedFields() {
 		return [
-			DspCountries::ATTR_ID => static::ATTR_OLD_ID,
+			DspCountries::ATTR_ID         => static::ATTR_OLD_ID,
+			DspCountries::ATTR_NAME       => static::ATTR_NAME,
+			DspCountries::ATTR_RNAME      => static::ATTR_R_NAME,
+			DspCountries::ATTR_ENAME      => static::ATTR_E_NAME,
+			DspCountries::ATTR_CODE       => static::ATTR_CODE,
+			DspCountries::ATTR_ID_AURA    => static::ATTR_AURA_ID,
+			DspCountries::ATTR_SHWINGUIDE => static::ATTR_SHWINGUIDE,
+			DspCountries::ATTR_YNDXWTHRID => static::ATTR_YANDEX_WEATHER_ID,
+			DspCountries::ATTR_FLAGNAME   => static::ATTR_FLAG_IMAGE,
+			DspCountries::ATTR_WHNCRT     => static::ATTR_INSERT_STAMP,
+			DspCountries::ATTR_WHNUPD     => static::ATTR_UPDATE_STAMP,
 		];
 	}
 
@@ -105,17 +114,7 @@ class Country extends ActiveRecord implements LinkedModels {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public static function getConvertedField($fieldName, $data) {
-		/*switch ($fieldName) {
-			case DspNews::ATTR_NEWSBANDID:
-				if (!array_key_exists($data, static::CATEGORY_LINK)) {
-					return 0;
-				}
 
-				return static::CATEGORY_LINK[$data];
-				break;
-			default:
-				return $data;
-				break;
-		}*/
+		return $data;
 	}
 }
