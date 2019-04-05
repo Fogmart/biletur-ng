@@ -81,8 +81,6 @@ class SiteController extends FrontendController {
 			->select(new Expression('MAX("' . News::getInternalInvalidateField() . '") as "' . $internalField . '"'))
 			->one();
 
-
-
 		return $this->render('index');
 	}
 

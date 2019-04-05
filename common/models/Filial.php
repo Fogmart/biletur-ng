@@ -44,11 +44,20 @@ class Filial extends ActiveRecord implements LinkedModels {
 	const ATTR_INSERT_STAMP = 'insert_stamp';
 	const ATTR_UPDATE_STAMP = 'update_stamp';
 
-
+	/**
+	 * @inheritDoc
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
 	public static function tableName() {
 		return '{{%filial}}';
 	}
 
+	/**
+	 * @inheritDoc
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
 	public function attributeLabels() {
 		return [
 			static::ATTR_ID => 'id',

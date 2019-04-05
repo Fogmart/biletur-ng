@@ -21,7 +21,7 @@ class AppAsset extends AssetBundle {
 	];
 
 	public $js = [
-		'/js/vendor.js',
+		//'/js/vendor.js',
 		//'/js/app-biletur.js'
 	];
 

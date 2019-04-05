@@ -28,6 +28,8 @@ class Message extends ActiveRecord {
 	const ATTR_INSERT_STAMP = 'insert_stamp';
 	const ATTR_UPDATE_STAMP = 'update_stamp';
 
+	public $isMine = false;
+
 	/**
 	 * @return string
 	 *

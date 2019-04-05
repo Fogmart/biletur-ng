@@ -8,6 +8,6 @@ const PATHS = {
 module.exports = {
     output: {
         path: PATHS.build,
-        filename: 'appa.js'
+        filename: 'app.js'
     }
 };

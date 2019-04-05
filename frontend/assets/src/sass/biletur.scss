@@ -1,6 +1,7 @@
 html,
 body {
   height: 100%;
+  background-color: #f1f3f2;
 }
 
 .wrap {
@@ -15,10 +16,14 @@ body {
 }
 
 .footer {
-  height: 60px;
-  background-color: #f5f5f5;
-  border-top: 1px solid #ddd;
+  min-height: 180px;
+  color: #fff;
   padding-top: 20px;
+  background: url("/images/border_footer.jpg") repeat-x  #0066b1;
+
+  .container {
+    background-color: #fff;
+  }
 }
 
 .jumbotron {
