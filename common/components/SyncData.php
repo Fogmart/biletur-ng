@@ -40,19 +40,20 @@ class SyncData extends Component {
 		}
 
 		$lastChangedDate = date('Y-m-d H:i:s', strtotime($lastChangedDate));
-
+		echo date(DateHelper::DATE_FORMAT_ORACLE) . ': ' . 'Select diff to ' . $modelClass . PHP_EOL;
 		$diffCount = $modelClass::getLinkedModel()[$modelClass]::find()
 			->andWhere(['>', $modelClass::getOuterInvalidateField(), $lastChangedDate])
 			->count();
 
-		if ($diffCount === 0) {
+		if ($diffCount == 0) {
+			echo date(DateHelper::DATE_FORMAT_ORACLE) . ': ' . 'No diff to ' . $modelClass . PHP_EOL;
 			return;
 		}
-		echo date(DateHelper::DATE_FORMAT_ORACLE) . ': ' . 'Select diff to ' . $modelClass . PHP_EOL;
+
 		$diff = $modelClass::getLinkedModel()[$modelClass]::find()
 			->andWhere(['>', $modelClass::getOuterInvalidateField(), $lastChangedDate])
 			->orderBy($modelClass::getOuterInvalidateField())
-			->limit(2000)
+			->limit(5000)
 			->all();
 
 		$i = 1;
@@ -77,13 +78,12 @@ class SyncData extends Component {
 				$field = $modelClass::getLinkedFields()[$attribute];
 				$model->$field = $filteredVal;
 			}
-			//$model->save();
 
 			try {
 				$model->save();
 			}
 			catch (\Exception $exception) {
-				echo $exception->getMessage() . PHP_EOL;
+				//echo $exception->getMessage() . PHP_EOL;
 				continue;
 			}
 			$i++;

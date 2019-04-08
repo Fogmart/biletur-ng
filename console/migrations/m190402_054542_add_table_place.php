@@ -14,7 +14,7 @@ class m190402_054542_add_table_place extends OracleMigration {
 		$this->createTable($this->_tableName, [
 			'id'                => $this->createPk(),
 			'old_id'            => Schema::TYPE_STRING . ' NOT NULL',
-			'id1c'              => Schema::TYPE_STRING . ' NOT NULL',
+			'id1c'              => Schema::TYPE_STRING . ' DEFAULT NULL',
 			'aura_id'           => Schema::TYPE_INTEGER . ' DEFAULT NULL',
 			'list_aura_id'      => Schema::TYPE_STRING . ' DEFAULT NULL',
 			'sale_place'        => Schema::TYPE_STRING . ' DEFAULT NULL',

@@ -1,9 +1,11 @@
 <?php
+
 namespace common\models;
 
 use common\interfaces\LinkedModels;
 use common\models\oracle\scheme\sns\DspPlaces;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * Поля таблицы:
@@ -48,7 +50,7 @@ use yii\db\ActiveRecord;
  * @property string $insert_stamp
  * @property string $update_stamp
  */
-class Place extends ActiveRecord  implements LinkedModels {
+class Place extends ActiveRecord implements LinkedModels {
 
 	const ATTR_ID = 'id';
 	const ATTR_OLD_ID = 'old_id';
@@ -186,7 +188,46 @@ class Place extends ActiveRecord  implements LinkedModels {
 	 */
 	public static function getLinkedFields() {
 		return [
-			DspPlaces::ATTR_ID => static::ATTR_OLD_ID,
+			DspPlaces::ATTR_ID            => static::ATTR_OLD_ID,
+			DspPlaces::ATTR_SALEPLACE     => static::ATTR_SALE_PLACE,
+			DspPlaces::ATTR_NAME          => static::ATTR_NAME,
+			DspPlaces::ATTR_FILIALID      => static::ATTR_FILIAL_ID,
+			DspPlaces::ATTR_CITYID        => static::ATTR_TOWN_ID,
+			DspPlaces::ATTR_CITY          => static::ATTR_TOWN_CODE,
+			DspPlaces::ATTR_ACTIVE        => static::ATTR_IS_PUBLISHED,
+			DspPlaces::ATTR_LOCID         => static::ATTR_LOC_ID,
+			DspPlaces::ATTR_LOCNAME       => static::ATTR_LOC_NAME,
+			DspPlaces::ATTR_HIDEFRMWEB    => static::ATTR_IS_HIDE_FRM_WEB,
+			DspPlaces::ATTR_OFCMNGRID     => static::ATTR_OFFICE_MANAGER_ID,
+			DspPlaces::ATTR_EMAIL         => static::ATTR_EMAIL,
+			DspPlaces::ATTR_RANG          => static::ATTR_RANG,
+			DspPlaces::ATTR_FILIAL_HQ     => static::ATTR_IS_FILIAL_HQ,
+			DspPlaces::ATTR_BP_QTY        => static::ATTR_BP_QTY,
+			DspPlaces::ATTR_NDSIRP_QTY    => static::ATTR_NDSIRP_QTY,
+			DspPlaces::ATTR_DESCR_URL     => static::ATTR_DESCRIPTION_URL,
+			DspPlaces::ATTR_CRCARDS       => static::ATTR_CREDIT_CARDS,
+			DspPlaces::ATTR_PLACEMENT     => static::ATTR_PLACEMENT,
+			DspPlaces::ATTR_ROUTEINFO     => static::ATTR_ROUTE_INFO,
+			DspPlaces::ATTR_EORDER        => static::ATTR_IS_EORDER,
+			DspPlaces::ATTR_SALEIATA      => static::ATTR_IS_SALE_IATA,
+			DspPlaces::ATTR_ID1C          => static::ATTR_ID1C,
+			DspPlaces::ATTR_IDAURA        => static::ATTR_AURA_ID,
+			DspPlaces::ATTR_IDAURALST     => static::ATTR_LIST_AURA_ID,
+			DspPlaces::ATTR_D_TKP_CODE    => static::ATTR_TKP_CODE,
+			DspPlaces::ATTR_D_RRSUPORGID  => static::ATTR_RRSUP_ORG_ID,
+			DspPlaces::ATTR_D_NN_VLDTR    => static::ATTR_NN_VALIDATOR,
+			DspPlaces::ATTR_D_VALIDR_SU   => static::ATTR_SU_VALIDATOR,
+			DspPlaces::ATTR_PCC           => static::ATTR_PCC,
+			DspPlaces::ATTR_AMADEUSOFCID  => static::ATTR_AMADEUS_OFFICE_ID,
+			DspPlaces::ATTR_D_SALEAVIA    => static::ATTR_IS_SALE_AVIA,
+			DspPlaces::ATTR_D_SALERROAD   => static::ATTR_IS_SALE_RAIL_ROAD,
+			DspPlaces::ATTR_D_SALETOUR    => static::ATTR_IS_SALE_TOUR,
+			DspPlaces::ATTR_D_SALEPAPER   => static::ATTR_IS_SALE_PAPER,
+			DspPlaces::ATTR_D_SALESPUTNIK => static::ATTR_IS_SALE_SPUTNIK,
+			DspPlaces::ATTR_D_ADDRESS     => static::ATTR_ADDRESS,
+			DspPlaces::ATTR_WHNCRT        => static::ATTR_INSERT_STAMP,
+			DspPlaces::ATTR_WHNUPD        => static::ATTR_UPDATE_STAMP,
+
 		];
 	}
 
@@ -201,18 +242,35 @@ class Place extends ActiveRecord  implements LinkedModels {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public static function getConvertedField($fieldName, $data) {
-		/*switch ($fieldName) {
-			case DspNews::ATTR_NEWSBANDID:
-				if (!array_key_exists($data, static::CATEGORY_LINK)) {
-					return 0;
+		switch ($fieldName) {
+			case DspPlaces::ATTR_WHNCRT:
+				if (null === $data) {
+					return new Expression('sysdate');
 				}
 
-				return static::CATEGORY_LINK[$data];
-				break;
-			default:
 				return $data;
 				break;
-		}*/
+			case DspPlaces::ATTR_FILIALID:
+				/** @var \common\models\Filial $filial */
+				$filial = Filial::find()->where([Filial::ATTR_OLD_ID => $data])->one();
+				if (null !== $filial) {
+					return $filial->id;
+				}
+
+				break;
+			case DspPlaces::ATTR_CITYID:
+				/** @var \common\models\Town $town */
+				$town = Town::find()->where([Town::ATTR_OLD_ID => $data])->one();
+				if (null !== $town) {
+					return $town->id;
+				}
+
+				break;
+
+			default:
+				return trim($data);
+				break;
+		}
 	}
 
 }

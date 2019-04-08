@@ -5,6 +5,7 @@ use common\components\SyncData;
 use common\models\Country;
 use common\models\Filial;
 use common\models\Org;
+use common\models\Place;
 use common\models\Town;
 use common\modules\news\models\News;
 use yii\console\Controller;
@@ -39,6 +40,9 @@ class SyncController extends Controller {
 
 		//Синхронизация филиалов
 		SyncData::execute(Filial::class);
+
+		//Синхронизация мест
+		SyncData::execute(Place::class);
 	}
 
 	/**
