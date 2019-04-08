@@ -137,7 +137,6 @@ class Country extends ActiveRecord implements LinkedModels {
 			default:
 				return trim($data);
 				break;
-
 		}
 	}
 }

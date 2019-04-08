@@ -40,13 +40,16 @@ class SyncData extends Component {
 		}
 
 		$lastChangedDate = date('Y-m-d H:i:s', strtotime($lastChangedDate));
+
 		echo date(DateHelper::DATE_FORMAT_ORACLE) . ': ' . 'Select diff to ' . $modelClass . PHP_EOL;
+
 		$diffCount = $modelClass::getLinkedModel()[$modelClass]::find()
 			->andWhere(['>', $modelClass::getOuterInvalidateField(), $lastChangedDate])
 			->count();
 
 		if ($diffCount == 0) {
 			echo date(DateHelper::DATE_FORMAT_ORACLE) . ': ' . 'No diff to ' . $modelClass . PHP_EOL;
+
 			return;
 		}
 
@@ -86,6 +89,7 @@ class SyncData extends Component {
 				//echo $exception->getMessage() . PHP_EOL;
 				continue;
 			}
+
 			$i++;
 		}
 

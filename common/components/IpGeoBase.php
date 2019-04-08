@@ -1,4 +1,5 @@
 <?php
+
 namespace common\components;
 
 use Yii;
@@ -6,18 +7,18 @@ use Yii;
 /**
  * @author Исаков Владислав <visakov@biletur.ru>
  */
-
 class IpGeoBase extends \himiklab\ipgeobase\IpGeoBase {
 	const DB_IP_INSERTING_ROWS = 1; // максимальный размер (строки) пакета для INSERT запроса
 
 	/**
 	 * Метод производит заполнение таблиц IP-адресов используя
 	 * данные из файла self::ARCHIVE_IPS.
+	 *
 	 * @param $zip \ZipArchive
+	 *
 	 * @throws \yii\db\Exception
 	 */
-	protected function generateIpTable($zip)
-	{
+	protected function generateIpTable($zip) {
 		$ipsArray = explode("\n", $zip->getFromName(self::ARCHIVE_IPS_FILE));
 		array_pop($ipsArray); // пустая строка
 

@@ -30,14 +30,13 @@ class RemoteImageCache extends Component {
 		$hashName = md5($url) . '.' . strtolower(trim(pathinfo($url, PATHINFO_EXTENSION)));
 
 		$cacheKey = 'imageCache' . $hashName;
-		$imageCached = Yii::$app->memcache->get($cacheKey);
+		$imageCached = Yii::$app->cache->get($cacheKey);
 		if (false === $imageCached) {
 			if (!file_exists('images/cache/' . $hashName)) {
 				$this->downloadFile($url, $hashName);
 			}
-			Yii::$app->memcache->set($cacheKey, 1, 0);
 
-
+			Yii::$app->cache->set($cacheKey, 1, 0);
 		}
 
 		//Если неободимое превью существует то отдадим его
@@ -60,8 +59,6 @@ class RemoteImageCache extends Component {
 		}
 
 		return Yii::$app->imageCache->thumb('/images/cache/' . $hashName, $size, ['class' => $class]);
-
-
 	}
 
 	private function downloadFile($url, $hashName) {
