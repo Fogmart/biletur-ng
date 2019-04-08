@@ -132,14 +132,14 @@ class News extends ActiveRecord implements LinkedModels {
 					return ' ';
 				}
 
-				return $data;
+				return trim($data);
 				break;
 			case DspNews::ATTR_MESSAGE:
 				if (empty($data)) {
 					return ' ';
 				}
 
-				return $data;
+				return trim($data);
 				break;
 			case DspNews::ATTR_LANGCODE:
 				if (empty($data)) {
@@ -150,7 +150,7 @@ class News extends ActiveRecord implements LinkedModels {
 					return 'ru';
 				}
 
-				return $data;
+				return trim($data);
 				break;
 			case DspNews::ATTR_HOT:
 			case DspNews::ATTR_VISIBLE:
@@ -158,10 +158,10 @@ class News extends ActiveRecord implements LinkedModels {
 					return 0;
 				}
 
-				return $data;
+				return trim($data);
 				break;
 			default:
-				return $data;
+				return trim($data);
 				break;
 		}
 	}

@@ -3,6 +3,7 @@ namespace console\controllers;
 
 use common\components\SyncData;
 use common\models\Country;
+use common\models\Filial;
 use common\models\Org;
 use common\models\Town;
 use common\modules\news\models\News;
@@ -25,16 +26,19 @@ class SyncController extends Controller {
 	 */
 	public function actionIndex() {
 		//Синхронизация новостей
-	//	SyncData::execute(News::class);
+		SyncData::execute(News::class);
 
 		//Синхронизация стран
-	//	SyncData::execute(Country::class);
+		SyncData::execute(Country::class);
 
 		//Синхронизация городов
-	//	SyncData::execute(Town::class);
+		SyncData::execute(Town::class);
 
 		//Синхронизация организаций
 		SyncData::execute(Org::class);
+
+		//Синхронизация филиалов
+		SyncData::execute(Filial::class);
 	}
 
 	/**

@@ -15,6 +15,7 @@ class m190403_054543_add_table_org extends OracleMigration {
 		$this->createTable($this->_tableName, [
 			'id'                    => $this->createPk(),
 			'old_id'                => Schema::TYPE_STRING . ' NOT NULL',
+			'pre_id'                => Schema::TYPE_INTEGER . ' DEFAULT NULL',
 			'parent_id'             => Schema::TYPE_STRING . ' DEFAULT NULL',
 			'id_1c'                 => Schema::TYPE_STRING . ' DEFAULT NULL',
 			'aura_id'               => Schema::TYPE_INTEGER . ' DEFAULT NULL',

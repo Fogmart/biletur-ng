@@ -27,6 +27,7 @@
     "sfedosimov/yii2-oci8pdo": "*",
     "ext-json": "*",
     "ext-pdo": "*",
+    "ext-curl": "*",
     "himiklab/yii2-ipgeobase-component" : "*"
   },
   "require-dev": {

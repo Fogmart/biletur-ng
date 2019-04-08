@@ -35,6 +35,6 @@ class m190325_054540_add_table_news extends \common\components\OracleMigration {
 	 * {@inheritdoc}
 	 */
 	public function safeDown() {
-		$this->dropTable('NEWS');
+		$this->dropTable($this->_tableName);
 	}
 }

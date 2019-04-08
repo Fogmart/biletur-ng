@@ -1,46 +1,45 @@
-<?php 
+<?php
 
 namespace common\models;
 
 use common\interfaces\LinkedModels;
 use common\models\oracle\scheme\sns\DspOrgs;
-use common\models\oracle\scheme\sns\DspTowns;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
-
-* Поля таблицы:
-* @property integer $id
-* @property string $old_id
-* @property string $parent_id
-* @property string $id_1c
-* @property integer $aura_id
-* @property string $name
-* @property string $org_type
-* @property integer $currency_convert_type
-* @property string $org_form
-* @property string $inn
-* @property string $kpp
-* @property string $okonh
-* @property string $okpo
-* @property string $grp
-* @property string $phone
-* @property string $fax
-* @property string $email
-* @property integer $is_supplier
-* @property integer $is_pay_all
-* @property integer $is_demo
-* @property string $service_fil_id
-* @property string $end_date
-* @property string $website
-* @property string $insert_stamp
-* @property string $update_stamp
-*/
-
+ * Поля таблицы:
+ * @property integer $id
+ * @property string  $old_id
+ * @property string  $parent_id
+ * @property string  $id_1c
+ * @property integer $aura_id
+ * @property string  $name
+ * @property string  $org_type
+ * @property integer $currency_convert_type
+ * @property string  $org_form
+ * @property string  $inn
+ * @property string  $kpp
+ * @property string  $okonh
+ * @property string  $okpo
+ * @property string  $grp
+ * @property string  $phone
+ * @property string  $fax
+ * @property string  $email
+ * @property integer $is_supplier
+ * @property integer $is_pay_all
+ * @property integer $is_demo
+ * @property string  $service_fil_id
+ * @property string  $end_date
+ * @property string  $website
+ * @property string  $insert_stamp
+ * @property string  $update_stamp
+ */
 class Org extends ActiveRecord implements LinkedModels {
 
 	const ATTR_ID = 'id';
 	const ATTR_OLD_ID = 'old_id';
+	const ATTR_PRE_ID = 'pre_id';
 	const ATTR_PARENT_ID = 'parent_id';
 	const ATTR_ID_1C = 'id_1c';
 	const ATTR_AURA_ID = 'aura_id';
@@ -81,31 +80,32 @@ class Org extends ActiveRecord implements LinkedModels {
 	 */
 	public function attributeLabels() {
 		return [
-			static::ATTR_ID => 'id',
-			static::ATTR_OLD_ID => 'old_id',
-			static::ATTR_PARENT_ID => 'parent_id',
-			static::ATTR_ID_1C => 'id_1c',
-			static::ATTR_AURA_ID => 'aura_id',
-			static::ATTR_NAME => 'name',
-			static::ATTR_ORG_TYPE => 'org_type',
+			static::ATTR_ID                    => 'id',
+			static::ATTR_OLD_ID                => 'old_id',
+			static::ATTR_PRE_ID                => 'pre_id',
+			static::ATTR_PARENT_ID             => 'parent_id',
+			static::ATTR_ID_1C                 => 'id_1c',
+			static::ATTR_AURA_ID               => 'aura_id',
+			static::ATTR_NAME                  => 'name',
+			static::ATTR_ORG_TYPE              => 'org_type',
 			static::ATTR_CURRENCY_CONVERT_TYPE => 'currency_convert_type',
-			static::ATTR_ORG_FORM => 'org_form',
-			static::ATTR_INN => 'inn',
-			static::ATTR_KPP => 'kpp',
-			static::ATTR_OKONH => 'okonh',
-			static::ATTR_OKPO => 'okpo',
-			static::ATTR_GRP => 'grp',
-			static::ATTR_PHONE => 'phone',
-			static::ATTR_FAX => 'fax',
-			static::ATTR_EMAIL => 'email',
-			static::ATTR_IS_SUPPLIER => 'is_supplier',
-			static::ATTR_IS_PAY_ALL => 'is_pay_all',
-			static::ATTR_IS_DEMO => 'is_demo',
-			static::ATTR_SERVICE_FIL_ID => 'service_fil_id',
-			static::ATTR_END_DATE => 'end_date',
-			static::ATTR_WEBSITE => 'website',
-			static::ATTR_INSERT_STAMP => 'insert_stamp',
-			static::ATTR_UPDATE_STAMP => 'update_stamp',
+			static::ATTR_ORG_FORM              => 'org_form',
+			static::ATTR_INN                   => 'inn',
+			static::ATTR_KPP                   => 'kpp',
+			static::ATTR_OKONH                 => 'okonh',
+			static::ATTR_OKPO                  => 'okpo',
+			static::ATTR_GRP                   => 'grp',
+			static::ATTR_PHONE                 => 'phone',
+			static::ATTR_FAX                   => 'fax',
+			static::ATTR_EMAIL                 => 'email',
+			static::ATTR_IS_SUPPLIER           => 'is_supplier',
+			static::ATTR_IS_PAY_ALL            => 'is_pay_all',
+			static::ATTR_IS_DEMO               => 'is_demo',
+			static::ATTR_SERVICE_FIL_ID        => 'service_fil_id',
+			static::ATTR_END_DATE              => 'end_date',
+			static::ATTR_WEBSITE               => 'website',
+			static::ATTR_INSERT_STAMP          => 'insert_stamp',
+			static::ATTR_UPDATE_STAMP          => 'update_stamp',
 		];
 	}
 
@@ -154,9 +154,31 @@ class Org extends ActiveRecord implements LinkedModels {
 	 */
 	public static function getLinkedFields() {
 		return [
-			DspOrgs::ATTR_ID => static::ATTR_OLD_ID,
-			DspOrgs::ATTR_PREID => static::ATTR_PARENT_ID,
-			
+			DspOrgs::ATTR_ID         => static::ATTR_OLD_ID,
+			DspOrgs::ATTR_PREID      => static::ATTR_PRE_ID,
+			DspOrgs::ATTR_PARID      => static::ATTR_PARENT_ID,
+			DspOrgs::ATTR_ID1C       => static::ATTR_ID_1C,
+			DspOrgs::ATTR_IDAURA     => static::ATTR_AURA_ID,
+			DspOrgs::ATTR_NAME       => static::ATTR_NAME,
+			DspOrgs::ATTR_ORGTYPE    => static::ATTR_ORG_TYPE,
+			DspOrgs::ATTR_CRCCNVTYPE => static::ATTR_CURRENCY_CONVERT_TYPE,
+			DspOrgs::ATTR_ORGFORM    => static::ATTR_ORG_FORM,
+			DspOrgs::ATTR_INN        => static::ATTR_INN,
+			DspOrgs::ATTR_KPP        => static::ATTR_KPP,
+			DspOrgs::ATTR_OKONH      => static::ATTR_OKONH,
+			DspOrgs::ATTR_OKPO       => static::ATTR_OKPO,
+			DspOrgs::ATTR_GRP        => static::ATTR_GRP,
+			DspOrgs::ATTR_PHONE      => static::ATTR_PHONE,
+			DspOrgs::ATTR_FAX        => static::ATTR_FAX,
+			DspOrgs::ATTR_EMAIL      => static::ATTR_EMAIL,
+			DspOrgs::ATTR_ISSUPPLIER => static::ATTR_IS_SUPPLIER,
+			DspOrgs::ATTR_ISPAYALL   => static::ATTR_IS_PAY_ALL,
+			DspOrgs::ATTR_ISDEMO     => static::ATTR_IS_DEMO,
+			DspOrgs::ATTR_SRVFILID   => static::ATTR_SERVICE_FIL_ID,
+			DspOrgs::ATTR_ENDDATE    => static::ATTR_END_DATE,
+			DspOrgs::ATTR_WEBSITE    => static::ATTR_WEBSITE,
+			DspOrgs::ATTR_WHNCRT     => static::ATTR_INSERT_STAMP,
+			DspOrgs::ATTR_WHNUPD     => static::ATTR_UPDATE_STAMP,
 		];
 	}
 
@@ -171,17 +193,17 @@ class Org extends ActiveRecord implements LinkedModels {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public static function getConvertedField($fieldName, $data) {
-		/*switch ($fieldName) {
-			case DspNews::ATTR_NEWSBANDID:
-				if (!array_key_exists($data, static::CATEGORY_LINK)) {
-					return 0;
+		switch ($fieldName) {
+			case DspOrgs::ATTR_WHNCRT:
+				if (null === $data) {
+					return new Expression('sysdate');
 				}
 
-				return static::CATEGORY_LINK[$data];
-				break;
-			default:
 				return $data;
 				break;
-		}*/
+			default:
+				return trim($data);
+				break;
+		}
 	}
 }

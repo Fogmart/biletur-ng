@@ -2,9 +2,12 @@
 
 namespace common\models;
 
+use common\base\helpers\StringHelper;
 use common\interfaces\LinkedModels;
 use common\models\oracle\scheme\sns\DspCountries;
+use common\models\oracle\scheme\sns\DspTowns;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * Модель Стран
@@ -114,7 +117,27 @@ class Country extends ActiveRecord implements LinkedModels {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public static function getConvertedField($fieldName, $data) {
+		switch ($fieldName){
+			case DspCountries::ATTR_ENAME:
+			case DspCountries::ATTR_RNAME:
+			case DspCountries::ATTR_CODE:
+				if  (empty($data)) {
+					return ' ';
+				}
 
-		return $data;
+				return trim($data);
+				break;
+			case DspCountries::ATTR_WHNCRT:
+				if (null === $data) {
+					return new Expression('sysdate');
+				}
+
+				return $data;
+				break;
+			default:
+				return trim($data);
+				break;
+
+		}
 	}
 }

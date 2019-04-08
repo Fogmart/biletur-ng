@@ -1,31 +1,30 @@
-<?php 
+<?php
 
 namespace common\models;
 
 use common\interfaces\LinkedModels;
 use common\models\oracle\scheme\sns\DspFilials;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
-
-* Поля таблицы:
-* @property double $id
-* @property string $old_id
-* @property string $filial_code
-* @property string $aura_code
-* @property string $name
-* @property double $org_id
-* @property string $group
-* @property double $boss_id
-* @property string $boss_name
-* @property double $rang
-* @property double $region
-* @property string $beg_date
-* @property string $end_date
-* @property string $insert_stamp
-* @property string $update_stamp
-*/
-
+ * Поля таблицы:
+ * @property double $id
+ * @property string $old_id
+ * @property string $filial_code
+ * @property string $aura_code
+ * @property string $name
+ * @property double $org_id
+ * @property string $group
+ * @property double $boss_id
+ * @property string $boss_name
+ * @property double $rang
+ * @property double $region
+ * @property string $beg_date
+ * @property string $end_date
+ * @property string $insert_stamp
+ * @property string $update_stamp
+ */
 class Filial extends ActiveRecord implements LinkedModels {
 
 	const ATTR_ID = 'id';
@@ -60,19 +59,19 @@ class Filial extends ActiveRecord implements LinkedModels {
 	 */
 	public function attributeLabels() {
 		return [
-			static::ATTR_ID => 'id',
-			static::ATTR_OLD_ID => 'old_id',
-			static::ATTR_FILIAL_CODE => 'filial_code',
-			static::ATTR_AURA_CODE => 'aura_code',
-			static::ATTR_NAME => 'name',
-			static::ATTR_ORG_ID => 'org_id',
-			static::ATTR_GROUP => 'group',
-			static::ATTR_BOSS_ID => 'boss_id',
-			static::ATTR_BOSS_NAME => 'boss_name',
-			static::ATTR_RANG => 'rang',
-			static::ATTR_REGION => 'region',
-			static::ATTR_BEG_DATE => 'beg_date',
-			static::ATTR_END_DATE => 'end_date',
+			static::ATTR_ID           => 'id',
+			static::ATTR_OLD_ID       => 'old_id',
+			static::ATTR_FILIAL_CODE  => 'filial_code',
+			static::ATTR_AURA_CODE    => 'aura_code',
+			static::ATTR_NAME         => 'name',
+			static::ATTR_ORG_ID       => 'org_id',
+			static::ATTR_GROUP        => 'group',
+			static::ATTR_BOSS_ID      => 'boss_id',
+			static::ATTR_BOSS_NAME    => 'boss_name',
+			static::ATTR_RANG         => 'rang',
+			static::ATTR_REGION       => 'region',
+			static::ATTR_BEG_DATE     => 'beg_date',
+			static::ATTR_END_DATE     => 'end_date',
 			static::ATTR_INSERT_STAMP => 'insert_stamp',
 			static::ATTR_UPDATE_STAMP => 'update_stamp',
 		];
@@ -123,7 +122,19 @@ class Filial extends ActiveRecord implements LinkedModels {
 	 */
 	public static function getLinkedFields() {
 		return [
-			DspFilials::ATTR_ID => static::ATTR_OLD_ID,
+			DspFilials::ATTR_ID       => static::ATTR_OLD_ID,
+			DspFilials::ATTR_FILIAL   => static::ATTR_FILIAL_CODE,
+			DspFilials::ATTR_AURCODE  => static::ATTR_AURA_CODE,
+			DspFilials::ATTR_NAME     => static::ATTR_NAME,
+			DspFilials::ATTR_ORGID    => static::ATTR_ORG_ID,
+			DspFilials::ATTR_GROUPS   => static::ATTR_GROUP,
+			DspFilials::ATTR_BEGDATE  => static::ATTR_END_DATE,
+			DspFilials::ATTR_BOSSID   => static::ATTR_BOSS_ID,
+			DspFilials::ATTR_BOSSNAME => static::ATTR_BOSS_NAME,
+			DspFilials::ATTR_RANG     => static::ATTR_RANG,
+			DspFilials::ATTR_REGION   => static::ATTR_REGION,
+			DspFilials::ATTR_WHNCRT   => static::ATTR_INSERT_STAMP,
+			DspFilials::ATTR_WHNUPD   => static::ATTR_UPDATE_STAMP,
 		];
 	}
 
@@ -138,17 +149,17 @@ class Filial extends ActiveRecord implements LinkedModels {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public static function getConvertedField($fieldName, $data) {
-		/*switch ($fieldName) {
-			case DspNews::ATTR_NEWSBANDID:
-				if (!array_key_exists($data, static::CATEGORY_LINK)) {
-					return 0;
+		switch ($fieldName) {
+			case DspFilials::ATTR_WHNCRT:
+				if (null === $data) {
+					return new Expression('sysdate');
 				}
 
-				return static::CATEGORY_LINK[$data];
-				break;
-			default:
 				return $data;
 				break;
-		}*/
+			default:
+				return trim($data);
+				break;
+		}
 	}
 }

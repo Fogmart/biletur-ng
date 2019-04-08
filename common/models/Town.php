@@ -165,7 +165,7 @@ class Town extends ActiveRecord implements LinkedModels {
 				return $data;
 				break;
 			default:
-				return $data;
+				return trim($data);
 				break;
 		}
 	}
