@@ -3,6 +3,7 @@
 namespace common\models\oracle\scheme\sns;
 
 use common\models\oracle\scheme\arr\ARRCity;
+use common\models\oracle\scheme\DspBaseModel;
 use common\models\oracle\scheme\sns\queries\QueryTowns;
 use common\models\oracle\scheme\t3\RefItems;
 use common\models\oracle\scheme\t3\RIAd;
@@ -49,7 +50,7 @@ use yii\db\ActiveRecord;
  * @property-read \common\models\oracle\scheme\sns\DspCountries $country
  *
  */
-class DspTowns extends ActiveRecord {
+class DspTowns extends DspBaseModel {
 
 	const ATTR_ID = 'ID';
 	const ATTR_RNAME = 'RNAME';

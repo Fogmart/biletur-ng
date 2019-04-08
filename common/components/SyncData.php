@@ -2,10 +2,10 @@
 
 namespace common\components;
 
+use common\base\helpers\DateHelper;
 use Yii;
 use yii\base\Component;
 use yii\caching\TagDependency;
-use yii\db\Exception;
 use yii\db\Expression;
 
 /**
@@ -74,15 +74,17 @@ class SyncData extends Component {
 				$field = $modelClass::getLinkedFields()[$attribute];
 				$model->$field = $filteredVal;
 			}
-			//$model->save();
+			$model->save();
 
-			try {
+			/*try {
 				$model->save();
 			}
 			catch (\Exception $exception) {
 				continue;
-			}
+			}*/
 		}
+
+		echo date(DateHelper::DATE_FORMAT_ORACLE) . ': ' . $modelClass . ' - синхронизировано' . PHP_EOL;
 
 		TagDependency::invalidate(Yii::$app->cache, [$modelClass]);
 	}

@@ -5,6 +5,7 @@ namespace common\models;
 use common\interfaces\LinkedModels;
 use common\models\oracle\scheme\sns\DspTowns;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * Модель Городов
@@ -43,8 +44,8 @@ class Town extends ActiveRecord implements LinkedModels {
 	const ATTR_R_NAME = 'r_name';
 	const ATTR_E_NAME = 'e_name';
 	const ATTR_CODE = 'code';
-	const ATTR_COUNTRY_ID = 'state_id';
-	const ATTR_COUNTRY_CODE = 'state_code';
+	const ATTR_COUNTRY_ID = 'country_id';
+	const ATTR_COUNTRY_CODE = 'country_code';
 	const ATTR_ADM_REG_ID = 'adm_reg_id';
 	const ATTR_ADM_CODE = 'adm_code';
 	const ATTR_IATA_CODE = 'iata_code';
@@ -60,6 +61,11 @@ class Town extends ActiveRecord implements LinkedModels {
 	const ATTR_INSERT_STAMP = 'insert_stamp';
 	const ATTR_UPDATE_STAMP = 'update_stamp';
 
+	/**
+	 * @return string
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
 	public static function tableName() {
 		return '{{%town}}';
 	}
@@ -109,7 +115,26 @@ class Town extends ActiveRecord implements LinkedModels {
 	 */
 	public static function getLinkedFields() {
 		return [
-			DspTowns::ATTR_ID => static::ATTR_OLD_ID,
+			DspTowns::ATTR_ID         => static::ATTR_OLD_ID,
+			DspTowns::ATTR_RNAME      => static::ATTR_R_NAME,
+			DspTowns::ATTR_ENAME      => static::ATTR_E_NAME,
+			DspTowns::ATTR_CODE       => static::ATTR_CODE,
+			DspTowns::ATTR_STATEID    => static::ATTR_COUNTRY_ID,
+			DspTowns::ATTR_STATECODE  => static::ATTR_COUNTRY_CODE,
+			DspTowns::ATTR_ADMREGID   => static::ATTR_ADM_REG_ID,
+			DspTowns::ATTR_ADMCODE    => static::ATTR_ADM_CODE,
+			DspTowns::ATTR_IATACODE   => static::ATTR_IATA_CODE,
+			DspTowns::ATTR_IKAOCODE   => static::ATTR_IKAO_CODE,
+			DspTowns::ATTR_PHONECODE  => static::ATTR_PHONE_CODE,
+			DspTowns::ATTR_LATITUDE   => static::ATTR_LATITUDE,
+			DspTowns::ATTR_LONGITUDE  => static::ATTR_LONGITUDE,
+			DspTowns::ATTR_AURA_ID    => static::ATTR_AURA_ID,
+			DspTowns::ATTR_SHWINGUIDE => static::ATTR_SHWINGUIDE,
+			DspTowns::ATTR_YNDXWTHRID => static::ATTR_YANDEX_WEATHER_ID,
+			DspTowns::ATTR_RANG       => static::ATTR_RANG,
+			DspTowns::ATTR_NAME       => static::ATTR_NAME,
+			DspTowns::ATTR_WHNCRT     => static::ATTR_INSERT_STAMP,
+			DspTowns::ATTR_WHNUPD     => static::ATTR_UPDATE_STAMP,
 		];
 	}
 
@@ -124,17 +149,24 @@ class Town extends ActiveRecord implements LinkedModels {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public static function getConvertedField($fieldName, $data) {
-		/*switch ($fieldName) {
-			case DspNews::ATTR_NEWSBANDID:
-				if (!array_key_exists($data, static::CATEGORY_LINK)) {
-					return 0;
+		switch ($fieldName) {
+			case DspTowns::ATTR_STATEID:
+				/** @var \common\models\Country $country */
+				$country = Country::find()->where([Country::ATTR_OLD_ID => $data])->one();
+				if (null !== $country) {
+					return $country->id;
+				}
+				break;
+			case DspTowns::ATTR_WHNCRT:
+				if (null === $data) {
+					return new Expression('sysdate');
 				}
 
-				return static::CATEGORY_LINK[$data];
+				return $data;
 				break;
 			default:
 				return $data;
 				break;
-		}*/
+		}
 	}
 }

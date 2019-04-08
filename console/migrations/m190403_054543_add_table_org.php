@@ -41,6 +41,11 @@ class m190403_054543_add_table_org extends OracleMigration {
 		]);
 
 		$this->createIndex(null, $this->_tableName, 'old_id', true);
+		$this->createIndex(null, $this->_tableName, 'parent_id');
+		$this->createIndex(null, $this->_tableName, 'inn');
+		$this->createIndex(null, $this->_tableName, 'kpp');
+		$this->createIndex(null, $this->_tableName, 'aura_id');
+
 	}
 
 	/**

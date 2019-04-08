@@ -3,6 +3,8 @@ namespace console\controllers;
 
 use common\components\SyncData;
 use common\models\Country;
+use common\models\Org;
+use common\models\Town;
 use common\modules\news\models\News;
 use yii\console\Controller;
 
@@ -23,10 +25,16 @@ class SyncController extends Controller {
 	 */
 	public function actionIndex() {
 		//Синхронизация новостей
-		SyncData::execute(News::class);
+	//	SyncData::execute(News::class);
 
 		//Синхронизация стран
-		SyncData::execute(Country::class);
+	//	SyncData::execute(Country::class);
+
+		//Синхронизация городов
+	//	SyncData::execute(Town::class);
+
+		//Синхронизация организаций
+		SyncData::execute(Org::class);
 	}
 
 	/**
