@@ -1,5 +1,5 @@
 <?php
-namespace common\modules\api\ostrovok\components\queries;
+namespace common\modules\api\ostrovok\components\objects;
 
 use yii\base\Component;
 

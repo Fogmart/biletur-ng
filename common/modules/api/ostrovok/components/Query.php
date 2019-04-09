@@ -1,13 +1,15 @@
 <?php
-/**
- * @author Исаков Владислав <visakov@biletur.ru>
- */
-
-namespace common\modules\api\ostrovok\components\queries;
+namespace common\modules\api\ostrovok\components;
 
 use yii\base\Component;
 
-class BaseQuery extends Component {
+/**
+ * Класс для взаимодействия с АПИ Островок
+ *
+ *
+ * @author  Исаков Владислав <visakov@biletur.ru>
+ */
+class Query extends Component {
 	/** @var string */
 	public $url = 'https://partner.ostrovok.ru/api/affiliate/v2/';
 
