@@ -3,7 +3,9 @@
 namespace common\modules\api\ostrovok\components\objects;
 
 
-class PaymentOptions {
+use yii\base\Component;
+
+class PaymentOptions extends Component {
 	/** @var \common\modules\api\ostrovok\components\objects\PaymentType[] */
 	public $payment_types;
 }

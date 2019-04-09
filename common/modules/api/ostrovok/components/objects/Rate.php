@@ -1,12 +1,14 @@
 <?php
 namespace common\modules\api\ostrovok\components\objects;
 
+use yii\base\Component;
+
 /**
  * Информация об отеле
  *
  * @author  Исаков Владислав <visakov@biletur.ru>
  */
-class Hotel {
+class Rate extends Component {
 	public $non_refundable; //boolean
 	public $book_hash; //object
 	public $serp_filters; //array(Object)
