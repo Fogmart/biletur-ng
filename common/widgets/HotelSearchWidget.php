@@ -7,6 +7,7 @@ use common\modules\api\ostrovok\components\objects\BedPlaces;
 use common\modules\api\ostrovok\components\objects\CancellationInfo;
 use common\modules\api\ostrovok\components\objects\PaymentOptions;
 use common\modules\api\ostrovok\components\objects\PaymentType;
+use common\modules\api\ostrovok\components\objects\Perk;
 use common\modules\api\ostrovok\components\objects\Rate;
 use Yii;
 use yii\base\Widget;
@@ -32,8 +33,17 @@ class HotelSearchWidget extends Widget {
 			$payment_types = [];
 
 			foreach ($responseRate->payment_options->payment_types as $payment_type) {
+				if (property_exists($payment_type, 'perks')) {
+					$perks = [];
+					foreach ($payment_type->perks as $name => $perk) {
+						$perks[$name] = new Perk($perk);
+					}
+					$payment_type->perks = $perks;
+				}
+
 				$payment_types[] = new PaymentType($payment_type);
 			}
+
 
 			$rate->payment_options = new PaymentOptions($responseRate->payment_options);
 			$rate->payment_options->payment_types = $payment_types;
