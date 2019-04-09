@@ -4,6 +4,8 @@ namespace common\modules\api\ostrovok\components\objects;
 use yii\base\Component;
 
 class CancellationInfo extends Component {
-	public $policies; //array(Object)
-	public $free_cancellation_before; //Date
+	/** @var \common\modules\api\ostrovok\components\objects\Policies */
+	public $policies;
+	/** @var string */
+	public $free_cancellation_before;
 }
