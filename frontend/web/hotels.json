@@ -83,7 +83,20 @@
                 }
               ]
             },
-            "taxes": [],
+            "taxes": [
+              {
+                "trans_key": "DE;city_tax;city_tax",
+                "included_by_supplier": true,
+                "amount": "151.58",
+                "currency_code": "RUB"
+              },
+              {
+                "trans_key": "AE;resort_fee;resort_fee",
+                "included_by_supplier": false,
+                "amount": "15.00",
+                "currency_code": "AED"
+              }
+            ],
             "availability_hash": "s-bfdd9461-e92d-5d50-aa80-64c8e428ac71"
           },
           {

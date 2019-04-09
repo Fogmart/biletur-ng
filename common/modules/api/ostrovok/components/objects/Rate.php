@@ -22,22 +22,25 @@ class Rate extends Component {
 	public $room_group_id; //int
 	public $smoking_policies; //object
 	public $value_adds; //array(Object)
+
 	public $images; //array(Object)
-
 	/** @var \common\modules\api\ostrovok\components\objects\BedPlaces */
-	public $bed_places; //BedPlaces
-	public $daily_prices; //array(String)
-
+	public $bed_places;
+	/** @var string[] */
+	public $daily_prices;
 	public $bed_types; //array(Object)
+	/** @var string */
 	public $room_description; //String
-
 	/** @var \common\modules\api\ostrovok\components\objects\CancellationInfo */
 	public $cancellation_info;
-	public $room_type_id; //String
-	public $rate_price; //String
-
+	/** @var string */
+	public $room_type_id;
+	/** @var string */
+	public $rate_price;
 	/** @var \common\modules\api\ostrovok\components\objects\PaymentOptions */
 	public $payment_options;
-	public $taxes; //array(Object)
-	public $availability_hash; //String
+	/** @var \common\modules\api\ostrovok\components\objects\Tax[] */
+	public $taxes;
+	/** @var string */
+	public $availability_hash;
 }
