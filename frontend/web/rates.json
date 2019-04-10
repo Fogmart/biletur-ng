@@ -1,0 +1,306 @@
+{
+  "debug": {
+    "status": 200,
+    "lang": "ru",
+    "currency": "default",
+    "adults": 2,
+    "format": "json",
+    "market": null,
+    "ids": [
+      "test_hotel"
+    ],
+    "apiauthkey_id": 242,
+    "page": 1,
+    "region_id": null,
+    "limit": 100,
+    "contract_slug": "testaffiliateru.affiliate.bff6",
+    "children": [],
+    "checkout": "2016-05-21",
+    "checkin": "2016-05-20"
+  },
+  "error": null,
+  "result": {
+    "next_page": false,
+    "total_pages": 1,
+    "total_hotels": 1,
+    "hotels": [
+      {
+        "rates": [
+          {
+            "non_refundable": false,
+            "book_hash": null,
+            "serp_filters": [],
+            "b2b_recommended_price": null,
+            "hotelpage": "https://ostrovok.ru/rooms/test_hotel/?cur=RUB&dates=20.05.2016-21.05.2016&guests=2and&lang=ru&partner_slug=testaffiliateru.affiliate.bff6&request_id=77ed4785-e157-4b4b-bb2a-00184c490662&room=s-bfdd9461-e92d-5d50-aa80-64c8e428ac71&utm_campaign=ru-ru&utm_medium=api2&utm_source=testaffiliateru&scroll=prices",
+            "room_amenities": [],
+            "room_size": "12",
+            "room_name": "Одноместный номер Эконом (общая ванная комната)",
+            "available_rooms": 5,
+            "rate_currency": "RUB",
+            "room_group_id": 9,
+            "smoking_policies": null,
+            "value_adds": [],
+            "images": [],
+            "bed_places": {
+              "extra_count": 0,
+              "main_count": 2,
+              "shared_with_children_count": 0,
+              "child_cot_count": 0
+            },
+            "daily_prices": [
+              "164.64"
+            ],
+            "bed_types": [],
+            "room_description": "",
+            "cancellation_info": {
+              "policies": [],
+              "free_cancellation_before": "2016-05-18T03:00:00"
+            },
+            "room_type_id": "#any-residents #economy #room #shared-bathroom #single #window",
+            "rate_price": "164.64",
+            "payment_options": {
+              "payment_types": [
+                {
+                  "type": "hotel",
+                  "is_need_credit_card_data": true,
+                  "amount": "1000.00",
+                  "currency_code": "RUB",
+                  "vat_included": false,
+                  "vat_value": "0",
+                  "is_need_cvc": true,
+                  "tax_data": {},
+                  "by": "credit_card",
+                  "perks": {
+                    "early_checkin": {
+                      "charge_price": "1984.4",
+                      "show_price": "27.28"
+                    },
+                    "late_checkout": {
+                      "charge_price": "1984.4",
+                      "show_price": "27.28"
+                    }
+                  }
+                }
+              ]
+            },
+            "taxes": [
+              {
+                "trans_key": "DE;city_tax;city_tax",
+                "included_by_supplier": true,
+                "amount": "151.58",
+                "currency_code": "RUB"
+              },
+              {
+                "trans_key": "AE;resort_fee;resort_fee",
+                "included_by_supplier": false,
+                "amount": "15.00",
+                "currency_code": "AED"
+              }
+            ],
+            "availability_hash": "s-bfdd9461-e92d-5d50-aa80-64c8e428ac71"
+          },
+          {
+            "non_refundable": false,
+            "book_hash": null,
+            "serp_filters": [],
+            "b2b_recommended_price": null,
+            "hotelpage": "https://ostrovok.ru/rooms/test_hotel/?cur=RUB&dates=20.05.2016-21.05.2016&guests=2and&lang=ru&partner_slug=testaffiliateru.affiliate.bff6&request_id=77ed4785-e157-4b4b-bb2a-00184c490662&room=s-7f9b0ba6-2651-5db9-a3b1-835581ce9d87&utm_campaign=ru-ru&utm_medium=api2&utm_source=testaffiliateru&scroll=prices",
+            "room_amenities": [],
+            "room_size": "12",
+            "room_name": "Одноместный номер Эконом (общая ванная комната)",
+            "available_rooms": 5,
+            "rate_currency": "RUB",
+            "room_group_id": 9,
+            "smoking_policies": null,
+            "value_adds": [],
+            "images": [],
+            "bed_places": {
+              "extra_count": 0,
+              "main_count": 2,
+              "shared_with_children_count": 0,
+              "child_cot_count": 0
+            },
+            "daily_prices": [
+              "170.00"
+            ],
+            "bed_types": [],
+            "room_description": "",
+            "cancellation_info": {
+              "policies": [],
+              "free_cancellation_before": "2016-05-20T14:59:00"
+            },
+            "room_type_id": "#any-residents #economy #room #shared-bathroom #single #window",
+            "rate_price": "170.00",
+            "payment_options": {
+              "payment_types": [
+                {
+                  "is_need_credit_card_data": false,
+                  "currency_code": "RUB",
+                  "is_need_cvc": false,
+                  "type": "hotel",
+                  "amount": "170.00",
+                  "vat_included": true
+                }
+              ]
+            },
+            "taxes": [],
+            "availability_hash": "s-7f9b0ba6-2651-5db9-a3b1-835581ce9d87"
+          },
+          {
+            "non_refundable": false,
+            "book_hash": null,
+            "serp_filters": [
+              "has_bathroom"
+            ],
+            "b2b_recommended_price": null,
+            "hotelpage": "https://ostrovok.ru/rooms/test_hotel/?cur=RUB&dates=20.05.2016-21.05.2016&guests=2and&lang=ru&partner_slug=testaffiliateru.affiliate.bff6&request_id=77ed4785-e157-4b4b-bb2a-00184c490662&room=s-c65fe187-225d-5ec2-9b17-320856c87ae0&utm_campaign=ru-ru&utm_medium=api2&utm_source=testaffiliateru&scroll=prices",
+            "room_amenities": [],
+            "room_size": "10",
+            "room_name": "Вилла",
+            "available_rooms": 1,
+            "rate_currency": "RUB",
+            "room_group_id": 22,
+            "smoking_policies": null,
+            "value_adds": [],
+            "images": [],
+            "bed_places": {
+              "extra_count": 0,
+              "main_count": 2,
+              "shared_with_children_count": 0,
+              "child_cot_count": 0
+            },
+            "daily_prices": [
+              "726.33"
+            ],
+            "bed_types": [],
+            "room_description": "",
+            "cancellation_info": {
+              "policies": [],
+              "free_cancellation_before": "2016-05-18T03:00:00"
+            },
+            "room_type_id": "#any-residents #house #private-bathroom #window",
+            "rate_price": "726.33",
+            "payment_options": {
+              "payment_types": [
+                {
+                  "is_need_credit_card_data": true,
+                  "currency_code": "RUB",
+                  "is_need_cvc": true,
+                  "by": "credit_card",
+                  "type": "now",
+                  "amount": "726.33",
+                  "vat_included": true
+                }
+              ]
+            },
+            "taxes": [],
+            "availability_hash": "s-c65fe187-225d-5ec2-9b17-320856c87ae0"
+          },
+          {
+            "non_refundable": false,
+            "book_hash": null,
+            "serp_filters": [
+              "has_bathroom"
+            ],
+            "b2b_recommended_price": null,
+            "hotelpage": "https://ostrovok.ru/rooms/test_hotel/?cur=RUB&dates=20.05.2016-21.05.2016&guests=2and&lang=ru&partner_slug=testaffiliateru.affiliate.bff6&request_id=77ed4785-e157-4b4b-bb2a-00184c490662&room=s-c65fe187-225d-5ec2-9b17-320856c87ae0&utm_campaign=ru-ru&utm_medium=api2&utm_source=testaffiliateru&scroll=prices",
+            "room_amenities": [],
+            "room_size": "10",
+            "room_name": "Вилла",
+            "available_rooms": 1,
+            "rate_currency": "RUB",
+            "room_group_id": 22,
+            "smoking_policies": null,
+            "value_adds": [],
+            "images": [],
+            "bed_places": {
+              "extra_count": 0,
+              "main_count": 2,
+              "shared_with_children_count": 0,
+              "child_cot_count": 0
+            },
+            "daily_prices": [
+              "726.33"
+            ],
+            "bed_types": [],
+            "room_description": "",
+            "cancellation_info": {
+              "policies": [],
+              "free_cancellation_before": null
+            },
+            "room_type_id": "#any-residents #house #private-bathroom #window",
+            "rate_price": "726.33",
+            "payment_options": {
+              "payment_types": [
+                {
+                  "is_need_credit_card_data": true,
+                  "currency_code": "RUB",
+                  "is_need_cvc": true,
+                  "by": "credit_card",
+                  "type": "now",
+                  "amount": "726.33",
+                  "vat_included": true
+                }
+              ]
+            },
+            "taxes": [],
+            "availability_hash": "s-c65fe187-225d-5ec2-9b17-320856c87ae0"
+          },
+          {
+            "non_refundable": false,
+            "book_hash": null,
+            "serp_filters": [
+              "has_bathroom"
+            ],
+            "b2b_recommended_price": null,
+            "hotelpage": "https://ostrovok.ru/rooms/test_hotel/?cur=RUB&dates=20.05.2016-21.05.2016&guests=2and&lang=ru&partner_slug=testaffiliateru.affiliate.bff6&request_id=77ed4785-e157-4b4b-bb2a-00184c490662&room=s-03fbc745-1ab2-52d8-8d46-51dd07a4b6ae&utm_campaign=ru-ru&utm_medium=api2&utm_source=testaffiliateru&scroll=prices",
+            "room_amenities": [],
+            "room_size": "10",
+            "room_name": "Вилла",
+            "available_rooms": 1,
+            "rate_currency": "RUB",
+            "room_group_id": 22,
+            "smoking_policies": null,
+            "value_adds": [],
+            "images": [],
+            "bed_places": {
+              "extra_count": 0,
+              "main_count": 2,
+              "shared_with_children_count": 0,
+              "child_cot_count": 0
+            },
+            "daily_prices": [
+              "750.00"
+            ],
+            "bed_types": [],
+            "room_description": "",
+            "cancellation_info": {
+              "policies": [],
+              "free_cancellation_before": "2016-05-20T14:59:00"
+            },
+            "room_type_id": "#any-residents #house #private-bathroom #window",
+            "rate_price": "750.00",
+            "payment_options": {
+              "payment_types": [
+                {
+                  "is_need_credit_card_data": false,
+                  "currency_code": "RUB",
+                  "is_need_cvc": false,
+                  "type": "hotel",
+                  "amount": "750.00",
+                  "vat_included": true
+                }
+              ]
+            },
+            "taxes": [],
+            "availability_hash": "s-03fbc745-1ab2-52d8-8d46-51dd07a4b6ae"
+          }
+        ],
+        "rate_name_min": null,
+        "id": "test_hotel",
+        "available_rates": null,
+        "rate_price_min": null
+      }
+    ]
+  }
+}

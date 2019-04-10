@@ -1,306 +1,1264 @@
 {
-  "debug": {
-    "status": 200,
-    "lang": "ru",
-    "currency": "default",
-    "adults": 2,
-    "format": "json",
-    "market": null,
-    "ids": [
-      "test_hotel"
-    ],
-    "apiauthkey_id": 242,
-    "page": 1,
-    "region_id": null,
-    "limit": 100,
-    "contract_slug": "testaffiliateru.affiliate.bff6",
-    "children": [],
-    "checkout": "2016-05-21",
-    "checkin": "2016-05-20"
-  },
-  "error": null,
-  "result": {
-    "next_page": false,
-    "total_pages": 1,
-    "total_hotels": 1,
-    "hotels": [
+  "data": {
+    "address": "Nuernberger Strasse 65, Berlin",
+    "amenity_groups": [
       {
-        "rates": [
-          {
-            "non_refundable": false,
-            "book_hash": null,
-            "serp_filters": [],
-            "b2b_recommended_price": null,
-            "hotelpage": "https://ostrovok.ru/rooms/test_hotel/?cur=RUB&dates=20.05.2016-21.05.2016&guests=2and&lang=ru&partner_slug=testaffiliateru.affiliate.bff6&request_id=77ed4785-e157-4b4b-bb2a-00184c490662&room=s-bfdd9461-e92d-5d50-aa80-64c8e428ac71&utm_campaign=ru-ru&utm_medium=api2&utm_source=testaffiliateru&scroll=prices",
-            "room_amenities": [],
-            "room_size": "12",
-            "room_name": "Одноместный номер Эконом (общая ванная комната)",
-            "available_rooms": 5,
-            "rate_currency": "RUB",
-            "room_group_id": 9,
-            "smoking_policies": null,
-            "value_adds": [],
-            "images": [],
-            "bed_places": {
-              "extra_count": 0,
-              "main_count": 2,
-              "shared_with_children_count": 0,
-              "child_cot_count": 0
-            },
-            "daily_prices": [
-              "164.64"
-            ],
-            "bed_types": [],
-            "room_description": "",
-            "cancellation_info": {
-              "policies": [],
-              "free_cancellation_before": "2016-05-18T03:00:00"
-            },
-            "room_type_id": "#any-residents #economy #room #shared-bathroom #single #window",
-            "rate_price": "164.64",
-            "payment_options": {
-              "payment_types": [
-                {
-                  "type": "hotel",
-                  "is_need_credit_card_data": true,
-                  "amount": "1000.00",
-                  "currency_code": "RUB",
-                  "vat_included": false,
-                  "vat_value": "0",
-                  "is_need_cvc": true,
-                  "tax_data": {},
-                  "by": "credit_card",
-                  "perks": {
-                    "early_checkin": {
-                      "charge_price": "1984.4",
-                      "show_price": "27.28"
-                    },
-                    "late_checkout": {
-                      "charge_price": "1984.4",
-                      "show_price": "27.28"
-                    }
-                  }
-                }
-              ]
-            },
-            "taxes": [
-              {
-                "trans_key": "DE;city_tax;city_tax",
-                "included_by_supplier": true,
-                "amount": "151.58",
-                "currency_code": "RUB"
-              },
-              {
-                "trans_key": "AE;resort_fee;resort_fee",
-                "included_by_supplier": false,
-                "amount": "15.00",
-                "currency_code": "AED"
-              }
-            ],
-            "availability_hash": "s-bfdd9461-e92d-5d50-aa80-64c8e428ac71"
-          },
-          {
-            "non_refundable": false,
-            "book_hash": null,
-            "serp_filters": [],
-            "b2b_recommended_price": null,
-            "hotelpage": "https://ostrovok.ru/rooms/test_hotel/?cur=RUB&dates=20.05.2016-21.05.2016&guests=2and&lang=ru&partner_slug=testaffiliateru.affiliate.bff6&request_id=77ed4785-e157-4b4b-bb2a-00184c490662&room=s-7f9b0ba6-2651-5db9-a3b1-835581ce9d87&utm_campaign=ru-ru&utm_medium=api2&utm_source=testaffiliateru&scroll=prices",
-            "room_amenities": [],
-            "room_size": "12",
-            "room_name": "Одноместный номер Эконом (общая ванная комната)",
-            "available_rooms": 5,
-            "rate_currency": "RUB",
-            "room_group_id": 9,
-            "smoking_policies": null,
-            "value_adds": [],
-            "images": [],
-            "bed_places": {
-              "extra_count": 0,
-              "main_count": 2,
-              "shared_with_children_count": 0,
-              "child_cot_count": 0
-            },
-            "daily_prices": [
-              "170.00"
-            ],
-            "bed_types": [],
-            "room_description": "",
-            "cancellation_info": {
-              "policies": [],
-              "free_cancellation_before": "2016-05-20T14:59:00"
-            },
-            "room_type_id": "#any-residents #economy #room #shared-bathroom #single #window",
-            "rate_price": "170.00",
-            "payment_options": {
-              "payment_types": [
-                {
-                  "is_need_credit_card_data": false,
-                  "currency_code": "RUB",
-                  "is_need_cvc": false,
-                  "type": "hotel",
-                  "amount": "170.00",
-                  "vat_included": true
-                }
-              ]
-            },
-            "taxes": [],
-            "availability_hash": "s-7f9b0ba6-2651-5db9-a3b1-835581ce9d87"
-          },
-          {
-            "non_refundable": false,
-            "book_hash": null,
-            "serp_filters": [
-              "has_bathroom"
-            ],
-            "b2b_recommended_price": null,
-            "hotelpage": "https://ostrovok.ru/rooms/test_hotel/?cur=RUB&dates=20.05.2016-21.05.2016&guests=2and&lang=ru&partner_slug=testaffiliateru.affiliate.bff6&request_id=77ed4785-e157-4b4b-bb2a-00184c490662&room=s-c65fe187-225d-5ec2-9b17-320856c87ae0&utm_campaign=ru-ru&utm_medium=api2&utm_source=testaffiliateru&scroll=prices",
-            "room_amenities": [],
-            "room_size": "10",
-            "room_name": "Вилла",
-            "available_rooms": 1,
-            "rate_currency": "RUB",
-            "room_group_id": 22,
-            "smoking_policies": null,
-            "value_adds": [],
-            "images": [],
-            "bed_places": {
-              "extra_count": 0,
-              "main_count": 2,
-              "shared_with_children_count": 0,
-              "child_cot_count": 0
-            },
-            "daily_prices": [
-              "726.33"
-            ],
-            "bed_types": [],
-            "room_description": "",
-            "cancellation_info": {
-              "policies": [],
-              "free_cancellation_before": "2016-05-18T03:00:00"
-            },
-            "room_type_id": "#any-residents #house #private-bathroom #window",
-            "rate_price": "726.33",
-            "payment_options": {
-              "payment_types": [
-                {
-                  "is_need_credit_card_data": true,
-                  "currency_code": "RUB",
-                  "is_need_cvc": true,
-                  "by": "credit_card",
-                  "type": "now",
-                  "amount": "726.33",
-                  "vat_included": true
-                }
-              ]
-            },
-            "taxes": [],
-            "availability_hash": "s-c65fe187-225d-5ec2-9b17-320856c87ae0"
-          },
-          {
-            "non_refundable": false,
-            "book_hash": null,
-            "serp_filters": [
-              "has_bathroom"
-            ],
-            "b2b_recommended_price": null,
-            "hotelpage": "https://ostrovok.ru/rooms/test_hotel/?cur=RUB&dates=20.05.2016-21.05.2016&guests=2and&lang=ru&partner_slug=testaffiliateru.affiliate.bff6&request_id=77ed4785-e157-4b4b-bb2a-00184c490662&room=s-c65fe187-225d-5ec2-9b17-320856c87ae0&utm_campaign=ru-ru&utm_medium=api2&utm_source=testaffiliateru&scroll=prices",
-            "room_amenities": [],
-            "room_size": "10",
-            "room_name": "Вилла",
-            "available_rooms": 1,
-            "rate_currency": "RUB",
-            "room_group_id": 22,
-            "smoking_policies": null,
-            "value_adds": [],
-            "images": [],
-            "bed_places": {
-              "extra_count": 0,
-              "main_count": 2,
-              "shared_with_children_count": 0,
-              "child_cot_count": 0
-            },
-            "daily_prices": [
-              "726.33"
-            ],
-            "bed_types": [],
-            "room_description": "",
-            "cancellation_info": {
-              "policies": [],
-              "free_cancellation_before": null
-            },
-            "room_type_id": "#any-residents #house #private-bathroom #window",
-            "rate_price": "726.33",
-            "payment_options": {
-              "payment_types": [
-                {
-                  "is_need_credit_card_data": true,
-                  "currency_code": "RUB",
-                  "is_need_cvc": true,
-                  "by": "credit_card",
-                  "type": "now",
-                  "amount": "726.33",
-                  "vat_included": true
-                }
-              ]
-            },
-            "taxes": [],
-            "availability_hash": "s-c65fe187-225d-5ec2-9b17-320856c87ae0"
-          },
-          {
-            "non_refundable": false,
-            "book_hash": null,
-            "serp_filters": [
-              "has_bathroom"
-            ],
-            "b2b_recommended_price": null,
-            "hotelpage": "https://ostrovok.ru/rooms/test_hotel/?cur=RUB&dates=20.05.2016-21.05.2016&guests=2and&lang=ru&partner_slug=testaffiliateru.affiliate.bff6&request_id=77ed4785-e157-4b4b-bb2a-00184c490662&room=s-03fbc745-1ab2-52d8-8d46-51dd07a4b6ae&utm_campaign=ru-ru&utm_medium=api2&utm_source=testaffiliateru&scroll=prices",
-            "room_amenities": [],
-            "room_size": "10",
-            "room_name": "Вилла",
-            "available_rooms": 1,
-            "rate_currency": "RUB",
-            "room_group_id": 22,
-            "smoking_policies": null,
-            "value_adds": [],
-            "images": [],
-            "bed_places": {
-              "extra_count": 0,
-              "main_count": 2,
-              "shared_with_children_count": 0,
-              "child_cot_count": 0
-            },
-            "daily_prices": [
-              "750.00"
-            ],
-            "bed_types": [],
-            "room_description": "",
-            "cancellation_info": {
-              "policies": [],
-              "free_cancellation_before": "2016-05-20T14:59:00"
-            },
-            "room_type_id": "#any-residents #house #private-bathroom #window",
-            "rate_price": "750.00",
-            "payment_options": {
-              "payment_types": [
-                {
-                  "is_need_credit_card_data": false,
-                  "currency_code": "RUB",
-                  "is_need_cvc": false,
-                  "type": "hotel",
-                  "amount": "750.00",
-                  "vat_included": true
-                }
-              ]
-            },
-            "taxes": [],
-            "availability_hash": "s-03fbc745-1ab2-52d8-8d46-51dd07a4b6ae"
-          }
+        "amenities": [
+          "ATM",
+          "Shopping on site",
+          "Computer",
+          "Air conditioning",
+          "24-hour reception",
+          "Smoking areas",
+          "Non-smoking rooms",
+          "Soundproof rooms",
+          "Currency exchange",
+          "Smoke-free property",
+          "Heating",
+          "Newspapers",
+          "Car rental",
+          "Gift shop",
+          "Express check-in/check-out",
+          "Concierge services",
+          "Shoe shine",
+          "Television in lobby",
+          "Terrace",
+          "Indoor Fireplace",
+          "Patio",
+          "Packed Lunches",
+          "Radio",
+          "Multi-language staff"
         ],
-        "rate_name_min": null,
-        "id": "test_hotel",
-        "available_rates": null,
-        "rate_price_min": null
+        "group_name": "General"
+      },
+      {
+        "amenities": [
+          "Wi-Fi",
+          "Internet access",
+          "In-room internet"
+        ],
+        "group_name": "Internet"
+      },
+      {
+        "amenities": [
+          "Bar",
+          "Diet menu (on request)",
+          "Breakfast in the room",
+          "Cafe",
+          "Restaurant",
+          "Vending machine",
+          "Kitchen",
+          "Microwave oven",
+          "Poolside bar",
+          "Coffeemaker"
+        ],
+        "group_name": "Meals"
+      },
+      {
+        "amenities": [
+          "Babysitting and childcare",
+          "Family/Kid Friendly",
+          "Children's menu"
+        ],
+        "group_name": "Kids"
+      },
+      {
+        "amenities": [
+          "Elevator/lift",
+          "Accessibility features",
+          "Upper floors accessible by elevator"
+        ],
+        "group_name": "Accessibility"
+      },
+      {
+        "amenities": [
+          "Swimming pool",
+          "Indoor Pool",
+          "Outdoor pool",
+          "Beach/pool towels",
+          "Indoor heated swimming pool"
+        ],
+        "group_name": "Pool and beach"
+      },
+      {
+        "amenities": [
+          "Cycling",
+          "Golf course",
+          "Fitness facilities",
+          "Gym",
+          "24 - hour gym"
+        ],
+        "group_name": "Sports"
+      },
+      {
+        "amenities": [
+          "Spanish",
+          "German",
+          "Russian",
+          "English",
+          "French",
+          "Polish"
+        ],
+        "group_name": "Languages Spoken"
+      },
+      {
+        "amenities": [
+          "Solarium",
+          "Massage",
+          "Health club",
+          "Beauty services",
+          "Sauna",
+          "Spa",
+          "Doctor on call"
+        ],
+        "group_name": "Beauty and wellness"
+      },
+      {
+        "amenities": [
+          "Bike rental"
+        ],
+        "group_name": "Recreation"
+      },
+      {
+        "amenities": [
+          "Ticket assistance",
+          "Tour assistance"
+        ],
+        "group_name": "Tourist services"
+      },
+      {
+        "amenities": [
+          "Room service",
+          "Cable TV",
+          "TV",
+          "Minibar",
+          "Hairdryer",
+          "Shower/Bathtub",
+          "Bathtub",
+          "Shower",
+          "Wardrobe/Closet",
+          "Bathrobe",
+          "Alarm clock",
+          "Safe (in room)"
+        ],
+        "group_name": "Rooms"
+      },
+      {
+        "amenities": [
+          "Business center",
+          "Event facilities",
+          "Meeting and presentation facilities",
+          "Conference Hall"
+        ],
+        "group_name": "Business"
+      },
+      {
+        "amenities": [
+          "Iron and board",
+          "Ironing",
+          "Luggage storage",
+          "Laundry",
+          "Safe-deposit box",
+          "Dry-cleaning",
+          "Luggage storage",
+          "Wake-up service",
+          "Telephone",
+          "Iron"
+        ],
+        "group_name": "Room Amenities"
       }
-    ]
-  }
+    ],
+    "check_in_time": "14:00:00",
+    "check_out_time": "12:00:00",
+    "description_struct": [
+      {
+        "paragraphs": [
+          "With a stay at Crowne Plaza Berlin City Centre in Berlin (Charlottenburg-Wilmersdorf), you'll be a 4-minute walk from Berlin Zoological Garden and 5 minutes by foot from Kaiser Wilhelm Memorial Church.  This 4.5-star hotel is 2 mi (3.3 km) from Brandenburg Gate and 2.2 mi (3.6 km) from Reichstag Building."
+        ],
+        "title": "Property Location"
+      },
+      {
+        "paragraphs": [
+          "Make yourself at home in one of the 423 air-conditioned rooms featuring flat-screen televisions. Complimentary wired and wireless Internet access keeps you connected, and cable programming provides entertainment. Private bathrooms with bathtubs or showers feature complimentary toiletries and hair dryers. Conveniences include safes and desks, and housekeeping is provided daily."
+        ],
+        "title": "Rooms"
+      },
+      {
+        "paragraphs": [
+          "Enjoy a range of recreational amenities, including an indoor pool, a sauna, and a 24-hour fitness center. Additional features at this hotel include complimentary wireless Internet access, concierge services, and gift shops/newsstands."
+        ],
+        "title": "Amenities"
+      },
+      {
+        "paragraphs": [
+          "Grab a bite at Lobby Lounge, one of the hotel's 2 restaurants, or stay in and take advantage of the 24-hour room service. Snacks are also available at the coffee shop/café. Relax with a refreshing drink from the poolside bar or one of the 2 bars/lounges. Buffet breakfasts are available daily from 6:30 AM to 10:30 AM for a fee."
+        ],
+        "title": "Dining"
+      },
+      {
+        "paragraphs": [
+          "Featured amenities include a business center, express check-in, and complimentary newspapers in the lobby. Event facilities at this hotel consist of a conference center and meeting rooms. Self parking (subject to charges) is available onsite."
+        ],
+        "title": "Business, Other Amenities"
+      }
+    ],
+    "email": "INFO@CP-BERLIN.COM",
+    "id": "crowne_plaza_berlin_city_centre",
+    "images": [
+      "https://cdn.ostrovok.ru/t/{size}/mec/fd/82/fd8246feac85f33301bd91b53b974d6b35d9b0a6.jpeg",
+      "https://cdn.ostrovok.ru/t/{size}/mec/ac/22/ac22d71b5fe522e83040aefa5672192515c2c72a.jpeg",
+      "https://cdn.ostrovok.ru/t/{size}/mec/31/7f/317f90a50f40c4f104c08863c79cd7d1add94219.jpeg",
+      "https://cdn.ostrovok.ru/t/{size}/mec/1b/e3/1be3ef1c393436da676ea19c874abf9a1477fb08.jpeg",
+      "https://cdn.ostrovok.ru/t/{size}/mec/hotels/1000000/30000/24400/24362/24362_248_b.jpg",
+      "https://cdn.ostrovok.ru/t/{size}/mec/1f/b3/1fb3e618c5976d9fcb16c765183b4ff8dd9ded33.jpeg",
+      "https://cdn.ostrovok.ru/t/{size}/mec/5b/39/5b39249ab19fbba41341e8d79f70c1eb1fa99622.jpeg",
+      "https://cdn.ostrovok.ru/t/{size}/mec/73/77/7377b6a08509333b18f7aabff9576118a704ccaa.jpeg",
+      "https://cdn.ostrovok.ru/t/{size}/mec/9b/5a/9b5afa7a81e3654a21c03d7662cd0b232fafe8f6.jpeg",
+      "https://cdn.ostrovok.ru/t/{size}/mec/dc/cf/dccf76f44d4a919b9c02dc8b2d9dcd8435f8ce1d.jpeg",
+      "https://cdn.ostrovok.ru/t/{size}/mec/10/1c/101ccbe62de86e7213146c71990693b84239498a.jpeg",
+      "https://cdn.ostrovok.ru/t/{size}/mec/a6/76/a676fb7e01f9fb943a219b54796b293f22fbf504.jpeg",
+      "https://cdn.ostrovok.ru/t/{size}/mec/d7/52/d75231dba21637e63df03f6ef15cb97f23c3a6e2.jpeg",
+      "https://cdn.ostrovok.ru/t/{size}/mec/d5/39/d53978ad0c364174811a0fe30a960a2ad144643f.jpeg",
+      "https://cdn.ostrovok.ru/t/{size}/mec/1f/26/1f2639f26e2340bd34bdc561984ae2c5bde61590.jpeg",
+      "https://cdn.ostrovok.ru/t/{size}/mec/9d/7f/9d7f73475a4b1a2ca3c0b99d7875b75d0a2d42e2.jpeg",
+      "https://cdn.ostrovok.ru/t/{size}/mec/98/65/9865667d4cc8403ddd8a209310aa1a8dc647d338.jpeg",
+      "https://cdn.ostrovok.ru/t/{size}/mec/d6/04/d6043e858afc59f0b6ce15e0fadd217de31ad7c4.jpeg"
+    ],
+    "kind": "Hotel",
+    "latitude": 52.5038416309766,
+    "longitude": 13.3406752722322,
+    "name": "Crowne Plaza Berlin City Centre",
+    "phone": "49-30-210070",
+    "policy_struct": [
+      {
+        "paragraphs": [
+          "National Rating",
+          "Hotelstars Union assigns an official star rating for properties in Germany. This property is rated 4 star Superior and is displayed on this page as 4.5 stars.",
+          "Know Before You Go",
+          "Reservations are required for massage services. Reservations can be made by contacting the hotel prior to arrival, using the contact information on the booking confirmation.",
+          "One child 12 years old or younger stays free when occupying the parent or guardian's room, using existing bedding.",
+          "Only registered guests are allowed in the guestrooms.",
+          "The property has connecting/adjoining rooms, which are subject to availability and can be requested by contacting the property using the number on the booking confirmation.",
+          "Guests can arrange to bring pets by contacting the property directly, using the contact information on the booking confirmation (surcharges apply and can be found in the Fees section).",
+          "Fees",
+          "The following fees and deposits are charged by the property at time of service, check-in, or check-out.",
+          "Fee for buffet breakfast: EUR 21 for adults and EUR 12.00 for children (approximately)",
+          "Self parking fee: EUR 24 per day",
+          "Pet deposit: EUR 30.00 per stay",
+          "Pet fee: EUR 30 per pet, per stay",
+          "Rollaway bed fee: EUR 45.0 per night",
+          "The above list may not be comprehensive. Fees and deposits may not include tax and are subject to change.",
+          "Mandatory Fees and Taxes",
+          "You'll be asked to pay the following charges at the property:",
+          "Deposit: EUR 80.00 per night",
+          "A city tax is imposed by the city of Berlin. Business travelers with proof of business-related travel are exempt from this tax. For more details, please contact the property using the information on the reservation confirmation received after booking.",
+          "A 5 percent city/local tax will be charged",
+          "We have included all charges provided to us by the property. However, charges can vary, for example, based on length of stay or the room you book."
+        ],
+        "title": null
+      }
+    ],
+    "postal_code": "10787",
+    "region": {
+      "country_code": "DE",
+      "iata": "BER",
+      "id": 536,
+      "name": "Berlin",
+      "type": "City"
+    },
+    "room_groups": [
+      {
+        "images": [],
+        "name": "Bed in mixed dormitory with bunk-beds",
+        "room_amenities": [
+          "shared-bathroom",
+          "window"
+        ],
+        "room_group_id": 6
+      },
+      {
+        "images": [],
+        "name": "Economy room with various types of beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 10
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/mec/50/a5/50a51ec6b5dea37af769aa9ef5da2c70f87a8660.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/fd/ce/fdceb1eb011612e4dcfca0fff66d4532162b123a.jpeg"
+        ],
+        "name": "Standard room with various types of beds",
+        "room_amenities": [
+          "bath",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 11
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Superior room with various types of beds",
+        "room_amenities": [
+          "bath",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 12
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Premium room with various types of beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 13
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/mec/4e/f1/4ef1c71ccf2f64cbbcb9c7ace751d37b3fa612a9.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/9e/0e/9e0e9cd2ab5b2c2e9468d4bd5c2ae80777d1f1f4.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/73/ef/73ef6685ddb197a07d11ab11445655e807707b57.jpeg"
+        ],
+        "name": "Executive room with various types of beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 27
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Deluxe room with various types of beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 28
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/8f/26/8f2684e445046efebc3c0c210b8417bd2b2e9738.jpeg"
+        ],
+        "name": "Suite with various types of beds",
+        "room_amenities": [
+          "bath",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 32
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/8f/26/8f2684e445046efebc3c0c210b8417bd2b2e9738.jpeg"
+        ],
+        "name": "Junior suite with various types of beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 33
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/b7/27/b72793b1e4f51b49959d37d1b374bde326dc1818.jpeg"
+        ],
+        "name": "Executive suite with various types of beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 66
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/8f/26/8f2684e445046efebc3c0c210b8417bd2b2e9738.jpeg"
+        ],
+        "name": "Premium suite with various types of beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 67
+      },
+      {
+        "images": [],
+        "name": "Economy room with double bed",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 71
+      },
+      {
+        "images": [],
+        "name": "Economy room with 2 separate beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 72
+      },
+      {
+        "images": [],
+        "name": "Economy room with bunk-bed",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 73
+      },
+      {
+        "images": [],
+        "name": "Economy family room with various types of beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 80
+      },
+      {
+        "images": [],
+        "name": "Economy family room with double bed",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 81
+      },
+      {
+        "images": [],
+        "name": "Economy family room with 2 separate beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 82
+      },
+      {
+        "images": [],
+        "name": "Economy family room with bunk-bed",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 83
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/78/b6/78b6f6a5eaf672f260fa18df187924b7326fa410.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/8c/78/8c781d6551673b54fe00339c0d95931f4b07153b.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/fe/c0/fec0434d1ac962172cec7c02bed89ff71b4142ad.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/94/d5/94d5276de71cdfe0f5afea5f982e1c32612b58ca.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/content/8f/26/8f2684e445046efebc3c0c210b8417bd2b2e9738.jpeg"
+        ],
+        "name": "Standard room with double bed",
+        "room_amenities": [
+          "accessible",
+          "air-conditioning",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "safe",
+          "shower",
+          "toiletries",
+          "tv",
+          "wardrobe",
+          "window",
+          "with-view"
+        ],
+        "room_group_id": 90
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/mec/50/a5/50a51ec6b5dea37af769aa9ef5da2c70f87a8660.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/fd/ce/fdceb1eb011612e4dcfca0fff66d4532162b123a.jpeg"
+        ],
+        "name": "Standard room with 2 separate beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 91
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/mec/50/a5/50a51ec6b5dea37af769aa9ef5da2c70f87a8660.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/fd/ce/fdceb1eb011612e4dcfca0fff66d4532162b123a.jpeg"
+        ],
+        "name": "Standard room with bunk-bed",
+        "room_amenities": [
+          "bath",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 92
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/mec/50/a5/50a51ec6b5dea37af769aa9ef5da2c70f87a8660.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/fd/ce/fdceb1eb011612e4dcfca0fff66d4532162b123a.jpeg"
+        ],
+        "name": "Standard room with various types of beds (shared bathroom)",
+        "room_amenities": [
+          "bath",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 94
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/mec/50/a5/50a51ec6b5dea37af769aa9ef5da2c70f87a8660.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/fd/ce/fdceb1eb011612e4dcfca0fff66d4532162b123a.jpeg"
+        ],
+        "name": "Standard room with double bed (shared bathroom)",
+        "room_amenities": [
+          "bath",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 95
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/mec/50/a5/50a51ec6b5dea37af769aa9ef5da2c70f87a8660.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/fd/ce/fdceb1eb011612e4dcfca0fff66d4532162b123a.jpeg"
+        ],
+        "name": "Standard room with 2 separate beds (shared bathroom)",
+        "room_amenities": [
+          "bath",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 96
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/mec/50/a5/50a51ec6b5dea37af769aa9ef5da2c70f87a8660.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/fd/ce/fdceb1eb011612e4dcfca0fff66d4532162b123a.jpeg"
+        ],
+        "name": "Standard room with bunk-bed (shared bathroom)",
+        "room_amenities": [
+          "bath",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 97
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/b7/27/b72793b1e4f51b49959d37d1b374bde326dc1818.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/7a/81/7a81ade1d3b22deefbffc63a85efa78a42e3f278.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/40/f0/40f00c9622102e157412ce12ae8f1eed19ffd171.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/96/69/96690b7c993edd89f0f9eb8e67699a47ed44a037.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/c1/8a/c18af4de1df27451bfc23d9ab9af196c54cca84d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Standard family room with various types of beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 99
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/mec/50/a5/50a51ec6b5dea37af769aa9ef5da2c70f87a8660.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/fd/ce/fdceb1eb011612e4dcfca0fff66d4532162b123a.jpeg"
+        ],
+        "name": "Standard family room with double bed",
+        "room_amenities": [
+          "bath",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 100
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/b7/27/b72793b1e4f51b49959d37d1b374bde326dc1818.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/7a/81/7a81ade1d3b22deefbffc63a85efa78a42e3f278.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/40/f0/40f00c9622102e157412ce12ae8f1eed19ffd171.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/96/69/96690b7c993edd89f0f9eb8e67699a47ed44a037.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/c1/8a/c18af4de1df27451bfc23d9ab9af196c54cca84d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Standard family room with 2 separate beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 101
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/mec/50/a5/50a51ec6b5dea37af769aa9ef5da2c70f87a8660.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/fd/ce/fdceb1eb011612e4dcfca0fff66d4532162b123a.jpeg"
+        ],
+        "name": "Standard family room with bunk-bed",
+        "room_amenities": [
+          "bath",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 102
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/mec/50/a5/50a51ec6b5dea37af769aa9ef5da2c70f87a8660.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/fd/ce/fdceb1eb011612e4dcfca0fff66d4532162b123a.jpeg"
+        ],
+        "name": "Standard family room with various types of beds (shared bathroom)",
+        "room_amenities": [
+          "bath",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 104
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/mec/50/a5/50a51ec6b5dea37af769aa9ef5da2c70f87a8660.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/fd/ce/fdceb1eb011612e4dcfca0fff66d4532162b123a.jpeg"
+        ],
+        "name": "Standard family room with double bed (shared bathroom)",
+        "room_amenities": [
+          "bath",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 105
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/mec/50/a5/50a51ec6b5dea37af769aa9ef5da2c70f87a8660.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/fd/ce/fdceb1eb011612e4dcfca0fff66d4532162b123a.jpeg"
+        ],
+        "name": "Standard family room with 2 separate beds (shared bathroom)",
+        "room_amenities": [
+          "bath",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 106
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/mec/50/a5/50a51ec6b5dea37af769aa9ef5da2c70f87a8660.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/fd/ce/fdceb1eb011612e4dcfca0fff66d4532162b123a.jpeg"
+        ],
+        "name": "Standard family room with bunk-bed (shared bathroom)",
+        "room_amenities": [
+          "bath",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 107
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/8f/26/8f2684e445046efebc3c0c210b8417bd2b2e9738.jpeg"
+        ],
+        "name": "Superior room with double bed",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 123
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Superior room with 2 separate beds",
+        "room_amenities": [
+          "bath",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 124
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Superior family room with various types of beds",
+        "room_amenities": [
+          "bath",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 126
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Superior family room with double bed",
+        "room_amenities": [
+          "bath",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 127
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Superior family room with 2 separate beds",
+        "room_amenities": [
+          "bath",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 128
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Deluxe room with double bed",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 130
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Deluxe room with 2 separate beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 131
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Deluxe family room with various types of beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 133
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Deluxe family room with double bed",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 134
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Deluxe family room with 2 separate beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 135
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Premier room with various types of beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 137
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Premier room with double bed",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 138
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Premier room with 2 separate beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 139
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Premier family room with various types of beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 141
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Premier family room with double bed",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 142
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Premier family room with 2 separate beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 143
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/mec/4e/f1/4ef1c71ccf2f64cbbcb9c7ace751d37b3fa612a9.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/9e/0e/9e0e9cd2ab5b2c2e9468d4bd5c2ae80777d1f1f4.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/73/ef/73ef6685ddb197a07d11ab11445655e807707b57.jpeg"
+        ],
+        "name": "Executive room with double bed",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 145
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/69/a2/69a2c32b56c9d5f6a30dc4b874eed5c9755264d7.jpeg"
+        ],
+        "name": "Executive room with 2 separate beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 146
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/mec/4e/f1/4ef1c71ccf2f64cbbcb9c7ace751d37b3fa612a9.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/9e/0e/9e0e9cd2ab5b2c2e9468d4bd5c2ae80777d1f1f4.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/73/ef/73ef6685ddb197a07d11ab11445655e807707b57.jpeg"
+        ],
+        "name": "Executive family room with various types of beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 148
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/mec/4e/f1/4ef1c71ccf2f64cbbcb9c7ace751d37b3fa612a9.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/9e/0e/9e0e9cd2ab5b2c2e9468d4bd5c2ae80777d1f1f4.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/73/ef/73ef6685ddb197a07d11ab11445655e807707b57.jpeg"
+        ],
+        "name": "Executive family room with double bed",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 149
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/mec/4e/f1/4ef1c71ccf2f64cbbcb9c7ace751d37b3fa612a9.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/9e/0e/9e0e9cd2ab5b2c2e9468d4bd5c2ae80777d1f1f4.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/mec/73/ef/73ef6685ddb197a07d11ab11445655e807707b57.jpeg"
+        ],
+        "name": "Executive family room with 2 separate beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 150
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Premium room with double bed",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 159
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Premium room with 2 separate beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 160
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Premium family room with various types of beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 162
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Premium family room with double bed",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 163
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/second/f2/4d/f24d42b3261660872e98badb9a1baafe32c3633d.jpeg",
+          "https://cdn.ostrovok.ru/t/{size}/second/98/75/9875be9e8ed35464c455d3183c8d710e80e1d75f.jpeg"
+        ],
+        "name": "Premium family room with 2 separate beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 164
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/8f/26/8f2684e445046efebc3c0c210b8417bd2b2e9738.jpeg"
+        ],
+        "name": "Junior suite with double bed",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 166
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/8f/26/8f2684e445046efebc3c0c210b8417bd2b2e9738.jpeg"
+        ],
+        "name": "Junior suite with 2 separate beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 167
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/8f/26/8f2684e445046efebc3c0c210b8417bd2b2e9738.jpeg"
+        ],
+        "name": "Family junior suite with various types of beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 169
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/8f/26/8f2684e445046efebc3c0c210b8417bd2b2e9738.jpeg"
+        ],
+        "name": "Family junior suite with double bed",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 170
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/8f/26/8f2684e445046efebc3c0c210b8417bd2b2e9738.jpeg"
+        ],
+        "name": "Family junior suite with 2 separate beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 171
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/8f/26/8f2684e445046efebc3c0c210b8417bd2b2e9738.jpeg"
+        ],
+        "name": "Suite with double bed",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 173
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/8f/26/8f2684e445046efebc3c0c210b8417bd2b2e9738.jpeg"
+        ],
+        "name": "Suite with 2 separate beds",
+        "room_amenities": [
+          "bath",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 174
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/8f/26/8f2684e445046efebc3c0c210b8417bd2b2e9738.jpeg"
+        ],
+        "name": "Family suite with various types of beds",
+        "room_amenities": [
+          "bath",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 176
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/8f/26/8f2684e445046efebc3c0c210b8417bd2b2e9738.jpeg"
+        ],
+        "name": "Family suite with double bed",
+        "room_amenities": [
+          "bath",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 177
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/8f/26/8f2684e445046efebc3c0c210b8417bd2b2e9738.jpeg"
+        ],
+        "name": "Family suite with 2 separate beds",
+        "room_amenities": [
+          "bath",
+          "bathrobe",
+          "hairdryer",
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 178
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/b7/27/b72793b1e4f51b49959d37d1b374bde326dc1818.jpeg"
+        ],
+        "name": "Executive suite with double bed",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 202
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/b7/27/b72793b1e4f51b49959d37d1b374bde326dc1818.jpeg"
+        ],
+        "name": "Executive suite with 2 separate beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 203
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/b7/27/b72793b1e4f51b49959d37d1b374bde326dc1818.jpeg"
+        ],
+        "name": "Executive family suite with various types of beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 205
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/b7/27/b72793b1e4f51b49959d37d1b374bde326dc1818.jpeg"
+        ],
+        "name": "Executive family suite with double bed",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 206
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/b7/27/b72793b1e4f51b49959d37d1b374bde326dc1818.jpeg"
+        ],
+        "name": "Executive family suite with 2 separate beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 207
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/8f/26/8f2684e445046efebc3c0c210b8417bd2b2e9738.jpeg"
+        ],
+        "name": "Premium suite with double bed",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 216
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/8f/26/8f2684e445046efebc3c0c210b8417bd2b2e9738.jpeg"
+        ],
+        "name": "Premium suite with 2 separate beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 217
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/8f/26/8f2684e445046efebc3c0c210b8417bd2b2e9738.jpeg"
+        ],
+        "name": "Premium family suite with various types of beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 219
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/8f/26/8f2684e445046efebc3c0c210b8417bd2b2e9738.jpeg"
+        ],
+        "name": "Premium family suite with double bed",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 220
+      },
+      {
+        "images": [
+          "https://cdn.ostrovok.ru/t/{size}/content/8f/26/8f2684e445046efebc3c0c210b8417bd2b2e9738.jpeg"
+        ],
+        "name": "Premium family suite with 2 separate beds",
+        "room_amenities": [
+          "private-bathroom",
+          "window"
+        ],
+        "room_group_id": 221
+      }
+    ],
+    "semantic_version": 0,
+    "star_rating": 4
+  },
+  "debug": null,
+  "error": null,
+  "status": "ok"
 }

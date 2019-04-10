@@ -6,6 +6,7 @@
 namespace common\modules\api\ostrovok\components;
 
 
+use common\base\helpers\Dump;
 use common\modules\api\ostrovok\components\objects\BedPlaces;
 use common\modules\api\ostrovok\components\objects\CancellationInfo;
 use common\modules\api\ostrovok\components\objects\PaymentOptions;
@@ -24,7 +25,7 @@ class ObjectLoader extends Component {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public static function loadRates() {
-		$response = file_get_contents(Yii::getAlias('@webroot') . DIRECTORY_SEPARATOR . 'hotels.json');
+		$response = file_get_contents(Yii::getAlias('@webroot') . DIRECTORY_SEPARATOR . 'rates.json');
 
 		$response = json_decode($response);
 
@@ -60,5 +61,13 @@ class ObjectLoader extends Component {
 		}
 
 		return $rates;
+	}
+
+	public static function loadHotels() {
+		$response = file_get_contents(Yii::getAlias('@webroot') . DIRECTORY_SEPARATOR . 'hotels.json');
+
+		$response = json_decode($response);
+
+		Dump::dDie($response);
 	}
 }
