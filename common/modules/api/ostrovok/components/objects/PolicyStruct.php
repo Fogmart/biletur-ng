@@ -7,7 +7,8 @@ namespace common\modules\api\ostrovok\components\objects;
 
 
 class PolicyStruct {
-	/** @var string */
-	public $paragraphs; //array(String)
-	public $title; //object
+	/** @var string[] */
+	public $paragraphs;
+	/** @var null|string */
+	public $title;
 }
