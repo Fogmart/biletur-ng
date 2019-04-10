@@ -33,7 +33,6 @@ class HotelSearchWidget extends Widget {
 			$rate = new Rate($responseRate);
 			$rate->bed_places = new BedPlaces($responseRate->bed_places);
 			$rate->cancellation_info = new CancellationInfo($responseRate->cancellation_info);
-
 			$payment_types = [];
 			foreach ($responseRate->payment_options->payment_types as $payment_type) {
 				if (property_exists($payment_type, 'perks')) {
@@ -43,21 +42,15 @@ class HotelSearchWidget extends Widget {
 					}
 					$payment_type->perks = $perks;
 				}
-
 				$payment_types[] = new PaymentType($payment_type);
 			}
-
-
 			$rate->payment_options = new PaymentOptions($responseRate->payment_options);
 			$rate->payment_options->payment_types = $payment_types;
-
 			$taxes = [];
 			foreach ($responseRate->taxes as $tax) {
 				$taxes[] = new Tax($tax);
 			}
-
 			$rate->taxes = $taxes;
-
 			$rates[] = $rate;
 		}
 
