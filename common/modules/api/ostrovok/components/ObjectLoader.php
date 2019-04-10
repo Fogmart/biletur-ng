@@ -9,6 +9,7 @@ namespace common\modules\api\ostrovok\components;
 use common\base\helpers\Dump;
 use common\modules\api\ostrovok\components\objects\BedPlaces;
 use common\modules\api\ostrovok\components\objects\CancellationInfo;
+use common\modules\api\ostrovok\components\objects\HotelData;
 use common\modules\api\ostrovok\components\objects\PaymentOptions;
 use common\modules\api\ostrovok\components\objects\PaymentType;
 use common\modules\api\ostrovok\components\objects\Perk;
@@ -30,7 +31,7 @@ class ObjectLoader extends Component {
 		$response = json_decode($response);
 
 		$responseRates = $response->result->hotels[0]->rates;
-		/** @var \common\modules\api\ostrovok\components\objects\Rateх[] $rates */
+		/** @var \common\modules\api\ostrovok\components\objects\Rate[] $rates */
 		$rates = [];
 		foreach ($responseRates as $responseRate) {
 			$rate = new Rate($responseRate);
@@ -56,6 +57,7 @@ class ObjectLoader extends Component {
 			foreach ($responseRate->taxes as $tax) {
 				$taxes[] = new Tax($tax);
 			}
+
 			$rate->taxes = $taxes;
 			$rates[] = $rate;
 		}
@@ -63,11 +65,24 @@ class ObjectLoader extends Component {
 		return $rates;
 	}
 
+	/**
+	 * Загрузка отелей
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
 	public static function loadHotels() {
 		$response = file_get_contents(Yii::getAlias('@webroot') . DIRECTORY_SEPARATOR . 'hotels.json');
 
 		$response = json_decode($response);
+		$responseHotels = $response->data;
+		$hotel = new HotelData($responseHotels);
+		$hotels = [];
+		/*foreach ($responseHotels as $responseHotel) {
+			$hotel = new HotelData($responseHotel);
+			$hotels[] = $hotel;
+		}*/
 
-		Dump::dDie($response);
+
+		Dump::dDie($hotel);
 	}
 }

@@ -2,7 +2,9 @@
 
 namespace common\modules\api\ostrovok\components\objects;
 
-class HotelData {
+use yii\base\Component;
+
+class HotelData extends Component {
 	/** @var string */
 	public $address;
 	/** @var \common\modules\api\ostrovok\components\objects\AmenityGroup[] */
@@ -51,5 +53,4 @@ class HotelData {
 	const IMAGE_FORMAT_1024X768 = '1024x768';
 	const IMAGE_FORMAT_X220 = 'x220';
 	const IMAGE_FORMAT_X500 = 'x500';
-
 }
