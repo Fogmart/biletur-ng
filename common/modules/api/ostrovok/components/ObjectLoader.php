@@ -1,10 +1,5 @@
 <?php
-/**
- * @author Исаков Владислав <visakov@biletur.ru>
- */
-
 namespace common\modules\api\ostrovok\components;
-
 
 use common\base\helpers\Dump;
 use common\modules\api\ostrovok\components\objects\BedPlaces;
@@ -18,6 +13,12 @@ use common\modules\api\ostrovok\components\objects\Tax;
 use Yii;
 use yii\base\Component;
 
+
+/**
+ * Загрузка обьектов из JSON
+ *
+ * @author  Исаков Владислав <visakov@biletur.ru>
+ */
 class ObjectLoader extends Component {
 
 	/**
