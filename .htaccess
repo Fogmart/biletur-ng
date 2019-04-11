@@ -3,6 +3,8 @@
 	RewriteEngine On
 </IfModule>
 
+
+
 Header set Access-Control-Allow-Origin "*"
 
 <IfModule mod_rewrite.c>

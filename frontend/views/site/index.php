@@ -1,4 +1,6 @@
 <?php
+use frontend\controllers\AviaController;
+
 /**
  * @var $this yii\web\View
  */
@@ -13,10 +15,10 @@ $this->title = 'Билетур';
 </div>
 <div class="row" style="margin-top: 20px;">
     <div class="col-xs-12 visible-md visible-lg" >
-        <div class="text-center index-icons-block">
+        <a href="<?= AviaController::getActionUrl(AviaController::ACTION_INDEX) ?>" class="text-center index-icons-block">
             <img src="/images/plane.png" alt="Авиабилеты">
             <span>Авиабилеты</span>
-        </div>
+        </a>
         <div class="text-center index-icons-block">
             <img src="/images/plane.png" alt="Ж/Д билеты">
             <span>Ж/Д билеты</span>
