@@ -33,7 +33,10 @@ body {
 	background-color: $mainBlueColor;
 
 	.container {
-		background-color: #fff;
+		a {
+			color: #fff;
+		}
+		line-height: 2;
 	}
 }
 
@@ -167,7 +170,7 @@ a.desc:after {
 	padding: 10px 30px 25px 30px;
 
 	div {
-		min-height: 4px;
+		min-height: 2px;
 		background-color: $mainBlueColor;
 	}
 }
@@ -176,7 +179,7 @@ a.desc:after {
 	padding: 10px 30px 25px 30px;
 
 	div {
-		min-height: 4px;
+		min-height: 2px;
 		background-color: #fff;
 	}
 }
@@ -227,6 +230,10 @@ a.desc:after {
 		padding-top: 20px;
 		width: 100px;
 	}
+
+	span {
+		display: block;
+	}
 }
 
 .index-icons-block:hover {
@@ -251,7 +258,8 @@ a.desc:after {
 	overflow: hidden;
 	background-color: #fff;
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
-	height: 300px;
+	height: 270px;
 	width: 100%;
 	border-radius: 8px;
 }
+
