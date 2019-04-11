@@ -5,7 +5,6 @@
 /* @var $content string */
 
 use frontend\assets\AppAsset;
-use rmrevin\yii\fontawesome\FAS;
 use yii\helpers\Html;
 
 AppAsset::register($this);
@@ -20,18 +19,19 @@ AppAsset::register($this);
 	<?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
 	<?php $this->head() ?>
+	<?= $this->render('_counters') ?>
 </head>
 <body>
 <?php $this->beginBody() ?>
 <div class="wrap">
     <div class="container">
-		<?= $this->render('header') ?>
+		<?= $this->render('_header') ?>
         <div class="inner-container text-center">
 			<?= $content ?>
         </div>
     </div>
 </div>
-<?= $this->render('footer') ?>
+<?= $this->render('_footer') ?>
 <?php $this->endBody() ?>
 </body>
 </html>
