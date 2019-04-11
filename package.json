@@ -13,5 +13,8 @@
     "webpack": "3.11"
   },
   "dependencies": {
-   }
+   },
+  "optionalDependencies": {
+    "fsevents": "*"
+  }
 }

@@ -15,11 +15,7 @@ mix.js('vendor/yiisoft/yii2/assets/yii.js', 'frontend/web/js/vendor.js')
     .version();*/
 
 mix.sass('frontend/assets/src/sass/biletur.scss', 'frontend/web/css')
-   /* .options({
-        postCss: [
-            require('postcss-css-variables')()
-        ]
-    })*/
+	.options({ imgLoaderOptions: { enabled: false } })
     .version();
 
 mix.setPublicPath('frontend/web/');

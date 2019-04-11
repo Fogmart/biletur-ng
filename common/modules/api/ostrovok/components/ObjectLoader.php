@@ -46,6 +46,7 @@ class ObjectLoader extends Component {
 					foreach ($payment_type->perks as $name => $perk) {
 						$perks[$name] = new Perk($perk);
 					}
+
 					$payment_type->perks = $perks;
 				}
 				$payment_types[] = new PaymentType($payment_type);
