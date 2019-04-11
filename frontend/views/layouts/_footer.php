@@ -35,5 +35,19 @@
         <div class="row hr-del-line inverse">
             <div class="col-xs-12"></div>
         </div>
+        <div class="row">
+            <div class="col-md-3">
+
+            </div>
+            <div class="col-md-3">
+
+            </div>
+            <div class="col-md-3">
+
+            </div>
+            <div class="col-md-3">
+
+            </div>
+        </div>
     </div>
 </footer>
