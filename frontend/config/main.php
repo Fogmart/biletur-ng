@@ -40,11 +40,12 @@ return [
 		'urlManager'   => [
 			'enablePrettyUrl' => true,
 			'showScriptName'  => false,
+			'suffix' => '/',
 			'rules'           => [
 				''                                                              => 'site/index',
 				'<module:[\w-]+>/<controller:[\w-]+>/<action:[\w-]+>/<id:\d+>]' => '<module>/<controller>/<action>',
 				'<controller:\w+>/<action:\w+>/'                                => '<controller>/<action>',
-				'message-widget/<object>/<objectId>/<userName>' => 'message/message/widget'
+				'message-widget/<object>/<objectId>/<userName>'                 => 'message/message/widget'
 			],
 		],
 	],
