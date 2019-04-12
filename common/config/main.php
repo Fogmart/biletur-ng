@@ -27,13 +27,12 @@ return [
 		'message' => [
 			'class' => MMessage::class,
 		],
-		'page'    => [
+		'pages'    => [
 			'class' => MPages::class,
 		]
 	],
 	'components' => [
 		'user'        => [
-
 			'identityClass'   => \common\models\User::class,
 			'enableAutoLogin' => true,
 		],
