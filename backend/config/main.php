@@ -41,9 +41,11 @@ return [
 		'urlManager'   => [
 			'enablePrettyUrl' => true,
 			'showScriptName'  => false,
+			'suffix' => '/',
 			'rules'           => [
-				''                               => 'site/index',
-				'<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
+				''                                                              => 'site/index',
+				'<module:[\w-]+>/<controller:[\w-]+>/<action:[\w-]+>/<id:\d+>]' => '<module>/<controller>/<action>',
+				'<controller:\w+>/<action:\w+>/'                                => '<controller>/<action>',
 			],
 		],
 	],

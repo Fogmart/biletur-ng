@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\base\helpers\Dump;
 use common\base\helpers\StringHelper;
 use Yii;
 use yii\web\Controller;
@@ -27,10 +28,12 @@ class BackendController extends Controller {
 	public static function getActionUrl($actionName, array $actionParams = []) {
 		$prefix = null;
 
-		$controllerName = preg_replace('/Controller$/', '', StringHelper::basename(static::className()));
+		$moduleName = preg_replace('/^.*\\\\modules\\\\(.*?)\\\\.*$/', '\1', static::class);
+		$controllerName = preg_replace('/Controller$/', '', StringHelper::basename(static::class));
 		$controllerName = mb_strtolower(preg_replace('~(?!\b)([A-Z])~', '-\\1', $controllerName)); // Преобразуем название контроллера к формату url (aaa-bbb-ccc-..)
 
 		$actionParams[0] = implode('/', [
+			$moduleName,
 			$controllerName,
 			$actionName,
 		]);

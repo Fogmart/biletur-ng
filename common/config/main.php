@@ -66,7 +66,6 @@ return [
 			'rail-road/*',
 			'profile/*',
 			'tour/*',
-			'internal/*', /** @todo УБРАТЬ в продакшене!!!! */
 			'gii/*', /** @todo УБРАТЬ в продакшене!!!! */
 		],
 	],

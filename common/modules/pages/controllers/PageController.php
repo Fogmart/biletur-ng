@@ -14,6 +14,8 @@ use yii2mod\rbac\filters\AccessControl;
  * PageController implements the CRUD actions for Page model.
  */
 class PageController extends BackendController {
+	const ACTION_INDEX = '';
+
 	/**
 	 * {@inheritdoc}
 	 */
