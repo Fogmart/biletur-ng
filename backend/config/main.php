@@ -18,13 +18,13 @@ return [
 			'baseUrl'   => '/internal',
 		],
 		'user'         => [
-			'identityClass'   => 'common\models\User',
+			'identityClass'   => \common\models\User::class,
 			'enableAutoLogin' => true,
-			'identityCookie'  => ['name' => '_identity-backend', 'httpOnly' => true],
+			'identityCookie'  => ['name' => '_identity-biletur', 'httpOnly' => true],
 		],
 		'session'      => [
 			// this is the name of the session cookie used for login on the backend
-			'name' => 'advanced-backend',
+			'name' => 'biletur-session',
 		],
 		'log'          => [
 			'traceLevel' => YII_DEBUG ? 3 : 0,

@@ -1,6 +1,8 @@
 <?php
 
 use rmrevin\yii\fontawesome\FAS;
+use frontend\controllers\ProfileController;
+use frontend\controllers\SiteController;
 
 ?>
 <div class="row">
@@ -10,7 +12,7 @@ use rmrevin\yii\fontawesome\FAS;
     <div class="col-md-7 col-sm-12" style="padding-top: 25px;">
         <input type="text" class="biletur-text-input">
         <input type="text" class="biletur-text-input">
-        <button class="btn biletur-btn"><?= FAS::icon('user', ['style' => 'margin-right: 5px;']) ?><?= !Yii::$app->user->isGuest ? 'Личный кабинет' : 'Войти' ?></button>
+        <a href="<?= (Yii::$app->user->isGuest ? SiteController::getActionUrl(SiteController::ACTION_LOGIN) : ProfileController::getActionUrl(ProfileController::ACTION_INDEX)) ?>" class="btn biletur-btn"><?= FAS::icon('user', ['style' => 'margin-right: 5px;']) ?><?= !Yii::$app->user->isGuest ? 'Личный кабинет' : 'Войти' ?></a>
     </div>
     <div class="col-md-2 col-sm-12">
         <div class="pull-right text-center call-center-block visible-lg visible-md visible-sm visible-xs" style="display: inline-block;">

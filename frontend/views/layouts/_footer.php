@@ -1,3 +1,7 @@
+<?php
+use frontend\controllers\SiteController;
+?>
+
 <footer class="footer">
     <div class="container">
         <div class="row">
@@ -29,6 +33,12 @@
                 <ul class="list-unstyled">
                     <li><a href="#">Бронирование авто</a></li>
                     <li><a href="#">Билеты на мероприятия</a></li>
+                    <?php if (Yii::$app->user->isGuest): ?>
+                        <li><a href="<?= SiteController::getActionUrl(SiteController::ACTION_REGISTER) ?>">Регистрация</a></li>
+                        <li><a href="<?= SiteController::getActionUrl(SiteController::ACTION_LOGIN) ?>">Вход</a></li>
+                    <?php else: ?>
+                        <li><a href="<?= SiteController::getActionUrl(SiteController::ACTION_LOGOUT) ?>">Выход</a></li>
+                    <?php endif ?>
                 </ul>
             </div>
         </div>

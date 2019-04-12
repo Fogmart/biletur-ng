@@ -60,6 +60,7 @@ return [
 			'debug/*',
 			'avia/*',
 			'rail-road/*',
-		]
+			'profile/*',
+		],
 	],
 ];

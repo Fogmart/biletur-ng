@@ -24,6 +24,10 @@ use yii\web\Controller;
  * Site controller
  */
 class SiteController extends FrontendController {
+	const ACTION_LOGIN = 'login';
+	const ACTION_LOGOUT = 'logout';
+	const ACTION_REGISTER = 'signup';
+
 	/**
 	 * {@inheritdoc}
 	 */
@@ -43,12 +47,6 @@ class SiteController extends FrontendController {
 						'allow'   => true,
 						'roles'   => ['@'],
 					],
-				],
-			],
-			'verbs'  => [
-				'class'   => VerbFilter::className(),
-				'actions' => [
-					'logout' => ['post'],
 				],
 			],
 		];
