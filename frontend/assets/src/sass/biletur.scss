@@ -1,10 +1,12 @@
+@import "fonts.sass";
+
 $mainBlueColor: #0066b1;
 
 html,
 body {
 	height: auto;
 	background-color: #f0f0f0;
-	font-family: sans-serif;
+	font-family: "Verdana";
 }
 
 .wrap {
@@ -238,18 +240,18 @@ a.desc:after {
 
 .index-icons-block:hover {
 	z-index: 10;
-	-moz-transform: scale(1.3);
-	-webkit-transform: scale(1.3);
-	-o-transform: scale(1.3);
-	-ms-transform: scale(1.3);
-	transform: scale(1.3);
+	-moz-transform: scale(1.1);
+	-webkit-transform: scale(1.1);
+	-o-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	transform: scale(1.1);
 
 	img {
-		-moz-transform: scale(1.2) rotate(30deg);
-		-webkit-transform: scale(1.2) rotate(30deg);
-		-o-transform: scale(1.2) rotate(30deg);
-		-ms-transform: scale(1.2) rotate(30deg);
-		transform: scale(1.2) rotate(30deg);
+		-moz-transform: scale(1.2) rotate(20deg);
+		-webkit-transform: scale(1.2) rotate(20deg);
+		-o-transform: scale(1.2) rotate(20deg);
+		-ms-transform: scale(1.2) rotate(20deg);
+		transform: scale(1.2) rotate(20deg);
 	}
 }
 

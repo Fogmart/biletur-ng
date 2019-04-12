@@ -1,5 +1,7 @@
 <?php
+
 use frontend\controllers\AviaController;
+use frontend\controllers\RailRoadController;
 
 /**
  * @var $this yii\web\View
@@ -14,15 +16,15 @@ $this->title = 'Билетур';
     </div>
 </div>
 <div class="row" style="margin-top: 20px;">
-    <div class="col-xs-12 visible-md visible-lg" >
+    <div class="col-xs-12 visible-md visible-lg">
         <a href="<?= AviaController::getActionUrl(AviaController::ACTION_INDEX) ?>" class="text-center index-icons-block">
             <img src="/images/plane.png" alt="Авиабилеты">
             <span>Авиабилеты</span>
         </a>
-        <div class="text-center index-icons-block">
+        <a href="<?= RailRoadController::getActionUrl(RailRoadController::ACTION_INDEX) ?>" class="text-center index-icons-block">
             <img src="/images/plane.png" alt="Ж/Д билеты">
             <span>Ж/Д билеты</span>
-        </div>
+        </a>
         <div class="text-center index-icons-block">
             <img src="/images/plane.png" alt="Экскурсии">
             <span>Экскурсии</span>

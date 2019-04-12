@@ -1,4 +1,4 @@
-const { mix } = require('laravel-mix');
+const {mix} = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -15,7 +15,12 @@ mix.js('vendor/yiisoft/yii2/assets/yii.js', 'frontend/web/js/vendor.js')
     .version();*/
 
 mix.sass('frontend/assets/src/sass/biletur.scss', 'frontend/web/css')
-	.options({ imgLoaderOptions: { enabled: false } })
-    .version();
+	.options({
+		imgLoaderOptions: {enabled: false},
+		postCss: [
+			require('postcss-css-variables')()
+		]
+	})
+	.version();
 
 mix.setPublicPath('frontend/web/');
