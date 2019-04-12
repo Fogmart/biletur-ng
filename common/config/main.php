@@ -48,4 +48,12 @@ return [
 			'defaultRoles' => ['guest', 'user'],
 		],
 	],
+	'as access' => [
+		'class' => yii2mod\rbac\filters\AccessControl::class,
+		'allowActions' => [
+			'site/*',
+			'avia/*',
+			'rail-road/*',
+		]
+	],
 ];
