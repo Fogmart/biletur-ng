@@ -45,18 +45,4 @@ class FrontendController extends Controller {
 
 		return $url;
 	}
-
-	/**
-	 * Получение пространства имён (namespace) для класса.
-	 * Лучше использовать этот метод вместо задания namespace'а обычным текстом.
-	 * Таким образом, будет более простая разработка, автокомплит, поиск зависимостей и т.д.
-	 *
-	 * @author Isakov Vladislav
-	 *
-	 * @return string
-	 */
-	public static function getNamespace() {
-		return StringHelper::dirname(static::class);
-	}
-
 }

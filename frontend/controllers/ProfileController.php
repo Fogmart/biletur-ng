@@ -25,7 +25,7 @@ class ProfileController extends FrontendController {
 				'rules' => [
 					[
 						'allow' => true,
-						'roles' => ['@']
+						'roles' => ['@'] //Разрешаем доступ только залогиненным пользователям, остальные при попытке зайти отправляются на логин
 					]
 				]
 			],

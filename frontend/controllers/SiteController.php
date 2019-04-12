@@ -2,7 +2,6 @@
 
 namespace frontend\controllers;
 
-use common\base\helpers\Dump;
 use common\components\FrontendController;
 use common\models\LoginForm;
 use common\modules\news\models\News;
@@ -16,9 +15,7 @@ use Yii;
 use yii\base\InvalidArgumentException;
 use yii\db\Expression;
 use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
-use yii\web\Controller;
 
 /**
  * Site controller
@@ -34,16 +31,16 @@ class SiteController extends FrontendController {
 	public function behaviors() {
 		return [
 			'access' => [
-				'class' => AccessControl::className(),
-				'only'  => ['logout', 'signup'],
+				'class' => AccessControl::class,
+				'only'  => [static::ACTION_LOGOUT, static::ACTION_REGISTER],
 				'rules' => [
 					[
-						'actions' => ['signup'],
+						'actions' => [static::ACTION_REGISTER],
 						'allow'   => true,
 						'roles'   => ['?'],
 					],
 					[
-						'actions' => ['logout'],
+						'actions' => [static::ACTION_LOGOUT],
 						'allow'   => true,
 						'roles'   => ['@'],
 					],

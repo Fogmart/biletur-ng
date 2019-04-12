@@ -3,6 +3,7 @@
 use common\components\IpGeoBase;
 use common\modules\message\MMessage;
 use common\modules\news\MNews;
+use common\modules\seo\MPages;
 use common\modules\seo\MSeo;
 
 return [
@@ -25,6 +26,9 @@ return [
 		],
 		'message' => [
 			'class' => MMessage::class,
+		],
+		'page'    => [
+			'class' => MPages::class,
 		]
 	],
 	'components' => [
@@ -61,6 +65,7 @@ return [
 			'avia/*',
 			'rail-road/*',
 			'profile/*',
+			'tour/*',
 		],
 	],
 ];
