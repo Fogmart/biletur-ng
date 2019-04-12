@@ -28,13 +28,16 @@ return [
 		],
 	],
 	'components'          => [
-		'log' => [
+		'log'  => [
 			'targets' => [
 				[
 					'class'  => 'yii\log\FileTarget',
 					'levels' => ['error', 'warning'],
 				],
 			],
+		],
+		'user' => [
+			'class' => \common\models\User::class,
 		],
 	],
 	'params'              => $params,

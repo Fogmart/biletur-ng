@@ -1,26 +1,26 @@
 <?php
 
 use common\components\IpGeoBase;
+use common\modules\message\MMessage;
 use common\modules\news\MNews;
 use common\modules\seo\MSeo;
-use common\modules\message\MMessage;
 
 return [
-	'language' => 'ru-RU',
+	'language'   => 'ru-RU',
 	'aliases'    => [
-		'@bower'   => '@vendor/bower-asset',
-		'@npm'     => '@vendor/npm-asset',
+		'@bower' => '@vendor/bower-asset',
+		'@npm'   => '@vendor/npm-asset',
 	],
 	'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
 
 	'modules'    => [
-		'rbac' => [
+		'rbac'    => [
 			'class' => 'yii2mod\rbac\Module',
 		],
-		'news' => [
+		'news'    => [
 			'class' => MNews::class,
 		],
-		'seo'  => [
+		'seo'     => [
 			'class' => MSeo::class,
 		],
 		'message' => [
@@ -28,7 +28,12 @@ return [
 		]
 	],
 	'components' => [
-		'env'       => [
+		'user'        => [
+
+			'identityClass'   => \common\models\User::class,
+			'enableAutoLogin' => true,
+		],
+		'env'         => [
 			'class'              => common\components\Environment::class,
 			'defaultCityId'      => '_1CK0R7WDW',
 			'defaultLanguage'    => 'ru',
@@ -36,20 +41,20 @@ return [
 			'defaultArrCityId'   => '957979',
 			'defaultTourZone'    => 3
 		],
-		'cache'     => [
+		'cache'       => [
 			'class' => 'yii\caching\FileCache',
 		],
-		'ipgeobase' => [
+		'ipgeobase'   => [
 			'class'      => IpGeoBase::class,
 			'useLocalDB' => false,
 		],
 		'authManager' => [
-			'class' => 'yii\rbac\DbManager',
+			'class'        => 'yii\rbac\DbManager',
 			'defaultRoles' => ['guest', 'user'],
 		],
 	],
-	'as access' => [
-		'class' => yii2mod\rbac\filters\AccessControl::class,
+	'as access'  => [
+		'class'        => yii2mod\rbac\filters\AccessControl::class,
 		'allowActions' => [
 			'site/*',
 			'avia/*',
