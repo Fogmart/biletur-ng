@@ -169,7 +169,7 @@ a.desc:after {
 }
 
 .hr-del-line {
-	padding: 10px 30px 25px 30px;
+	padding: 10px 30px 10px 30px;
 
 	div {
 		min-height: 2px;
@@ -178,7 +178,7 @@ a.desc:after {
 }
 
 .hr-del-line.inverse {
-	padding: 10px 30px 25px 30px;
+	padding: 10px 30px 10px 30px;
 
 	div {
 		min-height: 2px;
@@ -219,11 +219,10 @@ a.desc:after {
 	background-color: #fff;
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
 	height: 210px;
-	width: 180px;
+	width: 100%;
 	border-radius: 8px;
 	cursor: pointer;
 	text-transform: uppercase;
-	margin-left: 15px;
 	transition-duration: 0.5s;
 
 	img {
@@ -265,3 +264,9 @@ a.desc:after {
 	border-radius: 8px;
 }
 
+.column-5 .col-md-1  {
+	width: 0%;
+}
+.column-5 .col-md-2 {
+	width: 20%;
+}
