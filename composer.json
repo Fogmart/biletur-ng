@@ -29,7 +29,8 @@
     "ext-pdo": "*",
     "ext-curl": "*",
     "himiklab/yii2-ipgeobase-component" : "*",
-    "rmrevin/yii2-fontawesome": "~3.3"
+    "rmrevin/yii2-fontawesome": "~3.3",
+    "yii2mod/yii2-rbac": "*"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",

@@ -14,6 +14,9 @@ return [
 	'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
 
 	'modules'    => [
+		'rbac' => [
+			'class' => 'yii2mod\rbac\Module',
+		],
 		'news' => [
 			'class' => MNews::class,
 		],
@@ -39,6 +42,10 @@ return [
 		'ipgeobase' => [
 			'class'      => IpGeoBase::class,
 			'useLocalDB' => false,
+		],
+		'authManager' => [
+			'class' => 'yii\rbac\DbManager',
+			'defaultRoles' => ['guest', 'user'],
 		],
 	],
 ];
