@@ -2,7 +2,11 @@
 
 namespace common\modules\pages\models;
 
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
+use yii\validators\BooleanValidator;
+use yii\validators\RequiredValidator;
 
 /**
  * Поля таблицы:
@@ -30,6 +34,22 @@ class Page extends ActiveRecord {
 	const ATTR_IS_PUBLISHED = 'is_published';
 	const ATTR_INSERT_STAMP = 'insert_stamp';
 	const ATTR_UPDATE_STAMP = 'update_stamp';
+
+	/**
+	 * @return array
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function behaviors() {
+		return [
+			[
+				'class'              => TimestampBehavior::class,
+				'createdAtAttribute' => 'insert_stamp',
+				'updatedAtAttribute' => 'update_stamp',
+				'value'              => new Expression('sysdate'),
+			],
+		];
+	}
 
 	/**
 	 * @return string
@@ -66,6 +86,23 @@ class Page extends ActiveRecord {
 			static::ATTR_IS_PUBLISHED    => 'Опубликована',
 			static::ATTR_INSERT_STAMP    => 'Дата создания',
 			static::ATTR_UPDATE_STAMP    => 'Дата изменения',
+		];
+	}
+
+	/**
+	 * @return array
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function rules() {
+		return [
+			[static::ATTR_TITLE, RequiredValidator::class],
+			[static::ATTR_SEO_TITLE, RequiredValidator::class],
+			[static::ATTR_SEO_DESCRIPTION, RequiredValidator::class],
+			[static::ATTR_SEO_KEYWORDS, RequiredValidator::class],
+			[static::ATTR_SLUG, RequiredValidator::class],
+			[static::ATTR_HTML, RequiredValidator::class],
+			[static::ATTR_IS_PUBLISHED, BooleanValidator::class],
 		];
 	}
 }

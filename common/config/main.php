@@ -64,8 +64,9 @@ return [
 			'avia/*',
 			'rail-road/*',
 			'profile/*',
+			'pages/page/*',
 			'tour/*',
-			'gii/*', /** @todo УБРАТЬ в продакшене!!!! */
+			'gii/*',
 		],
 	],
 ];
