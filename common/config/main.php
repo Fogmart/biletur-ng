@@ -57,6 +57,7 @@ return [
 		'class'        => yii2mod\rbac\filters\AccessControl::class,
 		'allowActions' => [
 			'site/*',
+			'debug/*',
 			'avia/*',
 			'rail-road/*',
 		]

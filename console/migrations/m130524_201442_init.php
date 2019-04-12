@@ -1,9 +1,10 @@
 <?php
 namespace app\migrations;
 
+use common\components\OracleMigration;
 use yii\db\Migration;
 
-class m130524_201442_init extends Migration
+class m130524_201442_init extends OracleMigration
 {
     public function up()
     {
@@ -14,7 +15,7 @@ class m130524_201442_init extends Migration
         }
 
         $this->createTable('{{%user}}', [
-            'id' => $this->primaryKey(),
+            'id' => $this->createPk(),
             'username' => $this->string()->notNull()->unique(),
             'auth_key' => $this->string(32)->notNull(),
             'password_hash' => $this->string()->notNull(),
