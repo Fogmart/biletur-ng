@@ -24,6 +24,7 @@ return [
 			'migrationNamespaces' => [
 				'app\migrations',
 				'modules\message\migrations',
+				'modules\pages\migrations',
 			],
 		],
 	],

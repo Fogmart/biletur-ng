@@ -3,7 +3,7 @@
 use common\components\IpGeoBase;
 use common\modules\message\MMessage;
 use common\modules\news\MNews;
-use common\modules\seo\MPages;
+use common\modules\pages\MPages;
 use common\modules\seo\MSeo;
 
 return [
@@ -66,6 +66,8 @@ return [
 			'rail-road/*',
 			'profile/*',
 			'tour/*',
+			'internal/*', /** @todo УБРАТЬ в продакшене!!!! */
+			'gii/*', /** @todo УБРАТЬ в продакшене!!!! */
 		],
 	],
 ];
