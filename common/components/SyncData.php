@@ -63,9 +63,10 @@ class SyncData extends Component {
 
 		/** @var \yii\db\ActiveRecord $oneDiff */
 		foreach ($diff as $oneDiff) {
+			$id = $oneDiff->pk;
 			static::showStatus($i, count($diff));
 			$model = $modelClass::find()
-				->andWhere([$modelClass::getOldIdField() => $oneDiff->getPrimaryKey()])
+				->andWhere([$modelClass::getOldIdField() => $oneDiff->$id])
 				->one();
 
 			if (null === $model) {
@@ -86,7 +87,7 @@ class SyncData extends Component {
 				$model->save();
 			}
 			catch (\Exception $exception) {
-				//echo $exception->getMessage() . PHP_EOL;
+				echo $exception->getMessage() . PHP_EOL;
 				continue;
 			}
 

@@ -21,6 +21,7 @@ use yii\validators\RequiredValidator;
  * @property string  $insert_stamp
  * @property string  $update_stamp
  *
+ *
  */
 class Page extends ActiveRecord {
 
@@ -105,4 +106,5 @@ class Page extends ActiveRecord {
 			[static::ATTR_IS_PUBLISHED, BooleanValidator::class],
 		];
 	}
+
 }

@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\components\SiteModel;
 use common\interfaces\LinkedModels;
 use common\models\oracle\scheme\sns\DspOrgs;
 use yii\db\ActiveRecord;
@@ -35,7 +36,7 @@ use yii\db\Expression;
  * @property string  $insert_stamp
  * @property string  $update_stamp
  */
-class Org extends ActiveRecord implements LinkedModels {
+class Org extends SiteModel implements LinkedModels {
 
 	const ATTR_ID = 'id';
 	const ATTR_OLD_ID = 'old_id';

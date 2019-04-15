@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\components\SiteModel;
 use common\interfaces\LinkedModels;
 use common\models\oracle\scheme\sns\DspPlaces;
 use yii\db\ActiveRecord;
@@ -50,7 +51,7 @@ use yii\db\Expression;
  * @property string $insert_stamp
  * @property string $update_stamp
  */
-class Place extends ActiveRecord implements LinkedModels {
+class Place extends SiteModel implements LinkedModels {
 
 	const ATTR_ID = 'id';
 	const ATTR_OLD_ID = 'old_id';
@@ -92,7 +93,6 @@ class Place extends ActiveRecord implements LinkedModels {
 	const ATTR_AMADEUS_OFFICE_ID = 'amadeus_office_id';
 	const ATTR_INSERT_STAMP = 'insert_stamp';
 	const ATTR_UPDATE_STAMP = 'update_stamp';
-
 
 	public static function tableName() {
 		return '{{%place}}';

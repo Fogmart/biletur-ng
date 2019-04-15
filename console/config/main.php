@@ -40,6 +40,16 @@ return [
 		'user' => [
 			'class' => \common\models\User::class,
 		],
+		'cache'       => [
+			'class'        => \yii\caching\MemCache::class,
+			'servers' => [
+				[
+					'host' => 'localhost',
+					'port' => 11211,
+				],
+			],
+			'useMemcached' => true,
+		],
 	],
 	'params'              => $params,
 ];

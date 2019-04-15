@@ -27,7 +27,7 @@ return [
 		'message' => [
 			'class' => MMessage::class,
 		],
-		'pages'    => [
+		'pages'   => [
 			'class' => MPages::class,
 		]
 	],
@@ -45,7 +45,14 @@ return [
 			'defaultTourZone'    => 3
 		],
 		'cache'       => [
-			'class' => 'yii\caching\FileCache',
+			'class'        => \yii\caching\MemCache::class,
+			'servers' => [
+				[
+					'host' => 'localhost',
+					'port' => 11211,
+				],
+			],
+			'useMemcached' => true,
 		],
 		'ipgeobase'   => [
 			'class'      => IpGeoBase::class,

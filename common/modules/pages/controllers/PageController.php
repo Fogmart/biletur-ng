@@ -6,6 +6,7 @@ use backend\controllers\BackendController;
 use common\modules\pages\models\Page;
 use common\modules\pages\models\SearchPage;
 use Yii;
+use yii\caching\TagDependency;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use yii2mod\rbac\filters\AccessControl;
@@ -30,7 +31,7 @@ class PageController extends BackendController {
 					]
 				]
 			],
-			'verbs' => [
+			'verbs'  => [
 				'class'   => VerbFilter::class,
 				'actions' => [
 					'delete' => ['POST'],
@@ -76,6 +77,8 @@ class PageController extends BackendController {
 		$model = new Page();
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			TagDependency::invalidate(Yii::$app->cache, [Page::class]);
+
 			return $this->redirect(['index']);
 		}
 
@@ -97,6 +100,8 @@ class PageController extends BackendController {
 		$model = $this->findModel($id);
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			TagDependency::invalidate(Yii::$app->cache, [Page::class]);
+
 			return $this->redirect(['view', 'id' => $model->id]);
 		}
 
@@ -115,6 +120,7 @@ class PageController extends BackendController {
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	public function actionDelete($id) {
+		TagDependency::invalidate(Yii::$app->cache, [Page::class]);
 		$this->findModel($id)->delete();
 
 		return $this->redirect(['index']);

@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\components\SiteModel;
 use common\interfaces\LinkedModels;
 use common\models\oracle\scheme\sns\DspFilials;
 use yii\db\ActiveRecord;
@@ -25,7 +26,7 @@ use yii\db\Expression;
  * @property string $insert_stamp
  * @property string $update_stamp
  */
-class Filial extends ActiveRecord implements LinkedModels {
+class Filial extends SiteModel implements LinkedModels {
 
 	const ATTR_ID = 'id';
 	const ATTR_OLD_ID = 'old_id';

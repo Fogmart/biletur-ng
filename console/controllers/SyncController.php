@@ -27,13 +27,13 @@ class SyncController extends Controller {
 	 */
 	public function actionIndex() {
 		//Синхронизация новостей
-		SyncData::execute(News::class);
+		///SyncData::execute(News::class);
 
 		//Синхронизация стран
-		SyncData::execute(Country::class);
+		//SyncData::execute(Country::class);
 
 		//Синхронизация городов
-		SyncData::execute(Town::class);
+		//SyncData::execute(Town::class);
 
 		//Синхронизация организаций
 		SyncData::execute(Org::class);

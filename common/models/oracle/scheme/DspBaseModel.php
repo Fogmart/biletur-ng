@@ -13,6 +13,9 @@ use yii\db\ActiveRecord;
  * @author  Исаков Владислав <visakov@biletur.ru>
  */
 class DspBaseModel extends ActiveRecord {
+
+	public $pk = 'ID';
+
 	public static function getDb() {
 		return Yii::$app->get('dbDsp');
 	}
