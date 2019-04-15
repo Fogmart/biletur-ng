@@ -5,7 +5,6 @@ namespace common\models;
 use common\components\SiteModel;
 use common\interfaces\ILinkedModels;
 use common\models\oracle\scheme\sns\DspFilials;
-use yii\db\ActiveRecord;
 use yii\db\Expression;
 
 /**
@@ -123,19 +122,19 @@ class Filial extends SiteModel implements ILinkedModels {
 	 */
 	public static function getLinkedFields() {
 		return [
-			DspFilials::ATTR_ID       => static::ATTR_OLD_ID,
-			DspFilials::ATTR_FILIAL   => static::ATTR_FILIAL_CODE,
-			DspFilials::ATTR_AURCODE  => static::ATTR_AURA_CODE,
-			DspFilials::ATTR_NAME     => static::ATTR_NAME,
-			DspFilials::ATTR_ORGID    => static::ATTR_ORG_ID,
-			DspFilials::ATTR_GROUPS   => static::ATTR_GROUP,
-			DspFilials::ATTR_BEGDATE  => static::ATTR_END_DATE,
-			DspFilials::ATTR_BOSSID   => static::ATTR_BOSS_ID,
-			DspFilials::ATTR_BOSSNAME => static::ATTR_BOSS_NAME,
-			DspFilials::ATTR_RANG     => static::ATTR_RANG,
-			DspFilials::ATTR_REGION   => static::ATTR_REGION,
-			DspFilials::ATTR_WHNCRT   => static::ATTR_INSERT_STAMP,
-			DspFilials::ATTR_WHNUPD   => static::ATTR_UPDATE_STAMP,
+			static::ATTR_OLD_ID       => DspFilials::ATTR_ID,
+			static::ATTR_FILIAL_CODE  => DspFilials::ATTR_FILIAL,
+			static::ATTR_AURA_CODE    => DspFilials::ATTR_AURCODE,
+			static::ATTR_NAME         => DspFilials::ATTR_NAME,
+			static::ATTR_ORG_ID       => DspFilials::ATTR_ORGID,
+			static::ATTR_GROUP        => DspFilials::ATTR_GROUPS,
+			static::ATTR_END_DATE     => DspFilials::ATTR_BEGDATE,
+			static::ATTR_BOSS_ID      => DspFilials::ATTR_BOSSID,
+			static::ATTR_BOSS_NAME    => DspFilials::ATTR_BOSSNAME,
+			static::ATTR_RANG         => DspFilials::ATTR_RANG,
+			static::ATTR_REGION       => DspFilials::ATTR_REGION,
+			static::ATTR_INSERT_STAMP => DspFilials::ATTR_WHNCRT,
+			static::ATTR_UPDATE_STAMP => DspFilials::ATTR_WHNUPD,
 		];
 	}
 

@@ -4,7 +4,7 @@ namespace common\interfaces;
 /**
  * @author isakov.v
  *
- * Интерфейс необходим для синхронизации данныз в моделях оракла и постгрес.
+ * Интерфейс необходим для синхронизации данных в моделях оракла дсп и оракла сайта.
  */
 interface ILinkedModels {
 
@@ -13,21 +13,21 @@ interface ILinkedModels {
 	 *
 	 * @return string
 	 *
-	 * @author Исаков Владислав <isakov.vi@dns-shop.ru>
+	 * @author Исаков Владислав
 	 */
 	public static function getOldIdField();
 
 	/**
-	 * Связка таблиц
+	 * Связка таблиц. Массив ключ-значение вида: ['SITE_TABLE' => 'DSP_TABLE']
 	 *
 	 * @return array
 	 *
-	 * @author Исаков Владислав <isakov.vi@dns-shop.ru>
+	 * @author Исаков Владислав
 	 */
 	public static function getLinkedModel();
 
 	/**
-	 * Поле внутренней таблицы для сравнения изменений
+	 * Поле таблицы-приемника для сравнения изменений
 	 *
 	 * @return string
 	 *
@@ -36,7 +36,7 @@ interface ILinkedModels {
 	public static function getInternalInvalidateField();
 
 	/**
-	 * Поле внешней таблицы для сравнения изменений
+	 * Поле таблицы-поставщика для сравнения изменений
 	 *
 	 * @return string
 	 *
@@ -45,7 +45,8 @@ interface ILinkedModels {
 	public static function getOuterInvalidateField();
 
 	/**
-	 * Связка полей
+	 * Связка полей. Массив ключ-значение вида: ['SITE_TABLE_FIELD_NAME' => 'DSP_TABLE_FIELD_NAME']
+	 * Используется в синхронизации через array_flip() т.к. так удобнее
 	 *
 	 * @return array
 	 *
@@ -55,7 +56,9 @@ interface ILinkedModels {
 
 
 	/**
-	 * Получение сконвертированного значения поля
+	 * Получение сконвертированного значения поля.
+	 * Если конвертировать нечего то должен содержать 'return $data';
+	 * Иначе добавляем конвертации для нужных полей по параметру $fieldName
 	 *
 	 * @param string $fieldName
 	 * @param mixed  $data

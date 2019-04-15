@@ -5,7 +5,6 @@ namespace common\models;
 use common\components\SiteModel;
 use common\interfaces\ILinkedModels;
 use common\models\oracle\scheme\sns\DspTowns;
-use yii\db\ActiveRecord;
 use yii\db\Expression;
 
 /**
@@ -116,26 +115,26 @@ class Town extends SiteModel implements ILinkedModels {
 	 */
 	public static function getLinkedFields() {
 		return [
-			DspTowns::ATTR_ID         => static::ATTR_OLD_ID,
-			DspTowns::ATTR_RNAME      => static::ATTR_R_NAME,
-			DspTowns::ATTR_ENAME      => static::ATTR_E_NAME,
-			DspTowns::ATTR_CODE       => static::ATTR_CODE,
-			DspTowns::ATTR_STATEID    => static::ATTR_COUNTRY_ID,
-			DspTowns::ATTR_STATECODE  => static::ATTR_COUNTRY_CODE,
-			DspTowns::ATTR_ADMREGID   => static::ATTR_ADM_REG_ID,
-			DspTowns::ATTR_ADMCODE    => static::ATTR_ADM_CODE,
-			DspTowns::ATTR_IATACODE   => static::ATTR_IATA_CODE,
-			DspTowns::ATTR_IKAOCODE   => static::ATTR_IKAO_CODE,
-			DspTowns::ATTR_PHONECODE  => static::ATTR_PHONE_CODE,
-			DspTowns::ATTR_LATITUDE   => static::ATTR_LATITUDE,
-			DspTowns::ATTR_LONGITUDE  => static::ATTR_LONGITUDE,
-			DspTowns::ATTR_AURA_ID    => static::ATTR_AURA_ID,
-			DspTowns::ATTR_SHWINGUIDE => static::ATTR_SHWINGUIDE,
-			DspTowns::ATTR_YNDXWTHRID => static::ATTR_YANDEX_WEATHER_ID,
-			DspTowns::ATTR_RANG       => static::ATTR_RANG,
-			DspTowns::ATTR_NAME       => static::ATTR_NAME,
-			DspTowns::ATTR_WHNCRT     => static::ATTR_INSERT_STAMP,
-			DspTowns::ATTR_WHNUPD     => static::ATTR_UPDATE_STAMP,
+			static::ATTR_OLD_ID            => DspTowns::ATTR_ID,
+			static::ATTR_R_NAME            => DspTowns::ATTR_RNAME,
+			static::ATTR_E_NAME            => DspTowns::ATTR_ENAME,
+			static::ATTR_CODE              => DspTowns::ATTR_CODE,
+			static::ATTR_COUNTRY_ID        => DspTowns::ATTR_STATEID,
+			static::ATTR_COUNTRY_CODE      => DspTowns::ATTR_STATECODE,
+			static::ATTR_ADM_REG_ID        => DspTowns::ATTR_ADMREGID,
+			static::ATTR_ADM_CODE          => DspTowns::ATTR_ADMCODE,
+			static::ATTR_IATA_CODE         => DspTowns::ATTR_IATACODE,
+			static::ATTR_IKAO_CODE         => DspTowns::ATTR_IKAOCODE,
+			static::ATTR_PHONE_CODE        => DspTowns::ATTR_PHONECODE,
+			static::ATTR_LATITUDE          => DspTowns::ATTR_LATITUDE,
+			static::ATTR_LONGITUDE         => DspTowns::ATTR_LONGITUDE,
+			static::ATTR_AURA_ID           => DspTowns::ATTR_AURA_ID,
+			static::ATTR_SHWINGUIDE        => DspTowns::ATTR_SHWINGUIDE,
+			static::ATTR_YANDEX_WEATHER_ID => DspTowns::ATTR_YNDXWTHRID,
+			static::ATTR_RANG              => DspTowns::ATTR_RANG,
+			static::ATTR_NAME              => DspTowns::ATTR_NAME,
+			static::ATTR_INSERT_STAMP      => DspTowns::ATTR_WHNCRT,
+			static::ATTR_UPDATE_STAMP      => DspTowns::ATTR_WHNUPD,
 		];
 	}
 

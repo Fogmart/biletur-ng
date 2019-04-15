@@ -2,12 +2,9 @@
 
 namespace common\models;
 
-use common\base\helpers\StringHelper;
 use common\components\SiteModel;
 use common\interfaces\ILinkedModels;
 use common\models\oracle\scheme\sns\DspCountries;
-use common\models\oracle\scheme\sns\DspTowns;
-use yii\db\ActiveRecord;
 use yii\db\Expression;
 
 /**
@@ -93,17 +90,17 @@ class Country extends SiteModel implements ILinkedModels {
 	 */
 	public static function getLinkedFields() {
 		return [
-			DspCountries::ATTR_ID         => static::ATTR_OLD_ID,
-			DspCountries::ATTR_NAME       => static::ATTR_NAME,
-			DspCountries::ATTR_RNAME      => static::ATTR_R_NAME,
-			DspCountries::ATTR_ENAME      => static::ATTR_E_NAME,
-			DspCountries::ATTR_CODE       => static::ATTR_CODE,
-			DspCountries::ATTR_ID_AURA    => static::ATTR_AURA_ID,
-			DspCountries::ATTR_SHWINGUIDE => static::ATTR_SHWINGUIDE,
-			DspCountries::ATTR_YNDXWTHRID => static::ATTR_YANDEX_WEATHER_ID,
-			DspCountries::ATTR_FLAGNAME   => static::ATTR_FLAG_IMAGE,
-			DspCountries::ATTR_WHNCRT     => static::ATTR_INSERT_STAMP,
-			DspCountries::ATTR_WHNUPD     => static::ATTR_UPDATE_STAMP,
+			static::ATTR_OLD_ID            => DspCountries::ATTR_ID,
+			static::ATTR_NAME              => DspCountries::ATTR_NAME,
+			static::ATTR_R_NAME            => DspCountries::ATTR_RNAME,
+			static::ATTR_E_NAME            => DspCountries::ATTR_ENAME,
+			static::ATTR_CODE              => DspCountries::ATTR_CODE,
+			static::ATTR_AURA_ID           => DspCountries::ATTR_ID_AURA,
+			static::ATTR_SHWINGUIDE        => DspCountries::ATTR_SHWINGUIDE,
+			static::ATTR_YANDEX_WEATHER_ID => DspCountries::ATTR_YNDXWTHRID,
+			static::ATTR_FLAG_IMAGE        => DspCountries::ATTR_FLAGNAME,
+			static::ATTR_INSERT_STAMP      => DspCountries::ATTR_WHNCRT,
+			static::ATTR_UPDATE_STAMP      => DspCountries::ATTR_WHNUPD,
 		];
 	}
 
@@ -118,11 +115,11 @@ class Country extends SiteModel implements ILinkedModels {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public static function getConvertedField($fieldName, $data) {
-		switch ($fieldName){
+		switch ($fieldName) {
 			case DspCountries::ATTR_ENAME:
 			case DspCountries::ATTR_RNAME:
 			case DspCountries::ATTR_CODE:
-				if  (empty($data)) {
+				if (empty($data)) {
 					return ' ';
 				}
 

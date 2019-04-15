@@ -76,12 +76,12 @@ class SyncData extends Component {
 			}
 
 			foreach ($oneDiff->attributes as $attribute => $val) {
-				if (!array_key_exists($attribute, $modelClass::getLinkedFields())) {
+				if (!array_key_exists($attribute, array_flip($modelClass::getLinkedFields()))) {
 					continue;
 				}
 
 				$filteredVal = $modelClass::getConvertedField($attribute, $val);
-				$field = $modelClass::getLinkedFields()[$attribute];
+				$field = array_flip($modelClass::getLinkedFields())[$attribute];
 				$model->$field = $filteredVal;
 			}
 

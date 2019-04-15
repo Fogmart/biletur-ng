@@ -5,7 +5,6 @@ namespace common\models;
 use common\components\SiteModel;
 use common\interfaces\ILinkedModels;
 use common\models\oracle\scheme\sns\DspOrgs;
-use yii\db\ActiveRecord;
 use yii\db\Expression;
 
 /**
@@ -155,31 +154,31 @@ class Org extends SiteModel implements ILinkedModels {
 	 */
 	public static function getLinkedFields() {
 		return [
-			DspOrgs::ATTR_ID         => static::ATTR_OLD_ID,
-			DspOrgs::ATTR_PREID      => static::ATTR_PRE_ID,
-			DspOrgs::ATTR_PARID      => static::ATTR_PARENT_ID,
-			DspOrgs::ATTR_ID1C       => static::ATTR_ID_1C,
-			DspOrgs::ATTR_IDAURA     => static::ATTR_AURA_ID,
-			DspOrgs::ATTR_NAME       => static::ATTR_NAME,
-			DspOrgs::ATTR_ORGTYPE    => static::ATTR_ORG_TYPE,
-			DspOrgs::ATTR_CRCCNVTYPE => static::ATTR_CURRENCY_CONVERT_TYPE,
-			DspOrgs::ATTR_ORGFORM    => static::ATTR_ORG_FORM,
-			DspOrgs::ATTR_INN        => static::ATTR_INN,
-			DspOrgs::ATTR_KPP        => static::ATTR_KPP,
-			DspOrgs::ATTR_OKONH      => static::ATTR_OKONH,
-			DspOrgs::ATTR_OKPO       => static::ATTR_OKPO,
-			DspOrgs::ATTR_GRP        => static::ATTR_GRP,
-			DspOrgs::ATTR_PHONE      => static::ATTR_PHONE,
-			DspOrgs::ATTR_FAX        => static::ATTR_FAX,
-			DspOrgs::ATTR_EMAIL      => static::ATTR_EMAIL,
-			DspOrgs::ATTR_ISSUPPLIER => static::ATTR_IS_SUPPLIER,
-			DspOrgs::ATTR_ISPAYALL   => static::ATTR_IS_PAY_ALL,
-			DspOrgs::ATTR_ISDEMO     => static::ATTR_IS_DEMO,
-			DspOrgs::ATTR_SRVFILID   => static::ATTR_SERVICE_FIL_ID,
-			DspOrgs::ATTR_ENDDATE    => static::ATTR_END_DATE,
-			DspOrgs::ATTR_WEBSITE    => static::ATTR_WEBSITE,
-			DspOrgs::ATTR_WHNCRT     => static::ATTR_INSERT_STAMP,
-			DspOrgs::ATTR_WHNUPD     => static::ATTR_UPDATE_STAMP,
+			static::ATTR_OLD_ID                => DspOrgs::ATTR_ID,
+			static::ATTR_PRE_ID                => DspOrgs::ATTR_PREID,
+			static::ATTR_PARENT_ID             => DspOrgs::ATTR_PARID,
+			static::ATTR_ID_1C                 => DspOrgs::ATTR_ID1C,
+			static::ATTR_AURA_ID               => DspOrgs::ATTR_IDAURA,
+			static::ATTR_NAME                  => DspOrgs::ATTR_NAME,
+			static::ATTR_ORG_TYPE              => DspOrgs::ATTR_ORGTYPE,
+			static::ATTR_CURRENCY_CONVERT_TYPE => DspOrgs::ATTR_CRCCNVTYPE,
+			static::ATTR_ORG_FORM              => DspOrgs::ATTR_ORGFORM,
+			static::ATTR_INN                   => DspOrgs::ATTR_INN,
+			static::ATTR_KPP                   => DspOrgs::ATTR_KPP,
+			static::ATTR_OKONH                 => DspOrgs::ATTR_OKONH,
+			static::ATTR_OKPO                  => DspOrgs::ATTR_OKPO,
+			static::ATTR_GRP                   => DspOrgs::ATTR_GRP,
+			static::ATTR_PHONE                 => DspOrgs::ATTR_PHONE,
+			static::ATTR_FAX                   => DspOrgs::ATTR_FAX,
+			static::ATTR_EMAIL                 => DspOrgs::ATTR_EMAIL,
+			static::ATTR_IS_SUPPLIER           => DspOrgs::ATTR_ISSUPPLIER,
+			static::ATTR_IS_PAY_ALL            => DspOrgs::ATTR_ISPAYALL,
+			static::ATTR_IS_DEMO               => DspOrgs::ATTR_ISDEMO,
+			static::ATTR_SERVICE_FIL_ID        => DspOrgs::ATTR_SRVFILID,
+			static::ATTR_END_DATE              => DspOrgs::ATTR_ENDDATE,
+			static::ATTR_WEBSITE               => DspOrgs::ATTR_WEBSITE,
+			static::ATTR_INSERT_STAMP          => DspOrgs::ATTR_WHNCRT,
+			static::ATTR_UPDATE_STAMP          => DspOrgs::ATTR_WHNUPD,
 		];
 	}
 
