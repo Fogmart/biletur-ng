@@ -27,17 +27,17 @@ $this->params['breadcrumbs'][] = $this->title;
 		'filterModel'  => $searchModel,
 		'columns'      => [
 			['class' => 'yii\grid\SerialColumn'],
-
 			'id',
 			'title',
-			//'seo_title',
-			//'seo_description',
-			// 'seo_keywords',
 			'slug',
-			//'html:ntext',
-			'is_published',
-			//'insert_stamp',
-			//'update_stamp',
+			[
+				'attribute' => 'is_published',
+				'value'     => function ($data) {
+					return $data->is_published === 1 ? 'Да' : 'Нет';
+				},
+			],
+			'insert_stamp',
+			'update_stamp',
 
 			['class' => 'yii\grid\ActionColumn'],
 		],

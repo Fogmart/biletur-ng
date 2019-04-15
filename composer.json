@@ -20,7 +20,7 @@
   "minimum-stability": "stable",
   "require": {
     "php": ">=7.3",
-    "yiisoft/yii2": "~2.0.14",
+    "yiisoft/yii2": "2.0.17",
     "yiisoft/yii2-bootstrap": "~2.0.0",
     "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
     "apaoww/yii2-oci8": "dev-master",
@@ -30,7 +30,9 @@
     "ext-curl": "*",
     "himiklab/yii2-ipgeobase-component" : "*",
     "rmrevin/yii2-fontawesome": "~3.3",
-    "yii2mod/yii2-rbac": "*"
+    "yii2mod/yii2-rbac": "*",
+    "2amigos/yii2-tinymce-widget" : "~1.1"
+
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",
