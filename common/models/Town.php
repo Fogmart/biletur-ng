@@ -1,5 +1,4 @@
 <?php
-
 namespace common\models;
 
 use common\components\SiteModel;

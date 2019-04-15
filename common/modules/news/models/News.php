@@ -95,16 +95,16 @@ class News extends ActiveRecord implements ILinkedModels {
 	 */
 	public static function getLinkedFields() {
 		return [
-			DspNews::ATTR_ID         => static::ATTR_OLD_ID,
-			DspNews::ATTR_NEWSBANDID => static::ATTR_CATEGORY_ID,
-			DspNews::ATTR_NEWSDATE   => static::ATTR_DATE,
-			DspNews::ATTR_TITLE      => static::ATTR_TITLE,
-			DspNews::ATTR_MESSAGE    => static::ATTR_TEXT,
-			DspNews::ATTR_VISIBLE    => static::ATTR_IS_PUBLISHED,
-			DspNews::ATTR_HOT        => static::ATTR_IS_HOT,
-			DspNews::ATTR_LANGCODE   => static::ATTR_LANG,
-			DspNews::ATTR_WHNCRT     => static::ATTR_INSERT_STAMP,
-			DspNews::ATTR_WHNCHNG    => static::ATTR_UPDATE_STAMP,
+			static::ATTR_OLD_ID       => DspNews::ATTR_ID,
+			static::ATTR_CATEGORY_ID  => DspNews::ATTR_NEWSBANDID,
+			static::ATTR_DATE         => DspNews::ATTR_NEWSDATE,
+			static::ATTR_TITLE        => DspNews::ATTR_TITLE,
+			static::ATTR_TEXT         => DspNews::ATTR_MESSAGE,
+			static::ATTR_IS_PUBLISHED => DspNews::ATTR_VISIBLE,
+			static::ATTR_IS_HOT       => DspNews::ATTR_HOT,
+			static::ATTR_LANG         => DspNews::ATTR_LANGCODE,
+			static::ATTR_INSERT_STAMP => DspNews::ATTR_WHNCRT,
+			static::ATTR_UPDATE_STAMP => DspNews::ATTR_WHNCHNG,
 		];
 	}
 
