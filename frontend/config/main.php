@@ -1,4 +1,5 @@
 <?php
+use common\modules\pages\components\StaticPageUrlRule;
 $params = array_merge(
 	require __DIR__ . '/../../common/config/params.php',
 	require __DIR__ . '/../../common/config/params-local.php',
@@ -42,15 +43,17 @@ return [
 			'showScriptName'  => false,
 			'suffix' => '/',
 			'rules'           => [
+
 				''                                                              => 'site/index',
-				'<module:[\w-]+>/<controller:[\w-]+>/<action:[\w-]+>/<id:\d+>]' => '<module>/<controller>/<action>',
-				'<controller:\w+>/<action:\w+>/'                                => '<controller>/<action>',
-				'message-widget/<object>/<objectId>/<userName>'                 => 'message/message/widget',
 				[
 					'pattern'   => 'page',
 					'route'     => 'page',
-					'class'     => \common\modules\pages\components\StaticPageUrlRule::class,
+					'class'     => StaticPageUrlRule::class,
 				],
+				'<module:[\w-]+>/<controller:[\w-]+>/<action:[\w-]+>/<id:\d+>]' => '<module>/<controller>/<action>',
+				'<controller:\w+>/<action:\w+>/'                                => '<controller>/<action>',
+				'message-widget/<object>/<objectId>/<userName>'                 => 'message/message/widget',
+
 			],
 		],
 	],

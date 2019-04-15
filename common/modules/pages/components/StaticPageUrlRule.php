@@ -4,12 +4,14 @@ namespace common\modules\pages\components;
 use common\base\helpers\Dump;
 use common\modules\pages\models\Page;
 use yii\base\BaseObject;
+use yii\base\Component;
 use yii\caching\TagDependency;
 use yii\helpers\ArrayHelper;
+use yii\web\UrlRule;
 use yii\web\UrlRuleInterface;
 use Yii;
 
-class StaticPageUrlRule extends BaseObject implements UrlRuleInterface {
+class StaticPageUrlRule extends UrlRule implements UrlRuleInterface {
 
 	/**
 	 * @inheritDoc
@@ -19,13 +21,15 @@ class StaticPageUrlRule extends BaseObject implements UrlRuleInterface {
 	public function parseRequest($manager, $request) {
 		$pathInfo = $request->pathInfo;
 		$usingSuffix = false;
-Dump::dDie($pathInfo);
+
 		if ('/' !== substr($pathInfo, -1)) {
 			$pathInfo .= '/';
 			$usingSuffix = true;
 		}
 
 		$pathsMap = $this->_getPathsMap();
+
+		Dump::dDie([$pathInfo, $pathsMap]);
 
 		$id = array_search($pathInfo, $pathsMap);
 
@@ -49,7 +53,7 @@ Dump::dDie($pathInfo);
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function createUrl($manager, $route, $params) {
-		Dump::dDie($route);
+
 		$pathsMap = $this->_getPathsMap();
 		if ($route === 'static-page/index' && isset($params['id'], $pathsMap[$params['id']])) {
 			return $pathsMap[$params['id']] . '/';
