@@ -23,7 +23,7 @@ use dosamigos\tinymce\TinyMce;
     <?= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
 
 	<?= $form->field($model, 'html')->widget(TinyMce::class, [
-		'options' => ['rows' => 6],
+		'options' => ['rows' => 30],
 		'language' => 'ru',
 		'clientOptions' => [
 			'plugins' => [

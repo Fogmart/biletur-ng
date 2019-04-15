@@ -35,7 +35,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'seo_description',
             'seo_keywords',
             'slug',
-            'html:ntext',
             'is_published',
             'insert_stamp',
             'update_stamp',

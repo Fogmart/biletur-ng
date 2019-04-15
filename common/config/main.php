@@ -74,6 +74,7 @@ return [
 			'pages/page/*',
 			'tour/*',
 			'gii/*',
+			'static-page/*',
 		],
 	],
 ];

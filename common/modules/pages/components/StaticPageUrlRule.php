@@ -29,8 +29,6 @@ class StaticPageUrlRule extends UrlRule implements UrlRuleInterface {
 
 		$pathsMap = $this->_getPathsMap();
 
-		Dump::dDie([$pathInfo, $pathsMap]);
-
 		$id = array_search($pathInfo, $pathsMap);
 
 		if (false === $id) {
@@ -43,8 +41,8 @@ class StaticPageUrlRule extends UrlRule implements UrlRuleInterface {
 		}
 
 		$_GET['id'] = $id;
-
-		return ['page/static-page/index', []];
+		//return ['site/index', []];
+		return ['static-page/index', []];
 	}
 
 	/**
