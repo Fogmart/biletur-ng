@@ -2,7 +2,7 @@
 
 namespace common\modules\news\models;
 
-use common\interfaces\LinkedModels;
+use common\interfaces\ILinkedModels;
 use common\models\oracle\scheme\sns\DspNews;
 use Yii;
 use yii\db\ActiveRecord;
@@ -26,7 +26,7 @@ use yii\db\ActiveRecord;
  * @property string $insert_stamp      <= $WHNCRT
  * @property string $update_stamp      <= $WHNCHNG
  */
-class News extends ActiveRecord implements LinkedModels {
+class News extends ActiveRecord implements ILinkedModels {
 
 	public static function tableName() {
 		return '{{%news}}';

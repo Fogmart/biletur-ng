@@ -3,7 +3,7 @@
 namespace common\models;
 
 use common\components\SiteModel;
-use common\interfaces\LinkedModels;
+use common\interfaces\ILinkedModels;
 use common\models\oracle\scheme\sns\DspTowns;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
@@ -37,7 +37,7 @@ use yii\db\Expression;
  * @property string $insert_stamp           <= $WHNCRT
  * @property string $update_stamp           <= $WHNUPD
  */
-class Town extends SiteModel implements LinkedModels {
+class Town extends SiteModel implements ILinkedModels {
 
 	const ATTR_ID = 'id';
 	const ATTR_OLD_ID = 'old_id';

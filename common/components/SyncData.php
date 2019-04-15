@@ -9,16 +9,18 @@ use yii\caching\TagDependency;
 use yii\db\Expression;
 
 /**
- * Класс для синхронизации данных с Ораклом ДСП
+ * Класс для синхронизации данных на сайте с Ораклом ДСП
+ *
+ * @see \common\interfaces\ILinkedModels
+ *
  *
  * @author  Исаков Владислав <visakov@biletur.ru>
  */
 class SyncData extends Component {
 
-
 	/**
-	 * @param \common\interfaces\LinkedModels | \yii\db\ActiveRecord | string $modelClass
-	 * @param bool                                                            $byDate
+	 * @param \common\interfaces\ILinkedModels | \yii\db\ActiveRecord | string $modelClass
+	 * @param bool                                                             $byDate
 	 *
 	 * @author  Исаков Владислав <visakov@biletur.ru>
 	 */
@@ -119,7 +121,6 @@ class SyncData extends Component {
 	 * @return  void
 	 *
 	 */
-
 	public static function showStatus($done, $total, $size = 30) {
 
 		static $start_time;

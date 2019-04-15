@@ -6,7 +6,7 @@ namespace common\interfaces;
  *
  * Интерфейс необходим для синхронизации данныз в моделях оракла и постгрес.
  */
-interface LinkedModels {
+interface ILinkedModels {
 
 	/**
 	 * Поле с ид в оракле дсп
@@ -31,7 +31,7 @@ interface LinkedModels {
 	 *
 	 * @return string
 	 *
-	 * @author Исаков Владислав <isakov.vi@dns-shop.ru>
+	 * @author Исаков Владислав
 	 */
 	public static function getInternalInvalidateField();
 
@@ -40,7 +40,7 @@ interface LinkedModels {
 	 *
 	 * @return string
 	 *
-	 * @author Исаков Владислав <isakov.vi@dns-shop.ru>
+	 * @author Исаков Владислав
 	 */
 	public static function getOuterInvalidateField();
 
@@ -49,7 +49,7 @@ interface LinkedModels {
 	 *
 	 * @return array
 	 *
-	 * @author Исаков Владислав <isakov.vi@dns-shop.ru>
+	 * @author Исаков Владислав
 	 */
 	public static function getLinkedFields();
 
@@ -62,7 +62,7 @@ interface LinkedModels {
 	 *
 	 * @return mixed
 	 *
-	 * @author Исаков Владислав <isakov.vi@dns-shop.ru>
+	 * @author Исаков Владислав
 	 */
 	public static function getConvertedField($fieldName, $data);
 }
