@@ -20,13 +20,16 @@ class FrontendController extends Controller {
 	}
 
 	public function beforeAction($action) {
-		$cacheKey = Yii::$app->cache->buildKey([__METHOD__]);
+		$url = Yii::$app->request->url;
+
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $url]);
 		/** @var \common\modules\seo\models\Seo $seo */
 		$seo = Yii::$app->cache->get($cacheKey);
 		if (false === $seo) {
 			/** @var \common\modules\seo\models\Seo $seo */
 			$seo = Seo::find()->where([
-				Seo::ATTR_URL => 'https://biletur-ng.loc/avia/',
+				'LIKE',
+				Seo::ATTR_URL, $url,
 			])->one();
 
 			Yii::$app->cache->set($cacheKey, $seo, null, new TagDependency(['tags' => Seo::class]));

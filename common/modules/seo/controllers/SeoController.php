@@ -82,7 +82,7 @@ class SeoController extends BackendController {
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			TagDependency::invalidate(Yii::$app->cache, [Seo::class]);
 
-			return $this->redirect(['view', 'id' => $model->id]);
+			return $this->redirect(['index']);
 		}
 
 		return $this->render('create', [
