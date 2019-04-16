@@ -72,6 +72,7 @@ return [
 			'rail-road/*',
 			'profile/*',
 			'pages/page/*',
+			'seo/seo/*',
 			'tour/*',
 			'gii/*',
 			'static-page/*',

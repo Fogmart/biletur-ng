@@ -25,6 +25,7 @@ return [
 				'app\migrations',
 				'modules\message\migrations',
 				'modules\pages\migrations',
+				'modules\seo\migrations',
 			],
 		],
 	],
