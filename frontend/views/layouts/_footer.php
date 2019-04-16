@@ -38,6 +38,7 @@ use frontend\controllers\SiteController;
                         <li><a href="<?= SiteController::getActionUrl(SiteController::ACTION_LOGIN) ?>">Вход</a></li>
                     <?php else: ?>
                         <li><a href="<?= SiteController::getActionUrl(SiteController::ACTION_LOGOUT) ?>">Выход</a></li>
+                        <li><a href="/internal/">ДСП</a></li>
                     <?php endif ?>
                 </ul>
             </div>

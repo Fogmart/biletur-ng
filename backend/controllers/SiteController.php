@@ -11,6 +11,8 @@ use yii\filters\VerbFilter;
  * Site controller
  */
 class SiteController extends BackendController {
+	const ACTION_INDEX = 'index';
+
 	/**
 	 * {@inheritdoc}
 	 */
