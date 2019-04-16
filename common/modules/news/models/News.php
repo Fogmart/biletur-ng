@@ -6,7 +6,6 @@ use common\components\SiteModel;
 use common\interfaces\ILinkedModels;
 use common\models\oracle\scheme\sns\DspNews;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * Модель Новостей

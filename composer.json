@@ -31,8 +31,11 @@
     "himiklab/yii2-ipgeobase-component" : "*",
     "rmrevin/yii2-fontawesome": "~3.3",
     "yii2mod/yii2-rbac": "*",
-    "2amigos/yii2-tinymce-widget" : "~1.1"
-
+    "2amigos/yii2-tinymce-widget" : "~1.1",
+    "himiklab/yii2-sitemap-module": "*",
+    "himiklab/yii2-recaptcha-widget": "*",
+    "sem-soft/yii2-telegram": "*",
+    "phpconsole/phpconsole": "3.*"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",

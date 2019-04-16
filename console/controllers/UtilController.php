@@ -39,8 +39,7 @@ class UtilController extends Controller {
 
 		$db = Instance::ensure($db, Connection::class);
 		$tableSchema = $db->schema->getTableSchema($this->createTb);
-		//print_r($tableSchema);
-		//die;
+
 		$classFile = '<?php ' . PHP_EOL . PHP_EOL;
 		if ($this->scheme === 'sns' || $this->scheme === 'arr' || $this->scheme === 't3' || $this->scheme === 'tour') {
 			$classFile .= 'namespace common\models\oracle\scheme\\' . $this->scheme . ';' . PHP_EOL . PHP_EOL;
