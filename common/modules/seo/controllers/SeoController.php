@@ -18,6 +18,8 @@ use yii\filters\AccessControl;
  */
 class SeoController extends BackendController {
 
+	const ACTION_INDEX = 'index';
+
 	/**
 	 * {@inheritdoc}
 	 */
