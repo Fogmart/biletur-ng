@@ -2,9 +2,11 @@
 
 namespace common\components;
 
-use Yii;
-use yii\web\Controller;
 use common\base\helpers\StringHelper;
+use common\modules\seo\models\Seo;
+use Yii;
+use yii\caching\TagDependency;
+use yii\web\Controller;
 
 /**
  * @author isakov.v
@@ -17,17 +19,63 @@ class FrontendController extends Controller {
 		parent::init();
 	}
 
+	public function beforeAction($action) {
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__]);
+		/** @var \common\modules\seo\models\Seo $seo */
+		$seo = Yii::$app->cache->get($cacheKey);
+		if (false === $seo) {
+			/** @var \common\modules\seo\models\Seo $seo */
+			$seo = Seo::find()->where([
+				Seo::ATTR_URL => 'https://biletur-ng.loc/avia/',
+			])->one();
+
+			Yii::$app->cache->set($cacheKey, $seo, null, new TagDependency(['tags' => Seo::class]));
+		}
+
+		$description = '';
+		$title = '';
+		$keywords = '';
+
+		if (null !== $seo) {
+			$description = $seo->seo_description;
+			$title = $seo->seo_title;
+			$keywords = $seo->seo_keywords;
+		}
+
+		$this->view->title = $title . ' - ' . Yii::$app->name;
+
+		$this->view->registerMetaTag([
+				'name'    => 'title',
+				'content' => $title
+			]
+		);
+
+		$this->view->registerMetaTag([
+				'name'    => 'keywords',
+				'content' => $keywords
+			]
+		);
+
+		$this->view->registerMetaTag([
+				'name'    => 'description',
+				'content' => $description
+			]
+		);
+
+		return parent::beforeAction($action);
+	}
+
 
 	/**
 	 * Получение ссылки на указанное действие исходя из контроллера.
-	 *
-	 * @author Isakov Vladislav
 	 *
 	 * @param string $actionName   Название действия
 	 * @param array  $actionParams Дополнительные параметры
 	 *
 	 *
 	 * @return string
+	 * @author Isakov Vladislav
+	 *
 	 */
 	public static function getActionUrl($actionName, array $actionParams = []) {
 		$prefix = null;

@@ -6,6 +6,7 @@ use backend\controllers\BackendController;
 use common\modules\seo\models\SearchSeo;
 use common\modules\seo\models\Seo;
 use Yii;
+use yii\caching\TagDependency;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -77,6 +78,8 @@ class SeoController extends BackendController {
 		$model = new Seo();
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			TagDependency::invalidate(Yii::$app->cache, [Seo::class]);
+
 			return $this->redirect(['view', 'id' => $model->id]);
 		}
 
@@ -98,6 +101,8 @@ class SeoController extends BackendController {
 		$model = $this->findModel($id);
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			TagDependency::invalidate(Yii::$app->cache, [Seo::class]);
+
 			return $this->redirect(['view', 'id' => $model->id]);
 		}
 
@@ -117,6 +122,7 @@ class SeoController extends BackendController {
 	 */
 	public function actionDelete($id) {
 		$this->findModel($id)->delete();
+		TagDependency::invalidate(Yii::$app->cache, [Seo::class]);
 
 		return $this->redirect(['index']);
 	}

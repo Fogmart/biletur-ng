@@ -1,9 +1,10 @@
 <?php
-
 namespace common\modules\seo\models;
 
 use common\components\SiteModel;
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 use yii\validators\DefaultValueValidator;
 use yii\validators\RequiredValidator;
 use yii\validators\UrlValidator;
@@ -30,11 +31,37 @@ class Seo extends SiteModel {
 	const ATTR_INSERT_STAMP = 'insert_stamp';
 	const ATTR_UPDATE_STAMP = 'update_stamp';
 
+	/**
+	 * @return array
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function behaviors() {
+		return [
+			[
+				'class'              => TimestampBehavior::class,
+				'createdAtAttribute' => 'insert_stamp',
+				'updatedAtAttribute' => 'update_stamp',
+				'value'              => new Expression('sysdate'),
+			],
+		];
+	}
+
+	/**
+	 * @inheritDoc
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
 
 	public static function tableName() {
 		return 'seo';
 	}
 
+	/**
+	 * @inheritDoc
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
 	public function attributeLabels() {
 		return [
 			static::ATTR_ID              => 'id',
@@ -48,6 +75,11 @@ class Seo extends SiteModel {
 		];
 	}
 
+	/**
+	 * @inheritDoc
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
 	public function rules() {
 		return [
 			[static::ATTR_URL, RequiredValidator::class],
@@ -59,4 +91,9 @@ class Seo extends SiteModel {
 			[static::ATTR_USER_ID, DefaultValueValidator::class, 'value' => Yii::$app->user->id],
 		];
 	}
+
+	public static function registerMeta($url) {
+		$meta = static::find()->one([static::ATTR_URL => $url])->one();
+	}
+
 }
