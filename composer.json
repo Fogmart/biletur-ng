@@ -35,7 +35,8 @@
     "himiklab/yii2-sitemap-module": "*",
     "himiklab/yii2-recaptcha-widget": "*",
     "sem-soft/yii2-telegram": "*",
-    "phpconsole/phpconsole": "3.*"
+    "phpconsole/phpconsole": "3.*",
+    "antkaz/yii2-vue": "~1.0"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",
