@@ -26,6 +26,9 @@ AppAsset::register($this);
 <div class="wrap">
     <div class="container">
 		<?= $this->render('_header') ?>
+        <div class="left-menu">
+
+        </div>
         <div class="inner-container text-center">
 			<?= $content ?>
         </div>
