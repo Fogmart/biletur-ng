@@ -2,12 +2,13 @@
 namespace frontend\controllers;
 
 use common\components\FrontendController;
+use common\components\FrontendMenuController;
 
 /**
  *
  * @author  Исаков Владислав <visakov@biletur.ru>
  */
-class TourController extends FrontendController {
+class TourController extends FrontendMenuController {
 
 	const ACTION_INDEX = '';
 

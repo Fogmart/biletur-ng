@@ -5,6 +5,9 @@
 /* @var $content string */
 
 use frontend\assets\AppAsset;
+use frontend\controllers\AviaController;
+use frontend\controllers\RailRoadController;
+use frontend\controllers\TourController;
 use yii\helpers\Html;
 
 AppAsset::register($this);
@@ -26,12 +29,27 @@ AppAsset::register($this);
 <div class="wrap">
     <div class="container container-with-menu">
         <div class="left-menu">
-
+            <ul class="main-menu">
+                <li><a href="<?= AviaController::getActionUrl(AviaController::ACTION_INDEX) ?>">Авиабилеты</a></li>
+                <li><a href="<?= RailRoadController::getActionUrl(RailRoadController::ACTION_INDEX) ?>">Ж/Д Билеты</a></li>
+                <li><a href="<?= TourController::getActionUrl(TourController::ACTION_INDEX) ?>">Туры</a></li>
+                <li>Отели</li>
+                <li>Экскурсии</li>
+                <li>Круизы</li>
+                <li>Визы</li>
+                <li>Страхование</li>
+            </ul>
+            <ul class="dop-menu">
+                <li><a href="/test-page-2/">Корпоративное обслуживание</a></li>
+                <li>Обратная связь</li>
+                <li>Новости</li>
+                <li>Личный кабинет</li>
+            </ul>
         </div>
         <div style="margin-left: 220px">
-		<?= $this->render('_header') ?>
+			<?= $this->render('_header') ?>
         </div>
-        <div class="inner-container text-center">
+        <div class="inner-container">
 			<?= $content ?>
         </div>
     </div>

@@ -3,13 +3,14 @@
 namespace frontend\controllers;
 
 use common\components\FrontendController;
+use common\components\FrontendMenuController;
 use yii2mod\rbac\filters\AccessControl;
 
 /**
  *
  * @author  Исаков Владислав <visakov@biletur.ru>
  */
-class ProfileController extends FrontendController {
+class ProfileController extends FrontendMenuController {
 
 	const ACTION_INDEX = '';
 

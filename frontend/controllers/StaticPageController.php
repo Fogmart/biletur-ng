@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\components\FrontendController;
+use common\components\FrontendMenuController;
 use common\modules\pages\models\Page;
 use common\modules\seo\models\Seo;
 use Yii;
@@ -13,7 +14,7 @@ use yii\caching\TagDependency;
  *
  * @author  Исаков Владислав <visakov@biletur.ru>
  */
-class StaticPageController extends FrontendController {
+class StaticPageController extends FrontendMenuController {
 
 	/**
 	 * Отображение статической страницы

@@ -1,5 +1,7 @@
 <?php
+
 use common\modules\pages\components\StaticPageUrlRule;
+
 $params = array_merge(
 	require __DIR__ . '/../../common/config/params.php',
 	require __DIR__ . '/../../common/config/params-local.php',
@@ -9,7 +11,7 @@ $params = array_merge(
 
 return [
 	'id'                  => 'app-frontend',
-	'name'                  => 'Всероссийская сеть Билетур',
+	'name'                => 'Всероссийская сеть Билетур',
 	'basePath'            => dirname(__DIR__),
 	'bootstrap'           => ['log'],
 	'controllerNamespace' => 'frontend\controllers',
@@ -42,19 +44,20 @@ return [
 		'urlManager'   => [
 			'enablePrettyUrl' => true,
 			'showScriptName'  => false,
-			'suffix' => '/',
+			'suffix'          => '/',
 			'rules'           => [
-
 				''                                                              => 'site/index',
 				[
-					'pattern'   => 'page',
-					'route'     => 'page',
-					'class'     => StaticPageUrlRule::class,
+					'pattern' => 'page',
+					'route'   => 'page',
+					'class'   => StaticPageUrlRule::class,
 				],
 				'<module:[\w-]+>/<controller:[\w-]+>/<action:[\w-]+>/<id:\d+>]' => '<module>/<controller>/<action>',
 				'<controller:\w+>/<action:\w+>/'                                => '<controller>/<action>',
 				'message-widget/<object>/<objectId>/<userName>'                 => 'message/message/widget',
-
+				'Agency'                                                        => 'old-links/agency',
+				'TimeTbl'                                                       => 'old-links/avia',
+				'Passenger/vvo/railway_schedule.asp'                            => 'old-links/rail-road',
 			],
 		],
 	],

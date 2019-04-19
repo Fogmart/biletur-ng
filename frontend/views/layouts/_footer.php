@@ -7,7 +7,7 @@ use frontend\controllers\SiteController;
         <div class="row">
             <div class="col-md-3">
                 <ul class="list-unstyled">
-                    <li><a href="#">О компании</a></li>
+                    <li><a href="/about/">О компании</a></li>
                     <li><a href="#">Корпоративное обслуживание</a></li>
                     <li><a href="#">Партнерам</a></li>
                     <li><a href="#">Новости</a></li>
