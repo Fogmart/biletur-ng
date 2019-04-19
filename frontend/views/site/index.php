@@ -9,7 +9,7 @@ use frontend\controllers\RailRoadController;
 $this->title = 'Билетур';
 ?>
 <div class="row">
-    <div class="row column-5">
+    <div class="column-5">
         <div class="col-xs-12 text-center">
             <div class="banner-hr-block">
 

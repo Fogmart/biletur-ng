@@ -24,6 +24,3 @@ use frontend\controllers\SiteController;
         </div>
     </div>
 </div>
-<div class="row hr-del-line">
-    <div class="col-xs-12"></div>
-</div>

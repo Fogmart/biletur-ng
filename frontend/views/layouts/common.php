@@ -24,10 +24,12 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 <div class="wrap">
-    <div class="container">
-		<?= $this->render('_header') ?>
+    <div class="container container-with-menu">
         <div class="left-menu">
 
+        </div>
+        <div style="margin-left: 220px">
+		<?= $this->render('_header') ?>
         </div>
         <div class="inner-container text-center">
 			<?= $content ?>

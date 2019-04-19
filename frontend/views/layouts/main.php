@@ -25,8 +25,10 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 <div class="wrap">
     <div class="container">
-		<?= $this->render('_header') ?>
-        <div class="inner-container text-center">
+        <div style="padding-left: 20px; padding-right: 20px;">
+			<?= $this->render('_header') ?>
+        </div>
+        <div class="inner-index-container text-center">
 			<?= $content ?>
         </div>
     </div>

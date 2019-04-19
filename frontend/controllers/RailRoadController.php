@@ -5,10 +5,9 @@
 
 namespace frontend\controllers;
 
+use common\components\FrontendMenuController;
 
-use common\components\FrontendController;
-
-class RailRoadController extends FrontendController {
+class RailRoadController extends FrontendMenuController {
 
 	const ACTION_INDEX = '';
 
