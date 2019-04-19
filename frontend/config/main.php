@@ -55,9 +55,14 @@ return [
 				'<module:[\w-]+>/<controller:[\w-]+>/<action:[\w-]+>/<id:\d+>]' => '<module>/<controller>/<action>',
 				'<controller:\w+>/<action:\w+>/'                                => '<controller>/<action>',
 				'message-widget/<object>/<objectId>/<userName>'                 => 'message/message/widget',
+
+				//Редиректы для старых ссылок------------------------------------------------------------
 				'Agency'                                                        => 'old-links/agency',
 				'TimeTbl'                                                       => 'old-links/avia',
+				'TimeTbl/pkc/delays.asp'                                        => 'old-links/avia',
+				'TimeTbl/vvo/delays.asp'                                        => 'old-links/avia',
 				'Passenger/vvo/railway_schedule.asp'                            => 'old-links/rail-road',
+				//---------------------------------------------------------------------------------------
 			],
 		],
 	],

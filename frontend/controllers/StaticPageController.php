@@ -2,7 +2,6 @@
 
 namespace frontend\controllers;
 
-use common\components\FrontendController;
 use common\components\FrontendMenuController;
 use common\modules\pages\models\Page;
 use common\modules\seo\models\Seo;
@@ -45,7 +44,7 @@ class StaticPageController extends FrontendMenuController {
 			/** @var \common\modules\seo\models\Seo $seo */
 			$seo = Seo::find()->where([
 				'LIKE',
-				Seo::ATTR_URL, $url ,
+				Seo::ATTR_URL, $url,
 			])->one();
 
 			Yii::$app->cache->set($cacheKey, $seo, null, new TagDependency(['tags' => Seo::class]));

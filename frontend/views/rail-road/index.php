@@ -4,6 +4,9 @@
  */
 
 ?>
+<div class="content-header text-center">
+    <h1>Поиск ж/д билетов</h1>
+</div>
 <div class="row">
     <div class="col-xs-12">
         <div class="block-panel">

@@ -44,6 +44,7 @@ AppAsset::register($this);
                 <li>Обратная связь</li>
                 <li>Новости</li>
                 <li>Личный кабинет</li>
+                <li>Вакансии</li>
             </ul>
         </div>
         <div style="margin-left: 220px">

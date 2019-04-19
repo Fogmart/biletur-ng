@@ -85,6 +85,7 @@ class SiteController extends FrontendController {
 	 * @return mixed
 	 */
 	public function actionLogin() {
+		$this->layout = 'common';
 		if (!Yii::$app->user->isGuest) {
 			return $this->goHome();
 		}

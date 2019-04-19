@@ -45,8 +45,18 @@ body {
 			padding: 20px 15px 20px 15px;
 			border-radius: 8px;
 		}
-	}
 
+		.content-header {
+			width: 100%;
+
+			h1 {
+				font-size: 19px;
+				font-weight: bold;
+				text-transform: uppercase;
+				color: #fff;
+			}
+		}
+	}
 }
 
 .container.container-with-menu {
