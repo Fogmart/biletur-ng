@@ -62,6 +62,8 @@ return [
 				'TimeTbl/pkc/delays.asp'                                        => 'old-links/avia',
 				'TimeTbl/vvo/delays.asp'                                        => 'old-links/avia',
 				'Passenger/vvo/railway_schedule.asp'                            => 'old-links/rail-road',
+				'Agency/Rekvizit.asp'                                           => 'old-links/accounts',
+				'Agency/foradvertisers.asp'                                     => 'old-links/advertising',
 				//---------------------------------------------------------------------------------------
 			],
 		],

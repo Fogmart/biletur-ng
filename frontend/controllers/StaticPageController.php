@@ -81,6 +81,6 @@ class StaticPageController extends FrontendMenuController {
 			]
 		);
 
-		return $this->render('static', ['html' => $page->html]);
+		return $this->render('static', ['html' => $page->html, 'title' => $page->seo_title]);
 	}
 }

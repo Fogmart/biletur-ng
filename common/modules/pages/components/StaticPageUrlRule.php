@@ -1,15 +1,13 @@
 <?php
+
 namespace common\modules\pages\components;
 
-use common\base\helpers\Dump;
 use common\modules\pages\models\Page;
-use yii\base\BaseObject;
-use yii\base\Component;
+use Yii;
 use yii\caching\TagDependency;
 use yii\helpers\ArrayHelper;
 use yii\web\UrlRule;
 use yii\web\UrlRuleInterface;
-use Yii;
 
 class StaticPageUrlRule extends UrlRule implements UrlRuleInterface {
 
@@ -19,6 +17,7 @@ class StaticPageUrlRule extends UrlRule implements UrlRuleInterface {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function parseRequest($manager, $request) {
+
 		$pathInfo = $request->pathInfo;
 		$usingSuffix = false;
 
@@ -41,7 +40,7 @@ class StaticPageUrlRule extends UrlRule implements UrlRuleInterface {
 		}
 
 		$_GET['id'] = $id;
-		//return ['site/index', []];
+
 		return ['static-page/index', []];
 	}
 
@@ -66,11 +65,15 @@ class StaticPageUrlRule extends UrlRule implements UrlRuleInterface {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	private function _getPathsMap() {
-		$cacheKey = Yii::$app->cache->buildKey(['static-rules']);
+		$cacheKey = Yii::$app->cache->buildKey(['static-rules', 2]);
 		$pathsMap = Yii::$app->cache->get($cacheKey);
+
 		if (false === $pathsMap) {
 			$pathsMap = Page::find()->where([Page::ATTR_IS_PUBLISHED => true])->all();
 			$pathsMap = ArrayHelper::map($pathsMap, 'id', 'slug');
+			foreach ($pathsMap as $id => $path) {
+				$pathsMap[$id] = $path . '/';
+			}
 
 			Yii::$app->cache->set($cacheKey, $pathsMap, null, new TagDependency(['tags' => Page::class]));
 		}

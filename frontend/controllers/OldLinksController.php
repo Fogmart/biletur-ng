@@ -22,6 +22,14 @@ class OldLinksController extends Controller {
 		return $this->redirect(['/about/'], 301);
 	}
 
+	public function actionAccounts() {
+		return $this->redirect(['/about/accounts/'], 301);
+	}
+
+	public function actionAdvertising() {
+		return $this->redirect(['/about/advertising/'], 301);
+	}
+
 	public function actionAvia() {
 		return $this->redirect(['/avia/'], 301);
 	}

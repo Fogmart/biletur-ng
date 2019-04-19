@@ -30,13 +30,15 @@
     "ext-curl": "*",
     "himiklab/yii2-ipgeobase-component" : "*",
     "rmrevin/yii2-fontawesome": "~3.3",
-    "yii2mod/yii2-rbac": "*",
     "2amigos/yii2-tinymce-widget" : "~1.1",
     "himiklab/yii2-sitemap-module": "*",
     "himiklab/yii2-recaptcha-widget": "*",
     "sem-soft/yii2-telegram": "*",
     "phpconsole/phpconsole": "3.*",
-    "antkaz/yii2-vue": "~1.0"
+    "antkaz/yii2-vue": "~1.0",
+    "2amigos/yii2-file-upload-widget": "~1.0",
+    "mdmsoft/yii2-admin": "~2.0",
+    "johnitvn/yii2-rbac-plus": "*"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",
