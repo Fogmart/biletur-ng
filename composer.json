@@ -38,7 +38,7 @@
     "antkaz/yii2-vue": "~1.0",
     "2amigos/yii2-file-upload-widget": "~1.0",
     "mdmsoft/yii2-admin": "~2.0",
-    "johnitvn/yii2-rbac-plus": "*"
+    "johnitvn/yii2-rbac-plus": "*",
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",
