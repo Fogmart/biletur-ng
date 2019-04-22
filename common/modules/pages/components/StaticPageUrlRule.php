@@ -80,5 +80,4 @@ class StaticPageUrlRule extends UrlRule implements UrlRuleInterface {
 
 		return $pathsMap;
 	}
-
 }
