@@ -41,5 +41,4 @@ use dosamigos\tinymce\TinyMce;
     </div>
 
     <?php ActiveForm::end(); ?>
-
 </div>

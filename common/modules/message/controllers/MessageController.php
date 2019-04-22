@@ -38,6 +38,7 @@ class MessageController extends FrontendController {
 			$newMessage->user_name = $newMessage->user_name;
 
 			Yii::$app->cache->delete($cacheKey);
+
 			if ($newMessage->validate()) {
 				$newMessage->save();
 			}
