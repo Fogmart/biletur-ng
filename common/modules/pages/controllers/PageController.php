@@ -22,15 +22,6 @@ class PageController extends BackendController {
 	 */
 	public function behaviors() {
 		return [
-			'access' => [
-				'class' => AccessControl::class,
-				'rules' => [
-					[
-						'allow' => true,
-						'roles' => ['@'] //Разрешаем доступ только залогиненным пользователям, остальные при попытке зайти отправляются на логин
-					]
-				]
-			],
 			'verbs'  => [
 				'class'   => VerbFilter::class,
 				'actions' => [

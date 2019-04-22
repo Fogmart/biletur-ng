@@ -15,8 +15,15 @@ return [
 	'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
 
 	'modules'    => [
-		'rbac'    => [
-			'class' => 'yii2mod\rbac\Module',
+		'rbac'     => [
+			'class'                  => 'johnitvn\rbacplus\Module',
+			/** Определяем права доступа к модулю управления правами юзеров */
+			'beforeCreateController' => function ($route) {
+				return Yii::$app->user->can('admin');
+			},
+			'beforeAction'           => function ($action) {
+				return true;
+			}
 		],
 		'news'    => [
 			'class' => MNews::class,
@@ -32,9 +39,9 @@ return [
 		]
 	],
 	'components' => [
-		'user'        => [
-			'identityClass'   => \common\models\User::class,
-			'enableAutoLogin' => true,
+		'user'      => [
+			'identityClass' => 'mdm\admin\models\User',
+			'loginUrl'      => ['site/login'],
 		],
 		'env'         => [
 			'class'              => common\components\Environment::class,
@@ -61,22 +68,6 @@ return [
 		'authManager' => [
 			'class'        => 'yii\rbac\DbManager',
 			'defaultRoles' => ['guest', 'user'],
-		],
-	],
-	'as access'  => [
-		'class'        => yii2mod\rbac\filters\AccessControl::class,
-		'allowActions' => [
-			'site/*',
-			'debug/*',
-			'avia/*',
-			'rail-road/*',
-			'profile/*',
-			'pages/page/*',
-			'seo/seo/*',
-			'tour/*',
-			'gii/*',
-			'static-page/*',
-			'old-links/*'
 		],
 	],
 ];
