@@ -5,6 +5,7 @@
 
 namespace frontend\controllers;
 
+use common\base\helpers\Dump;
 use common\components\FrontendMenuController;
 
 class RailRoadController extends FrontendMenuController {
@@ -19,8 +20,6 @@ class RailRoadController extends FrontendMenuController {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function actionIndex() {
-
-
 		return $this->render('index');
 	}
 }

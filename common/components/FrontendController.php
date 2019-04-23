@@ -9,10 +9,11 @@ use yii\caching\TagDependency;
 use yii\web\Controller;
 
 /**
- * @author isakov.v
- * Контроллер, поддерживающий мультиязычность,
- * модифицирует путь до вьюшки в зависимости от языка окружения
+ * Фронтенд контроллер
  *
+ * @package common\components
+ *
+ * @author  Исаков Владислав <visakov@biletur.ru>
  */
 class FrontendController extends Controller {
 	public function init() {
