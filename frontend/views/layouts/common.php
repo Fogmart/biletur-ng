@@ -8,6 +8,7 @@ use frontend\assets\AppAsset;
 use frontend\controllers\AviaController;
 use frontend\controllers\RailRoadController;
 use frontend\controllers\TourController;
+use frontend\controllers\HotelsController;
 use yii\helpers\Html;
 
 AppAsset::register($this);
@@ -33,7 +34,7 @@ AppAsset::register($this);
                 <li><a href="<?= AviaController::getActionUrl(AviaController::ACTION_INDEX) ?>">Авиабилеты</a></li>
                 <li><a href="<?= RailRoadController::getActionUrl(RailRoadController::ACTION_INDEX) ?>">Ж/Д Билеты</a></li>
                 <li><a href="<?= TourController::getActionUrl(TourController::ACTION_INDEX) ?>">Туры</a></li>
-                <li>Отели</li>
+                <li><a href="<?= HotelsController::getActionUrl(HotelsController::ACTION_INDEX) ?>">Отели</a></li>
                 <li>Экскурсии</li>
                 <li>Круизы</li>
                 <li>Визы</li>
