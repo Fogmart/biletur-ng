@@ -9,7 +9,6 @@ use Yii;
 use yii\caching\TagDependency;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
-use yii2mod\rbac\filters\AccessControl;
 
 /**
  * Контроллер статических страниц

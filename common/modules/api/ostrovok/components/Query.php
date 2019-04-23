@@ -36,9 +36,16 @@ class Query extends Component {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function sendRequest() {
-		$url = $this->url . $this->method . '?data=' . json_encode($this->params);
+		$url = $this->url . $this->method;
+
+		$postVars = [
+			'user' => '2305:75f657b2-aeea-4c1b-89ef-5dd7c4a65667',
+			'data' => json_encode($this->params)
+		];
 
 		$curl = curl_init();
+		curl_setopt($curl,CURLOPT_POST, 1);
+		curl_setopt($curl,CURLOPT_POSTFIELDS, $postVars);
 		curl_setopt($curl, CURLOPT_URL, $url);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		$out = curl_exec($curl);
