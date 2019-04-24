@@ -2,12 +2,15 @@
 
 namespace common\forms\hotels;
 
-use common\base\helpers\Dump;
+use common\base\helpers\DateHelper;
+use common\modules\api\ostrovok\components\OstrovokApi;
+use common\modules\api\ostrovok\exceptions\OstrovokResponseException;
 use sem\helpers\ArrayHelper;
 use Yii;
 use yii\base\Model;
 use yii\validators\EachValidator;
 use yii\validators\NumberValidator;
+use yii\validators\RequiredValidator;
 use yii\validators\StringValidator;
 
 /**
@@ -30,7 +33,7 @@ class SearchForm extends Model {
 	const ATTR_CHECK_OUT = 'checkOut';
 
 	/** @var int */
-	public $adultCount = 1;
+	public $adultCount = 2;
 	const ATTR_ADULT_COUNT = 'adultCount';
 
 	/** @var int int */
@@ -78,8 +81,9 @@ class SearchForm extends Model {
 	 */
 	public function rules() {
 		return [
-
-
+			[static::ATTR_TITLE, RequiredValidator::class],
+			[static::ATTR_CHECK_IN, RequiredValidator::class],
+			[static::ATTR_CHECK_OUT, RequiredValidator::class],
 
 			[static::ATTR_TITLE, StringValidator::class],
 			[static::ATTR_CHECK_IN, StringValidator::class],
@@ -91,21 +95,72 @@ class SearchForm extends Model {
 	}
 
 	/**
-	 * Поиск отелей
+	 *
+	 * @return \common\modules\api\ostrovok\components\objects\OstrovokResponse
+	 *
+	 * @throws \common\modules\api\ostrovok\exceptions\OstrovokResponseException
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function search() {
+		$this->result = $this->searchOstrovok();
+
+		return $this->result;
+	}
+
+	/**
+	 * Поиск отелей по Апи Островка
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function searchOstrovok() {
 		$titleTypeParams = explode('|', $this->title);
-		$title = $titleTypeParams[0];
 		$this->objectType = $titleTypeParams[1];
 
-		$params = [
+		if ($this->objectType === static::OBJECT_TYPE_REGION) {
+			$id = explode('|', $this->title)[0];
+			$param['region_id'] = $id;
+		}
+		else {
+			$id = explode('|', $this->title)[0];
+			$param['ids'] = [$id];
+		}
 
-		];
+		$param['checkin'] = date(DateHelper::DATE_FORMAT_OSTROVOK, strtotime($this->checkIn));
+		$param['checkout'] = date(DateHelper::DATE_FORMAT_OSTROVOK, strtotime($this->checkOut));
 
-		$this->result = $this;
-		sleep(2);
+		if ($this->adultCount <> 2) {
+			$param['adults'] = $this->adultCount;
+		}
+
+		if ($this->childCount > 0) {
+			$childrenAges = [];
+			for ($i = 0; $i < $this->childCount; $i++) {
+				$childrenAges[] = rand(0, 17); //пока заполняем возрасты детей рандомными значениями
+			}
+			$param['children'] = $childrenAges;
+		}
+
+		$param['currency'] = 'RUB';
+
+		$api = Yii::$app->ostrovokApi;
+		$api->method = OstrovokApi::METHOD_HOTEL_RATES;
+		$api->params = $param;
+
+		/** @var \common\modules\api\ostrovok\components\objects\OstrovokResponse $result */
+		$result = $api->sendRequest();
+
+		if (null !== $result->error) {
+			throw new OstrovokResponseException('Ошибка поиска вариантов размещения: ' . $result->error->description . PHP_EOL . $result->error->extra);
+		}
+
+		$rates = [];
+
+		foreach ($result->result['rates'] as $rate) { /** @var \common\modules\api\ostrovok\components\objects\Rate $rate */
+
+		}
+
+		return $result;
 	}
 
 	/**
@@ -122,7 +177,8 @@ class SearchForm extends Model {
 
 		if (false === $result) {
 			$result = [];
-		} else {
+		}
+		else {
 			$result = ArrayHelper::map($result['results'], 'id', 'text');
 		}
 

@@ -13,6 +13,7 @@ use IntlDateFormatter;
  */
 class DateHelper {
 	/** Формат даты:           1970-01-01*/
+	const DATE_FORMAT_OSTROVOK = 'Y-m-d';
 	const DATE_FORMAT = 'Y-m-d H:i:s';
 	const DATE_FORMAT_ORACLE = 'd-m-Y H:i:s';
 	/** Формат даты и времени: 1970-01-01 23:59:59 */
