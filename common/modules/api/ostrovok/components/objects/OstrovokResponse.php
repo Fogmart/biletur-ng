@@ -15,4 +15,7 @@ class OstrovokResponse extends Component {
 	public $result;
 	/** @var \common\modules\api\ostrovok\components\objects\OstrovokError */
 	public $error;
+
+	/** @var array */
+	public $data;
 }

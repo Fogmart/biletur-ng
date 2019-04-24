@@ -28,6 +28,7 @@ class Rate extends Component {
 	public $bed_places;
 	/** @var string[] */
 	public $daily_prices;
+
 	public $bed_types; //array(Object)
 	/** @var string */
 	public $room_description; //String
@@ -43,4 +44,7 @@ class Rate extends Component {
 	public $taxes;
 	/** @var string */
 	public $availability_hash;
+
+	/** @var string */
+	public $meal;
 }

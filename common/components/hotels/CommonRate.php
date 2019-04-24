@@ -23,10 +23,11 @@ class CommonRate extends Component {
 	/** @var string */
 	public $roomSize;
 
+	/** @var bool */
 	public $noneRefundable;
 
-	/** @var \common\components\hotels\CommonBadPlaces */
-	public $badPlaces;
+	/** @var \common\components\hotels\CommonBedPlaces */
+	public $bedPlaces;
 
 	/** @var string */
 	public $availabilityHash;
@@ -43,5 +44,15 @@ class CommonRate extends Component {
 	/** @var array */
 	public $images;
 
+	/** @var string */
+	public $currency;
 
+	/** @var float */
+	public $price;
+
+	/** @var string */
+	public $description;
+
+	/** @var \common\components\hotels\CommonAmenities[] */
+	public $amenities;
 }

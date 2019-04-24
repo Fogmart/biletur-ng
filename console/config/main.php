@@ -1,4 +1,7 @@
 <?php
+
+use common\modules\api\ostrovok\components\OstrovokApi;
+
 $params = array_merge(
 	require __DIR__ . '/../../common/config/params.php',
 	require __DIR__ . '/../../common/config/params-local.php',
@@ -51,6 +54,11 @@ return [
 			],
 			'useMemcached' => true,
 		],
+		'ostrovokApi' => [
+			'class' => OstrovokApi::class,
+			'keyId' => '2305',
+			'key'   => '75f657b2-aeea-4c1b-89ef-5dd7c4a65667'
+		]
 	],
 	'params'              => $params,
 ];

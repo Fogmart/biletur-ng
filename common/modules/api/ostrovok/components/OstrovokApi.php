@@ -18,7 +18,7 @@ class OstrovokApi extends Component implements Configurable {
 	public $method;
 
 	/** @var array */
-	public $params;
+	public $params = [];
 
 	/** @var int */
 	protected $_keyId;
@@ -28,15 +28,25 @@ class OstrovokApi extends Component implements Configurable {
 
 	/** @var string */
 	private $_url = 'https://partner.ostrovok.ru/api/affiliate/v2/';
+	private $_urlV3 = ' https://api.worldota.net/api/affiliate/v3/';
 
 	//Запрос регионов и отелей
 	const METHOD_MULTICOMPLETE = 'multicomplete';
+
+	//запрос типов питания
+	const METHOD_MEALS = 'meals';
+
+	// Запрос значений фильтров тарифов
+	const METHOD_SERP_FILTERS = 'serp_filters';
 
 	//Предварительный поиск отелей по региону или ид отеля
 	const METHOD_HOTEL_RATES = 'hotel/rates';
 
 	//Актуализация тарифов в отеле
 	const METHOD_HOTEL_TEST = 'hotelpage/test_hotel';
+
+	//Актуализация дампа статики отелей
+	const METHOD_HOTEL_GET_DUMP = 'hotel/info/dump/';
 
 	/** @var array Параметры, общие для всех запросов */
 	const DEFAULT_PARAMS = [
@@ -63,12 +73,21 @@ class OstrovokApi extends Component implements Configurable {
 
 		$this->params = array_merge($this->params, static::DEFAULT_PARAMS);
 
-		$this->_url = $this->_url . $this->method . '?data=' . json_encode($this->params);
+		switch ($this->method) {
+			case static::METHOD_HOTEL_GET_DUMP:
+				$url = $this->_urlV3;
+				break;
+			default:
+				$url = $this->_url;
+				break;
+		}
+
+		$url = $url . $this->method . '?data=' . json_encode($this->params);
 
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_POST, 0);
 		curl_setopt($curl, CURLOPT_USERPWD, $userPassword);
-		curl_setopt($curl, CURLOPT_URL, $this->_url);
+		curl_setopt($curl, CURLOPT_URL, $url);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		$out = curl_exec($curl);
 		curl_close($curl);

@@ -4,7 +4,7 @@ namespace common\components\hotels;
 
 use yii\base\Component;
 
-class CommonBadPlaces extends Component {
+class CommonBedPlaces extends Component {
 	/** @var int Кол-во детских кроваток*/
 	public $childCotCount;
 	/** @var int */

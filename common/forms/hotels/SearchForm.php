@@ -3,6 +3,9 @@
 namespace common\forms\hotels;
 
 use common\base\helpers\DateHelper;
+use common\base\helpers\Dump;
+use common\components\hotels\CommonBedPlaces;
+use common\components\hotels\CommonRate;
 use common\modules\api\ostrovok\components\OstrovokApi;
 use common\modules\api\ostrovok\exceptions\OstrovokResponseException;
 use sem\helpers\ArrayHelper;
@@ -151,14 +154,43 @@ class SearchForm extends Model {
 		$result = $api->sendRequest();
 
 		if (null !== $result->error) {
-			throw new OstrovokResponseException('Ошибка поиска вариантов размещения: ' . $result->error->description . PHP_EOL . $result->error->extra);
+			throw new OstrovokResponseException('Ошибка поиска вариантов размещения: ' . $result->error->description . PHP_EOL . Dump::d($result->error->extra) . PHP_EOL . Dump::d($result->error->slug));
 		}
 
 		$rates = [];
 
-		foreach ($result->result['rates'] as $rate) { /** @var \common\modules\api\ostrovok\components\objects\Rate $rate */
+		foreach ($result->result->hotels as $hotel) {
+			/** @var \common\modules\api\ostrovok\components\objects\Rate $ostrovokRate */
+			foreach ($hotel->rates as $ostrovokRate) {
 
+				$commonRate = new CommonRate();
+				$commonRate->sourceApi = static::API_SOURCE_OSTROVOK;
+				$commonRate->hotelId = $hotel->id;
+				$commonRate->hotelName = $hotel->id;
+				$commonRate->hotelPage = $ostrovokRate->hotelpage;
+				$commonRate->roomTitle = $ostrovokRate->room_name;
+				$commonRate->description = $ostrovokRate->room_description;
+				$commonRate->images = $ostrovokRate->images;
+				$commonRate->price = $ostrovokRate->rate_price;
+				$commonRate->currency = $ostrovokRate->rate_currency;
+				$commonRate->roomSize = $ostrovokRate->room_size;
+				$commonRate->noneRefundable = $ostrovokRate->non_refundable;
+				$commonRate->meal = $ostrovokRate->meal;
+				$commonRate->availabilityHash = $ostrovokRate->availability_hash;
+
+				$commonBedPlace = new CommonBedPlaces();
+				$commonBedPlace->childCotCount = $ostrovokRate->bed_places->child_cot_count;
+				$commonBedPlace->extraCount = $ostrovokRate->bed_places->extra_count;
+				$commonBedPlace->mainCount = $ostrovokRate->bed_places->main_count;
+				$commonBedPlace->sharedWithChildrenCount = $ostrovokRate->bed_places->shared_with_children_count;
+				$commonRate->bedPlaces = $commonBedPlace;
+
+
+				$rates[$hotel->id][] = $commonRate;
+			}
 		}
+
+		$result = $rates;
 
 		return $result;
 	}

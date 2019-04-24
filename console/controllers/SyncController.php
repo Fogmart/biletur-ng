@@ -1,4 +1,5 @@
 <?php
+
 namespace console\controllers;
 
 use common\components\SyncData;
@@ -7,8 +8,11 @@ use common\models\Filial;
 use common\models\Org;
 use common\models\Place;
 use common\models\Town;
+use common\modules\api\ostrovok\components\OstrovokApi;
 use common\modules\news\models\News;
+use Yii;
 use yii\console\Controller;
+use common\base\helpers\Dump;
 
 /**
  * Контроллер синхронизации данных с Ораклом ДСП и другими внешними источниками
@@ -54,5 +58,22 @@ class SyncController extends Controller {
 	 */
 	public function actionUpdateIpGeoBase() {
 		\Yii::$app->ipgeobase->updateDB();
+	}
+
+	/**
+	 * Скачивание дама отелей островка. Обновляется раз в неделю.
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function actionOstrovokHotelsDump() {
+		$api = Yii::$app->ostrovokApi;
+		$api->method = OstrovokApi::METHOD_HOTEL_GET_DUMP;
+
+		/** @var \common\modules\api\ostrovok\components\objects\OstrovokResponse $response */
+		$response = $api->sendRequest();
+		Dump::dDie($response);
+
+
+		file_get_contents($response->data['url']);
 	}
 }
