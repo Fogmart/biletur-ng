@@ -30,7 +30,7 @@ use yii\web\JsExpression;
 				'prompt'   => 'Нет',
 			],
 			'pluginOptions' => [
-				'placeholder'        => 'Регион, отель',
+				'placeholder'        => 'Город, регион, отель',
 				'ajax'               => [
 					'url'      => HotelsController::getActionUrl(HotelsController::ACTION_FIND_BY_NAME),
 					'dataType' => 'json',

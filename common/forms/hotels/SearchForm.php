@@ -78,6 +78,9 @@ class SearchForm extends Model {
 	 */
 	public function rules() {
 		return [
+
+
+
 			[static::ATTR_TITLE, StringValidator::class],
 			[static::ATTR_CHECK_IN, StringValidator::class],
 			[static::ATTR_CHECK_OUT, StringValidator::class],
@@ -93,11 +96,16 @@ class SearchForm extends Model {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function search() {
-		$titleTypeParams = explode(',', $this->title);
+		$titleTypeParams = explode('|', $this->title);
 		$title = $titleTypeParams[0];
 		$this->objectType = $titleTypeParams[1];
 
+		$params = [
+
+		];
+
 		$this->result = $this;
+		sleep(2);
 	}
 
 	/**
@@ -116,10 +124,7 @@ class SearchForm extends Model {
 			$result = [];
 		} else {
 			$result = ArrayHelper::map($result['results'], 'id', 'text');
-
 		}
-
-
 
 		return $result;
 	}

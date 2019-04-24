@@ -6,5 +6,9 @@
  * @var \common\forms\hotels\SearchForm $form
  */
 ?>
-<div class="loading-widget" style="display: none;"></div>
-<?= \common\base\helpers\Dump::d($form->result)?>
+<div class="result">
+    <div class="loading-widget" style="display: none;"></div>
+    <div class="list">
+		<?= \common\base\helpers\Dump::d($form->result) ?>
+    </div>
+</div>

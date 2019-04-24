@@ -52,6 +52,7 @@ class HotelsController extends FrontendMenuController {
 		Yii::$app->response->format = Response::FORMAT_JSON;
 
 		$cacheKey = Yii::$app->cache->buildKey([$q]);
+
 		/** @var \common\modules\api\ostrovok\components\objects\OstrovokResponse $response */
 		$response = Yii::$app->cache->get($cacheKey);
 		if (false === $response) {
@@ -90,8 +91,8 @@ class HotelsController extends FrontendMenuController {
 
 		foreach ($hotels as $id => $object) {
 			$result['results'][] = [
-				'id'     => implode(',', [$object->id, SearchForm::OBJECT_TYPE_HOTEL]),
-				'text'   => $object->name,
+				'id'     => implode('|', [$object->id, SearchForm::OBJECT_TYPE_HOTEL, $object->region_name]),
+				'text'   => $object->name . ', ' . $object->region_name,
 				'source' => SearchForm::API_SOURCE_OSTROVOK,
 				'type'   => 'item'
 			];
@@ -102,22 +103,20 @@ class HotelsController extends FrontendMenuController {
 			'id'     => null,
 			'text'   => 'Регионы',
 			'source' => SearchForm::API_SOURCE_OSTROVOK,
-			'type'   => 'hotel'
+			'type'   => 'devider'
 		];
 
 		foreach ($regions as $id => $object) {
 			$result['results'][] = [
-				'id'     => implode(',', [$object->id, SearchForm::OBJECT_TYPE_REGION]),
-				'text'   => $object->name,
+				'id'     => implode('|', [$object->id, SearchForm::OBJECT_TYPE_REGION, $object->country]),
+				'text'   => $object->name . ', ' . $object->country,
 				'source' => SearchForm::API_SOURCE_OSTROVOK,
-				'type'   => 'devider'
+				'type'   => 'item'
 			];
 		}
 
 		$cacheKey = Yii::$app->cache->buildKey(['lastAutocompleteOstrovok', Yii::$app->session->id]);
 		Yii::$app->cache->set($cacheKey, $result, 3600 / 2);
-
-		sleep(2);
 
 		return $result;
 	}
