@@ -10,9 +10,9 @@ const {mix} = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-/*
-mix.js('vendor/yiisoft/yii2/assets/yii.js', 'frontend/web/js/vendor.js')
-    .version();*/
+
+mix.js('frontend/assets/src/js/commonPlugin.js', 'frontend/web/js/biletur.js')
+    .version();
 
 mix.sass('frontend/assets/src/sass/biletur.scss', 'frontend/web/css')
 	.options({

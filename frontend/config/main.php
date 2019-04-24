@@ -55,7 +55,7 @@ return [
 				'<module:[\w-]+>/<controller:[\w-]+>/<action:[\w-]+>/<id:\d+>]' => '<module>/<controller>/<action>',
 				'<controller:\w+>/<action:\w+>/'                                => '<controller>/<action>',
 				'message-widget/<object>/<objectId>/<userName>'                 => 'message/message/widget',
-				'hotels/find-by-name/q/<q>' => 'hotels/find-by-name',
+				'hotels/find-by-name/q/<q>/<hotels>' => 'hotels/find-by-name',
 
 				//Редиректы для старых ссылок------------------------------------------------------------
 				'Agency'                                                        => 'old-links/agency',

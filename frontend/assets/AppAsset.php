@@ -22,7 +22,7 @@ class AppAsset extends AssetBundle {
 
 	public $js = [
 		//'/js/vendor.js',
-		//'/js/app-biletur.js'
+		'/js/biletur.js'
 	];
 
 	public $depends = [

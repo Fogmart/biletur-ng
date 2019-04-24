@@ -45,6 +45,7 @@ body {
 			box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.45);
 			padding: 20px 15px 20px 15px;
 			border-radius: 8px;
+			overflow: hidden;
 		}
 
 		.content-header {
@@ -224,6 +225,18 @@ a.desc:after {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+.loading-widget {
+	top: 100px;
+	left: 0;
+	position: absolute;
+	background: transparent url('/images/loading.svg') top center no-repeat;
+	opacity: .7;
+	width: 100%;
+	height: 100%;
+	cursor: progress;
+	z-index: 9999;
 }
 
 .banner-button {

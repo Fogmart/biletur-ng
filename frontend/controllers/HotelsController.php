@@ -1,7 +1,9 @@
 <?php
+
 namespace frontend\controllers;
 
 use common\components\FrontendMenuController;
+use common\forms\hotels\SearchForm;
 use common\modules\api\ostrovok\components\OstrovokApi;
 use common\modules\api\ostrovok\exceptions\OstrovokResponseException;
 use Yii;
@@ -14,6 +16,7 @@ use yii\web\Response;
 class HotelsController extends FrontendMenuController {
 
 	const ACTION_INDEX = '';
+	const ACTION_FIND_BY_NAME = 'find-by-name';
 
 	/**
 	 * Точка входа Отели
@@ -23,15 +26,23 @@ class HotelsController extends FrontendMenuController {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function actionIndex() {
+		$form = new SearchForm();
 
+		if (Yii::$app->request->isPjax) {
+			$form->load(Yii::$app->request->post());
+			$form->search();
+		}
 
-		return $this->render('index');
+		return $this->render('index', ['form' => $form]);
 	}
 
 	/**
-	 * @param string $q
+	 * Запрос отелей и регионов для автокомплита
 	 *
-	 * @return \common\modules\api\ostrovok\components\objects\HotelAutocomplete[]
+	 * @param string $q
+	 * @param bool   $hotels
+	 *
+	 * @return \common\modules\api\ostrovok\components\objects\HotelAutocomplete[] | \common\modules\api\ostrovok\components\objects\RegionAutocomplete[]
 	 *
 	 * @throws \common\modules\api\ostrovok\exceptions\OstrovokResponseException
 	 *
@@ -40,12 +51,17 @@ class HotelsController extends FrontendMenuController {
 	public function actionFindByName($q) {
 		Yii::$app->response->format = Response::FORMAT_JSON;
 
-		$api = Yii::$app->ostrovokApi;
-		$api->method = OstrovokApi::METHOD_MULTICOMPLETE;
-		$api->params = ['query' => $q];
-
+		$cacheKey = Yii::$app->cache->buildKey([$q]);
 		/** @var \common\modules\api\ostrovok\components\objects\OstrovokResponse $response */
-		$response = $api->sendRequest();
+		$response = Yii::$app->cache->get($cacheKey);
+		if (false === $response) {
+			$api = Yii::$app->ostrovokApi;
+			$api->method = OstrovokApi::METHOD_MULTICOMPLETE;
+			$api->params = ['query' => $q];
+			$response = $api->sendRequest();
+
+			Yii::$app->cache->set($cacheKey, $response, 3600 * 24 * 7);
+		}
 
 		if (null === $response) {
 			return [];
@@ -58,7 +74,53 @@ class HotelsController extends FrontendMenuController {
 		/** @var \common\modules\api\ostrovok\components\objects\Autocomplete $autocompleteData */
 		$autocompleteData = $response->result;
 
-		return $autocompleteData->hotels;
+		$hotels = $data = $autocompleteData->hotels;
+
+		$regions = $data = $autocompleteData->regions;
+
+		$result = [];
+
+		//Разделить "Отели"
+		$result['results'][] = [
+			'id'     => null,
+			'text'   => 'Отели',
+			'source' => SearchForm::API_SOURCE_OSTROVOK,
+			'type'   => 'devider'
+		];
+
+		foreach ($hotels as $id => $object) {
+			$result['results'][] = [
+				'id'     => implode(',', [$object->id, SearchForm::OBJECT_TYPE_HOTEL]),
+				'text'   => $object->name,
+				'source' => SearchForm::API_SOURCE_OSTROVOK,
+				'type'   => 'item'
+			];
+		}
+
+		//Разделитель "Регионы"
+		$result['results'][] = [
+			'id'     => null,
+			'text'   => 'Регионы',
+			'source' => SearchForm::API_SOURCE_OSTROVOK,
+			'type'   => 'hotel'
+		];
+
+		foreach ($regions as $id => $object) {
+			$result['results'][] = [
+				'id'     => implode(',', [$object->id, SearchForm::OBJECT_TYPE_REGION]),
+				'text'   => $object->name,
+				'source' => SearchForm::API_SOURCE_OSTROVOK,
+				'type'   => 'devider'
+			];
+		}
+
+		$cacheKey = Yii::$app->cache->buildKey(['lastAutocompleteOstrovok', Yii::$app->session->id]);
+		Yii::$app->cache->set($cacheKey, $result, 3600 / 2);
+
+		sleep(2);
+
+		return $result;
 	}
+
 
 }
