@@ -5,22 +5,22 @@ use yii\base\Component;
 
 class CommonRate extends Component {
 
-	/** @var int */
+	/** @var int Источник данных(из какого API) */
 	public $sourceApi;
 
-	/** @var string */
+	/** @var string Идентификатор отеля*/
 	public $hotelId;
 
-	/** @var string */
+	/** @var string Название отеля*/
 	public $hotelName;
 
-	/** @var string */
+	/** @var string Сайт отеля */
 	public $hotelPage;
 
-	/** @var string */
+	/** @var string Название номера */
 	public $roomTitle;
 
-	/** @var string */
+	/** @var string Размер номера */
 	public $roomSize;
 
 	/** @var bool */
@@ -32,16 +32,19 @@ class CommonRate extends Component {
 	/** @var string */
 	public $availabilityHash;
 
+	/** @var string */
+	public $bookHash;
+
 	/** @var \common\components\hotels\CommonCancellationInfo */
 	public $cancellationInfo;
 
-	/** @var array */
+	/** @var array Список цен по дням */
 	public $dailyPrices;
 
-	/** @var string */
+	/** @var string Тип питания */
 	public $meal;
 
-	/** @var array */
+	/** @var array Изображения номера */
 	public $images;
 
 	/** @var string */
@@ -55,4 +58,10 @@ class CommonRate extends Component {
 
 	/** @var \common\components\hotels\CommonAmenities[] */
 	public $amenities;
+
+	/** @var array Список удобств для фильтрации */
+	public $filters;
+
+	/** @var \common\components\hotels\CommonPaymentOptions Способы оплаты */
+	public $paymentOptions;
 }

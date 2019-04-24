@@ -5,6 +5,9 @@ namespace common\forms\hotels;
 use common\base\helpers\DateHelper;
 use common\base\helpers\Dump;
 use common\components\hotels\CommonBedPlaces;
+use common\components\hotels\CommonCancellationInfo;
+use common\components\hotels\CommonPaymentOptions;
+use common\components\hotels\CommonPolicies;
 use common\components\hotels\CommonRate;
 use common\modules\api\ostrovok\components\OstrovokApi;
 use common\modules\api\ostrovok\exceptions\OstrovokResponseException;
@@ -162,7 +165,7 @@ class SearchForm extends Model {
 		foreach ($result->result->hotels as $hotel) {
 			/** @var \common\modules\api\ostrovok\components\objects\Rate $ostrovokRate */
 			foreach ($hotel->rates as $ostrovokRate) {
-
+				Dump::dDie($ostrovokRate);
 				$commonRate = new CommonRate();
 				$commonRate->sourceApi = static::API_SOURCE_OSTROVOK;
 				$commonRate->hotelId = $hotel->id;
@@ -177,6 +180,8 @@ class SearchForm extends Model {
 				$commonRate->noneRefundable = $ostrovokRate->non_refundable;
 				$commonRate->meal = $ostrovokRate->meal;
 				$commonRate->availabilityHash = $ostrovokRate->availability_hash;
+				$commonRate->bookHash = $ostrovokRate->book_hash;
+				$commonRate->dailyPrices = $ostrovokRate->daily_prices;
 
 				$commonBedPlace = new CommonBedPlaces();
 				$commonBedPlace->childCotCount = $ostrovokRate->bed_places->child_cot_count;
@@ -185,6 +190,14 @@ class SearchForm extends Model {
 				$commonBedPlace->sharedWithChildrenCount = $ostrovokRate->bed_places->shared_with_children_count;
 				$commonRate->bedPlaces = $commonBedPlace;
 
+				$commonCancelationInfo = new CommonCancellationInfo();
+				$commonCancelationInfo->freeCancellationBefore = $ostrovokRate->cancellation_info->free_cancellation_before;
+				$commonCancelationInfo->policies = $ostrovokRate->cancellation_info->policies;
+				$commonRate->cancellationInfo = $commonCancelationInfo;
+
+				$commonPaymentOptions = new CommonPaymentOptions();
+				$commonPaymentOptions = $ostrovokRate->payment_options->payment_types;
+				$commonRate->paymentOptions = $commonPaymentOptions;
 
 				$rates[$hotel->id][] = $commonRate;
 			}
