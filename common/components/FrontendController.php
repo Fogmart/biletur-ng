@@ -2,7 +2,9 @@
 
 namespace common\components;
 
+use common\base\helpers\Dump;
 use common\base\helpers\StringHelper;
+use common\modules\api\ostrovok\components\OstrovokApi;
 use common\modules\seo\models\Seo;
 use Yii;
 use yii\caching\TagDependency;
@@ -84,7 +86,7 @@ class FrontendController extends Controller {
 	public static function getActionUrl($actionName, array $actionParams = []) {
 		$prefix = null;
 
-		$controllerName = preg_replace('/Controller$/', '', StringHelper::basename(static::className()));
+		$controllerName = preg_replace('/Controller$/', '', StringHelper::basename(static::class));
 		$controllerName = mb_strtolower(preg_replace('~(?!\b)([A-Z])~', '-\\1', $controllerName)); // Преобразуем название контроллера к формату url (aaa-bbb-ccc-..)
 
 		$actionParams[0] = implode('/', [

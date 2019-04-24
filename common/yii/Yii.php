@@ -21,11 +21,12 @@ class Yii extends BaseYii {
 
 /**
  *
- * @property-read \common\components\SiteConnection $db
- * @property-read \common\components\DspConnection  $dbDsp
- * @property-read Mailer                            $mailer
- * @property-read \common\components\IpGeoBase      $ipgeobase
- * @property-read \common\components\Environment    $env
+ * @property-read \common\components\SiteConnection                   $db
+ * @property-read \common\components\DspConnection                    $dbDsp
+ * @property-read Mailer                                              $mailer
+ * @property-read \common\components\IpGeoBase                        $ipgeobase
+ * @property-read \common\components\Environment                      $env
+ * @property-read \common\modules\api\ostrovok\components\OstrovokApi $ostrovokApi
  */
 class Application {
 }

@@ -70,21 +70,22 @@ class ObjectLoader extends Component {
 	/**
 	 * Загрузка отелей
 	 *
+	 * @param string $response
+	 *
+	 * @return \common\modules\api\ostrovok\components\objects\HotelData[]
+	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
-	public static function loadHotels() {
-		$response = file_get_contents(Yii::getAlias('@webroot') . DIRECTORY_SEPARATOR . 'hotels.json');
-
+	public static function loadHotels($response) {
 		$response = json_decode($response);
 		$responseHotels = $response->data;
-		$hotel = new HotelData($responseHotels);
 		$hotels = [];
-		/*foreach ($responseHotels as $responseHotel) {
+		foreach ($responseHotels as $responseHotel) {
 			$hotel = new HotelData($responseHotel);
 			$hotels[] = $hotel;
-		}*/
+		}
 
-
-		Dump::dDie($hotel);
+		return $hotels;
 	}
+
 }

@@ -1,6 +1,7 @@
 <?php
 
 use common\components\IpGeoBase;
+use common\modules\api\ostrovok\components\OstrovokApi;
 use common\modules\message\MMessage;
 use common\modules\news\MNews;
 use common\modules\pages\MPages;
@@ -15,7 +16,7 @@ return [
 	'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
 
 	'modules'    => [
-		'rbac'     => [
+		'rbac'    => [
 			'class'                  => 'johnitvn\rbacplus\Module',
 			/** Определяем права доступа к модулю управления правами юзеров */
 			'beforeCreateController' => function ($route) {
@@ -39,7 +40,7 @@ return [
 		]
 	],
 	'components' => [
-		'user'      => [
+		'user'        => [
 			'identityClass' => 'mdm\admin\models\User',
 			'loginUrl'      => ['site/login'],
 		],
@@ -53,7 +54,7 @@ return [
 		],
 		'cache'       => [
 			'class'        => \yii\caching\MemCache::class,
-			'servers' => [
+			'servers'      => [
 				[
 					'host' => 'localhost',
 					'port' => 11211,
@@ -69,5 +70,10 @@ return [
 			'class'        => 'yii\rbac\DbManager',
 			'defaultRoles' => ['guest', 'user'],
 		],
+		'ostrovokApi' => [
+			'class' => OstrovokApi::class,
+			'keyId' => '2305',
+			'key'   => '75f657b2-aeea-4c1b-89ef-5dd7c4a65667'
+		]
 	],
 ];
