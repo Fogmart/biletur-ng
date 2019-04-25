@@ -7,7 +7,6 @@ use common\base\helpers\Dump;
 use common\components\hotels\CommonBedPlaces;
 use common\components\hotels\CommonCancellationInfo;
 use common\components\hotels\CommonPaymentOptions;
-use common\components\hotels\CommonPolicies;
 use common\components\hotels\CommonRate;
 use common\modules\api\ostrovok\components\OstrovokApi;
 use common\modules\api\ostrovok\exceptions\OstrovokResponseException;
@@ -76,7 +75,9 @@ class SearchForm extends Model {
 	 */
 	public function attributeLabels() {
 		return [
-			static::ATTR_TITLE => 'Отель, регион',
+			static::ATTR_TITLE     => 'Отель, регион',
+			static::ATTR_CHECK_IN  => 'Заезд',
+			static::ATTR_CHECK_OUT => 'Выезд',
 		];
 	}
 
@@ -87,7 +88,7 @@ class SearchForm extends Model {
 	 */
 	public function rules() {
 		return [
-			[static::ATTR_TITLE, RequiredValidator::class],
+			[static::ATTR_TITLE, RequiredValidator::class, 'message' => 'Пожалуйста, выберите регион или отель'],
 			[static::ATTR_CHECK_IN, RequiredValidator::class],
 			[static::ATTR_CHECK_OUT, RequiredValidator::class],
 
@@ -99,6 +100,7 @@ class SearchForm extends Model {
 			[static::ATTR_CHILD_AGES, EachValidator::class, 'rule' => 'integer'],
 		];
 	}
+
 
 	/**
 	 *
