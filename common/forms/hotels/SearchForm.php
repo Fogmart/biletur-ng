@@ -165,7 +165,7 @@ class SearchForm extends Model {
 		foreach ($result->result->hotels as $hotel) {
 			/** @var \common\modules\api\ostrovok\components\objects\Rate $ostrovokRate */
 			foreach ($hotel->rates as $ostrovokRate) {
-				Dump::dDie($ostrovokRate);
+
 				$commonRate = new CommonRate();
 				$commonRate->sourceApi = static::API_SOURCE_OSTROVOK;
 				$commonRate->hotelId = $hotel->id;
@@ -218,7 +218,6 @@ class SearchForm extends Model {
 	public function getLastAutocompleteOstrovok() {
 		$cacheKey = Yii::$app->cache->buildKey(['lastAutocompleteOstrovok', Yii::$app->session->id]);
 		$result = Yii::$app->cache->get($cacheKey);
-
 
 		if (false === $result) {
 			$result = [];

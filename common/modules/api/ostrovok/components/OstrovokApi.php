@@ -27,8 +27,10 @@ class OstrovokApi extends Component implements Configurable {
 	protected $_key;
 
 	/** @var string */
-	private $_url = 'https://partner.ostrovok.ru/api/affiliate/v2/';
-	private $_urlV3 = ' https://api.worldota.net/api/affiliate/v3/';
+	protected $_urlV2;
+
+	/** @var string */
+	protected $_urlV3;
 
 	//Запрос регионов и отелей
 	const METHOD_MULTICOMPLETE = 'multicomplete';
@@ -78,7 +80,7 @@ class OstrovokApi extends Component implements Configurable {
 				$url = $this->_urlV3;
 				break;
 			default:
-				$url = $this->_url;
+				$url = $this->_urlV2;
 				break;
 		}
 
@@ -117,6 +119,32 @@ class OstrovokApi extends Component implements Configurable {
 	 */
 	public function setKey($value) {
 		$this->_key = $value;
+
+		return $this;
+	}
+
+	/**
+	 * @param int $value
+	 *
+	 * @return $this
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function setUrlV2($value) {
+		$this->_urlV2 = $value;
+
+		return $this;
+	}
+
+	/**
+	 * @param int $value
+	 *
+	 * @return $this
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function setUrlV3($value) {
+		$this->_urlV3 = $value;
 
 		return $this;
 	}

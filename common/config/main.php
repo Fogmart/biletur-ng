@@ -70,10 +70,5 @@ return [
 			'class'        => 'yii\rbac\DbManager',
 			'defaultRoles' => ['guest', 'user'],
 		],
-		'ostrovokApi' => [
-			'class' => OstrovokApi::class,
-			'keyId' => '2305',
-			'key'   => '75f657b2-aeea-4c1b-89ef-5dd7c4a65667'
-		]
 	],
 ];
