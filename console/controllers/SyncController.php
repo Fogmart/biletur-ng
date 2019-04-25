@@ -4,12 +4,14 @@ namespace console\controllers;
 
 use common\base\helpers\Dump;
 use common\components\SyncData;
+use common\models\CommonHotelMeal;
 use common\models\CommonHotelSerpFilters;
 use common\models\Country;
 use common\models\Filial;
 use common\models\Org;
 use common\models\Place;
 use common\models\Town;
+use common\modules\api\ostrovok\models\ApiOstrovokMeal;
 use common\modules\api\ostrovok\models\ApiOstrovokSerpFilters;
 use common\modules\api\ostrovok\components\OstrovokApi;
 use common\modules\news\models\News;
@@ -63,7 +65,7 @@ class SyncController extends Controller {
 	}
 
 	/**
-	 * Скачивание дама отелей островка. Обновляется раз в неделю.
+	 * Скачивание дама отелей островка. //раз в неделю
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
@@ -80,7 +82,7 @@ class SyncController extends Controller {
 	}
 
 	/**
-	 * Загрузка фильтров из API островок
+	 * Загрузка фильтров из API островок. //раз в неделю
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
@@ -128,6 +130,55 @@ class SyncController extends Controller {
 			}
 
 			$serpInBase->save();
+		}
+	}
+
+	/**
+	 * Загрузка вариантов питания API островок. //раз в неделю
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function actionOstrovokMeal() {
+		$api = Yii::$app->ostrovokApi;
+		$api->method = OstrovokApi::METHOD_MEALS;
+		/** @var \common\modules\api\ostrovok\components\objects\OstrovokResponse $response */
+		$response = $api->sendRequest();
+
+		$meals = $response->result;
+		foreach ($meals as $slug => $titles) {
+			$mealInBase = ApiOstrovokMeal::find()
+				->where([ApiOstrovokMeal::ATTR_SLUG => $slug])
+				->one();
+
+			if (null === $mealInBase) {
+				$mealInBase = new ApiOstrovokMeal();
+			}
+
+			$mealInBase->title = $titles->ru;
+			$mealInBase->slug = $slug;
+
+			//Если нет связки, или новый то поищем по имени общий фильтр для привязки или создаим его если нет
+			if (null === $mealInBase->common_filter_id) {
+				/** @var CommonHotelMeal $commonMeal */
+				$commonMeal = CommonHotelMeal::find()
+					->andWhere([CommonHotelMeal::ATTR_TITLE => $titles->ru])
+					->one();
+
+				if (null === $commonMeal) {
+					$commonMeal = new CommonHotelMeal();
+					$commonMeal->title =  $titles->ru;
+					$commonMeal->save();
+				}
+
+				/** @var CommonHotelSerpFilters $commonSerpFilter */
+				$commonMeal = CommonHotelMeal::find()
+					->andWhere([CommonHotelMeal::ATTR_TITLE =>  $titles->ru])
+					->one();
+
+				$mealInBase->common_filter_id = $commonMeal->id;
+			}
+
+			$mealInBase->save();
 		}
 	}
 }
