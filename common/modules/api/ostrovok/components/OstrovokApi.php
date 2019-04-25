@@ -67,40 +67,6 @@ class OstrovokApi extends Component implements Configurable {
 	}
 
 	/**
-	 * Отаправка запроса к АПИ
-	 *
-	 * @return bool|string
-	 *
-	 * @author Исаков Владислав <visakov@biletur.ru>
-	 */
-	public function sendRequest() {
-		$userPassword = $this->_keyId . ':' . $this->_key;
-
-		$this->params = array_merge($this->params, static::DEFAULT_PARAMS);
-
-		switch ($this->method) {
-			case static::METHOD_HOTEL_GET_DUMP:
-				$url = $this->_urlV3;
-				break;
-			default:
-				$url = $this->_urlV2;
-				break;
-		}
-
-		$url = $url . $this->method . '?data=' . json_encode($this->params);
-
-		$curl = curl_init();
-		curl_setopt($curl, CURLOPT_POST, 0);
-		curl_setopt($curl, CURLOPT_USERPWD, $userPassword);
-		curl_setopt($curl, CURLOPT_URL, $url);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		$out = curl_exec($curl);
-		curl_close($curl);
-
-		return json_decode($out);
-	}
-
-	/**
 	 * @param int $value
 	 *
 	 * @return $this
@@ -150,5 +116,39 @@ class OstrovokApi extends Component implements Configurable {
 		$this->_urlV3 = $value;
 
 		return $this;
+	}
+
+	/**
+	 * Отаправка запроса к АПИ
+	 *
+	 * @return bool|string
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function sendRequest() {
+		$userPassword = $this->_keyId . ':' . $this->_key;
+
+		$this->params = array_merge($this->params, static::DEFAULT_PARAMS);
+
+		switch ($this->method) {
+			case static::METHOD_HOTEL_GET_DUMP:
+				$url = $this->_urlV3;
+				break;
+			default:
+				$url = $this->_urlV2;
+				break;
+		}
+
+		$url = $url . $this->method . '?data=' . json_encode($this->params);
+
+		$curl = curl_init();
+		curl_setopt($curl, CURLOPT_POST, 0);
+		curl_setopt($curl, CURLOPT_USERPWD, $userPassword);
+		curl_setopt($curl, CURLOPT_URL, $url);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		$out = curl_exec($curl);
+		curl_close($curl);
+
+		return json_decode($out);
 	}
 }
