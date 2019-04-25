@@ -2,17 +2,19 @@
 
 namespace console\controllers;
 
+use common\base\helpers\Dump;
 use common\components\SyncData;
+use common\models\CommonHotelSerpFilters;
 use common\models\Country;
 use common\models\Filial;
 use common\models\Org;
 use common\models\Place;
 use common\models\Town;
+use common\modules\api\ostrovok\models\ApiOstrovokSerpFilters;
 use common\modules\api\ostrovok\components\OstrovokApi;
 use common\modules\news\models\News;
 use Yii;
 use yii\console\Controller;
-use common\base\helpers\Dump;
 
 /**
  * Контроллер синхронизации данных с Ораклом ДСП и другими внешними источниками
@@ -75,5 +77,57 @@ class SyncController extends Controller {
 
 
 		file_get_contents($response->data['url']);
+	}
+
+	/**
+	 * Загрузка фильтров из API островок
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function actionOstrovokSerpFilter() {
+		$api = Yii::$app->ostrovokApi;
+		$api->method = OstrovokApi::METHOD_SERP_FILTERS;
+		/** @var \common\modules\api\ostrovok\components\objects\OstrovokResponse $response */
+		$response = $api->sendRequest();
+		/** @var \common\modules\api\ostrovok\components\objects\SerpFilter[] $serps */
+		$serps = $response->result;
+		foreach ($serps as $serp) {
+			$serpInBase = ApiOstrovokSerpFilters::find()
+				->where([ApiOstrovokSerpFilters::ATTR_UID => $serp->uid])
+				->one();
+
+			if (null === $serpInBase) {
+				$serpInBase = new ApiOstrovokSerpFilters();
+			}
+
+			$serpInBase->title = $serp->title;
+			$serpInBase->slug = $serp->slug;
+			$serpInBase->sort_order = $serp->sort_order;
+			$serpInBase->lang = $serp->lang;
+			$serpInBase->uid = $serp->uid;
+
+			//Если нет связки, или новый то поищем по имени общий фильтр для привязки или создаим его если нет
+			if (null === $serpInBase->common_filter_id) {
+				$commonSerpFilter = CommonHotelSerpFilters::find()
+					->andWhere([CommonHotelSerpFilters::ATTR_TITLE => $serp->title])
+					->one();
+
+				if (null === $commonSerpFilter) {
+					$commonSerpFilter = new CommonHotelSerpFilters();
+					$commonSerpFilter->title = $serp->title;
+					$commonSerpFilter->sort_order = $serp->sort_order;
+					$commonSerpFilter->save();
+				}
+
+				/** @var CommonHotelSerpFilters $commonSerpFilter */
+				$commonSerpFilter = CommonHotelSerpFilters::find()
+					->andWhere([CommonHotelSerpFilters::ATTR_TITLE => $serp->title])
+					->one();
+
+				$serpInBase->common_filter_id = $commonSerpFilter->id;
+			}
+
+			$serpInBase->save();
+		}
 	}
 }

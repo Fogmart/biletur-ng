@@ -2,7 +2,9 @@
 
 namespace common\models;
 
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * Поля таблицы:
@@ -20,6 +22,21 @@ class CommonHotelSerpFilters extends ActiveRecord {
 	const ATTR_INSERT_STAMP = 'insert_stamp';
 	const ATTR_UPDATE_STAMP = 'update_stamp';
 
+	/**
+	 * @return array
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function behaviors() {
+		return [
+			[
+				'class'              => TimestampBehavior::class,
+				'createdAtAttribute' => 'insert_stamp',
+				'updatedAtAttribute' => 'update_stamp',
+				'value'              => new Expression('sysdate'),
+			],
+		];
+	}
 
 	public static function tableName() {
 		return 'common_hotel_serp_filters';
