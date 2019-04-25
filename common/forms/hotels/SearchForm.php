@@ -197,7 +197,7 @@ class SearchForm extends Model {
 				$commonRate->cancellationInfo = $commonCancelationInfo;
 
 				$commonPaymentOptions = new CommonPaymentOptions();
-				$commonPaymentOptions = $ostrovokRate->payment_options->payment_types;
+				$commonPaymentOptions->paymentTypes = $ostrovokRate->payment_options->payment_types;
 				$commonRate->paymentOptions = $commonPaymentOptions;
 
 				$rates[$hotel->id][] = $commonRate;
