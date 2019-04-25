@@ -101,12 +101,17 @@ use yii\web\JsExpression;
 			<?= $htmlForm->field($form, $form::ATTR_CHILD_COUNT)->textInput(['v-model' => 'childCount'])
 				->widget(TouchSpin::class, [
 					'options'       => [
-							'v-model' => 'childCount'
+						'v-model' => 'childCount'
 					],
 					'pluginOptions' => [
 						'verticalbuttons' => true,
 						'min'             => 0,
 						'max'             => 4,
+					],
+					'pluginEvents'  => [
+						"touchspin.on.startspin " => new JsExpression("function() {
+						    console.log('touchspin.on.startspin'); 
+						}")
 					]
 				])->label(false);
 			?>
@@ -117,6 +122,4 @@ use yii\web\JsExpression;
     </div>
 <?php ActiveForm::end(); ?>
 
-
-    {{childCount}}
 <?php Vue::end() ?>
