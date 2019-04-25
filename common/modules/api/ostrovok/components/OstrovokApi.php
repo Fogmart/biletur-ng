@@ -50,6 +50,9 @@ class OstrovokApi extends Component implements Configurable {
 	//Актуализация дампа статики отелей
 	const METHOD_HOTEL_GET_DUMP = 'hotel/info/dump/';
 
+	//Список отелей в регионе
+	const METHOD_REGION_HOTEL_LIST = 'region/hotel/list';
+
 	/** @var array Параметры, общие для всех запросов */
 	const DEFAULT_PARAMS = [
 		'format' => 'json',

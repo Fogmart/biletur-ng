@@ -123,7 +123,7 @@ class SearchForm extends Model {
 		$titleTypeParams = explode('|', $this->title);
 		$this->objectType = $titleTypeParams[1];
 
-		if ($this->objectType === static::OBJECT_TYPE_REGION) {
+		if ($this->objectType == static::OBJECT_TYPE_REGION) {
 			$id = explode('|', $this->title)[0];
 			$param['region_id'] = $id;
 		}
@@ -182,6 +182,7 @@ class SearchForm extends Model {
 				$commonRate->availabilityHash = $ostrovokRate->availability_hash;
 				$commonRate->bookHash = $ostrovokRate->book_hash;
 				$commonRate->dailyPrices = $ostrovokRate->daily_prices;
+				$commonRate->filters = $ostrovokRate->serp_filters;
 
 				$commonBedPlace = new CommonBedPlaces();
 				$commonBedPlace->childCotCount = $ostrovokRate->bed_places->child_cot_count;
@@ -203,9 +204,7 @@ class SearchForm extends Model {
 			}
 		}
 
-		$result = $rates;
-
-		return $result;
+		return $rates;
 	}
 
 	/**
