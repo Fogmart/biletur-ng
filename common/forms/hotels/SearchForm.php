@@ -6,6 +6,7 @@ use common\base\helpers\DateHelper;
 use common\base\helpers\Dump;
 use common\components\hotels\CommonBedPlaces;
 use common\components\hotels\CommonCancellationInfo;
+use common\components\hotels\CommonHotel;
 use common\components\hotels\CommonPaymentOptions;
 use common\components\hotels\CommonRate;
 use common\modules\api\ostrovok\components\OstrovokApi;
@@ -13,6 +14,7 @@ use common\modules\api\ostrovok\exceptions\OstrovokResponseException;
 use sem\helpers\ArrayHelper;
 use Yii;
 use yii\base\Model;
+use yii\mongodb\Query;
 use yii\validators\EachValidator;
 use yii\validators\NumberValidator;
 use yii\validators\RequiredValidator;
@@ -163,16 +165,13 @@ class SearchForm extends Model {
 		}
 
 		$rates = [];
+		$hotelInfo = [];
+		$hotelsInfoArray = [];
 
 		foreach ($result->result->hotels as $hotel) {
 			/** @var \common\modules\api\ostrovok\components\objects\Rate $ostrovokRate */
 			foreach ($hotel->rates as $ostrovokRate) {
-
 				$commonRate = new CommonRate();
-				$commonRate->sourceApi = static::API_SOURCE_OSTROVOK;
-				$commonRate->hotelId = $hotel->id;
-				$commonRate->hotelName = $hotel->id;
-				$commonRate->hotelPage = $ostrovokRate->hotelpage;
 				$commonRate->roomTitle = $ostrovokRate->room_name;
 				$commonRate->description = $ostrovokRate->room_description;
 				$commonRate->images = $ostrovokRate->images;
@@ -202,11 +201,46 @@ class SearchForm extends Model {
 				$commonPaymentOptions->paymentTypes = $ostrovokRate->payment_options->payment_types;
 				$commonRate->paymentOptions = $commonPaymentOptions;
 
-				$rates[$hotel->id][] = $commonRate;
+				//Запросим данные отеля в MongoDB
+				if (!array_key_exists($hotel->id, $hotelInfo)) {
+					$query = new Query();
+					$mongoHotelInfo = $query->select([])
+						->from('api_ostrovok_hotel')
+						->where(['id' => $hotel->id])
+						->one();
+
+					$hotelInfo[$hotel->id] = $mongoHotelInfo;
+				}
+
+				if (!array_key_exists($hotel->id, $hotelsInfoArray)) {
+					$commonHotel = new CommonHotel();
+					$commonHotel->sourceApi = static::API_SOURCE_OSTROVOK;
+					$commonHotel->id = $hotel->id;
+					$commonHotel->name = $hotelInfo[$hotel->id]['name'];
+					$commonHotel->page = $ostrovokRate->hotelpage;
+					$commonHotel->image = $hotelInfo[$hotel->id]['images'][0];
+					$commonHotel->images = $hotelInfo[$hotel->id]['images'];
+					$commonHotel->address = $hotelInfo[$hotel->id]['address'];
+					$commonHotel->kind = $hotelInfo[$hotel->id]['kind'];
+					$commonHotel->latitude = $hotelInfo[$hotel->id]['latitude'];
+					$commonHotel->longitude = $hotelInfo[$hotel->id]['longitude'];
+					$commonHotel->phone = $hotelInfo[$hotel->id]['phone'];
+					$commonHotel->rating = $hotelInfo[$hotel->id]['star_rating'];
+
+					if (isset($hotelInfo[$hotel->id]['description_struct'][0]['paragraphs'])) {
+						$commonHotel->description = implode('<br>', $hotelInfo[$hotel->id]['description_struct'][0]['paragraphs']);
+					}
+
+					$hotelsInfoArray[$hotel->id] = $commonHotel;
+				}
+
+				$hotelsInfoArray[$hotel->id]->rates[] = $commonRate;
 			}
 		}
 
-		return $rates;
+		//return $result->result->hotels;
+		//return $hotelsInfoArray;
+		return $hotelInfo;
 	}
 
 	/**

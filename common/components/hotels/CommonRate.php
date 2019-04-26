@@ -4,19 +4,6 @@ namespace common\components\hotels;
 use yii\base\Component;
 
 class CommonRate extends Component {
-
-	/** @var int Источник данных(из какого API) */
-	public $sourceApi;
-
-	/** @var string Идентификатор отеля*/
-	public $hotelId;
-
-	/** @var string Название отеля*/
-	public $hotelName;
-
-	/** @var string Сайт отеля */
-	public $hotelPage;
-
 	/** @var string Название номера */
 	public $roomTitle;
 

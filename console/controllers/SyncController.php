@@ -63,7 +63,7 @@ class SyncController extends Controller {
 		\Yii::$app->ipgeobase->updateDB();
 	}
 
-	/**п
+	/**
 	 * Скачивание дампа отелей островка. //раз в неделю
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
@@ -79,6 +79,7 @@ class SyncController extends Controller {
 
 		$handle = fopen(Yii::getAlias('@temp') . DIRECTORY_SEPARATOR . 'ostrovok.json', "r");
 		$collection = Yii::$app->mongodb->getCollection('api_ostrovok_hotel');
+		//дропаем коллекцию
 		$collection->drop();
 		if ($handle) {
 			$count = 0;
@@ -99,6 +100,8 @@ class SyncController extends Controller {
 		else {
 			echo 'error';
 		}
+
+		$collection->createIndex(['id']);
 	}
 
 	/**
