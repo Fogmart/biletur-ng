@@ -2,7 +2,6 @@
 
 namespace console\controllers;
 
-use common\base\helpers\Dump;
 use common\components\SyncData;
 use common\models\CommonHotelMeal;
 use common\models\CommonHotelSerpFilters;
@@ -11,9 +10,9 @@ use common\models\Filial;
 use common\models\Org;
 use common\models\Place;
 use common\models\Town;
+use common\modules\api\ostrovok\components\OstrovokApi;
 use common\modules\api\ostrovok\models\ApiOstrovokMeal;
 use common\modules\api\ostrovok\models\ApiOstrovokSerpFilters;
-use common\modules\api\ostrovok\components\OstrovokApi;
 use common\modules\news\models\News;
 use Yii;
 use yii\console\Controller;
@@ -28,10 +27,10 @@ use yii\console\Controller;
 class SyncController extends Controller {
 
 	/**
-	 * Синхронизация
+	 * Синхронизация данных с ДСП
 	 *
 	 *
-	 * @author Исаков Владислав <isakov.vi@dns-shop.ru>
+	 * @author Исаков Владислав
 	 */
 	public function actionIndex() {
 		//Синхронизация новостей
@@ -64,8 +63,8 @@ class SyncController extends Controller {
 		\Yii::$app->ipgeobase->updateDB();
 	}
 
-	/**
-	 * Скачивание дама отелей островка. //раз в неделю
+	/**п
+	 * Скачивание дампа отелей островка. //раз в неделю
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
@@ -74,11 +73,32 @@ class SyncController extends Controller {
 		$api->method = OstrovokApi::METHOD_HOTEL_GET_DUMP;
 
 		/** @var \common\modules\api\ostrovok\components\objects\OstrovokResponse $response */
-		$response = $api->sendRequest();
-		Dump::dDie($response);
+		//$response = $api->sendRequest();
+		//file_put_contents(Yii::getAlias('@temp') . 'ostrovok-hotels.zst', file_get_contents($response->data['url']));
+		//unzstd partner_feed_ru.json.zst ostrovok.json
 
-
-		file_get_contents($response->data['url']);
+		$handle = fopen(Yii::getAlias('@temp') . DIRECTORY_SEPARATOR . 'ostrovok.json', "r");
+		$collection = Yii::$app->mongodb->getCollection('api_ostrovok_hotel');
+		$collection->drop();
+		if ($handle) {
+			$count = 0;
+			$objects = [];
+			//Пройдем по файлу курсором построково, чтобы не завалить сервер
+			while (($line = fgets($handle)) !== false) {
+				$objects[] = json_decode($line);
+				//Для ускорения грузим пачками, по сколько влезает в оперативку(кол-во объектов настраивается в конфиге)
+				if ($count === Yii::$app->ostrovokApi->insertBatchCount) {
+					Yii::$app->mongodb->createCommand()->batchInsert('api_ostrovok_hotel', $objects);
+					$count = 0;
+					$objects = [];
+				}
+				$count++;
+			}
+			fclose($handle);
+		}
+		else {
+			echo 'error';
+		}
 	}
 
 	/**
@@ -166,13 +186,13 @@ class SyncController extends Controller {
 
 				if (null === $commonMeal) {
 					$commonMeal = new CommonHotelMeal();
-					$commonMeal->title =  $titles->ru;
+					$commonMeal->title = $titles->ru;
 					$commonMeal->save();
 				}
 
 				/** @var CommonHotelSerpFilters $commonSerpFilter */
 				$commonMeal = CommonHotelMeal::find()
-					->andWhere([CommonHotelMeal::ATTR_TITLE =>  $titles->ru])
+					->andWhere([CommonHotelMeal::ATTR_TITLE => $titles->ru])
 					->one();
 
 				$mealInBase->common_filter_id = $commonMeal->id;

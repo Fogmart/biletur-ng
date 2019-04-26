@@ -54,11 +54,6 @@ return [
 			],
 			'useMemcached' => true,
 		],
-		'ostrovokApi' => [
-			'class' => OstrovokApi::class,
-			'keyId' => '2305',
-			'key'   => '75f657b2-aeea-4c1b-89ef-5dd7c4a65667'
-		]
 	],
 	'params'              => $params,
 ];

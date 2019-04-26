@@ -32,6 +32,8 @@ class OstrovokApi extends Component implements Configurable {
 	/** @var string */
 	protected $_urlV3;
 
+	public $insertBatchCount = 300;
+
 	//Запрос регионов и отелей
 	const METHOD_MULTICOMPLETE = 'multicomplete';
 
@@ -55,8 +57,9 @@ class OstrovokApi extends Component implements Configurable {
 
 	/** @var array Параметры, общие для всех запросов */
 	const DEFAULT_PARAMS = [
-		'format' => 'json',
-		'lang'   => 'ru'
+		'format'   => 'json',
+		'lang'     => 'ru',
+		'language' => 'ru',
 	];
 
 	public function __construct($config = []) {
@@ -113,6 +116,19 @@ class OstrovokApi extends Component implements Configurable {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function setUrlV3($value) {
+		$this->_urlV3 = $value;
+
+		return $this;
+	}
+
+	/**
+	 * @param int $value
+	 *
+	 * @return $this
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function setInsertBatchCount($value) {
 		$this->_urlV3 = $value;
 
 		return $this;
