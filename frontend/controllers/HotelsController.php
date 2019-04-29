@@ -101,7 +101,7 @@ class HotelsController extends FrontendMenuController {
 		//Разделитель "Регионы"
 		$result['results'][] = [
 			'id'     => null,
-			'text'   => 'Регионы',
+			'text'   => 'Города, регионы',
 			'source' => SearchForm::API_SOURCE_OSTROVOK,
 			'type'   => 'devider'
 		];
