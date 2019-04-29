@@ -226,6 +226,7 @@ class SearchForm extends Model {
 					$commonHotel->longitude = $hotelInfo[$hotel->id]['longitude'];
 					$commonHotel->phone = $hotelInfo[$hotel->id]['phone'];
 					$commonHotel->rating = $hotelInfo[$hotel->id]['star_rating'];
+					$commonHotel->amenities = $hotelInfo[$hotel->id]['amenity_groups'];
 
 					if (isset($hotelInfo[$hotel->id]['description_struct'][0]['paragraphs'])) {
 						$commonHotel->description = implode('<br>', $hotelInfo[$hotel->id]['description_struct'][0]['paragraphs']);
@@ -239,8 +240,8 @@ class SearchForm extends Model {
 		}
 
 		//return $result->result->hotels;
-		//return $hotelsInfoArray;
-		return $hotelInfo;
+		return $hotelsInfoArray;
+		//return $hotelInfo;
 	}
 
 	/**

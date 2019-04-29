@@ -48,6 +48,10 @@ class CommonHotel extends Component {
 	/** @var int Кол-во звезд */
 	public $rating;
 
+	/** @var array Услуги*/
+	public $amenities;
+
 	/** @var \common\components\hotels\CommonRate[] */
 	public $rates;
+
 }
