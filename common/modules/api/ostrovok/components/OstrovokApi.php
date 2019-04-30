@@ -2,6 +2,7 @@
 
 namespace common\modules\api\ostrovok\components;
 
+use common\components\hotels\CommonHotel;
 use Yii;
 use yii\base\Component;
 use yii\base\Configurable;
@@ -83,22 +84,7 @@ class OstrovokApi extends Component implements Configurable {
 	/**
 	 * Типы отелей островка
 	 */
-	const HOTEL_TYPES = [
-		'Resort'               => '',
-		'Sanatorium'           => 'Санаторий',
-		'Guesthouse'           => '',
-		'Mini-hotel'           => '',
-		'Castle'               => 'Замок',
-		'Hotel'                => 'Отель',
-		'Boutique_and_Design'  => '',
-		'Apartment'            => 'Хата',
-		'Cottages_and_Houses'  => 'Дом',
-		'Farm'                 => '',
-		'Villas_and_Bungalows' => 'Вилла риба/Вилла баджо',
-		'Camping'              => '',
-		'Hostel'               => 'Хостел',
-		'BNB'                  => 'БДСМ'
-	];
+	const HOTEL_TYPES = CommonHotel::HOTEL_TYPES;
 
 	/**
 	 * @param array $config
