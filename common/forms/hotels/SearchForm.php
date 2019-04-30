@@ -240,8 +240,8 @@ class SearchForm extends Model {
 		}
 
 		//return $result->result->hotels;
-		return $hotelsInfoArray;
-		//return $hotelInfo;
+		//return $hotelsInfoArray;
+		return $hotelInfo;
 	}
 
 	/**

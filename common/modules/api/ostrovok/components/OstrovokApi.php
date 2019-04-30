@@ -81,6 +81,26 @@ class OstrovokApi extends Component implements Configurable {
 	const IMAGE_SIZE_X500 = 'x500';
 
 	/**
+	 * Типы отелей островка
+	 */
+	const HOTEL_TYPES = [
+		'Resort'               => '',
+		'Sanatorium'           => 'Санаторий',
+		'Guesthouse'           => '',
+		'Mini-hotel'           => '',
+		'Castle'               => 'Замок',
+		'Hotel'                => 'Отель',
+		'Boutique_and_Design'  => '',
+		'Apartment'            => 'Хата',
+		'Cottages_and_Houses'  => 'Дом',
+		'Farm'                 => '',
+		'Villas_and_Bungalows' => 'Вилла риба/Вилла баджо',
+		'Camping'              => '',
+		'Hostel'               => 'Хостел',
+		'BNB'                  => ''
+	];
+
+	/**
 	 * @param array $config
 	 *
 	 * @author Isakov Vlad <visakov@biletur.ru>

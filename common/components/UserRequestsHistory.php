@@ -17,7 +17,7 @@ class UserRequestsHistory extends Component {
 	 */
 	public function setRequestToHistory($data) {
 		$className = get_called_class();
-		Yii::$app->memcache->set($this->_getName($className), $data, 60 * 60);
+		Yii::$app->cache->set($this->_getName($className), $data, 60 * 60);
 	}
 
 	/**
@@ -36,6 +36,6 @@ class UserRequestsHistory extends Component {
 		$className = get_called_class();
 		$requestName = $this->_getName($className);
 
-		return Yii::$app->memcache->get($requestName);
+		return Yii::$app->cache->get($requestName);
 	}
 }
