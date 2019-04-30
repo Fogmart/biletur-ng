@@ -97,7 +97,7 @@ class OstrovokApi extends Component implements Configurable {
 		'Villas_and_Bungalows' => 'Вилла риба/Вилла баджо',
 		'Camping'              => '',
 		'Hostel'               => 'Хостел',
-		'BNB'                  => ''
+		'BNB'                  => 'БДСМ'
 	];
 
 	/**
