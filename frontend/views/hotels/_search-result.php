@@ -9,6 +9,15 @@
 <div class="result">
     <div class="loading-widget" style="display: none;"></div>
     <div class="list">
-		<?= \common\base\helpers\Dump::d($form->result) ?>
+		<?php foreach ($form->result as $hotel): ?>
+            <div class="col-xs-12">
+                <h2><?= $hotel->name ?></h2>
+                <img src="<?= $hotel->image ?>">
+            </div>
+
+			<?php foreach ($hotel->rates as $rate): ?>
+
+			<?php endforeach ?>
+		<?php endforeach ?>
     </div>
 </div>

@@ -58,7 +58,8 @@ class SearchForm extends Model {
 	public $source = self::API_SOURCE_OSTROVOK;
 	const ATTR_SOURCE = 'source';
 
-	public $result;
+	/** @var CommonHotel[] Отели с вариантами размещения */
+	public $result = [];
 
 	const API_SOURCE_OSTROVOK = 0;
 
@@ -227,6 +228,7 @@ class SearchForm extends Model {
 					$commonHotel->phone = $hotelInfo[$hotel->id]['phone'];
 					$commonHotel->rating = $hotelInfo[$hotel->id]['star_rating'];
 					$commonHotel->amenities = $hotelInfo[$hotel->id]['amenity_groups'];
+					$commonHotel->roomGroups = $hotelInfo[$hotel->id]['room_groups'];
 
 					if (isset($hotelInfo[$hotel->id]['description_struct'][0]['paragraphs'])) {
 						$commonHotel->description = implode('<br>', $hotelInfo[$hotel->id]['description_struct'][0]['paragraphs']);
@@ -240,8 +242,8 @@ class SearchForm extends Model {
 		}
 
 		//return $result->result->hotels;
-		//return $hotelsInfoArray;
-		return $hotelInfo;
+		return $hotelsInfoArray;
+		//return $hotelInfo;
 	}
 
 	/**
