@@ -85,7 +85,7 @@ class SyncController extends Controller {
 		//дропаем коллекцию
 		try {
 
-			$collection->drop();
+			//$collection->drop();
 		}
 		catch (\Exception $e) {
 			echo $e->getMessage() . PHP_EOL;
