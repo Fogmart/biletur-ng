@@ -80,8 +80,6 @@ class SyncController extends Controller {
 		$handle = fopen(Yii::getAlias('@temp') . DIRECTORY_SEPARATOR . 'ostrovok.json', "r");
 		$collection = Yii::$app->mongodb->getCollection('api_ostrovok_hotel');
 
-		print_r($collection).PHP_EOL;
-
 		//дропаем коллекцию
 		try {
 
