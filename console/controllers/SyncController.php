@@ -81,11 +81,8 @@ class SyncController extends Controller {
 		$collection = Yii::$app->mongodb->getCollection('api_ostrovok_hotel');
 
 		//дропаем коллекцию
-
-
 		//$collection->drop();
-
-
+		print_r($handle) . PHP_EOL;
 		if ($handle) {
 			$count = 0;
 			$objects = [];
