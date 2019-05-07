@@ -10,6 +10,9 @@ class CommonRate extends Component {
 	/** @var string Размер номера */
 	public $roomSize;
 
+	/** @var int Тип комнаты для подгрузки информации*/
+	public $roomTypeId;
+
 	/** @var bool */
 	public $noneRefundable;
 
@@ -51,4 +54,7 @@ class CommonRate extends Component {
 
 	/** @var \common\components\hotels\CommonPaymentOptions Способы оплаты */
 	public $paymentOptions;
+
+	/** @var \common\components\hotels\CommonRoomInfo Информация о номере (изображения, удобства и тд)*/
+	public $roomInfo;
 }

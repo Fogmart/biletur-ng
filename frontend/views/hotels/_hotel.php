@@ -21,3 +21,6 @@ use common\components\hotels\CommonHotel;
     <h4>Описание отеля</h4>
     <span class="hotel-description"><?= $hotel->description ?></span>
 </div>
+<div class="col-xs-9">
+    <?= $hotel->rating ?>
+</div>

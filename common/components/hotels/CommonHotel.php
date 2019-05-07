@@ -51,7 +51,7 @@ class CommonHotel extends Component {
 	/** @var array Услуги */
 	public $amenities;
 
-	/** @var array Группы комнат */
+	/** @var \common\modules\api\ostrovok\components\objects\RoomGroup[] Группы комнат */
 	public $roomGroups;
 
 	/** @var \common\components\hotels\CommonRate[] */

@@ -5,6 +5,7 @@
  * @var \yii\web\View                   $this
  * @var \common\forms\hotels\SearchForm $form
  */
+
 ?>
 <div class="result">
     <div class="loading-widget" style="display: none;"></div>

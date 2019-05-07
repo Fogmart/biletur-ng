@@ -9,6 +9,7 @@ use common\components\hotels\CommonCancellationInfo;
 use common\components\hotels\CommonHotel;
 use common\components\hotels\CommonPaymentOptions;
 use common\components\hotels\CommonRate;
+use common\components\hotels\CommonRoomInfo;
 use common\modules\api\ostrovok\components\OstrovokApi;
 use common\modules\api\ostrovok\exceptions\OstrovokResponseException;
 use sem\helpers\ArrayHelper;
@@ -185,6 +186,7 @@ class SearchForm extends Model {
 				$commonRate->bookHash = $ostrovokRate->book_hash;
 				$commonRate->dailyPrices = $ostrovokRate->daily_prices;
 				$commonRate->filters = $ostrovokRate->serp_filters;
+				$commonRate->roomTypeId = $ostrovokRate->room_group_id;
 
 				$commonBedPlace = new CommonBedPlaces();
 				$commonBedPlace->childCotCount = $ostrovokRate->bed_places->child_cot_count;
@@ -230,11 +232,23 @@ class SearchForm extends Model {
 					$commonHotel->amenities = $hotelInfo[$hotel->id]['amenity_groups'];
 					$commonHotel->roomGroups = $hotelInfo[$hotel->id]['room_groups'];
 
+
+
 					if (isset($hotelInfo[$hotel->id]['description_struct'][0]['paragraphs'])) {
 						$commonHotel->description = implode('<br>', $hotelInfo[$hotel->id]['description_struct'][0]['paragraphs']);
 					}
 
 					$hotelsInfoArray[$hotel->id] = $commonHotel;
+				}
+
+				foreach ($hotelsInfoArray[$hotel->id]->roomGroups as $roomGroup) {
+					if ($roomGroup['room_group_id'] == $commonRate->roomTypeId) {
+						$roomInfo = new CommonRoomInfo();
+						$roomInfo->title = $roomGroup['name'];
+						$roomInfo->images = $roomGroup['images'];
+						$roomInfo->amenities = $roomGroup['room_amenities'];
+						$commonRate->roomInfo = $roomInfo;
+					}
 				}
 
 				$hotelsInfoArray[$hotel->id]->rates[] = $commonRate;
