@@ -6,7 +6,7 @@ html,
 body {
 	height: auto;
 	background-color: #f0f0f0;
-	font-family: "Verdana";
+	font-family: 'Roboto Slab', serif;
 }
 
 .wrap {
@@ -361,4 +361,8 @@ a.desc:after {
 
 .column-5 .col-md-2 {
 	width: 20%;
+}
+
+.hotel-description {
+	font-size: 12px;
 }

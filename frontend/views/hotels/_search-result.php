@@ -11,13 +11,13 @@
     <div class="list">
 		<?php foreach ($form->result as $hotel): ?>
             <div class="col-xs-12">
-                <h2><?= $hotel->name ?></h2>
-                <img src="<?= $hotel->image ?>">
+				<?= $this->render('_hotel', ['hotel' => $hotel]) ?>
             </div>
-
-			<?php foreach ($hotel->rates as $rate): ?>
-
-			<?php endforeach ?>
+            <div class="col-xs-12">
+				<?php foreach ($hotel->rates as $rate): ?>
+					<?= $this->render('_rate', ['rate' => $rate]) ?>
+				<?php endforeach ?>
+            </div>
 		<?php endforeach ?>
     </div>
 </div>
