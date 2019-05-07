@@ -12,6 +12,7 @@ use common\components\hotels\CommonRate;
 use common\components\hotels\CommonRoomInfo;
 use common\modules\api\ostrovok\components\OstrovokApi;
 use common\modules\api\ostrovok\exceptions\OstrovokResponseException;
+use common\modules\api\ostrovok\models\ApiOstrovokMeal;
 use sem\helpers\ArrayHelper;
 use Yii;
 use yii\base\Model;
@@ -181,7 +182,7 @@ class SearchForm extends Model {
 				$commonRate->currency = $ostrovokRate->rate_currency;
 				$commonRate->roomSize = $ostrovokRate->room_size;
 				$commonRate->noneRefundable = $ostrovokRate->non_refundable;
-				$commonRate->meal = $ostrovokRate->meal;
+				$commonRate->meal = ApiOstrovokMeal::getRusTitle($ostrovokRate->meal);
 				$commonRate->availabilityHash = $ostrovokRate->availability_hash;
 				$commonRate->bookHash = $ostrovokRate->book_hash;
 				$commonRate->dailyPrices = $ostrovokRate->daily_prices;
