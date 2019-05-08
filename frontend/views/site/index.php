@@ -2,6 +2,7 @@
 
 use frontend\controllers\AviaController;
 use frontend\controllers\RailRoadController;
+use frontend\controllers\HotelsController;
 
 /**
  * @var $this yii\web\View
@@ -43,10 +44,12 @@ $this->title = 'Билетур';
         </div>
     </div>
     <div class="col-md-2">
+        <a href="<?= HotelsController::getActionUrl(HotelsController::ACTION_INDEX) ?>" class="text-center index-icons-block">
         <div class="text-center index-icons-block">
             <img src="/images/plane.png" alt="Отели">
             <span>Отели</span>
         </div>
+        </a>
     </div>
 </div>
 <div class="row column-5" style="margin-top: 20px;">

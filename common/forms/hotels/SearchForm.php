@@ -206,6 +206,7 @@ class SearchForm extends Model {
 				$commonRate->paymentOptions = $commonPaymentOptions;
 
 				//Запросим данные отеля в MongoDB
+				//Может быть, потом закешировать это, посмотреть будет ли профит
 				if (!array_key_exists($hotel->id, $hotelInfo)) {
 					$query = new Query();
 					$mongoHotelInfo = $query->select([])
@@ -252,7 +253,7 @@ class SearchForm extends Model {
 					}
 				}
 
-				$hotelsInfoArray[$hotel->id]->rates[] = $commonRate;
+				$hotelsInfoArray[$hotel->id]->rates[$commonRate->roomTypeId][] = $commonRate;
 			}
 		}
 

@@ -5,22 +5,11 @@ use common\base\helpers\StringHelper;
 /**
  * @author Исаков Владислав <visakov@biletur.ru>
  *
- * @var \common\components\hotels\CommonRate $rate
+ * @var \common\components\hotels\CommonRate[] $rates
  */
 ?>
-
-
-
-<h4><?= $rate->roomTitle ?></h4> <br>
-<h5><?= StringHelper::formatPrice($rate->price, '&#8381;') ?> </h5> <br>
-Питание: <?= $rate->meal ?> <br>
-<?php if (null !== $rate->roomInfo): ?>
-	<?php foreach ($rate->roomInfo->images as $image): ?>
-        <img class="img-rounded" src="<?= strtr($image, [
-			'{size}' => OstrovokApi::IMAGE_SIZE_100X100
-		]) ?>">
-	<?php endforeach ?>
-<?php endif ?>
-
-<?php \common\base\helpers\Dump::d($rate) ?>
+<h4><?= $rates[0]->roomTitle ?></h4> <br>
+<?php foreach ($rates as $rate): ?>
+    <?= StringHelper::formatPrice($rate->price, '&#8381;')?> <br>
+<?php endforeach?>
 <hr>

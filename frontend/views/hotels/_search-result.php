@@ -15,8 +15,8 @@
 				<?= $this->render('_hotel', ['hotel' => $hotel]) ?>
             </div>
             <div class="col-xs-12">
-				<?php foreach ($hotel->rates as $rate): ?>
-					<?= $this->render('_rate', ['rate' => $rate]) ?>
+				<?php foreach ($hotel->rates as $id => $rates): ?>
+					<?= $this->render('_rate', ['rates' => $rates]) ?>
 				<?php endforeach ?>
             </div>
 		<?php endforeach ?>
