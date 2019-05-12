@@ -63,6 +63,9 @@ class SearchForm extends Model {
 	/** @var CommonHotel[] Отели с вариантами размещения */
 	public $result = [];
 
+	/** @var array Фильтры после первого поиска,для уточнения */
+	public $filters;
+
 	const API_SOURCE_OSTROVOK = 0;
 
 	const OBJECT_TYPE_HOTEL = 0;

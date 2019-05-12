@@ -11,5 +11,8 @@ use common\base\helpers\StringHelper;
 <h4><?= $rates[0]->roomTitle ?></h4> <br>
 <?php foreach ($rates as $rate): ?>
     <?= StringHelper::formatPrice($rate->price, '&#8381;')?> <br>
+    <?php
+        \common\base\helpers\Dump::d($rate->roomInfo->amenities);
+    ?>
 <?php endforeach?>
 <hr>

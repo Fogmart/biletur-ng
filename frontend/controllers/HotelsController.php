@@ -81,7 +81,7 @@ class HotelsController extends FrontendMenuController {
 
 		$result = [];
 
-		//Разделить "Отели"
+		//Разделитель "Отели"
 		$result['results'][] = [
 			'id'     => null,
 			'text'   => 'Отели',
