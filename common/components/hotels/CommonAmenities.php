@@ -12,6 +12,7 @@ class CommonAmenities extends Component {
 		'fridge'           => 'Холодильник',
 		'hypoallergenic'   => 'Подходит для гостей с аллергией',
 		'private-bathroom' => 'Собственная ванная комната',
+		'bath'             => 'Ванна',
 		'shower'           => 'Душ',
 		'sofa'             => 'Диван',
 		'telephone'        => 'Телефон',

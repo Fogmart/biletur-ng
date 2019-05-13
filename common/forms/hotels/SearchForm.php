@@ -4,6 +4,7 @@ namespace common\forms\hotels;
 
 use common\base\helpers\DateHelper;
 use common\base\helpers\Dump;
+use common\components\hotels\CommonAmenities;
 use common\components\hotels\CommonBedPlaces;
 use common\components\hotels\CommonCancellationInfo;
 use common\components\hotels\CommonHotel;
@@ -256,6 +257,12 @@ class SearchForm extends Model {
 
 				$hotelsInfoArray[$hotel->id]->rates[$commonRate->roomTypeId][] = $commonRate;
 				$this->filters = array_merge($this->filters, array_flip($commonRate->roomInfo->amenities));
+			}
+		}
+
+		foreach ($this->filters as $name => $id) {
+			if (array_key_exists($name, CommonAmenities::OSTROVOK_AMENITIES_NAMES)) {
+				$this->filters[$name] = CommonAmenities::OSTROVOK_AMENITIES_NAMES[$name];
 			}
 		}
 
