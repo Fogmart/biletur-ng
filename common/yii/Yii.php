@@ -27,6 +27,7 @@ class Yii extends BaseYii {
  * @property-read \common\components\IpGeoBase                        $ipgeobase
  * @property-read \common\components\Environment                      $env
  * @property-read \common\modules\api\ostrovok\components\OstrovokApi $ostrovokApi
+ * @property-read \common\modules\api\tripster\components\TripsterApi $tripsterApi
  * @property-read \yii\mongodb\Connection                             $mongodb
  */
 class Application {
