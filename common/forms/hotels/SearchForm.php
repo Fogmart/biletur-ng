@@ -63,8 +63,8 @@ class SearchForm extends Model {
 	/** @var CommonHotel[] Отели с вариантами размещения */
 	public $result = [];
 
-	/** @var array Фильтры после первого поиска,для уточнения */
-	public $filters;
+	/** @var array Фильтры после первого поиска, для уточнения */
+	public $filters = [];
 
 	const API_SOURCE_OSTROVOK = 0;
 
@@ -237,8 +237,6 @@ class SearchForm extends Model {
 					$commonHotel->amenities = $hotelInfo[$hotel->id]['amenity_groups'];
 					$commonHotel->roomGroups = $hotelInfo[$hotel->id]['room_groups'];
 
-
-
 					if (isset($hotelInfo[$hotel->id]['description_struct'][0]['paragraphs'])) {
 						$commonHotel->description = implode('<br>', $hotelInfo[$hotel->id]['description_struct'][0]['paragraphs']);
 					}
@@ -257,6 +255,7 @@ class SearchForm extends Model {
 				}
 
 				$hotelsInfoArray[$hotel->id]->rates[$commonRate->roomTypeId][] = $commonRate;
+				$this->filters = array_merge($this->filters, array_flip($commonRate->roomInfo->amenities));
 			}
 		}
 

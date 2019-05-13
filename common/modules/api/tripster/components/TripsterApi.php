@@ -12,11 +12,20 @@ class TripsterApi extends Component implements Configurable {
 
 	private $_url;
 
+	/** @var string Страны */
+	const METHOD_COUNTRIES = 'countries';
+
+	/** @var string Города */
+	const METHOD_CITIES = 'cities';
+
 	/** @var string Эксукрсии */
 	const METHOD_EXPERIENCES = 'experiences';
 
 	/** @var string Рубрики экскурсий */
 	const METHOD_CITY_TAGS = 'citytags';
+
+	/** @var string Отзывы для экскурсии */
+	const SUB_METHOD_REVIEWS = 'reviews';
 
 	const PARAM_CITY_NAME_RU = 'city__name_ru';
 

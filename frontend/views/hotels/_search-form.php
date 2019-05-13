@@ -120,6 +120,15 @@ use yii\web\JsExpression;
 			<?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>
         </div>
     </div>
+<?php if (count($form->filters)):?>
+    <div class="row">
+        <div class="col-xs-12">
+            <?php
+                \common\base\helpers\Dump::d($form->filters)
+            ?>
+        </div>
+    </div>
+<?php endif ?>
 <?php ActiveForm::end(); ?>
 
 <?php Vue::end() ?>

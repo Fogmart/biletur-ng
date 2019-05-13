@@ -21,7 +21,9 @@ class CommonAmenities extends Component {
 		'window'           => 'Окно',
 		'with-view'        => 'Красивый вид',
 		'tea'              => 'Чайник',
-		'towels' => 'Полотенца',
+		'towels'           => 'Полотенца',
+		'bathrobe'         => 'Махровый халат',
+		'hairdryer'        => 'Фен'
 	];
 
 	/** @var string */
