@@ -38,6 +38,6 @@ class CommonCity extends Component {
 	/** @var float */
 	public $utcOffset;
 
-	/** @var \common\modules\api\tripster\components\objects\Country */
+	/** @var \common\components\excursion\CommonCountry */
 	public $country;
 }
