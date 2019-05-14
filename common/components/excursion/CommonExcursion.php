@@ -7,7 +7,7 @@ use yii\base\Component;
 /**
  * Общий класс для приведения экскурсий к одному обьекту
  *
- * @author  Исаков Владислав <visakov@biletur.ru>
+ * @author Исаков Владислав <visakov@biletur.ru>
  */
 class CommonExcursion extends Component {
 	/** @var int Источник данных(из какого API) */
