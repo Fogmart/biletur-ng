@@ -61,7 +61,8 @@ class CommonExcursion extends Component {
 	/** @var int Индекс популярности */
 	public $popularity;
 
-
+	/** @var \common\components\excursion\CommonCity */
+	public $city;
 
 	const TYPE_PRIVATE = 0;
 	const TYPE_GROUP = 1;
