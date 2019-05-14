@@ -12,6 +12,9 @@ class TripsterApi extends Component implements Configurable {
 
 	private $_url;
 
+	/** @var string Автокомплит по городам @see https://tripster.atlassian.net/wiki/spaces/affiliates/pages/1185677313 */
+	const METHOD_SEARCH = 'search/site';
+
 	/** @var string Страны */
 	const METHOD_COUNTRIES = 'countries';
 
@@ -94,8 +97,6 @@ class TripsterApi extends Component implements Configurable {
 		$results = curl_exec($curl);
 		curl_close($curl);
 
-		// Декодируем полученный json
-		// параметр true для возвращения ассоциативного массива вместо объекта
-		return json_decode($results, true);
+		return json_decode($results);
 	}
 }

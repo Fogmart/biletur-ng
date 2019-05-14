@@ -1,13 +1,13 @@
 <?php
-/**
- * @author Исаков Владислав <visakov@biletur.ru>
- */
-
 namespace common\components\hotels;
-
 
 use yii\base\Component;
 
+/**
+ * Общий класс для приведения отелей к одному обьекту
+ *
+ * @author  Исаков Владислав <visakov@biletur.ru>
+ */
 class CommonHotel extends Component {
 	/** @var int Источник данных(из какого API) */
 	public $sourceApi;
