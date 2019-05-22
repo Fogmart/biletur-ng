@@ -108,7 +108,9 @@ class TripsterApi extends Component implements Configurable {
 		]);
 
 		// Получаем данные и закрывааем соединение
-		$results = curl_exec($curl);
+		//$results = curl_exec($curl);
+		return [];
+
 		curl_close($curl);
 
 		return json_decode($results);
