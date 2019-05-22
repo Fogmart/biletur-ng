@@ -1,8 +1,9 @@
 <?php
 
 use frontend\controllers\AviaController;
-use frontend\controllers\RailRoadController;
 use frontend\controllers\HotelsController;
+use frontend\controllers\RailRoadController;
+use frontend\controllers\ExcursionController;
 
 /**
  * @var $this yii\web\View
@@ -33,8 +34,10 @@ $this->title = 'Билетур';
     </div>
     <div class="col-md-2">
         <div class="text-center index-icons-block">
-            <img src="/images/plane.png" alt="Экскурсии">
-            <span>Экскурсии</span>
+            <a href="<?= ExcursionController::getActionUrl(ExcursionController::ACTION_INDEX) ?>" class="text-center index-icons-block">
+                <img src="/images/plane.png" alt="Экскурсии">
+                <span>Экскурсии</span>
+            </a>
         </div>
     </div>
     <div class="col-md-2">
@@ -45,10 +48,10 @@ $this->title = 'Билетур';
     </div>
     <div class="col-md-2">
         <a href="<?= HotelsController::getActionUrl(HotelsController::ACTION_INDEX) ?>" class="text-center index-icons-block">
-        <div class="text-center index-icons-block">
-            <img src="/images/plane.png" alt="Отели">
-            <span>Отели</span>
-        </div>
+            <div class="text-center index-icons-block">
+                <img src="/images/plane.png" alt="Отели">
+                <span>Отели</span>
+            </div>
         </a>
     </div>
 </div>

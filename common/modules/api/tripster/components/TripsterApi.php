@@ -32,6 +32,20 @@ class TripsterApi extends Component implements Configurable {
 
 	const PARAM_CITY_NAME_RU = 'city__name_ru';
 
+
+	/** @var string Страны */
+	const AUTOCOMPLETE_TYPE_COUNTRY = 'country';
+
+	/** @var string Города */
+	const AUTOCOMPLETE_TYPE_CITY = 'city';
+
+	/** @var string Рубрики */
+	const AUTOCOMPLETE_TYPE_CITY_TAG = 'citytag';
+
+	/** @var string Экскурсии */
+	const AUTOCOMPLETE_EXCURSION = 'experience';
+
+
 	/**
 	 * @param array $config
 	 *
@@ -82,7 +96,7 @@ class TripsterApi extends Component implements Configurable {
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
-	public function get($resource, array $parameters = []) {
+	public function sendRequest($resource, array $parameters = []) {
 		$query_string = http_build_query($parameters);
 		$curl = curl_init("$this->_url/$resource/?$query_string");
 		curl_setopt_array($curl, [

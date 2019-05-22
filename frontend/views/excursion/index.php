@@ -1,12 +1,17 @@
 <?php
+
+use yii\widgets\Pjax;
+
 /**
  * @author Исаков Владислав <visakov@biletur.ru>
+ *
+ * @var \yii\web\View                   $this
+ * @var \common\forms\hotels\SearchForm $form
  */
-
-use yii\widgets\Pjax; ?>
-<div class="content-header text-center">
-	<h1>Поиск тура</h1>
-</div>
+?>
+    <div class="content-header text-center">
+        <h1>Поиск экскурсий</h1>
+    </div>
 <?php Pjax::begin(); ?>
     <div class="row">
         <div class="col-xs-12">

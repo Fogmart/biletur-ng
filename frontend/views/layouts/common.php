@@ -10,6 +10,7 @@ use frontend\controllers\RailRoadController;
 use frontend\controllers\TourController;
 use frontend\controllers\HotelsController;
 use yii\helpers\Html;
+use frontend\controllers\ExcursionController;
 
 AppAsset::register($this);
 ?>
@@ -36,7 +37,7 @@ AppAsset::register($this);
                 <li><a href="<?= RailRoadController::getActionUrl(RailRoadController::ACTION_INDEX) ?>">Ж/Д Билеты</a></li>
                 <li><a href="<?= TourController::getActionUrl(TourController::ACTION_INDEX) ?>">Туры</a></li>
                 <li><a href="<?= HotelsController::getActionUrl(HotelsController::ACTION_INDEX) ?>">Отели</a></li>
-                <li>Экскурсии</li>
+                <li><a href="<?= ExcursionController::getActionUrl(ExcursionController::ACTION_INDEX) ?>">Экскурсии</a></li>
                 <li>Круизы</li>
                 <li>Визы</li>
                 <li>Страхование</li>

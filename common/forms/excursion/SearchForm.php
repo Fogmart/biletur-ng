@@ -2,6 +2,7 @@
 
 namespace common\forms\excursion;
 
+use sem\helpers\ArrayHelper;
 use Yii;
 use yii\base\Model;
 use yii\validators\RequiredValidator;
@@ -55,5 +56,25 @@ class SearchForm extends Model {
 		return [];
 	}
 
+	/**
+	 * Возвращает данные последнего автокомплита для их восстановления после отправки формы
+	 *
+	 * @return mixed
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function getLastAutocompleteTripster() {
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, Yii::$app->session->id]);
+		$result = Yii::$app->cache->get($cacheKey);
+
+		if (false === $result) {
+			$result = [];
+		}
+		else {
+			$result = ArrayHelper::map($result['results'], 'id', 'text');
+		}
+
+		return $result;
+	}
 
 }
