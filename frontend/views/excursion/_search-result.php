@@ -11,9 +11,9 @@
         <div class="loading-widget" style="display: none;"></div>
         <div class="list">
 			<?php
-			\common\base\helpers\Dump::d($form->result);
+			\common\base\helpers\Dump::d($form->result->results);
 			?>
-			<?php foreach ($form->result as $excursion): ?>
+			<?php foreach ($form->result->results as $excursion): ?>
 
 			<?php endforeach ?>
 
