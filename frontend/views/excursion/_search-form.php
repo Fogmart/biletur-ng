@@ -65,27 +65,28 @@ use yii\web\JsExpression;
         </div>
         <!--<div class="col-xs-3">
 			<?=
-			$htmlForm->field($form, $form::ATTR_CITY_TAG)->widget(Select2::class, [
-				'model'         => $form,
-				'attribute'     => $form::ATTR_CITY_TAG,
-				'data'          => [],
-				'options'       => [
-					'multiple' => false,
-					'prompt'   => 'Нет',
-				],
-				'pluginOptions' => [
-					'placeholder'        => 'Рубрика...',
-					'templateSelection'  => new JsExpression('function (data) { return data.text; }'),
-					'allowClear'         => true,
-					'minimumInputLength' => 3,
-				],
-			])->label(false);
-			?>
+		$htmlForm->field($form, $form::ATTR_CITY_TAG)->widget(Select2::class, [
+			'model'         => $form,
+			'attribute'     => $form::ATTR_CITY_TAG,
+			'data'          => [],
+			'options'       => [
+				'multiple' => false,
+				'prompt'   => 'Нет',
+			],
+			'pluginOptions' => [
+				'placeholder'        => 'Рубрика...',
+				'templateSelection'  => new JsExpression('function (data) { return data.text; }'),
+				'allowClear'         => true,
+				'minimumInputLength' => 3,
+			],
+		])->label(false);
+		?>
         </div>-->
         <div class="col-xs-2">
-			<?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>
+			<?= Html::submitButton('Найти', ['class' => 'btn btn-primary', 'id' => 'search-button']) ?>
         </div>
     </div>
+<?= $htmlForm->field($form, $form::ATTR_PAGE)->hiddenInput()->label(false) ?>
 <?php ActiveForm::end(); ?>
 
 <?php Vue::end() ?>

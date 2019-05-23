@@ -74,6 +74,8 @@ class ExcursionController extends FrontendMenuController {
 				}
 
 				foreach ($items as $item) {
+					$item->title = str_replace('<em>', '', $item->title);
+					$item->title = str_replace('</em>', '', $item->title);
 					$result['results'][] = [
 						'id'     => $item->id,
 						'text'   => $item->title . ($type === $api::AUTOCOMPLETE_TYPE_CITY_TAG ? '[' . $item->experience_count . ']' : ''),

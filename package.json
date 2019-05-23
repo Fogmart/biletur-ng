@@ -8,12 +8,13 @@
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
     "cross-env": "^3.2.3",
     "laravel-mix": "2.1",
     "webpack": "3.11"
   },
-  "dependencies": {
-   },
+  "dependencies": {},
   "optionalDependencies": {
     "fsevents": "*"
   }

@@ -7,14 +7,31 @@
  */
 
 ?>
-<div class="result">
-    <div class="loading-widget" style="display: none;"></div>
-    <div class="list">
-        <?php
-            \common\base\helpers\Dump::d($form->result)
-        ?>
-		<?php foreach ($form->result as $excursion): ?>
+    <div class="result">
+        <div class="loading-widget" style="display: none;"></div>
+        <div class="list">
+			<?php
+			\common\base\helpers\Dump::d($form->result);
+			?>
+			<?php foreach ($form->result as $excursion): ?>
 
-		<?php endforeach ?>
+			<?php endforeach ?>
+
+			<?php if ($form->pageCount > 1): ?>
+                <ul class="pagination pagination-sm">
+					<?php
+					for ($i = 0; $i < $form->pageCount; $i++) {
+						$active = '';
+						if ($form->page == $i + 1) {
+							$active = ' active';
+						}
+						echo '<li class="' . $active . '"><a href="#" class="page-num" data-num="' . ($i + 1) . '">' . ($i + 1) . '</a></li>';
+					}
+					?>
+                </ul>
+			<?php endif ?>
+        </div>
     </div>
-</div>
+<?php
+$this->registerJs('$(".pagination").searchPlugin();');
+?>

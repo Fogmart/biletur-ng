@@ -6,6 +6,7 @@ use common\modules\api\tripster\components\TripsterApi;
 use sem\helpers\ArrayHelper;
 use Yii;
 use yii\base\Model;
+use yii\validators\NumberValidator;
 use yii\validators\RequiredValidator;
 use common\components\excursion\CommonExcursion;
 use yii\validators\StringValidator;
@@ -33,8 +34,14 @@ class SearchForm extends Model {
 	public $source = self::API_SOURCE_TRIPSTER;
 	const ATTR_SOURCE = 'source';
 
+	public $page = 1;
+	const ATTR_PAGE = 'page';
+
 	/** @var CommonExcursion[] Экскурсии */
 	public $result = [];
+
+	/** @var int Кол-во страниц */
+	public $pageCount = 0;
 
 	const API_SOURCE_TRIPSTER = 0;
 
@@ -47,6 +54,7 @@ class SearchForm extends Model {
 		return [
 			[static::ATTR_CITY, RequiredValidator::class, 'message' => 'Пожалуйста, выберите город'],
 			[static::ATTR_CITY_TAG, StringValidator::class],
+			[static::ATTR_PAGE, NumberValidator::class],
 		];
 	}
 
@@ -72,6 +80,10 @@ class SearchForm extends Model {
 			$params[$api::PARAM_CITY_NAME_RU] = $this->cityName;
 		}
 
+		if (null !== $this->page && !empty($this->page )) {
+			$params[$api::PARAM_PAGE] = $this->page;
+		}
+
 		$params[$api::PARAM_SORTING] = '-popularity';
 
 		$response = $api->sendRequest($api::METHOD_EXPERIENCES, $params);
@@ -79,6 +91,8 @@ class SearchForm extends Model {
 		foreach ($response->results as $excursion) {
 			$excursion->url = $excursion->url . $api::UTM;
 		}
+
+		$this->pageCount = ceil((int)$response->count / $api::PAGE_SIZE);
 
 		return $response;
 	}

@@ -33,6 +33,7 @@ class TripsterApi extends Component implements Configurable {
 	const PARAM_CITY_NAME_RU = 'city__name_ru';
 	const PARAM_CITY_ID = 'city';
 	const PARAM_SORTING = 'sorting';
+	const PARAM_PAGE = 'page';
 
 
 	/** @var string Страны */
@@ -55,6 +56,8 @@ class TripsterApi extends Component implements Configurable {
 	];
 
 	const UTM = '?exp_partner=biletur&utm_source=biletur&utm_campaign=affiliates&utm_medium=api';
+
+	const PAGE_SIZE = 15;
 
 	/**
 	 * @param array $config
@@ -107,7 +110,7 @@ class TripsterApi extends Component implements Configurable {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function sendRequest($resource, array $parameters = []) {
-		$query_string = http_build_query(array_merge($parameters, ['page_size' => 30]));
+		$query_string = http_build_query(array_merge($parameters, ['page_size' => static::PAGE_SIZE]));
 		$curl = curl_init("$this->_url/$resource/?$query_string");
 		curl_setopt_array($curl, [
 			CURLOPT_RETURNTRANSFER => true,

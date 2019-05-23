@@ -12,6 +12,7 @@ const {mix} = require('laravel-mix');
  */
 
 mix.js('frontend/assets/src/js/commonPlugin.js', 'frontend/web/js/biletur.js')
+mix.js('frontend/assets/src/js/searchPlugin.js', 'frontend/web/js/biletur.js')
     .version();
 
 mix.sass('frontend/assets/src/sass/biletur.scss', 'frontend/web/css')
