@@ -11,6 +11,13 @@
         <div class="loading-widget" style="display: none;"></div>
 		<?php if (count($form->tags) > 0): ?>
             <div class="tags">
+				<?php
+				$active = '';
+				if (empty($form->cityTag)) {
+					$active = ' active';
+				}
+				?>
+                <a href="#" class="tag <?= $active ?>" data-id="">Все экскурсии</a>
 				<?php foreach ($form->tags as $tag): ?>
 					<?php
 					$active = '';
