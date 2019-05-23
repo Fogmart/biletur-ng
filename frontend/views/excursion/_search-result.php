@@ -13,7 +13,7 @@
 			<?php
 			\common\base\helpers\Dump::d($form->result);
 			?>
-			<?php foreach ($form->result->results as $excursion): ?>
+			<?php foreach ($form->result as $excursion): ?>
 
 			<?php endforeach ?>
 
