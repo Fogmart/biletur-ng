@@ -2,13 +2,13 @@
 
 namespace common\forms\excursion;
 
+use common\components\excursion\CommonExcursion;
 use common\modules\api\tripster\components\TripsterApi;
 use sem\helpers\ArrayHelper;
 use Yii;
 use yii\base\Model;
 use yii\validators\NumberValidator;
 use yii\validators\RequiredValidator;
-use common\components\excursion\CommonExcursion;
 use yii\validators\StringValidator;
 
 /**
@@ -22,7 +22,7 @@ class SearchForm extends Model {
 	public $city;
 	const ATTR_CITY = 'city';
 
-	/** @var string Город  название*/
+	/** @var string Город  название */
 	public $cityName;
 	const ATTR_CITY_NAME = 'cityName';
 
@@ -80,7 +80,7 @@ class SearchForm extends Model {
 			$params[$api::PARAM_CITY_NAME_RU] = $this->cityName;
 		}
 
-		if (null !== $this->page && !empty($this->page )) {
+		if (null !== $this->page && !empty($this->page)) {
 			$params[$api::PARAM_PAGE] = $this->page;
 		}
 
@@ -90,6 +90,14 @@ class SearchForm extends Model {
 
 		foreach ($response->results as $excursion) {
 			$excursion->url = $excursion->url . $api::UTM;
+
+			$excursion->city->url = $excursion->city->url . $api::UTM;
+			$excursion->city->country->url = $excursion->city->country->url . $api::UTM;
+			$excursion->guide->url = $excursion->guide->url . $api::UTM;
+
+			foreach ($excursion->tags as &$tag) {
+				$tag->url = $tag->url . $api::UTM;
+			}
 		}
 
 		$this->pageCount = ceil((int)$response->count / $api::PAGE_SIZE);
@@ -98,7 +106,7 @@ class SearchForm extends Model {
 	}
 
 	/**
-	 * Возвращает данные последнего автокомплита для их восстановления после отправки формы
+	 * Возвращает данные последнего автокомплита города для их восстановления после отправки формы
 	 *
 	 * @return mixed
 	 *

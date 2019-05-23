@@ -40,6 +40,7 @@ use yii\web\JsExpression;
 				'options'       => [
 					'multiple' => false,
 					'prompt'   => 'Нет',
+					'class'    => 'biletur-text-input'
 				],
 				'pluginOptions' => [
 					'placeholder'        => 'Город...',
