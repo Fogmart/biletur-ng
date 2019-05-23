@@ -1,5 +1,5 @@
 (function ($) {
-	$.fn.searchPlugin = function () {
+	$.fn.searchExcursionPlugin = function () {
 		var methods = {
 			init: function () {
 				$('.page-num').click(function () {

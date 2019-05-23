@@ -47,5 +47,5 @@
         </div>
     </div>
 <?php
-$this->registerJs('$(".pagination").searchPlugin();');
+$this->registerJs('$(".pagination").searchExcursionPlugin();');
 ?>
