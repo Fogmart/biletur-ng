@@ -54,7 +54,7 @@ class TripsterApi extends Component implements Configurable {
 		self::AUTOCOMPLETE_TYPE_CITY_TAG => 'Рубрики',
 	];
 
-	const UTM = 'exp_partner=biletur&utm_source=biletur&utm_campaign=affiliates&utm_medium=api';
+	const UTM = '?exp_partner=biletur&utm_source=biletur&utm_campaign=affiliates&utm_medium=api';
 
 	/**
 	 * @param array $config

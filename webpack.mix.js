@@ -23,4 +23,9 @@ mix.sass('frontend/assets/src/sass/biletur.scss', 'frontend/web/css')
 	})
 	.version();
 
+mix.styles([
+	'frontend/web/css/biletur.css',
+	'frontend/assets/src/sass/fonts.css'
+], 'frontend/web/css/biletur.css');
+
 mix.setPublicPath('frontend/web/');

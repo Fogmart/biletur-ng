@@ -76,6 +76,10 @@ class SearchForm extends Model {
 
 		$response = $api->sendRequest($api::METHOD_EXPERIENCES, $params);
 
+		foreach ($response->results as $excursion) {
+			$excursion->url = $excursion->url . $api::UTM;
+		}
+
 		return $response;
 	}
 

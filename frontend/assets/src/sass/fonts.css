@@ -1,0 +1,75 @@
+@font-face {
+	font-family:Museo\ Sans;
+	src:local("Museo Sans");
+	src:url(/fonts/MuseoSansCyrl_300-webfont.eot);
+	src:url(/fonts/MuseoSansCyrl_300-webfont.eot?#iefix) format("embedded-opentype") ,
+	url(/fonts/MuseoSansCyrl_300-webfont.woff) format("woff");
+	font-weight:400;
+	font-style:normal
+}
+
+@font-face {
+	font-family:Museo;
+	src:local("Museo");
+	src:url(/fonts/MuseoCyrl_500-webfont.eot);
+	src:url(/fonts/MuseoCyrl_500-webfont.eot?#iefix) format("embedded-opentype") ,
+	url(/fonts/MuseoCyrl_500-webfont.woff) format("woff");
+	font-weight:400;
+	font-style:normal
+}
+
+@font-face {
+	font-family:Museo\ Sans;
+	src:url(/fonts/MuseoSansCyrl_700-webfont.eot);
+	src:url(/fonts/MuseoSansCyrl_700-webfont.eot?#iefix) format("embedded-opentype") ,
+	url(/fonts/MuseoSansCyrl_700-webfont.woff) format("woff");
+	font-weight:700;
+	font-style:normal
+}
+
+@font-face {
+	font-family:Museo\ Sans;
+	src:url(/fonts/MuseoSansCyrl_900-webfont.eot);
+	src:url(/fonts/MuseoSansCyrl_900-webfont.eot?#iefix) format("embedded-opentype") ,
+	url(/fonts/MuseoSansCyrl_900-webfont.woff) format("woff");
+	font-weight:900;
+	font-style:normal
+}
+
+@font-face {
+	font-family:Museo\ Sans;
+	src:local("Museo Sans");
+	src:url(/fonts/MuseoSansCyrl_300-webfont.eot);
+	src:url(/fonts/MuseoSansCyrl_300-webfont.eot?#iefix) format("embedded-opentype") ,
+	url(/fonts/MuseoSansCyrl_300-webfont.woff) format("woff");
+	font-weight:400;
+	font-style:normal
+}
+
+@font-face {
+	font-family:Museo;
+	src:local("Museo");
+	src:url(/fonts/MuseoCyrl_500-webfont.eot);
+	src:url(/fonts/MuseoCyrl_500-webfont.eot?#iefix) format("embedded-opentype") ,
+	url(/fonts/MuseoCyrl_500-webfont.woff) format("woff");
+	font-weight:400;
+	font-style:normal
+}
+
+@font-face {
+	font-family:Museo\ Sans;
+	src:url(/fonts/MuseoSansCyrl_700-webfont.eot);
+	src:url(/fonts/MuseoSansCyrl_700-webfont.eot?#iefix) format("embedded-opentype") ,
+	url(/fonts/MuseoSansCyrl_700-webfont.woff) format("woff");
+	font-weight:700;
+	font-style:normal
+}
+
+@font-face {
+	font-family:Museo\ Sans;
+	src:url(/fonts/MuseoSansCyrl_900-webfont.eot);
+	src:url(/fonts/MuseoSansCyrl_900-webfont.eot?#iefix) format("embedded-opentype") ,
+	url(/fonts/MuseoSansCyrl_900-webfont.woff) format("woff");
+	font-weight:900;
+	font-style:normal
+}
