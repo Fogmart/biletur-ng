@@ -48,36 +48,42 @@ class ExcursionController extends FrontendMenuController {
 	public function actionFindByName($q, $needType = 'city') {
 		Yii::$app->response->format = Response::FORMAT_JSON;
 
-		$api = Yii::$app->tripsterApi;
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $q, $needType]);
+		$result = Yii::$app->cache->get($cacheKey);
 
-		$response = $api->sendRequest($api::METHOD_SEARCH, ['query' => $q]);
+		if (false === $result) {
+			$api = Yii::$app->tripsterApi;
 
-		if (null === $response) {
-			return [];
-		}
+			$response = $api->sendRequest($api::METHOD_SEARCH, ['query' => $q]);
 
-		$typeItems = [];
-
-		foreach ($response as $item) {
-			$typeItems[$item->type][] = $item;
-		}
-
-		$result = [];
-
-		foreach ($typeItems as $type => $items) {
-			if ($type !== $needType) {
-				continue;
+			if (null === $response) {
+				return [];
 			}
 
-			foreach ($items as $item) {
-				$result['results'][] = [
-					'id'     => $item->id,
-					'text'   => $item->title . ($type === $api::AUTOCOMPLETE_TYPE_CITY_TAG ? '[' . $item->experience_count . ']' : ''),
-					'source' => SearchForm::API_SOURCE_TRIPSTER,
-					'url'    => $item->url,
-					'type'   => 'item'
-				];
+			$typeItems = [];
+
+			foreach ($response as $item) {
+				$typeItems[$item->type][] = $item;
 			}
+
+			$result = [];
+
+			foreach ($typeItems as $type => $items) {
+				if ($type !== $needType) {
+					continue;
+				}
+
+				foreach ($items as $item) {
+					$result['results'][] = [
+						'id'     => $item->id,
+						'text'   => $item->title . ($type === $api::AUTOCOMPLETE_TYPE_CITY_TAG ? '[' . $item->experience_count . ']' : ''),
+						'source' => SearchForm::API_SOURCE_TRIPSTER,
+						'url'    => $item->url,
+						'type'   => 'item'
+					];
+				}
+			}
+			Yii::$app->cache->set($cacheKey, $result, null);
 		}
 
 		$cacheKey = Yii::$app->cache->buildKey([TripsterApi::class . $needType, Yii::$app->session->id]);

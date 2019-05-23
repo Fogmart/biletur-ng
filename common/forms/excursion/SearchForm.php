@@ -58,9 +58,16 @@ class SearchForm extends Model {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function searchTripster() {
+		$params = [];
+		if (null !== $this->city) {
+			$params['city'] = $this->city;
+		}
 
+		$api = Yii::$app->tripsterApi;
 
-		return [];
+		$response = $api->sendRequest($api::METHOD_EXPERIENCES, $params);
+
+		return $response;
 	}
 
 	/**
@@ -84,7 +91,7 @@ class SearchForm extends Model {
 		return $result;
 	}
 
-	public function getLastAutocompleteCityTagTripster() {
+	/*public function getLastAutocompleteCityTagTripster() {
 		$cacheKey = Yii::$app->cache->buildKey([TripsterApi::class . TripsterApi::AUTOCOMPLETE_TYPE_CITY_TAG, Yii::$app->session->id]);
 		$result = Yii::$app->cache->get($cacheKey);
 
@@ -96,6 +103,6 @@ class SearchForm extends Model {
 		}
 
 		return $result;
-	}
+	}*/
 
 }

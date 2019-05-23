@@ -31,7 +31,7 @@ use yii\web\JsExpression;
 ]) ?>
 <?php $htmlForm = ActiveForm::begin(['options' => ['data-pjax' => true]]); ?>
     <div class="row">
-        <div class="col-xs-3 col-xs-offset-2">
+        <div class="col-xs-4 col-xs-offset-3">
 			<?=
 			$htmlForm->field($form, $form::ATTR_CITY)->widget(Select2::class, [
 				'model'         => $form,
@@ -63,38 +63,25 @@ use yii\web\JsExpression;
 			])->label(false);
 			?>
         </div>
-        <div class="col-xs-3">
+        <!--<div class="col-xs-3">
 			<?=
 			$htmlForm->field($form, $form::ATTR_CITY_TAG)->widget(Select2::class, [
 				'model'         => $form,
 				'attribute'     => $form::ATTR_CITY_TAG,
-				'data'          => $form->getLastAutocompleteCityTagTripster(),
+				'data'          => [],
 				'options'       => [
 					'multiple' => false,
 					'prompt'   => 'Нет',
 				],
 				'pluginOptions' => [
 					'placeholder'        => 'Рубрика...',
-					'ajax'               => [
-						'url'      => ExcursionController::getActionUrl(ExcursionController::ACTION_FIND_BY_NAME),
-						'dataType' => 'json',
-						'data'     => new JsExpression('function(params) { return {q:params.term, needType:"cityTag"}; }')
-					],
-					'escapeMarkup'       => new JsExpression('function (markup) { return markup; }'),
-					'templateResult'     => new JsExpression(' function (data) {
-                     if (data.type == "devider") { 
-                        return data.text; 
-                     }
-                     
-                     return data.text;
-                }'),
 					'templateSelection'  => new JsExpression('function (data) { return data.text; }'),
 					'allowClear'         => true,
 					'minimumInputLength' => 3,
 				],
 			])->label(false);
 			?>
-        </div>
+        </div>-->
         <div class="col-xs-2">
 			<?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>
         </div>
