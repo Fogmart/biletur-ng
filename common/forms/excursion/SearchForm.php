@@ -72,6 +72,8 @@ class SearchForm extends Model {
 			$params[$api::PARAM_CITY_NAME_RU] = $this->cityName;
 		}
 
+		$params[$api::PARAM_SORTING] = '-popularity';
+
 		$response = $api->sendRequest($api::METHOD_EXPERIENCES, $params);
 
 		return $response;

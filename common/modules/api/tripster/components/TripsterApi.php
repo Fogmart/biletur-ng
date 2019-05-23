@@ -32,6 +32,7 @@ class TripsterApi extends Component implements Configurable {
 
 	const PARAM_CITY_NAME_RU = 'city__name_ru';
 	const PARAM_CITY_ID = 'city';
+	const PARAM_SORTING = 'sorting';
 
 
 	/** @var string Страны */
@@ -52,6 +53,8 @@ class TripsterApi extends Component implements Configurable {
 		self::AUTOCOMPLETE_TYPE_COUNTRY  => 'Страны',
 		self::AUTOCOMPLETE_TYPE_CITY_TAG => 'Рубрики',
 	];
+
+	const UTM = 'exp_partner=biletur&utm_source=biletur&utm_campaign=affiliates&utm_medium=api';
 
 	/**
 	 * @param array $config
