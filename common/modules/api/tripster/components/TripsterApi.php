@@ -31,6 +31,7 @@ class TripsterApi extends Component implements Configurable {
 	const SUB_METHOD_REVIEWS = 'reviews';
 
 	const PARAM_CITY_NAME_RU = 'city__name_ru';
+	const PARAM_CITY_ID = 'city';
 
 
 	/** @var string Страны */

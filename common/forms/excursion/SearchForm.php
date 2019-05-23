@@ -17,9 +17,13 @@ use yii\validators\StringValidator;
  */
 class SearchForm extends Model {
 
-	/** @var string int Город */
+	/** @var int Город ID */
 	public $city;
 	const ATTR_CITY = 'city';
+
+	/** @var string Город  название*/
+	public $cityName;
+	const ATTR_CITY_NAME = 'cityName';
 
 	/** @var int Рубрика */
 	public $cityTag;
@@ -59,11 +63,14 @@ class SearchForm extends Model {
 	 */
 	public function searchTripster() {
 		$params = [];
-		if (null !== $this->city) {
-			$params['city'] = $this->city;
-		}
-
 		$api = Yii::$app->tripsterApi;
+
+		if (null !== $this->city) {
+			$params[$api::PARAM_CITY_ID] = $this->city;
+		}
+		elseif (null !== $this->cityName) {
+			$params[$api::PARAM_CITY_NAME_RU] = $this->cityName;
+		}
 
 		$response = $api->sendRequest($api::METHOD_EXPERIENCES, $params);
 
