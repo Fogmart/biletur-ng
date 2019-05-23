@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\components\FrontendMenuController;
 use common\forms\excursion\SearchForm;
+use common\modules\api\tripster\components\TripsterApi;
 use Yii;
 use yii\web\Response;
 
@@ -38,12 +39,13 @@ class ExcursionController extends FrontendMenuController {
 
 	/**
 	 * @param string $q
+	 * @param string $needType
 	 *
 	 * @return array
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
-	public function actionFindByName($q) {
+	public function actionFindByName($q, $needType = 'city') {
 		Yii::$app->response->format = Response::FORMAT_JSON;
 
 		$api = Yii::$app->tripsterApi;
@@ -63,12 +65,9 @@ class ExcursionController extends FrontendMenuController {
 		$result = [];
 
 		foreach ($typeItems as $type => $items) {
-			$result['results'][] = [
-				'id'     => null,
-				'text'   => $api::AUTOCOMPLETE_TYPE_NAMES[$type],
-				'source' => SearchForm::API_SOURCE_TRIPSTER,
-				'type'   => 'devider'
-			];
+			if ($type !== $needType) {
+				continue;
+			}
 
 			foreach ($items as $item) {
 				$result['results'][] = [
@@ -80,6 +79,9 @@ class ExcursionController extends FrontendMenuController {
 				];
 			}
 		}
+
+		$cacheKey = Yii::$app->cache->buildKey([TripsterApi::class . $needType, Yii::$app->session->id]);
+		Yii::$app->cache->set($cacheKey, $result, 3600 / 2);
 
 		return $result;
 	}

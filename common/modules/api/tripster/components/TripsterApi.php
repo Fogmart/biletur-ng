@@ -46,7 +46,7 @@ class TripsterApi extends Component implements Configurable {
 	const AUTOCOMPLETE_EXCURSION = 'experience';
 
 	const AUTOCOMPLETE_TYPE_NAMES = [
-		self::AUTOCOMPLETE_EXCURSION     => 'Экскурсии',
+		self::AUTOCOMPLETE_EXCURSION     => 'Популярные экскурсии',
 		self::AUTOCOMPLETE_TYPE_CITY     => 'Города',
 		self::AUTOCOMPLETE_TYPE_COUNTRY  => 'Страны',
 		self::AUTOCOMPLETE_TYPE_CITY_TAG => 'Рубрики',
