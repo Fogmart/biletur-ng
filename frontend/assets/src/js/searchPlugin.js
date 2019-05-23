@@ -9,6 +9,14 @@
 					return false;
 				});
 
+				$('.tag').click(function () {
+					$('#searchform-citytag').val($(this).data('id'));
+					$('form').submit();
+
+					return false;
+				});
+
+
 				$('#search-button').click(function () {
 					$('#searchform-page').val(1);
 

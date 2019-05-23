@@ -107,6 +107,8 @@ class SearchForm extends Model {
 			}
 		}
 
+		ksort($this->tags);
+
 		$this->pageCount = ceil((int)$response->count / $api::PAGE_SIZE);
 
 		return $response;
