@@ -1,7 +1,7 @@
 <?php
+
 namespace frontend\controllers;
 
-use common\base\helpers\Dump;
 use common\components\FrontendMenuController;
 use common\forms\excursion\SearchForm;
 use Yii;
@@ -50,6 +50,37 @@ class ExcursionController extends FrontendMenuController {
 
 		$response = $api->sendRequest($api::METHOD_SEARCH, ['query' => $q]);
 
-		return $response;
+		if (null === $response) {
+			return [];
+		}
+
+		$typeItems = [];
+
+		foreach ($response as $item) {
+			$typeItems[$item->type][] = $item;
+		}
+
+		$result = [];
+
+		foreach ($typeItems as $type => $items) {
+			$result['results'][] = [
+				'id'     => null,
+				'text'   => $api::AUTOCOMPLETE_TYPE_NAMES[$type],
+				'source' => SearchForm::API_SOURCE_TRIPSTER,
+				'type'   => 'devider'
+			];
+
+			foreach ($items as $item) {
+				$result['results'][] = [
+					'id'     => $item->id,
+					'text'   => $item->title . ($type === $api::AUTOCOMPLETE_TYPE_CITY_TAG ? '[' . $item->experience_count . ']' : ''),
+					'source' => SearchForm::API_SOURCE_TRIPSTER,
+					'url'    => $item->url,
+					'type'   => 'item'
+				];
+			}
+		}
+
+		return $result;
 	}
 }

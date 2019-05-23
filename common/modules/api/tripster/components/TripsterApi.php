@@ -45,6 +45,12 @@ class TripsterApi extends Component implements Configurable {
 	/** @var string Экскурсии */
 	const AUTOCOMPLETE_EXCURSION = 'experience';
 
+	const AUTOCOMPLETE_TYPE_NAMES = [
+		self::AUTOCOMPLETE_EXCURSION     => 'Экскурсии',
+		self::AUTOCOMPLETE_TYPE_CITY     => 'Города',
+		self::AUTOCOMPLETE_TYPE_COUNTRY  => 'Страны',
+		self::AUTOCOMPLETE_TYPE_CITY_TAG => 'Рубрики',
+	];
 
 	/**
 	 * @param array $config
@@ -108,8 +114,7 @@ class TripsterApi extends Component implements Configurable {
 		]);
 
 		// Получаем данные и закрывааем соединение
-		//$results = curl_exec($curl);
-		return [];
+		$results = curl_exec($curl);
 
 		curl_close($curl);
 
