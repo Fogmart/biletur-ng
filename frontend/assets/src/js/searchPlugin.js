@@ -11,14 +11,15 @@
 
 				$('.tag').click(function () {
 					$('#searchform-citytag').val($(this).data('id'));
+					$('#searchform-page').val(1);
 					$('form').submit();
 
 					return false;
 				});
 
-
 				$('#search-button').click(function () {
 					$('#searchform-page').val(1);
+					$('#searchform-citytag').val('');
 
 					return true;
 				});

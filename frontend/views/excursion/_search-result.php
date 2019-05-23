@@ -9,6 +9,20 @@
 ?>
     <div class="result">
         <div class="loading-widget" style="display: none;"></div>
+		<?php if (count($form->tags) > 0): ?>
+            <div class="tags">
+				<?php foreach ($form->tags as $tag): ?>
+					<?php
+					$active = '';
+					if ($form->cityTag == $tag->id) {
+						$active = ' active';
+					}
+					?>
+                    <a href="#" class="tag <?= $active ?>" data-id="<?= $tag->id ?>"><?= $tag->name ?> [<?= $tag->experience_count ?>]</a>
+				<?php endforeach; ?>
+            </div>
+		<?php endif ?>
+
         <div class="list">
 			<?php
 			\common\base\helpers\Dump::d($form->result);
