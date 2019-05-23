@@ -367,3 +367,23 @@ a.desc:after {
 .hotel-description {
 	font-size: 12px;
 }
+
+.tags .tag {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	display: inline-block;
+	font-size: 14px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	border: 2px solid hsla(0,0%,100%,.5);
+	border-radius: 20px;
+	color: #fff;
+	padding: 4px 15px 5px;
+	background-color: rgba(0,0,0,.35);
+	text-decoration: none;
+	-webkit-transition: color,background-color .3s;
+	-o-transition: color,background-color .3s;
+	transition: color,background-color .3s;
+}

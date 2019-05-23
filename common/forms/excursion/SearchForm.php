@@ -40,6 +40,8 @@ class SearchForm extends Model {
 	/** @var CommonExcursion[] Экскурсии */
 	public $result = [];
 
+	public $tags = [];
+
 	/** @var int Кол-во страниц */
 	public $pageCount = 0;
 
@@ -80,6 +82,10 @@ class SearchForm extends Model {
 			$params[$api::PARAM_CITY_NAME_RU] = $this->cityName;
 		}
 
+		if (null !== $this->cityTag) {
+			$params[$api::PARAM_CITY_TAG] = $this->cityTag;
+		}
+
 		if (null !== $this->page && !empty($this->page)) {
 			$params[$api::PARAM_PAGE] = $this->page;
 		}
@@ -96,6 +102,7 @@ class SearchForm extends Model {
 			$excursion->guide->url = $excursion->guide->url . $api::UTM;
 
 			foreach ($excursion->tags as &$tag) {
+				$this->tags[$tag->id] = $tag;
 				$tag->url = $tag->url . $api::UTM;
 			}
 		}

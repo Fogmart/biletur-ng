@@ -11,7 +11,7 @@
         <div class="loading-widget" style="display: none;"></div>
         <div class="list">
 			<?php
-			\common\base\helpers\Dump::d($form->result->results);
+			\common\base\helpers\Dump::d($form->result);
 			?>
 			<?php foreach ($form->result->results as $excursion): ?>
 
