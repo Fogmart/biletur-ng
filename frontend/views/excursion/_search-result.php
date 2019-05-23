@@ -54,5 +54,5 @@
         </div>
     </div>
 <?php
-$this->registerJs('$(".pagination").searchExcursionPlugin();');
+$this->registerJs('$(".result").searchExcursionPlugin();');
 ?>
