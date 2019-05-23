@@ -103,7 +103,7 @@ class TripsterApi extends Component implements Configurable {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function sendRequest($resource, array $parameters = []) {
-		$query_string = http_build_query($parameters);
+		$query_string = http_build_query(array_merge($parameters, ['page_size' => 30]));
 		$curl = curl_init("$this->_url/$resource/?$query_string");
 		curl_setopt_array($curl, [
 			CURLOPT_RETURNTRANSFER => true,
