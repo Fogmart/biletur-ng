@@ -12,23 +12,7 @@ use kartik\select2\Select2;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
 use yii\web\JsExpression;
-
 ?>
-<?php Vue::begin([
-	'clientOptions' => [
-		'data'    => [
-			'childCount' => 0
-		],
-		'watch'   => [
-			'childCount' => new JsExpression("function() {console.log('watch')}")
-		]
-		,
-		'methods' => [
-			'addChildAge'    => new JsExpression("function() {console.log('add child age')}"),
-			'removeChildAge' => new JsExpression("function() {console.log('add child age')}")
-		]
-	]
-]) ?>
 <?php $htmlForm = ActiveForm::begin(['options' => ['data-pjax' => true]]); ?>
     <div class="row">
         <div class="col-xs-4 col-xs-offset-3">
@@ -71,5 +55,3 @@ use yii\web\JsExpression;
 <?= $htmlForm->field($form, $form::ATTR_PAGE)->hiddenInput()->label(false) ?>
 <?= $htmlForm->field($form, $form::ATTR_CITY_TAG)->hiddenInput()->label(false) ?>
 <?php ActiveForm::end(); ?>
-
-<?php Vue::end() ?>

@@ -119,21 +119,29 @@ class TripsterApi extends Component implements Configurable {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function sendRequest($resource, array $parameters = []) {
-		$query_string = http_build_query(array_merge($parameters, ['page_size' => static::PAGE_SIZE]));
-		$curl = curl_init("$this->_url/$resource/?$query_string");
-		curl_setopt_array($curl, [
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_HTTPHEADER     => [
-				'Authorization: Token ' . $this->_token,
-				'Content-Type: application/json'
-			]
-		]);
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $resource, $parameters]);
+		$results = Yii::$app->cache->get($cacheKey);
+		if (false === $results) {
+			$query_string = http_build_query(array_merge($parameters, ['page_size' => static::PAGE_SIZE]));
+			$curl = curl_init("$this->_url/$resource/?$query_string");
+			curl_setopt_array($curl, [
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_HTTPHEADER     => [
+					'Authorization: Token ' . $this->_token,
+					'Content-Type: application/json'
+				]
+			]);
 
-		// Получаем данные и закрывааем соединение
-		$results = curl_exec($curl);
+			// Получаем данные и закрывааем соединение
+			$results = curl_exec($curl);
 
-		curl_close($curl);
+			curl_close($curl);
 
-		return json_decode($results);
+			$results = json_decode($results);
+
+			Yii::$app->cache->set($cacheKey, $results, 3600 * 24 * 7);
+		}
+
+		return $results;
 	}
 }
