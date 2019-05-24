@@ -1,4 +1,4 @@
-const {mix} = require('laravel-mix');
+const mix = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,6 +11,7 @@ const {mix} = require('laravel-mix');
  |
  */
 
+mix.ts('frontend/assets/src/ts/test.ts', 'frontend/web/js/biletur.js')
 mix.js('frontend/assets/src/js/commonPlugin.js', 'frontend/web/js/biletur.js')
 mix.js('frontend/assets/src/js/searchExcursionPlugin.js', 'frontend/web/js/biletur.js')
     .version();
@@ -21,12 +22,12 @@ mix.sass('frontend/assets/src/sass/biletur.scss', 'frontend/web/css')
 		postCss: [
 			require('postcss-css-variables')()
 		]
-	})
-	.version();
+	});
 
 mix.styles([
 	'frontend/web/css/biletur.css',
 	'frontend/assets/src/sass/fonts.css'
-], 'frontend/web/css/biletur.css');
+], 'frontend/web/css/biletur.css')
+	.version();
 
 mix.setPublicPath('frontend/web/');
