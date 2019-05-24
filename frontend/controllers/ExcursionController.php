@@ -30,8 +30,9 @@ class ExcursionController extends FrontendMenuController {
 
 		if (Yii::$app->request->isPjax) {
 			$form->load(Yii::$app->request->post());
-			$form->search();
 		}
+
+		$form->search();
 
 		return $this->render('index', ['form' => $form]);
 	}

@@ -17,6 +17,7 @@ mix.js('frontend/assets/src/js/searchExcursionPlugin.js', 'frontend/web/js/bilet
     .version();
 
 mix.sass('frontend/assets/src/sass/biletur.scss', 'frontend/web/css')
+mix.sass('frontend/assets/src/sass/excursion.scss', 'frontend/web/css')
 	.options({
 		imgLoaderOptions: {enabled: false},
 		postCss: [
@@ -26,6 +27,7 @@ mix.sass('frontend/assets/src/sass/biletur.scss', 'frontend/web/css')
 
 mix.styles([
 	'frontend/web/css/biletur.css',
+	'frontend/web/css/excursion.css',
 	'frontend/assets/src/sass/fonts.css'
 ], 'frontend/web/css/biletur.css')
 	.version();

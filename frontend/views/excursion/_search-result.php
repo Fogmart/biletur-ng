@@ -47,7 +47,7 @@ $bootstrapColWidth = 12 / $numOfCols;
 				?>
 			<?php endforeach ?>
 
-			<?php if ($form->pageCount > 1): ?>
+			<?php if ($form->pageCount > 1 && null !== $form->city): ?>
                 <div class="col-xs-12">
                     <ul class="pagination pagination-sm">
 						<?php
