@@ -26,5 +26,4 @@ use kartik\rating\StarRating;
     <div class="annotation"><?= $excursion->annotation ?></div>
     <div class="duration"><?= $excursion->duration ?> часа</div>
     <div class="price"><?= $excursion->price ?></div>
-
 </div>

@@ -1,7 +1,6 @@
 <?php
 
 use common\components\IpGeoBase;
-use common\modules\api\ostrovok\components\OstrovokApi;
 use common\modules\message\MMessage;
 use common\modules\news\MNews;
 use common\modules\pages\MPages;
@@ -69,6 +68,24 @@ return [
 		'authManager' => [
 			'class'        => 'yii\rbac\DbManager',
 			'defaultRoles' => ['guest', 'user'],
+		],
+		'view'        => [
+			'class'     => 'yii\web\View',
+			'renderers' => [
+				'twig' => [
+					'class'     => 'yii\twig\ViewRenderer',
+					'cachePath' => '@runtime/Twig/cache',
+					// Array of twig options:
+					'options'   => [
+						'auto_reload' => true,
+					],
+					'globals'   => [
+						'html'       => ['class' => '\yii\helpers\Html'],
+						/*'StarRating' => ['class' => '\kartik\rating\StarRating'],*/
+					],
+					'uses'      => ['yii\bootstrap'],
+				],
+			],
 		],
 	],
 ];
