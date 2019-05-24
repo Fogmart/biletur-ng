@@ -74,4 +74,6 @@ class CommonExcursion extends Component {
 		self::TYPE_PRIVATE => 'Приватная',
 		self::TYPE_GROUP   => 'Групповая',
 	];
+
+	const SOURCE_API_TRIPSTER = 0;
 }

@@ -2,6 +2,7 @@
 
 namespace common\modules\api\tripster\components;
 
+use common\components\excursion\CommonExcursion;
 use Yii;
 use yii\base\Component;
 use yii\base\Configurable;
@@ -36,6 +37,13 @@ class TripsterApi extends Component implements Configurable {
 	const PARAM_SORTING = 'sorting';
 	const PARAM_PAGE = 'page';
 
+	const TYPE_GROUP = 'group';
+	const TYPE_PRIVATE = 'private';
+
+	const COMMON_TYPE_LINK = [
+		self::TYPE_GROUP => CommonExcursion::TYPE_GROUP,
+		self::TYPE_PRIVATE => CommonExcursion::TYPE_PRIVATE,
+	];
 
 	/** @var string Страны */
 	const AUTOCOMPLETE_TYPE_COUNTRY = 'country';

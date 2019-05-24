@@ -111,8 +111,42 @@ class SearchForm extends Model {
 		ksort($this->tags);
 
 		$this->pageCount = ceil((int)$response->count / $api::PAGE_SIZE);
+		$commonExcursions = [];
 
-		return $response;
+		if (!array_key_exists('results', $response)) {
+			return false;
+		}
+
+		//Конвертируем в Common объекты
+		foreach ($response->results as $tripsterExcursion) {
+			$commonExcursion = new CommonExcursion();
+			$commonExcursion->id = $tripsterExcursion->id;
+			$commonExcursion->name = $tripsterExcursion->title;
+			$commonExcursion->annotation = $tripsterExcursion->tagline;
+			$commonExcursion->url = $tripsterExcursion->url;
+			$commonExcursion->sourceApi = CommonExcursion::SOURCE_API_TRIPSTER;
+			$commonExcursion->instantBooking = $tripsterExcursion->instant_booking;
+			$commonExcursion->childFriendly = $tripsterExcursion->child_friendly;
+			$commonExcursion->maxPersons = $tripsterExcursion->max_persons;
+			$commonExcursion->duration = $tripsterExcursion->duration;
+			$commonExcursion->rating = $tripsterExcursion->rating;
+			$commonExcursion->popularity = $tripsterExcursion->popularity;
+			$commonExcursion->reviewCount = $tripsterExcursion->review_count;
+			$commonExcursion->price = $tripsterExcursion->price->value_string;
+			$commonExcursion->city = $tripsterExcursion->city->name_ru;
+
+			if (array_key_exists('photos', $tripsterExcursion)) {
+				$commonExcursion->image = $tripsterExcursion->photos[0]->medium;
+			}
+
+			$commonExcursion->type = TripsterApi::COMMON_TYPE_LINK[$tripsterExcursion->type];
+
+			$commonExcursions[] = $commonExcursion;
+
+		}
+
+
+		return $commonExcursions;
 	}
 
 	/**
