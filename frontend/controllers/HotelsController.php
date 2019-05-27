@@ -22,7 +22,7 @@ class HotelsController extends FrontendMenuController {
 	 * Точка входа Отели
 	 *
 	 * @return string
-	 *
+	 * @throws
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function actionIndex() {
@@ -40,7 +40,7 @@ class HotelsController extends FrontendMenuController {
 	 * Запрос отелей и регионов для автокомплита
 	 *
 	 * @param string $q
-	 * @param bool   $hotels
+	 *
 	 *
 	 * @return \common\modules\api\ostrovok\components\objects\HotelAutocomplete[] | \common\modules\api\ostrovok\components\objects\RegionAutocomplete[]
 	 *
