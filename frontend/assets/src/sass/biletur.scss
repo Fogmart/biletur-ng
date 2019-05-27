@@ -397,8 +397,8 @@ a.desc:after {
 
 
 .rating-container .filled-stars {
-	color: #5492fe;
+	color: #5492fe !important;
 	white-space: nowrap;
-	-webkit-text-stroke: 1px #fff;
+	-webkit-text-stroke: 1px #fff !important;
 	text-shadow: 1px 1px #999;
 }

@@ -2,6 +2,8 @@
 
 use common\modules\api\ostrovok\components\OstrovokApi;
 use common\components\hotels\CommonHotel;
+use kartik\rating\StarRating;
+
 /**
  * @author Исаков Владислав <visakov@biletur.ru>
  *
@@ -22,5 +24,13 @@ use common\components\hotels\CommonHotel;
     <span class="hotel-description"><?= $hotel->description ?></span>
 </div>
 <div class="col-xs-9">
-    <?= $hotel->rating ?>
+	<?= StarRating::widget([
+		'name'          => 'rating',
+		'value'         => $hotel->rating,
+		'pluginOptions' => [
+			'displayOnly' => true,
+			'showCaption' => false,
+			'size' => 'xs',
+		]
+	]); ?>
 </div>

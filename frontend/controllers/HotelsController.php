@@ -120,6 +120,4 @@ class HotelsController extends FrontendMenuController {
 
 		return $result;
 	}
-
-
 }
