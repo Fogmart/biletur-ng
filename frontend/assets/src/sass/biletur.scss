@@ -388,11 +388,11 @@ a.desc:after {
 }
 
 .tags .tag:hover{
-	background-color: rgba(0,0,0,.40);
+	background-color: rgba(0,0,0,.99);
 }
 .tags .tag.active{
 	background-color: $mainBlueColor;
-	opacity: .45;
+	opacity: .75;
 }
 
 

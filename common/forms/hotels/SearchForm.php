@@ -256,7 +256,7 @@ class SearchForm extends Model {
 				}
 
 				$hotelsInfoArray[$hotel->id]->rates[$commonRate->roomTypeId][] = $commonRate;
-				$this->filters = array_merge($this->filters, array_flip($commonRate->roomInfo->amenities));
+				//$this->filters = array_merge($this->filters, array_flip($commonRate->roomInfo->amenities));
 			}
 		}
 
