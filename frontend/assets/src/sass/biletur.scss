@@ -394,3 +394,11 @@ a.desc:after {
 	background-color: $mainBlueColor;
 	opacity: .45;
 }
+
+
+.rating-container .filled-stars {
+	color: #5492fe;
+	white-space: nowrap;
+	-webkit-text-stroke: 1px #fff;
+	text-shadow: 1px 1px #999;
+}
