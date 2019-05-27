@@ -12,7 +12,7 @@ use common\base\helpers\StringHelper;
 <?php foreach ($rates as $rate): ?>
     <?= StringHelper::formatPrice($rate->price, '&#8381;')?> <br>
     <?php
-        \common\base\helpers\Dump::d($rate->roomInfo->amenities);
+        \common\base\helpers\Dump::d($rate->roomInfo);
     ?>
 <?php endforeach?>
 <hr>

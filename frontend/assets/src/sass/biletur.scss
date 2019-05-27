@@ -1,7 +1,7 @@
 @import "fonts.css";
 
 $mainBlueColor: #0066b1;
-
+$mainBlueColorLight: #5492fe;
 html,
 body {
 	height: auto;
@@ -365,7 +365,7 @@ a.desc:after {
 }
 
 .hotel-description {
-	font-size: 12px;
+	font-size: 14px;
 }
 
 .tags .tag {
@@ -390,14 +390,14 @@ a.desc:after {
 .tags .tag:hover{
 	background-color: rgba(0,0,0,.99);
 }
+
 .tags .tag.active{
 	background-color: $mainBlueColor;
 	opacity: .75;
 }
 
-
 .rating-container .filled-stars {
-	color: #5492fe !important;
+	color:$mainBlueColorLight !important;
 	white-space: nowrap;
 	-webkit-text-stroke: 1px #fff !important;
 	text-shadow: 1px 1px #999;
