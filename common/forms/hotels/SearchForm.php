@@ -171,7 +171,6 @@ class SearchForm extends Model {
 			throw new OstrovokResponseException('Ошибка поиска вариантов размещения: ' . $result->error->description . PHP_EOL . Dump::d($result->error->extra) . PHP_EOL . Dump::d($result->error->slug));
 		}
 
-		$rates = [];
 		$hotelInfo = [];
 		$hotelsInfoArray = [];
 
