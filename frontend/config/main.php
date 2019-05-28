@@ -46,16 +46,22 @@ return [
 			'showScriptName'  => false,
 			'suffix'          => '/',
 			'rules'           => [
-				''                                                              => 'site/index',
+				''                                      => 'site/index',
 				[
 					'pattern' => 'page',
 					'route'   => 'page',
 					'class'   => StaticPageUrlRule::class,
 				],
+
+				'excursion/find-by-name/<q>/<needType>' => 'excursion/find-by-name',
+				'excursion/widget/<city>'               => 'excursion/widget',
+				'excursion/city/<city>'                 => 'excursion/index',
+
 				'<module:[\w-]+>/<controller:[\w-]+>/<action:[\w-]+>/<id:\d+>]' => '<module>/<controller>/<action>',
 				'<controller:\w+>/<action:\w+>/'                                => '<controller>/<action>',
 				'message-widget/<object>/<objectId>/<userName>'                 => 'message/message/widget',
 				'hotels/find-by-name/q/<q>'                                     => 'hotels/find-by-name',
+
 
 				//Редиректы для старых ссылок------------------------------------------------------------
 				'Agency'                                                        => 'old-links/agency',

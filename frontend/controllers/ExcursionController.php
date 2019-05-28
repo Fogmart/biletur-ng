@@ -21,12 +21,39 @@ class ExcursionController extends FrontendMenuController {
 	/**
 	 * Точка входа Экскурсии
 	 *
+	 * @param string|null $city
+	 *
 	 * @return string
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
-	public function actionIndex() {
+	public function actionIndex($city = null) {
 		$form = new SearchForm();
+		$form->cityName = $city;
+
+		if (Yii::$app->request->isPjax) {
+			$form->load(Yii::$app->request->post());
+		}
+
+		$form->search();
+
+		return $this->render('index', ['form' => $form]);
+	}
+
+	/**
+	 *Виджет Экскурсии
+	 *
+	 * @param string|null $city
+	 *
+	 * @return string
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function actionWidget($city = null) {
+		$this->layout = '/widget';
+
+		$form = new SearchForm();
+		$form->cityName = $city;
 
 		if (Yii::$app->request->isPjax) {
 			$form->load(Yii::$app->request->post());
