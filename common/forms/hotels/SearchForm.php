@@ -178,6 +178,7 @@ class SearchForm extends Model {
 		foreach ($result->result->hotels as $hotel) {
 			/** @var \common\modules\api\ostrovok\components\objects\Rate $ostrovokRate */
 			foreach ($hotel->rates as $ostrovokRate) {
+
 				$commonRate = new CommonRate();
 				$commonRate->roomTitle = $ostrovokRate->room_name;
 				$commonRate->description = $ostrovokRate->room_description;
@@ -186,6 +187,7 @@ class SearchForm extends Model {
 				$commonRate->currency = $ostrovokRate->rate_currency;
 				$commonRate->roomSize = $ostrovokRate->room_size;
 				$commonRate->noneRefundable = $ostrovokRate->non_refundable;
+
 				$commonRate->meal = ApiOstrovokMeal::getRusTitle($ostrovokRate->meal);
 				$commonRate->availabilityHash = $ostrovokRate->availability_hash;
 				$commonRate->bookHash = $ostrovokRate->book_hash;
@@ -221,6 +223,10 @@ class SearchForm extends Model {
 					$hotelInfo[$hotel->id] = $mongoHotelInfo;
 				}
 
+				if (!isset($hotelInfo[$hotel->id]['images'][0])) {
+					continue;
+				}
+
 				if (!array_key_exists($hotel->id, $hotelsInfoArray)) {
 					$commonHotel = new CommonHotel();
 					$commonHotel->sourceApi = static::API_SOURCE_OSTROVOK;
@@ -243,6 +249,10 @@ class SearchForm extends Model {
 					}
 
 					$hotelsInfoArray[$hotel->id] = $commonHotel;
+				}
+
+				if (null === $hotelsInfoArray[$hotel->id]->roomGroups) {
+					continue;
 				}
 
 				foreach ($hotelsInfoArray[$hotel->id]->roomGroups as $roomGroup) {
