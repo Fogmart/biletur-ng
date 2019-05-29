@@ -23,14 +23,10 @@
 			doc = document;
 			var body = doc.body, html = doc.documentElement;
 
-			var height = Math.max( body.scrollHeight, body.offsetHeight,
-				html.clientHeight, html.scrollHeight, html.offsetHeight );
+			var height = $('.inner-container').height() + 50;  /*Math.max( body.scrollHeight, body.offsetHeight,
+				html.clientHeight, html.scrollHeight, html.offsetHeight )*/;
 
-			console.log(body.scrollHeight);
-			console.log(body.offsetHeight);
-			console.log(html.clientHeight);
-			console.log(html.scrollHeight);
-			console.log(html.offsetHeight );
+			console.log(height);
 
 			return height;
 		},
