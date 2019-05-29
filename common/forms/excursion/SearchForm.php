@@ -31,6 +31,10 @@ class SearchForm extends Model {
 	public $cityTag;
 	const ATTR_CITY_TAG = 'cityTag';
 
+	/** @var string Страна */
+	public $country;
+	const ATTR_COUNTRY = 'country';
+
 	/** @var string */
 	public $source = self::API_SOURCE_TRIPSTER;
 	const ATTR_SOURCE = 'source';

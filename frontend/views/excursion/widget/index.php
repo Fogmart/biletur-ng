@@ -11,7 +11,7 @@ use yii\widgets\Pjax;
  */
 ?>
     <div class="content-header text-center">
-        <h1>Экскурсии <?= (null !== $form->cityName ? ': ' . $form->cityName : '') ?></h1>
+        <h1>Экскурсии<?= (null !== $form->cityName ? ': ' . $form->cityName : '') ?></h1>
     </div>
 <?php Pjax::begin(); ?>
     <div class="row">
@@ -23,7 +23,7 @@ use yii\widgets\Pjax;
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <div class="block-panel">
+            <div class="block-panel" style="min-height: 300px;">
 				<?= $this->render('_search-result', ['form' => $form]) ?>
             </div>
         </div>

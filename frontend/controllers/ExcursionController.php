@@ -41,7 +41,7 @@ class ExcursionController extends FrontendMenuController {
 	}
 
 	/**
-	 *Виджет Экскурсии
+	 * Виджет Экскурсии
 	 *
 	 * @param string|null $city
 	 * @param bool        $needSearch
@@ -64,7 +64,6 @@ class ExcursionController extends FrontendMenuController {
 
 		return $this->render('widget/index', ['form' => $form, 'needSearch' => $needSearch]);
 	}
-
 
 	/**
 	 * @param string $q
