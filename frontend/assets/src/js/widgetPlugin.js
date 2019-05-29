@@ -21,10 +21,10 @@
 		},
 		getDocHeight: function (doc) {
 			doc = document;
-			var body = doc.body;
-			var height = body.scrollHeight + 250;
+			//var body = doc.body, html = doc.documentElement;
+			//var height =  doc.documentElement + 50;
 
-			return height;
+			return doc.documentElement + 150;
 		},
 		sendDocHeightMsg: function () {
 			var ht = $(this).widgetPlugin('getDocHeight');
