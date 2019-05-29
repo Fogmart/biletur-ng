@@ -23,8 +23,8 @@
 			doc = document;
 			var body = doc.body, html = doc.documentElement;
 
-			var height = html.offsetHeight + 400; /*Math.max( body.scrollHeight, body.offsetHeight,
-				html.clientHeight, html.scrollHeight, html.offsetHeight );*/
+			var height = Math.max( body.scrollHeight, body.offsetHeight,
+				html.clientHeight, html.scrollHeight, html.offsetHeight );
 
 			console.log(body.scrollHeight);
 			console.log(body.offsetHeight);
@@ -35,6 +35,8 @@
 			return height;
 		},
 		sendDocHeightMsg: function () {
+			parent.postMessage( JSON.stringify( {'docHeight': 0} ), '*' );
+
 			var ht = $(this).widgetPlugin('getDocHeight');
 			parent.postMessage( JSON.stringify( {'docHeight': ht} ), '*' );
 		}
