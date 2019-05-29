@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
  * @var \common\forms\excursion\SearchForm $form
  * @var bool                               $needSearch
  */
-//AppAsset::register($this);
+
 ?>
     <div class="content-header text-center">
         <h1><?= (null !== $form->cityName ? $form->cityName : '') ?></h1>
@@ -30,5 +30,6 @@ use yii\widgets\Pjax;
             </div>
         </div>
     </div>
+    <?= $this->registerJs('$(this).widgetPlugin("sendDocHeightMsg");', \yii\web\View::POS_LOAD)?>
 	<?php Pjax::end(); ?>
 

@@ -20,15 +20,17 @@
 			}
 		},
 		getDocHeight: function (doc) {
-			doc = doc || document;
-
+			doc = document;
 			var body = doc.body, html = doc.documentElement;
 			var height = Math.max( body.scrollHeight, body.offsetHeight,
 				html.clientHeight, html.scrollHeight, html.offsetHeight );
+
+			console.log(height);
+
 			return height;
 		},
 		sendDocHeightMsg: function () {
-			var ht = $(this).widgetPlugin('getDocHeight', $(this));
+			var ht = $(this).widgetPlugin('getDocHeight');
 			parent.postMessage( JSON.stringify( {'docHeight': ht} ), '*' );
 		}
 	};
