@@ -21,10 +21,18 @@
 		},
 		getDocHeight: function (doc) {
 			doc = document;
-			//var body = doc.body, html = doc.documentElement;
-			//var height =  doc.documentElement + 50;
+			var body = doc.body, html = doc.documentElement;
 
-			return doc.documentElement + 150;
+			var height = Math.max( body.scrollHeight, body.offsetHeight,
+				html.clientHeight, html.scrollHeight, html.offsetHeight );
+
+			console.log(body.scrollHeight);
+			console.log(body.offsetHeight);
+			console.log(html.clientHeight);
+			console.log(html.scrollHeight);
+			console.log(html.offsetHeight );
+
+			return height;
 		},
 		sendDocHeightMsg: function () {
 			var ht = $(this).widgetPlugin('getDocHeight');
