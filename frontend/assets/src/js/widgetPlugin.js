@@ -13,16 +13,23 @@
 	var methods = {
 		// инициализация плагина
 		init: function (params) {
-
+			if ( window.addEventListener ) {
+				window.addEventListener('load', $(this).widgetPlugin('getDocHeight', $(this)), false);
+			} else if ( window.attachEvent ) { // ie8
+				window.attachEvent('onload', $(this).widgetPlugin('sendDocHeightMsg'));
+			}
 		},
-		byCity: function (cityName, containerSelector) {
-			$.ajax({
-				url: 'http://so.biletur.ru/excursion/widget/' + cityName + '/0/',
-				success: function (data) {
-					$(containerSelector).html('');
-					$(containerSelector).html(data);
-				}
-			});
+		getDocHeight: function (doc) {
+			doc = doc || document;
+
+			var body = doc.body, html = doc.documentElement;
+			var height = Math.max( body.scrollHeight, body.offsetHeight,
+				html.clientHeight, html.scrollHeight, html.offsetHeight );
+			return height;
+		},
+		sendDocHeightMsg: function () {
+			var ht = $(this).widgetPlugin('getDocHeight', $(this));
+			parent.postMessage( JSON.stringify( {'docHeight': ht} ), '*' );
 		}
 	};
 })(jQuery);

@@ -53,14 +53,6 @@ class ExcursionController extends FrontendMenuController {
 	public function actionWidget($city = null, $needSearch = true) {
 		$this->layout = '/widget';
 
-		Yii::$app->getResponse()
-			->getHeaders()
-			->set('Access-Control-Allow-Origin', 'http://www.biletur.ru');
-
-		Yii::$app->getResponse()
-			->getHeaders()
-			->set('Access-Control-Allow-Credentials', true);
-
 		$form = new SearchForm();
 		$form->cityName = $city;
 

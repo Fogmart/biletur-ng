@@ -36,6 +36,8 @@ AppAsset::register($this);
     </div>
 </div>
 <?= $this->registerJs('$(this).commonPlugin();')?>
+<?= $this->registerJs('$(this).widgetPlugin("sendDocHeightMsg");', \yii\web\View::POS_LOAD)?>
+
 <?php $this->endBody() ?>
 </body>
 </html>
