@@ -1,6 +1,5 @@
 <?php
 
-use frontend\assets\AppAsset;
 use yii\widgets\Pjax;
 
 /**
