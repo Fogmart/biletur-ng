@@ -61,7 +61,7 @@ class ExcursionController extends FrontendMenuController {
 
 		$form->search();
 
-		return $this->render('index', ['form' => $form]);
+		return $this->render('widget/index', ['form' => $form]);
 	}
 
 

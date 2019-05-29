@@ -55,7 +55,8 @@ class SearchForm extends Model {
 	 */
 	public function rules() {
 		return [
-			[static::ATTR_CITY, RequiredValidator::class, 'message' => 'Пожалуйста, выберите город'],
+			[static::ATTR_CITY, StringValidator::class],
+			[static::ATTR_CITY_NAME, StringValidator::class],
 			[static::ATTR_CITY_TAG, StringValidator::class],
 			[static::ATTR_PAGE, NumberValidator::class],
 		];
@@ -152,11 +153,17 @@ class SearchForm extends Model {
 	/**
 	 * Возвращает данные последнего автокомплита города для их восстановления после отправки формы
 	 *
+	 * @param string $cityName
+	 *
 	 * @return mixed
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
-	public function getLastAutocompleteCityTripster() {
+	public function getLastAutocompleteCityTripster($cityName = null) {
+		if (null !== $cityName) {
+
+		}
+
 		$cacheKey = Yii::$app->cache->buildKey([TripsterApi::class . TripsterApi::AUTOCOMPLETE_TYPE_CITY, Yii::$app->session->id]);
 		$result = Yii::$app->cache->get($cacheKey);
 
@@ -169,19 +176,4 @@ class SearchForm extends Model {
 
 		return $result;
 	}
-
-	/*public function getLastAutocompleteCityTagTripster() {
-		$cacheKey = Yii::$app->cache->buildKey([TripsterApi::class . TripsterApi::AUTOCOMPLETE_TYPE_CITY_TAG, Yii::$app->session->id]);
-		$result = Yii::$app->cache->get($cacheKey);
-
-		if (false === $result) {
-			$result = [];
-		}
-		else {
-			$result = ArrayHelper::map($result['results'], 'id', 'text');
-		}
-
-		return $result;
-	}*/
-
 }

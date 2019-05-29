@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
  */
 ?>
     <div class="content-header text-center">
-        <h1>Поиск экскурсий</h1>
+        <h1>Экскурсии <?= (null !== $form->cityName ? ': ' . $form->cityName : '') ?></h1>
     </div>
 <?php Pjax::begin(); ?>
     <div class="row">

@@ -6,14 +6,15 @@
  * @var \common\forms\excursion\SearchForm $form
  */
 
-use antkaz\vue\Vue;
 use frontend\controllers\ExcursionController;
 use kartik\select2\Select2;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
 use yii\web\JsExpression;
+
 ?>
 <?php $htmlForm = ActiveForm::begin(['options' => ['data-pjax' => true]]); ?>
+
     <div class="row">
         <div class="col-xs-4 col-xs-offset-3">
 			<?=
@@ -27,7 +28,7 @@ use yii\web\JsExpression;
 					'class'    => 'biletur-text-input'
 				],
 				'pluginOptions' => [
-					'placeholder'        => 'Город...',
+					'placeholder'        => 'Город, страна...',
 					'ajax'               => [
 						'url'      => ExcursionController::getActionUrl(ExcursionController::ACTION_FIND_BY_NAME),
 						'dataType' => 'json',
@@ -52,6 +53,8 @@ use yii\web\JsExpression;
 			<?= Html::submitButton('Найти', ['class' => 'btn btn-primary', 'id' => 'search-button']) ?>
         </div>
     </div>
+
 <?= $htmlForm->field($form, $form::ATTR_PAGE)->hiddenInput()->label(false) ?>
 <?= $htmlForm->field($form, $form::ATTR_CITY_TAG)->hiddenInput()->label(false) ?>
+<?= $htmlForm->field($form, $form::ATTR_CITY_NAME)->hiddenInput()->label(false) ?>
 <?php ActiveForm::end(); ?>
