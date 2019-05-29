@@ -5,6 +5,6 @@
 				console.log(param);
 			}
 		};
-		methods.init(param);
+		methods.init();
 	};
 })(jQuery);
