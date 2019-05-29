@@ -30,8 +30,5 @@ use yii\widgets\Pjax;
             </div>
         </div>
     </div>
-
-
-    <?= $this->registerJs('$(this).widgetPlugin("sendDocHeightMsg");', \yii\web\View::POS_LOAD)?>
 	<?php Pjax::end(); ?>
-
+<?= $this->registerJs('$(this).widgetPlugin("sendDocHeightMsg");', \yii\web\View::POS_LOAD)?>
