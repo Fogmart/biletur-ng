@@ -13,16 +13,6 @@
 	var methods = {
 		// инициализация плагина
 		init: function (params) {
-			$(document).on('pjax:send', function() {
-				$('.loading-widget').show();
-				$('.block-panel .result .list').html('');
-			});
-
-			$(document).on('pjax:complete', function() {
-				$(this).widgetPlugin("sendDocHeightMsg");
-				$('.loading-widget').hide();
-			});
-
 			if ( window.addEventListener ) {
 				window.addEventListener('load', $(this).widgetPlugin('getDocHeight', $(this)), false);
 			} else if ( window.attachEvent ) { // ie8
@@ -36,7 +26,7 @@
 			var height = $('.inner-container').height() + 50;  /*Math.max( body.scrollHeight, body.offsetHeight,
 				html.clientHeight, html.scrollHeight, html.offsetHeight )*/;
 
-			console.log(height);
+			console.log($('.inner-container').height());
 
 			return height;
 		},
