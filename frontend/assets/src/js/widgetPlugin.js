@@ -15,8 +15,14 @@
 		init: function (params) {
 
 		},
-		byCity: function (cityName) {
-			console.log(cityName);
+		byCity: function (cityName, containerSelector) {
+			$.ajax({
+				url: 'http://so.biletur.ru/excursion/widget/' + cityName + '/0/',
+				success: function (data) {
+					$(containerSelector).html('');
+					$(containerSelector).html(data);
+				}
+			});
 		}
 	};
 })(jQuery);
