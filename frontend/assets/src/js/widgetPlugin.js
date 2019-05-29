@@ -13,6 +13,16 @@
 	var methods = {
 		// инициализация плагина
 		init: function (params) {
+			$(document).on('pjax:send', function() {
+				$('.loading-widget').show();
+				$('.block-panel .result .list').html('');
+			});
+
+			$(document).on('pjax:complete', function() {
+				$(this).widgetPlugin("sendDocHeightMsg");
+				$('.loading-widget').hide();
+			});
+
 			if ( window.addEventListener ) {
 				window.addEventListener('load', $(this).widgetPlugin('getDocHeight', $(this)), false);
 			} else if ( window.attachEvent ) { // ie8

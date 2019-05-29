@@ -8,6 +8,7 @@
 				});
 
 				$(document).on('pjax:complete', function() {
+					$(this).widgetPlugin("sendDocHeightMsg");
 					$('.loading-widget').hide();
 				});
 			}

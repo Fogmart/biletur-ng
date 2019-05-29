@@ -35,7 +35,7 @@ AppAsset::register($this);
         </div>
     </div>
 </div>
-<?= $this->registerJs('$(this).commonPlugin();')?>
+<?= $this->registerJs('$(this).widgetPlugin();')?>
 
 
 <?php $this->endBody() ?>
