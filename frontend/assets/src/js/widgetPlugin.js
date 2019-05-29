@@ -13,9 +13,9 @@
 	var methods = {
 		// инициализация плагина
 		init: function (params) {
-			if ( window.addEventListener ) {
+			if (window.addEventListener) {
 				window.addEventListener('load', $(this).widgetPlugin('getDocHeight', $(this)), false);
-			} else if ( window.attachEvent ) { // ie8
+			} else if (window.attachEvent) { // ie8
 				window.attachEvent('onload', $(this).widgetPlugin('sendDocHeightMsg'));
 			}
 		},
@@ -28,10 +28,10 @@
 			return height;
 		},
 		sendDocHeightMsg: function () {
-			parent.postMessage( JSON.stringify( {'docHeight': 0} ), '*' );
-
-			var ht = $(this).widgetPlugin('getDocHeight');
-			parent.postMessage( JSON.stringify( {'docHeight': ht} ), '*' );
+			setTimeout(function () {
+				var ht = $(this).widgetPlugin('getDocHeight');
+				parent.postMessage(JSON.stringify({'docHeight': ht}), '*');
+			}, 1500);
 		}
 	};
 })(jQuery);
