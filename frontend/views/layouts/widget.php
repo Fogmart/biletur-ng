@@ -12,6 +12,7 @@ use frontend\controllers\HotelsController;
 use yii\helpers\Html;
 use frontend\controllers\ExcursionController;
 
+header("Access-Control-Allow-Origin: http://www.biletur.ru");
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
