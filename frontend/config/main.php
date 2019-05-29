@@ -46,7 +46,7 @@ return [
 			'showScriptName'  => false,
 			'suffix'          => '/',
 			'rules'           => [
-				''                                      => 'site/index',
+				'' => 'site/index',
 				[
 					'pattern' => 'page',
 					'route'   => 'page',
@@ -55,6 +55,7 @@ return [
 
 				'excursion/find-by-name/<q>/<needType>' => 'excursion/find-by-name',
 				'excursion/widget/<city>'               => 'excursion/widget',
+				'excursion/widget/<city>/<needSearch>'  => 'excursion/widget',
 				'excursion/city/<city>'                 => 'excursion/index',
 
 				'<module:[\w-]+>/<controller:[\w-]+>/<action:[\w-]+>/<id:\d+>]' => '<module>/<controller>/<action>',

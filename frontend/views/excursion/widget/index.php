@@ -7,6 +7,7 @@ use yii\widgets\Pjax;
  *
  * @var \yii\web\View                      $this
  * @var \common\forms\excursion\SearchForm $form
+ * @var bool                               $needSearch
  */
 ?>
     <div class="content-header text-center">
@@ -16,7 +17,7 @@ use yii\widgets\Pjax;
     <div class="row">
         <div class="col-xs-12">
             <div class="block-panel">
-				<?= $this->render('_search-form', ['form' => $form]) ?>
+				<?= $this->render('_search-form', ['form' => $form, 'needSearch' => $needSearch]) ?>
             </div>
         </div>
     </div>

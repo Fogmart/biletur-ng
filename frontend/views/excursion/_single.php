@@ -24,6 +24,6 @@ use kartik\rating\StarRating;
     </div>
     <div class="name"><a target="_blank" href="<?= $excursion->url ?>" rel="nofollow"><h4><?= $excursion->name ?></h4></a></div>
     <div class="annotation"><?= $excursion->annotation ?></div>
-    <div class="duration"><?= $excursion->duration ?> часа</div>
+    <div class="duration">Продолжительность: <?= $excursion->duration ?> ч.</div>
     <div class="price"><?= $excursion->price ?></div>
 </div>
