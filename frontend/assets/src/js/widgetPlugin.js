@@ -31,7 +31,7 @@
 			setTimeout(function () {
 				var ht = $(this).widgetPlugin('getDocHeight');
 				parent.postMessage(JSON.stringify({'docHeight': ht}), '*');
-			}, 1500);
+			}, 500);
 		}
 	};
 })(jQuery);
