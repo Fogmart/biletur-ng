@@ -59,6 +59,7 @@ class ExcursionController extends FrontendMenuController {
 			->getHeaders()
 			->set('Access-Control-Allow-Credentials', true);
 
+
 		$this->layout = '/widget';
 
 		$form = new SearchForm();
