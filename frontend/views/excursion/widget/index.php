@@ -1,5 +1,6 @@
 <?php
 
+use frontend\assets\AppAsset;
 use yii\widgets\Pjax;
 
 /**
@@ -9,8 +10,8 @@ use yii\widgets\Pjax;
  * @var \common\forms\excursion\SearchForm $form
  * @var bool                               $needSearch
  */
+//AppAsset::register($this);
 ?>
-
     <div class="content-header text-center">
         <h1><?= (null !== $form->cityName ? $form->cityName : '') ?></h1>
     </div>

@@ -5,7 +5,7 @@
 		} else if (typeof method === 'object' || !method) {
 			return methods.init.apply(this, arguments);
 		} else {
-			$.error('Метод "' + method + '" не найден в плагине jQuery.mySimplePlugin');
+			$.error('Метод "' + method + '" не найден в плагине jQuery.widgetPlugin');
 		}
 	};
 
