@@ -1,13 +1,22 @@
 (function ($) {
-	$.fn.widgetPlugin = function () {
-		var methods = {
-			init: function (param) {
-				console.log(param);
-			},
-			byCity: function (param) {
-				console.log(param);
-			}
-		};
-		methods.init();
+	$.fn.widgetPlugin = function (method) {
+		if (methods[method]) {
+			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+		} else if (typeof method === 'object' || !method) {
+			return methods.init.apply(this, arguments);
+		} else {
+			$.error('Метод "' + method + '" не найден в плагине jQuery.mySimplePlugin');
+		}
+	};
+
+	// наши публичные методы
+	var methods = {
+		// инициализация плагина
+		init: function (params) {
+
+		},
+		byCity: function (cityName) {
+			console.log(cityName);
+		}
 	};
 })(jQuery);
