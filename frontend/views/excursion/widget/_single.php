@@ -10,7 +10,9 @@ use kartik\rating\StarRating;
  */
 ?>
 <div class="excursion-block">
-    <img class="img img-rounded img-responsive" src="<?= $excursion->image ?>">
+    <a target="_blank" href="<?= $excursion->url ?>" rel="nofollow">
+        <img class="img img-rounded img-responsive" src="<?= $excursion->image ?>">
+    </a>
     <div class="rating">
 		<?= StarRating::widget([
 			'name'          => 'rating',
@@ -18,7 +20,7 @@ use kartik\rating\StarRating;
 			'pluginOptions' => [
 				'displayOnly' => true,
 				'showCaption' => false,
-				'size' => 'xs',
+				'size'        => 'xs',
 			]
 		]); ?>
     </div>
