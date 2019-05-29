@@ -66,7 +66,7 @@ class TripsterApi extends Component implements Configurable {
 
 	const UTM = '?exp_partner=biletur&utm_source=biletur&utm_campaign=affiliates&utm_medium=api';
 
-	const PAGE_SIZE = 30;
+	const PAGE_SIZE = 15;
 
 	/**
 	 * @param array $config
