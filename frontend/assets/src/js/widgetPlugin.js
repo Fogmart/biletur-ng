@@ -22,7 +22,7 @@
 		getDocHeight: function (doc) {
 			doc = document;
 			var body = doc.body;
-			var height = body.scrollHeight + 50;
+			var height = body.scrollHeight + 250;
 
 			return height;
 		},
