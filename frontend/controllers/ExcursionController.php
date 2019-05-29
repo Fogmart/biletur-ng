@@ -55,6 +55,10 @@ class ExcursionController extends FrontendMenuController {
 			->getHeaders()
 			->set('Access-Control-Allow-Origin', 'http://www.biletur.ru');
 
+		Yii::$app->getResponse()
+			->getHeaders()
+			->set('Access-Control-Allow-Credentials', true);
+
 		$this->layout = '/widget';
 
 		$form = new SearchForm();
