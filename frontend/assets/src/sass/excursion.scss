@@ -5,7 +5,6 @@
 
 	.duration {
 		position: absolute;
-		top: 150px;
 		background-color: #5492FE;
 		opacity: .9;
 		color: #fff;
@@ -15,16 +14,35 @@
 
 	.price {
 		position: absolute;
-		background-color: #4e555b;
+		background-color: #5492FE;
 		opacity: .7;
 		color: #fff;
 		font-weight: bolder;
-		position: absolute;
-		top: 200px;
-		background-color: #5492FE;
-		opacity: .9;
-		color: #fff;
-		font-weight: bolder;
 		padding: 5px 10px 5px 10px;
+	}
+
+	@media (min-width: 768px) {
+		.price {
+			top: 100px;
+		}
+		.duration {
+			top: 50px;
+		}
+	}
+	@media (min-width: 992px) {
+		.price {
+			top: 150px;
+		}
+		.duration {
+			top: 100px;
+		}
+	}
+	@media (min-width: 1200px) {
+		.price {
+			top: 200px;
+		}
+		.duration {
+			top: 150px;
+		}
 	}
 }
