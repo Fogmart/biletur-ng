@@ -10,10 +10,11 @@ use yii\widgets\Pjax;
  * @var bool                               $needSearch
  */
 ?>
+
     <div class="content-header text-center">
         <h1>Экскурсии<?= (null !== $form->cityName ? ': ' . $form->cityName : '') ?></h1>
     </div>
-<?php Pjax::begin(); ?>
+	<?php Pjax::begin(); ?>
     <div class="row">
         <div class="col-xs-12">
             <div class="block-panel">
@@ -28,4 +29,5 @@ use yii\widgets\Pjax;
             </div>
         </div>
     </div>
-<?php Pjax::end(); ?>
+	<?php Pjax::end(); ?>
+

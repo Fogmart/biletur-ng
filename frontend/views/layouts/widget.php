@@ -28,7 +28,7 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<div class="wrap">
+<div class="wrap" style="padding-left: 15px; padding-right: 15px;" >
         <div class="inner-container">
 			<?= $content ?>
         </div>
