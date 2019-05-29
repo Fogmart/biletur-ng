@@ -16,6 +16,8 @@ mix.js('frontend/assets/src/js/commonPlugin.js', 'frontend/web/js/biletur.js')
 mix.js('frontend/assets/src/js/searchExcursionPlugin.js', 'frontend/web/js/biletur.js')
     .version();
 
+mix.js('frontend/assets/src/js/widgetPlugin.js', 'frontend/web/js/widget.js')
+
 mix.sass('frontend/assets/src/sass/biletur.scss', 'frontend/web/css')
 mix.sass('frontend/assets/src/sass/excursion.scss', 'frontend/web/css')
 	.options({
