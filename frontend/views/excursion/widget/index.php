@@ -1,6 +1,7 @@
 <?php
 
 use yii\widgets\Pjax;
+use yii\web\View;
 
 /**
  * @author Исаков Владислав <visakov@biletur.ru>
@@ -11,24 +12,24 @@ use yii\widgets\Pjax;
  */
 
 ?>
-    <div class="content-header text-center">
-        <h1><?= (null !== $form->cityName ? $form->cityName : '') ?></h1>
-    </div>
-	<?php Pjax::begin(); ?>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="block-panel">
-				<?= $this->render('_search-form', ['form' => $form, 'needSearch' => $needSearch]) ?>
-            </div>
+<div class="content-header text-center">
+    <h1><?= (null !== $form->cityName ? $form->cityName : '') ?></h1>
+</div>
+<?php Pjax::begin(); ?>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="block-panel">
+			<?= $this->render('_search-form', ['form' => $form, 'needSearch' => $needSearch]) ?>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="block-panel" style="min-height: 300px;">
-				<?= $this->render('_search-result', ['form' => $form]) ?>
-            </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="block-panel" style="min-height: 300px;">
+			<?= $this->render('_search-result', ['form' => $form]) ?>
         </div>
     </div>
-    <?= $this->registerJs('$(this).widgetPlugin("sendDocHeightMsg");', \yii\web\View::POS_LOAD)?>
-	<?php Pjax::end(); ?>
+</div>
+<?= $this->registerJs('$(this).widgetPlugin("sendDocHeightMsg");', View::POS_LOAD) ?>
+<?php Pjax::end(); ?>
 
