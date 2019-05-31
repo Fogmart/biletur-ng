@@ -1,6 +1,7 @@
 <?php
 
 use common\components\IpGeoBase;
+use common\components\LogDbTarget;
 use common\modules\message\MMessage;
 use common\modules\news\MNews;
 use common\modules\pages\MPages;
@@ -84,6 +85,14 @@ return [
 						/*'StarRating' => ['class' => '\kartik\rating\StarRating'],*/
 					],
 					'uses'      => ['yii\bootstrap'],
+				],
+			],
+		],
+		'log' => [
+			'targets' => [
+				'db' => [
+					'class'     => LogDbTarget::class,
+					'levels'    => ['error', 'warning'],
 				],
 			],
 		],
