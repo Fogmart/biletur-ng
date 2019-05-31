@@ -41,7 +41,7 @@ AppAsset::register($this);
 	]);
 	$menuItems = [
 		[
-			'label' => 'Ошибки сайта', 'url' => ['log/index']
+			'label' => 'Ошибки сайта', 'url' => LogController::getActionUrl(LogController::ACTION_INDEX)
 		],
 		[
 			'label' => 'Контент',
