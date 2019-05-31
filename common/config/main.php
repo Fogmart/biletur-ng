@@ -8,6 +8,7 @@ use common\modules\pages\MPages;
 use common\modules\seo\MSeo;
 
 return [
+	'bootstrap' => ['log'],
 	'language'   => 'ru-RU',
 	'aliases'    => [
 		'@bower' => '@vendor/bower-asset',
@@ -89,6 +90,7 @@ return [
 			],
 		],
 		'log' => [
+			'traceLevel' => 3,
 			'targets' => [
 				'db' => [
 					'class'     => LogDbTarget::class,

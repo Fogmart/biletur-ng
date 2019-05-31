@@ -118,3 +118,9 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+table.log{
+    font-size: 10px;
+}
+.log-message pre{
+    font-size: 10px;
+}

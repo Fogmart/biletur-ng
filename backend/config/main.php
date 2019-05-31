@@ -45,8 +45,9 @@ return [
 			'suffix'          => '/',
 			'rules'           => [
 				''                                                             => 'site/index',
-				'<module:[\w-]+>/<controller:[\w-]+>/<action:[\w-]+>/<id:\d+>' => '<module>/<controller>/<action>',
 				'<controller:\w+>/<action:\w+>/'                               => '<controller>/<action>',
+				'<module:[\w-]+>/<controller:[\w-]+>/<action:[\w-]+>/<id:\d+>' => '<module>/<controller>/<action>',
+
 			],
 		],
 	],

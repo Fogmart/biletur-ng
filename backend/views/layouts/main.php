@@ -5,6 +5,7 @@
 /* @var $content string */
 
 use backend\assets\AppAsset;
+use backend\controllers\LogController;
 use common\modules\pages\controllers\PageController;
 use common\modules\seo\controllers\SeoController;
 use common\widgets\Alert;
@@ -39,6 +40,9 @@ AppAsset::register($this);
 		],
 	]);
 	$menuItems = [
+		[
+			'label' => 'Ошибки сайта', 'url' => ['log/index']
+		],
 		[
 			'label' => 'Контент',
 			'items' => [

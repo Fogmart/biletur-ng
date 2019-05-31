@@ -28,6 +28,49 @@ use Yii;
  */
 class News extends SiteModel implements ILinkedModels {
 
+	const ATTR_ID = 'id';
+	const ATTR_OLD_ID = 'old_id';
+	const ATTR_CATEGORY_ID = 'category_id';
+	const ATTR_DATE = 'date';
+	const ATTR_TITLE = 'title';      //0000000001
+	const ATTR_TEXT = 'text';     //0000000002
+	const ATTR_IS_PUBLISHED = 'is_published';       //0000000003
+	const ATTR_IS_HOT = 'is_hot';        //000000000A
+	const ATTR_IMAGE = 'image';         //0000000005
+	const ATTR_LANG = 'lang'; //0000000006
+	const ATTR_INSERT_STAMP = 'insert_stamp';     //0000000007
+
+	//Соответствие категорий старого сайта и нового
+	const ATTR_UPDATE_STAMP = 'update_stamp';
+
+	//Категории для публичного сайта
+	const AVIASALE_NEWS = 1;
+	const PASSENGER_NEWS = 2;
+	const TOURIST_NEWS = 3;
+	const AGENCY_NEWS = 4;
+	const LOCAL_NEWS = 5;
+	const LOCAL_INVOICE_NEWS = 6;
+	const LOCAL_ARR_NEWS = 7;
+	const LOCAL_OTHER_NEWS = 8;
+
+	const CATEGORY_LINK = [
+		'0000000001' => self::AVIASALE_NEWS,
+		'0000000002' => self::PASSENGER_NEWS,
+		'0000000003' => self::TOURIST_NEWS,
+		'000000000A' => self::AGENCY_NEWS,
+		'0000000005' => self::LOCAL_NEWS,
+		'0000000006' => self::LOCAL_INVOICE_NEWS,
+		'0000000007' => self::LOCAL_ARR_NEWS,
+		'000000000B' => self::LOCAL_OTHER_NEWS
+	];
+
+	const PUBLIC_CATEGORY = [
+		self::AVIASALE_NEWS,
+		self::PASSENGER_NEWS,
+		self::TOURIST_NEWS,
+		self::AGENCY_NEWS,
+	];
+
 	public static function tableName() {
 		return '{{%news}}';
 	}
@@ -166,46 +209,5 @@ class News extends SiteModel implements ILinkedModels {
 		}
 	}
 
-	const ATTR_ID = 'id';
-	const ATTR_OLD_ID = 'old_id';
-	const ATTR_CATEGORY_ID = 'category_id';
-	const ATTR_DATE = 'date';
-	const ATTR_TITLE = 'title';      //0000000001
-	const ATTR_TEXT = 'text';     //0000000002
-	const ATTR_IS_PUBLISHED = 'is_published';       //0000000003
-	const ATTR_IS_HOT = 'is_hot';        //000000000A
-	const ATTR_IMAGE = 'image';         //0000000005
-	const ATTR_LANG = 'lang'; //0000000006
-	const ATTR_INSERT_STAMP = 'insert_stamp';     //0000000007
 
-	//Соответствие категорий старого сайта и нового
-	const ATTR_UPDATE_STAMP = 'update_stamp';
-
-	//Категории для публичного сайта
-	const AVIASALE_NEWS = 1;
-	const PASSENGER_NEWS = 2;
-	const TOURIST_NEWS = 3;
-	const AGENCY_NEWS = 4;
-	const LOCAL_NEWS = 5;
-	const LOCAL_INVOICE_NEWS = 6;
-	const LOCAL_ARR_NEWS = 7;
-	const LOCAL_OTHER_NEWS = 8;
-
-	const CATEGORY_LINK = [
-		'0000000001' => self::AVIASALE_NEWS,
-		'0000000002' => self::PASSENGER_NEWS,
-		'0000000003' => self::TOURIST_NEWS,
-		'000000000A' => self::AGENCY_NEWS,
-		'0000000005' => self::LOCAL_NEWS,
-		'0000000006' => self::LOCAL_INVOICE_NEWS,
-		'0000000007' => self::LOCAL_ARR_NEWS,
-		'000000000B' => self::LOCAL_OTHER_NEWS
-	];
-
-	const PUBLIC_CATEGORY = [
-		self::AVIASALE_NEWS,
-		self::PASSENGER_NEWS,
-		self::TOURIST_NEWS,
-		self::AGENCY_NEWS,
-	];
 }

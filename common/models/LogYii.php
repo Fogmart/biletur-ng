@@ -2,8 +2,11 @@
 
 namespace common\models;
 
+use common\components\SiteModel;
 use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 use yii\log\Logger;
 
 /**
@@ -20,7 +23,7 @@ use yii\log\Logger;
  * @property string $site_id        Идентификатор сайта, на котором выполнялся скрипт
  *
  */
-class LogYii extends ActiveRecord {
+class LogYii extends SiteModel {
 	const ATTR_ID = 'id';
 	const ATTR_LEVEL = 'level';
 	const ATTR_CATEGORY = 'category';
@@ -31,12 +34,28 @@ class LogYii extends ActiveRecord {
 	const ATTR_SITE_ID = 'site_id';
 
 	/**
+	 * @return array
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function behaviors() {
+		return [
+			[
+				'class'              => TimestampBehavior::class,
+				'createdAtAttribute' => 'log_time',
+				'updatedAtAttribute' => 'log_time',
+				'value'              => new Expression('sysdate'),
+			],
+		];
+	}
+
+	/**
 	 * @return string
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public static function tableName() {
-		return 'log_yii';
+		return '{{%log_yii}}';
 	}
 
 	/**

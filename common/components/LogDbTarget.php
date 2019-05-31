@@ -2,7 +2,7 @@
 
 namespace common\components;
 
-use common\base\helpers\DateHelper;
+
 use common\base\helpers\Dump;
 use common\models\LogYii;
 use Exception;
@@ -21,8 +21,6 @@ class LogDbTarget extends DbTarget {
 
 	/**
 	 * @inheritdoc
-	 *
-	 * @author Залатов Александр <zalatov.ao@dns-shop.ru>
 	 */
 	public function export() {
 		$messages = $this->messages;
@@ -114,16 +112,23 @@ class LogDbTarget extends DbTarget {
 			$rows[] = array_merge($defaultRow, [
 				LogYii::ATTR_LEVEL    => $level,
 				LogYii::ATTR_CATEGORY => $category,
-				LogYii::ATTR_LOG_TIME => DateHelper::formatMicrotime($timestamp),
 				LogYii::ATTR_PREFIX   => $this->getMessagePrefix($message),
 				LogYii::ATTR_MESSAGE  => $text,
 			]);
 			// -- -- -- --
 		}
 		// -- -- -- --
+		foreach ($rows as $row) {
+			$logRecord = new LogYii();
+			$logRecord->level = $row[LogYii::ATTR_LEVEL];
+			$logRecord->hostname = $defaultRow[LogYii::ATTR_HOSTNAME];
+			$logRecord->site_id = $defaultRow[LogYii::ATTR_SITE_ID];
+			$logRecord->category = $row[LogYii::ATTR_CATEGORY];
+			$logRecord->prefix = $row[LogYii::ATTR_PREFIX];
+			$logRecord->message = $row[LogYii::ATTR_MESSAGE];
 
-		// -- Вставляем в базу пачкой
-		$this->db->createCommand()->batchInsert(LogYii::tableName(), array_keys(reset($rows)), $rows)->execute();
+			$logRecord->save();
+		}
 		// -- -- -- --
 	}
 

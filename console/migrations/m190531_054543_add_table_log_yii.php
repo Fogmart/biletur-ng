@@ -16,7 +16,7 @@ class m190531_054543_add_table_log_yii extends OracleMigration {
 			'level'    => $this->string()->notNull(),
 			'category' => $this->string()->notNull(),
 			'prefix'   => $this->string()->notNull(),
-			'message'  => $this->text()->notNull(),
+			'message'  => Schema::TYPE_TEXT . ' NOT NULL',
 			'hostname' => $this->string()->notNull(),
 			'site_id'  => $this->integer()->defaultValue(0),
 			'log_time' => Schema::TYPE_DATETIME . ' NOT NULL',
