@@ -1,11 +1,11 @@
 <?php
+
 namespace common\components;
 
 use common\base\helpers\DateHelper;
 use common\base\helpers\Dump;
 use common\models\LogYii;
 use Exception;
-use Yii;
 use yii\helpers\VarDumper;
 use yii\log\DbTarget;
 
@@ -13,6 +13,9 @@ use yii\log\DbTarget;
  * Компонент для записи логов в базу.
  */
 class LogDbTarget extends DbTarget {
+
+	const EXCLUDED_MESSAGE = [];
+
 	/** @inheritdoc */
 	public $logVars = [];
 
@@ -25,7 +28,7 @@ class LogDbTarget extends DbTarget {
 		$messages = $this->messages;
 
 		// -- Фильтруем сообщения собственным способом
-		foreach ($this->module->excludeMessages as $exclude) {
+		foreach (static::EXCLUDED_MESSAGE as $exclude) {
 			foreach ($messages as $i => $message) {
 				if (false !== mb_strpos($message[0], $exclude)) {
 					unset($messages[$i]);
@@ -42,7 +45,7 @@ class LogDbTarget extends DbTarget {
 
 		// -- Данные, которые одинаковы для всех логов
 		$defaultRow = [
-			LogYii::ATTR_HOSTNAME   => gethostname(),
+			LogYii::ATTR_HOSTNAME => gethostname(),
 			LogYii::ATTR_SITE_ID  => 0,
 		];
 		// -- -- -- --
@@ -79,9 +82,6 @@ class LogDbTarget extends DbTarget {
 		$serverInfo = implode("\n", $serverInfo);
 		// -- -- -- --
 
-		// -- Определяем список правил для группирования
-		$groupRules = $this->_getGroupRules();
-		// -- -- -- --
 
 		// -- Проходимся по каждому сообщению и подготавливаем его для добавления в базу
 		$rows = [];
@@ -109,29 +109,14 @@ class LogDbTarget extends DbTarget {
 			}
 			// -- -- -- --
 
-			// -- Проверяем каждое из правил группировки
-			$groupId = Uuid::NIL;
-
-			foreach ($groupRules as $rule) {
-				// -- Ищем совпадение
-				if (0 === preg_match($rule[RefLogGroupRule::ATTR_PATTERN], $text)) {
-					continue;
-				}
-				// -- -- -- --
-
-				$groupId = $rule[RefLogGroupRule::ATTR_GROUP_GUID];
-				break;// Завершаем дальнейшую обработку правил
-			}
-			// -- -- -- --
 
 			// -- Привязываем параметры
 			$rows[] = array_merge($defaultRow, [
-				LogYii::ATTR_LEVEL      => $level,
-				LogYii::ATTR_CATEGORY   => $category,
-				LogYii::ATTR_LOG_TIME   => DateHelper::formatMicrotime($timestamp),
-				LogYii::ATTR_PREFIX     => $this->getMessagePrefix($message),
-				LogYii::ATTR_MESSAGE    => $text,
-				LogYii::ATTR_GROUP_GUID => $groupId,
+				LogYii::ATTR_LEVEL    => $level,
+				LogYii::ATTR_CATEGORY => $category,
+				LogYii::ATTR_LOG_TIME => DateHelper::formatMicrotime($timestamp),
+				LogYii::ATTR_PREFIX   => $this->getMessagePrefix($message),
+				LogYii::ATTR_MESSAGE  => $text,
 			]);
 			// -- -- -- --
 		}
@@ -164,35 +149,5 @@ class LogDbTarget extends DbTarget {
 		}
 
 		return $data;
-	}
-
-	/**
-	 * Получение списка правил группировки логов.
-	 *
-	 * @return string[] Возвращаем массив, где содержатся только pattern и group_guid
-	 *
-	 * @author Залатов Александр <zalatov.ao@dns-shop.ru>
-	 */
-	private function _getGroupRules() {
-		$cacheKey = Yii::$app->cache->getKeyName(__METHOD__);
-		$rules = Yii::$app->cache->waitGet($cacheKey);
-
-		if (false === $rules) {
-			$rules = RefLogGroupRule::find()
-				->select([
-					RefLogGroupRule::ATTR_GROUP_GUID,
-					RefLogGroupRule::ATTR_PATTERN,
-				])
-				->orderBy([
-					RefLogGroupRule::ATTR_PRIORITY_WEIGHT => SORT_DESC,
-				])
-				->asArray()
-				->all()
-			;/** @var string[] $rules */
-
-			Yii::$app->cache->set($cacheKey, $rules, DateHelper::SEC_OF_DAY, Yii::$app->cache->tags(RefLogGroupRule::getCacheTags()));
-		}
-
-		return $rules;
 	}
 }

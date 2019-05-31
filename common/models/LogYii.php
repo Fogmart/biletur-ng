@@ -15,12 +15,9 @@ use yii\log\Logger;
  * @property string $category       Категория
  * @property string $log_time       Дата и время лога
  * @property string $prefix         Префикс лога
- * @property string $user_guid      Идентификатор пользователя
  * @property string $message        Текст лога
  * @property string $hostname       Имя хоста
  * @property string $site_id        Идентификатор сайта, на котором выполнялся скрипт
- *
- * Связи с другими моделями:
  *
  */
 class LogYii extends ActiveRecord {
@@ -34,9 +31,18 @@ class LogYii extends ActiveRecord {
 	const ATTR_SITE_ID = 'site_id';
 
 	/**
+	 * @return string
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public static function tableName() {
+		return 'log_yii';
+	}
+
+	/**
 	 * @inheritdoc
 	 *
-	 * @author Залатов Александр <zalatov.ao@dns-shop.ru>
+	 *
 	 */
 	public function attributeLabels() {
 		return [
@@ -56,7 +62,7 @@ class LogYii extends ActiveRecord {
 	 *
 	 * @return string
 	 *
-	 * @author Залатов Александр <zalatov.ao@dns-shop.ru>
+	 *
 	 */
 	public function getTitle() {
 		$title = explode("\n", $this->message);
@@ -97,9 +103,9 @@ class LogYii extends ActiveRecord {
 	 *
 	 * @return string|null Название файла или NULL, если название извлечь не удалось
 	 *
-	 * @author Залатов Александр <zalatov.ao@dns-shop.ru>
+	 *
 	 */
-	public function getFileAndLine($linkToGitlab = false) {
+	public function getFileAndLine() {
 		$fileName = null;
 
 		// -- Если удалось извлечь имя файла
@@ -118,7 +124,7 @@ class LogYii extends ActiveRecord {
 	 *
 	 * @return string|null Название сайта или NULL, если название неизвестно
 	 *
-	 * @author Залатов Александр <zalatov.ao@dns-shop.ru>
+	 *
 	 */
 	public function getSiteName() {
 
@@ -130,7 +136,7 @@ class LogYii extends ActiveRecord {
 	 *
 	 * @return string
 	 *
-	 * @author Залатов Александр <zalatov.ao@dns-shop.ru>
+	 *
 	 */
 	public function getLevelName() {
 		return Logger::getLevelName($this->level);
@@ -141,7 +147,7 @@ class LogYii extends ActiveRecord {
 	 *
 	 * @return string
 	 *
-	 * @author Залатов Александр <zalatov.ao@dns-shop.ru>
+	 *
 	 */
 	public function getUserIp() {
 		if (preg_match('/^\[(?P<userIp>.*?)\]\[(?P<userId>.*?)\]\[(?P<session>.*?)\]$/', $this->prefix, $matches)) {
