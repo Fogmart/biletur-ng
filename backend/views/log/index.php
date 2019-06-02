@@ -1,10 +1,12 @@
 <?php
+use backend\controllers\LogController;
 /**
  * @author Исаков Владислав <visakov@biletur.ru>
  * @var \common\models\LogYii[] $log
  */
 
 ?>
+<p><a href="<?= LogController::getActionUrl(LogController::ACTION_CLEAR) ?>" class="btn btn-danger btn-sm">Очистить</a></p>
 <table class="table table-bordered table-striped log">
 	<tr>
 		<th>Дата</th>

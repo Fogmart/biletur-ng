@@ -17,17 +17,15 @@ class AppAsset extends AssetBundle {
 	public $baseUrl = '@web';
 
 	public $css = [
-		'css/biletur.css',
+		'css/visa.css',
 	];
 
 	public $js = [
-		'/js/biletur.js',
-		'/js/widget.js',
+		'/js/visa-biletur.js',
 	];
 
 	public $depends = [
 		'yii\bootstrap\BootstrapAsset',
-		'rmrevin\yii\fontawesome\CdnFreeAssetBundle'
 	];
 
 
