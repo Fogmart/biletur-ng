@@ -36,8 +36,8 @@ class LogYii extends SiteModel {
 	const SITE_VISA_BILETUR = 1;
 
 	const SITE_NAMES = [
-		self::SITE_BILETUR => 'biletur',
-		self::SITE_VISA_BILETUR => 'visa.biletur',
+		self::SITE_BILETUR => 'https://biletur.ru',
+		self::SITE_VISA_BILETUR => 'https://visa.biletur.ru',
 	];
 
 	/**

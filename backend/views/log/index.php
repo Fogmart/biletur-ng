@@ -19,7 +19,7 @@ use common\models\LogYii;
         <tr>
             <td>
                 <p><?= $logRecord->log_time ?></p>
-                <p><?= LogYii::SITE_NAMES[$logRecord->site_id] ?></p>
+                <p><b><?= LogYii::SITE_NAMES[$logRecord->site_id] ?></b></p>
                 <p><?= $logRecord->hostname ?></p>
             </td>
             <td class="log-message">
