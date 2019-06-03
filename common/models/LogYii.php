@@ -36,7 +36,7 @@ class LogYii extends SiteModel {
 	const SITE_VISA_BILETUR = 1;
 
 	const SITE_NAMES = [
-		self::SITE_BILETUR => 'https://biletur.ru',
+		self::SITE_BILETUR      => 'https://biletur.ru',
 		self::SITE_VISA_BILETUR => 'https://visa.biletur.ru',
 	];
 
@@ -147,6 +147,8 @@ class LogYii extends SiteModel {
 
 	/**
 	 * Получение названия сайта, на котором произошёл лог.
+	 *
+	 * @param int $id Идентификатор сайта
 	 *
 	 * @return string|null Название сайта или NULL, если название неизвестно
 	 *
