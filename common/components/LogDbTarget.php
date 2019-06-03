@@ -94,7 +94,6 @@ class LogDbTarget extends DbTarget {
 		$serverInfo = implode("\n", $serverInfo);
 		// -- -- -- --
 
-
 		// -- Проходимся по каждому сообщению и подготавливаем его для добавления в базу
 		$rows = [];
 
