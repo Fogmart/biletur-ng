@@ -17,11 +17,11 @@ class AppAsset extends AssetBundle {
 	public $baseUrl = '@web';
 
 	public $css = [
-		'css/visa.css',
+		//'css/visa.css',
 	];
 
 	public $js = [
-		'/js/visa-biletur.js',
+		//'/js/visa-biletur.js',
 	];
 
 	public $depends = [

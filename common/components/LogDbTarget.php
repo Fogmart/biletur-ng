@@ -6,6 +6,7 @@ namespace common\components;
 use common\base\helpers\Dump;
 use common\models\LogYii;
 use Exception;
+use Yii;
 use yii\helpers\VarDumper;
 use yii\log\DbTarget;
 
@@ -41,10 +42,23 @@ class LogDbTarget extends DbTarget {
 		}
 		// -- -- -- --
 
+		preg_match('/^(?:(.+)\.)?([^.]+\.[^.]+)$/', Yii::$app->request->hostName, $matches);
+		$subDomain = $matches[1];
+
+		//Изменяем шаблон для поддоменов
+		switch ($subDomain) {
+			case 'visa':
+				$siteId = LogYii::SITE_VISA_BILETUR;
+				break;
+			default:
+				$siteId = LogYii::SITE_BILETUR;
+				break;
+		}
+
 		// -- Данные, которые одинаковы для всех логов
 		$defaultRow = [
 			LogYii::ATTR_HOSTNAME => gethostname(),
-			LogYii::ATTR_SITE_ID  => 0,
+			LogYii::ATTR_SITE_ID  => $siteId,
 		];
 		// -- -- -- --
 

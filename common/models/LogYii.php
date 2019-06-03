@@ -5,7 +5,6 @@ namespace common\models;
 use common\components\SiteModel;
 use Yii;
 use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\log\Logger;
 
@@ -32,6 +31,14 @@ class LogYii extends SiteModel {
 	const ATTR_MESSAGE = 'message';
 	const ATTR_HOSTNAME = 'hostname';
 	const ATTR_SITE_ID = 'site_id';
+
+	const SITE_BILETUR = 0;
+	const SITE_VISA_BILETUR = 1;
+
+	const SITE_NAMES = [
+		self::SITE_BILETUR => 'biletur',
+		self::SITE_VISA_BILETUR => 'visa.biletur',
+	];
 
 	/**
 	 * @return array
@@ -145,9 +152,8 @@ class LogYii extends SiteModel {
 	 *
 	 *
 	 */
-	public function getSiteName() {
-
-		return null;
+	public function getSiteName($id) {
+		return static::SITE_NAMES[$id];
 	}
 
 	/**
