@@ -29,6 +29,7 @@ class User extends SiteModel implements IdentityInterface
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
 
+    const ATTR_ID = 'id';
 
     /**
      * {@inheritdoc}
