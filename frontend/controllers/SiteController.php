@@ -153,6 +153,7 @@ class SiteController extends FrontendController {
 	 * @return mixed
 	 */
 	public function actionSignup() {
+		$this->layout = 'common';
 		$model = new SignupForm();
 		if ($model->load(Yii::$app->request->post()) && $model->signup()) {
 			Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');

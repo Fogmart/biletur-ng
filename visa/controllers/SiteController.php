@@ -4,7 +4,7 @@ namespace visa\controllers;
 
 use common\components\FrontendController;
 use common\models\LoginForm;
-use common\modules\news\models\News;
+use common\modules\news\models\Profile;
 use frontend\models\ContactForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResendVerificationEmailForm;

@@ -1,7 +1,5 @@
 <?php
 
-use common\modules\api\ostrovok\components\OstrovokApi;
-
 $params = array_merge(
 	require __DIR__ . '/../../common/config/params.php',
 	require __DIR__ . '/../../common/config/params-local.php',
@@ -29,11 +27,12 @@ return [
 				'modules\message\migrations',
 				'modules\pages\migrations',
 				'modules\seo\migrations',
+				'modules\profile\migrations',
 			],
 		],
 	],
 	'components'          => [
-		'log'  => [
+		'log'   => [
 			'targets' => [
 				[
 					'class'  => 'yii\log\FileTarget',
@@ -41,12 +40,12 @@ return [
 				],
 			],
 		],
-		'user' => [
+		'user'  => [
 			'class' => \common\models\User::class,
 		],
-		'cache'       => [
+		'cache' => [
 			'class'        => \yii\caching\MemCache::class,
-			'servers' => [
+			'servers'      => [
 				[
 					'host' => 'localhost',
 					'port' => 11211,

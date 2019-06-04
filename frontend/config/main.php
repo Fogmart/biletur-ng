@@ -49,6 +49,8 @@ return [
 				'excursion/widget/<city>/<needSearch>'  => 'excursion/widget',
 				'excursion/city/<city>'                 => 'excursion/index',
 
+				'profile'                 => 'profile/profile/index',
+
 				'<module:[\w-]+>/<controller:[\w-]+>/<action:[\w-]+>/<id:\d+>]' => '<module>/<controller>/<action>',
 				'<controller:\w+>/<action:\w+>/'                                => '<controller>/<action>',
 				'message-widget/<object>/<objectId>/<userName>'                 => 'message/message/widget',

@@ -11,7 +11,7 @@ class BackendController extends Controller {
 	public function beforeAction($action) {
 		$this->view->title = 'Biletur Admin';
 
-		if(Yii::$app->user->isGuest) {
+		if(Yii::$app->user->isGuest && $action->id !== 'login') {
 			return $this->redirect(['site/login']);
 		}
 

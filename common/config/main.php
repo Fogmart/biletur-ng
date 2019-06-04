@@ -5,10 +5,11 @@ use common\components\LogDbTarget;
 use common\modules\message\MMessage;
 use common\modules\news\MNews;
 use common\modules\pages\MPages;
+use common\modules\profile\MProfile;
 use common\modules\seo\MSeo;
 
 return [
-	'bootstrap' => ['log'],
+	'bootstrap'  => ['log'],
 	'language'   => 'ru-RU',
 	'aliases'    => [
 		'@bower' => '@vendor/bower-asset',
@@ -38,6 +39,9 @@ return [
 		],
 		'pages'   => [
 			'class' => MPages::class,
+		],
+		'profile' => [
+			'class' => MProfile::class,
 		]
 	],
 	'components' => [
@@ -82,19 +86,19 @@ return [
 						'auto_reload' => true,
 					],
 					'globals'   => [
-						'html'       => ['class' => '\yii\helpers\Html'],
+						'html' => ['class' => '\yii\helpers\Html'],
 						/*'StarRating' => ['class' => '\kartik\rating\StarRating'],*/
 					],
 					'uses'      => ['yii\bootstrap'],
 				],
 			],
 		],
-		'log' => [
+		'log'         => [
 			'traceLevel' => 3,
-			'targets' => [
+			'targets'    => [
 				'db' => [
-					'class'     => LogDbTarget::class,
-					'levels'    => ['error', 'warning'],
+					'class'  => LogDbTarget::class,
+					'levels' => ['error', 'warning'],
 				],
 			],
 		],

@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\base\helpers\Dump;
 use common\models\LoginForm;
 use Yii;
 use yii\filters\AccessControl;
@@ -67,12 +68,14 @@ class SiteController extends BackendController {
 	 * @return string
 	 */
 	public function actionLogin() {
+
 		if (!Yii::$app->user->isGuest) {
 			return $this->goHome();
 		}
 
 		$model = new LoginForm();
 		if ($model->load(Yii::$app->request->post()) && $model->login()) {
+
 			return $this->goBack();
 		}
 		else {
