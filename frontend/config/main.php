@@ -48,8 +48,8 @@ return [
 				'excursion/widget/<city>'               => 'excursion/widget',
 				'excursion/widget/<city>/<needSearch>'  => 'excursion/widget',
 				'excursion/city/<city>'                 => 'excursion/index',
-
-				'profile'                 => 'profile/profile/index',
+				'login'                                 => 'site/login',
+				'profile'                               => 'profile/profile/index',
 
 				'<module:[\w-]+>/<controller:[\w-]+>/<action:[\w-]+>/<id:\d+>]' => '<module>/<controller>/<action>',
 				'<controller:\w+>/<action:\w+>/'                                => '<controller>/<action>',
