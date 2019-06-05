@@ -14,6 +14,7 @@ use yii\db\Expression;
  * Поля таблицы:
  * @property int    $id
  * @property int    $user_id
+ * @property int    $type
  * @property string $insert_stamp
  * @property string $update_stamp
  *
@@ -22,6 +23,7 @@ class Order extends SiteModel {
 
 	const ATTR_ID = 'id';
 	const ATTR_USER_ID = 'user_id';
+	const ATTR_TYPE = 'type';
 	const ATTR_INSERT_STAMP = 'insert_stamp';
 	const ATTR_UPDATE_STAMP = 'update_stamp';
 
@@ -43,8 +45,8 @@ class Order extends SiteModel {
 		return [
 			[
 				'class'              => TimestampBehavior::class,
-				'createdAtAttribute' => 'insert_stamp',
-				'updatedAtAttribute' => 'update_stamp',
+				'createdAtAttribute' => static::ATTR_INSERT_STAMP,
+				'updatedAtAttribute' => static::ATTR_UPDATE_STAMP,
 				'value'              => new Expression('sysdate'),
 			],
 		];
