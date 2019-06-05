@@ -13,7 +13,7 @@ use common\models\Town;
 use common\modules\api\ostrovok\components\OstrovokApi;
 use common\modules\api\ostrovok\models\ApiOstrovokMeal;
 use common\modules\api\ostrovok\models\ApiOstrovokSerpFilters;
-use common\modules\news\models\Profile;
+use common\modules\news\models\News;
 use Yii;
 use yii\console\Controller;
 
@@ -34,7 +34,7 @@ class SyncController extends Controller {
 	 */
 	public function actionIndex() {
 		//Синхронизация новостей
-		SyncData::execute(Profile::class);
+		SyncData::execute(News::class);
 
 		//Синхронизация стран
 		SyncData::execute(Country::class);

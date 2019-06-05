@@ -37,6 +37,9 @@ use yii\widgets\Pjax;
                 <div class="col-xs-3">
 					<?= $htmlForm->field($model, $model::ATTR_S_NAME)->textInput() ?>
                 </div>
+                <div class="col-xs-3">
+					<?= $htmlForm->field($model, $model::ATTR_DOB)->textInput() ?>
+                </div>
             </div>
             <div class="row">
                 <div class="col-xs-3">
@@ -44,9 +47,6 @@ use yii\widgets\Pjax;
                 </div>
                 <div class="col-xs-3">
 					<?= $htmlForm->field($model, $model::ATTR_PHONE)->textInput() ?>
-                </div>
-                <div class="col-xs-3">
-					<?= $htmlForm->field($model, $model::ATTR_DOB)->textInput() ?>
                 </div>
             </div>
             <div class="row">

@@ -38,6 +38,8 @@ class ProfileController extends FrontendController {
 			$model->load(Yii::$app->request->post());
 			$model->save();
 		}
+
+		//Дадим пользователю насладиться крутилкой загрузки
 		sleep(1);
 
 		return $this->render('index', ['model' => $model]);
