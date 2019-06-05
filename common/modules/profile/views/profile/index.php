@@ -1,6 +1,5 @@
 <?php
 
-use frontend\controllers\SiteController;
 use yii\bootstrap\ActiveForm;
 use yii\widgets\Pjax;
 
@@ -10,37 +9,64 @@ use yii\widgets\Pjax;
  * @var \common\modules\profile\models\Profile $model
  */
 ?>
-<div class="block-panel">
-	<?php Pjax::begin(); ?>
-	<?php $htmlForm = ActiveForm::begin(
-		[
-			'options' =>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="block-panel">
+            <div class="loading-widget" style="display: none;"></div>
+			<?php Pjax::begin(); ?>
+			<?php $htmlForm = ActiveForm::begin(
 				[
-					'data-pjax' => true
+					'options' =>
+						[
+							'data-pjax' => true
+						]
 				]
-		]
-	); ?>
-    <div class="row">
-        <div class="col-xs-12">
-            <a href="<?= SiteController::getActionUrl(SiteController::ACTION_LOGOUT) ?>" class="pull-right btn btn-warning btn-sm">Выйти</a>
+			); ?>
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Личный кабинет</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+					<?= $htmlForm->field($model, $model::ATTR_L_NAME)->textInput() ?>
+                </div>
+                <div class="col-xs-3">
+					<?= $htmlForm->field($model, $model::ATTR_F_NAME)->textInput() ?>
+                </div>
+                <div class="col-xs-3">
+					<?= $htmlForm->field($model, $model::ATTR_S_NAME)->textInput() ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+					<?= $htmlForm->field($model, $model::ATTR_EMAIL)->textInput() ?>
+                </div>
+                <div class="col-xs-3">
+					<?= $htmlForm->field($model, $model::ATTR_PHONE)->textInput() ?>
+                </div>
+                <div class="col-xs-3">
+					<?= $htmlForm->field($model, $model::ATTR_DOB)->textInput() ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button class="btn btn-primary">Сохранить</button>
+                </div>
+            </div>
+			<?php ActiveForm::end(); ?>
+			<?php Pjax::end(); ?>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-3">
-			<?= $htmlForm->field($model, $model::ATTR_L_NAME)->textInput() ?>
-        </div>
-        <div class="col-xs-3">
-			<?= $htmlForm->field($model, $model::ATTR_F_NAME)->textInput() ?>
-        </div>
-        <div class="col-xs-3">
-			<?= $htmlForm->field($model, $model::ATTR_S_NAME)->textInput() ?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <button class="btn btn-primary">Сохранить</button>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="block-panel">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Заказы</h3>
+                </div>
+            </div>
         </div>
     </div>
-	<?php ActiveForm::end(); ?>
-	<?php Pjax::end(); ?>
 </div>

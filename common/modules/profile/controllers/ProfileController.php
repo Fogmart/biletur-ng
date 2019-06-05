@@ -1,12 +1,11 @@
 <?php
+
 namespace common\modules\profile\controllers;
 
 use common\components\FrontendController;
 use common\models\User;
-use common\modules\message\models\Message;
 use common\modules\profile\models\Profile;
 use Yii;
-use yii\db\Expression;
 
 /**
  *
@@ -35,10 +34,11 @@ class ProfileController extends FrontendController {
 			$model->save();
 		}
 
-		if(Yii::$app->request->isPjax) {
+		if (Yii::$app->request->isPjax) {
 			$model->load(Yii::$app->request->post());
 			$model->save();
 		}
+		sleep(1);
 
 		return $this->render('index', ['model' => $model]);
 	}
