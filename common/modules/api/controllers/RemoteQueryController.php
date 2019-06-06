@@ -69,7 +69,7 @@ class RemoteQueryController extends Controller {
 
 		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, md5($sql)]);
 		$result = Yii::$app->cache->get($cacheKey);
-		$error = [];
+		$error = false;
 		if (false === $result) {
 			try {
 				$result = $command->queryAll();
