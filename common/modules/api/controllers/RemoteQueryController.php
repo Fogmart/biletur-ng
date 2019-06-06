@@ -21,6 +21,11 @@ class RemoteQueryController extends Controller {
 	const ACTION_INDEX = 'index';
 	const ACTION_INVALIDATE_TAG = 'invalidate-tag';
 
+	/**
+	 * @inheritDoc
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
 	public function init() {
 		parent::init();
 		Yii::$app->response->format = Response::FORMAT_JSON;
@@ -53,13 +58,33 @@ class RemoteQueryController extends Controller {
 	 *
 	 * @return array
 	 *
-	 * @throws \yii\db\Exception
-	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function actionIndex() {
 		$isUsedCache = true;
 		$params = Yii::$app->request->post();
+		$error = false;
+
+		if (!array_key_exists('sql', $params)) {
+			$error[] = 'Отсутствует параметр: sql';
+		}
+
+		if (!array_key_exists('invalidateTime', $params)) {
+			$error[] = 'Отсутствует параметр: invalidateTime';
+		}
+
+		if (!array_key_exists('invalidateTag', $params)) {
+			$error[] = 'Отсутствует параметр: invalidateTag';
+		}
+
+		if (false !== $error) {
+			return [
+				'result'      => false,
+				'isUsedCache' => false,
+				'error'       => $error
+			];
+		}
+
 		$sql = strtoupper($params['sql']);
 		$invalidateTime = $params['invalidateTime'];
 		$invalidateTag = $params['invalidateTag'];
@@ -69,16 +94,16 @@ class RemoteQueryController extends Controller {
 
 		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, md5($sql)]);
 		$result = Yii::$app->cache->get($cacheKey);
-		$error = false;
+
 		if (false === $result) {
+			$isUsedCache = false;
+
 			try {
 				$result = $command->queryAll();
 			}
 			catch (Exception $exception) {
 				$error = $exception->getMessage();
 			}
-
-			$isUsedCache = false;
 
 			Yii::$app->cache->set($cacheKey, $result, $invalidateTime, new TagDependency(['tags' => $invalidateTag]));
 		}
@@ -99,6 +124,20 @@ class RemoteQueryController extends Controller {
 	 */
 	public function actionInvalidateTag() {
 		$params = Yii::$app->request->post();
+
+		$error = false;
+
+		if (!array_key_exists('invalidateTag', $params)) {
+			$error[] = 'Отсутствует параметр: invalidateTag';
+		}
+
+		if (false !== $error) {
+			return [
+				'success'      => false,
+				'error'       => $error
+			];
+		}
+
 		$invalidateTag = $params['invalidateTag'];
 
 		TagDependency::invalidate(Yii::$app->cache, $invalidateTag);
