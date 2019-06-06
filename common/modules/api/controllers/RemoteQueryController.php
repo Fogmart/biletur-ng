@@ -64,7 +64,7 @@ class RemoteQueryController extends Controller {
 		$isUsedCache = true;
 		$params = Yii::$app->request->post();
 		$error = false;
-
+		$count = 0;
 		if (!array_key_exists('sql', $params)) {
 			$error[] = 'Отсутствует параметр: sql';
 		}
@@ -100,6 +100,7 @@ class RemoteQueryController extends Controller {
 
 			try {
 				$result = $command->queryAll();
+				$count = count($result);
 			}
 			catch (Exception $exception) {
 				$error = $exception->getMessage();
@@ -110,6 +111,7 @@ class RemoteQueryController extends Controller {
 
 		return [
 			'result'      => $result,
+			'count'       => $count,
 			'isUsedCache' => $isUsedCache,
 			'error'       => $error
 		];
@@ -133,8 +135,8 @@ class RemoteQueryController extends Controller {
 
 		if (false !== $error) {
 			return [
-				'success'      => false,
-				'error'       => $error
+				'success' => false,
+				'error'   => $error
 			];
 		}
 
