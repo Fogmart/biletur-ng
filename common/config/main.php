@@ -50,7 +50,7 @@ return [
 	],
 	'components' => [
 		'user'        => [
-			'identityClass' => 'mdm\admin\models\User',
+			'identityClass' => \common\models\User::class,
 			'loginUrl'      => ['site/login'],
 		],
 		'env'         => [

@@ -3,7 +3,7 @@
 namespace common\modules\api\controllers;
 
 use Yii;
-use yii\filters\auth\CompositeAuth;
+use yii\caching\TagDependency;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\VerbFilter;
 use yii\rest\Controller;
@@ -18,6 +18,12 @@ use yii\web\Response;
 class RemoteQueryController extends Controller {
 
 	const ACTION_INDEX = 'index';
+	const ACTION_INVALIDATE_TAG = 'invalidate-tag';
+
+	public function init() {
+		parent::init();
+		Yii::$app->response->format = Response::FORMAT_JSON;
+	}
 
 	/**
 	 * @inheritDoc
@@ -27,16 +33,14 @@ class RemoteQueryController extends Controller {
 	public function behaviors() {
 		$behaviors = parent::behaviors();
 		$behaviors['authenticator'] = [
-			'class'       => CompositeAuth::class,
-			'authMethods' => [
-				HttpBearerAuth::class,
-			],
+			'class' => HttpBearerAuth::class,
 		];
 
 		$behaviors['verbs'] = [
 			'class'   => VerbFilter::class,
 			'actions' => [
-				static::ACTION_INDEX => ['POST', 'GET'],
+				static::ACTION_INDEX          => ['POST', 'GET'],
+				static::ACTION_INVALIDATE_TAG => ['POST', 'GET'],
 			],
 		];
 
@@ -44,16 +48,54 @@ class RemoteQueryController extends Controller {
 	}
 
 	/**
+	 * Удаленный запрос в БД дсп
+	 *
 	 * @return array
+	 *
+	 * @throws \yii\db\Exception
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function actionIndex() {
-		Yii::$app->response->format = Response::FORMAT_JSON;
+		$isUsedCache = true;
+		$params = Yii::$app->request->post();
+		$sql = strtoupper($params['sql']);
+		$invalidateTime = $params['invalidateTime'];
+		$invalidateTag = $params['invalidateTag'];
+
+		$connection = Yii::$app->dbDsp;
+		$command = $connection->createCommand($sql);
+
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, md5($sql)]);
+		$result = Yii::$app->cache->get($cacheKey);
+		if (false === $result) {
+			$result = $command->queryAll();
+			$isUsedCache = false;
+
+			Yii::$app->cache->set($cacheKey, $result, $invalidateTime, new TagDependency(['tags' => $invalidateTag]));
+		}
 
 		return [
-			'result' => [],
-			'errors' => false
+			'result'      => $result,
+			'isUsedCache' => $isUsedCache
+		];
+	}
+
+	/**
+	 * Сброс тэга
+	 *
+	 * @return array
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function actionInvalidateTag() {
+		$params = Yii::$app->request->post();
+		$invalidateTag = $params['invalidateTag'];
+
+		TagDependency::invalidate(Yii::$app->cache, $invalidateTag);
+
+		return [
+			'result' => 'success',
 		];
 	}
 }
