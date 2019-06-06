@@ -50,6 +50,7 @@ return [
 				'excursion/city/<city>'                 => 'excursion/index',
 				'login'                                 => 'site/login',
 				'profile'                               => 'profile/profile/index',
+				'api/remote-query/'                     => 'api/remote-query/index',
 
 				'<module:[\w-]+>/<controller:[\w-]+>/<action:[\w-]+>/<id:\d+>]' => '<module>/<controller>/<action>',
 				'<controller:\w+>/<action:\w+>/'                                => '<controller>/<action>',

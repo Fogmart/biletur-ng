@@ -2,6 +2,7 @@
 
 use common\components\IpGeoBase;
 use common\components\LogDbTarget;
+use common\modules\api\MApi;
 use common\modules\message\MMessage;
 use common\modules\news\MNews;
 use common\modules\pages\MPages;
@@ -42,6 +43,9 @@ return [
 		],
 		'profile' => [
 			'class' => MProfile::class,
+		],
+		'api'     => [
+			'class' => MApi::class,
 		]
 	],
 	'components' => [
