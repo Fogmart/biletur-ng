@@ -100,13 +100,16 @@ class RemoteQueryController extends Controller {
 
 			try {
 				$result = $command->queryAll();
-				$count = count($result);
 			}
 			catch (Exception $exception) {
 				$error = $exception->getMessage();
 			}
 
 			Yii::$app->cache->set($cacheKey, $result, $invalidateTime, new TagDependency(['tags' => $invalidateTag]));
+		}
+
+		if (false === $error) {
+			$count = count($result);
 		}
 
 		return [
