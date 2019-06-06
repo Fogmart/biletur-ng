@@ -102,7 +102,7 @@ return [
 			'targets'    => [
 				'db' => [
 					'class'  => LogDbTarget::class,
-					'levels' => ['error', 'warning'],
+					'levels' => ['error'],
 				],
 			],
 		],
