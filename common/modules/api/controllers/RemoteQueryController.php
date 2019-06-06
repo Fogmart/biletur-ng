@@ -4,6 +4,7 @@ namespace common\modules\api\controllers;
 
 use Yii;
 use yii\caching\TagDependency;
+use yii\db\Exception;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\VerbFilter;
 use yii\rest\Controller;
@@ -68,8 +69,15 @@ class RemoteQueryController extends Controller {
 
 		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, md5($sql)]);
 		$result = Yii::$app->cache->get($cacheKey);
+		$error = [];
 		if (false === $result) {
-			$result = $command->queryAll();
+			try {
+				$result = $command->queryAll();
+			}
+			catch (Exception $exception) {
+				$error = $exception->getMessage();
+			}
+
 			$isUsedCache = false;
 
 			Yii::$app->cache->set($cacheKey, $result, $invalidateTime, new TagDependency(['tags' => $invalidateTag]));
@@ -77,7 +85,8 @@ class RemoteQueryController extends Controller {
 
 		return [
 			'result'      => $result,
-			'isUsedCache' => $isUsedCache
+			'isUsedCache' => $isUsedCache,
+			'error'       => $error
 		];
 	}
 
