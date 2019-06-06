@@ -52,6 +52,7 @@ return [
 				'profile'                               => 'profile/profile/index',
 				'api/remote-query/'                     => 'api/remote-query/index',
 				'api/remote-query/invalidate-tag'       => 'api/remote-query/invalidate-tag',
+				'api/remote-query/add-request-log'      => 'api/remote-query/add-request-log',
 
 				'<module:[\w-]+>/<controller:[\w-]+>/<action:[\w-]+>/<id:\d+>]' => '<module>/<controller>/<action>',
 				'<controller:\w+>/<action:\w+>/'                                => '<controller>/<action>',

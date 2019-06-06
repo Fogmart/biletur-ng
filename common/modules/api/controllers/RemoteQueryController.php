@@ -20,6 +20,7 @@ class RemoteQueryController extends Controller {
 
 	const ACTION_INDEX = 'index';
 	const ACTION_INVALIDATE_TAG = 'invalidate-tag';
+	const ACTION_ADD_REQUEST_LOG = 'add-request-log';
 
 	/**
 	 * @inheritDoc
@@ -45,8 +46,9 @@ class RemoteQueryController extends Controller {
 		$behaviors['verbs'] = [
 			'class'   => VerbFilter::class,
 			'actions' => [
-				static::ACTION_INDEX          => ['POST', 'GET'],
-				static::ACTION_INVALIDATE_TAG => ['POST', 'GET'],
+				static::ACTION_INDEX           => ['POST'],
+				static::ACTION_INVALIDATE_TAG  => ['POST'],
+				static::ACTION_ADD_REQUEST_LOG => ['POST'],
 			],
 		];
 
@@ -150,5 +152,21 @@ class RemoteQueryController extends Controller {
 		return [
 			'result' => 'success',
 		];
+	}
+
+	/**
+	 * Запись логов вызовов страниц ДСП
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function actionAddRequestLog() {
+		$params = Yii::$app->request->post();
+
+		if (!array_key_exists('url', $params)) {
+			return;
+		}
+
+
+
 	}
 }
