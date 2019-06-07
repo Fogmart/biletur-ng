@@ -2,6 +2,7 @@
 
 namespace common\modules\api\controllers;
 
+use common\base\helpers\Dump;
 use Yii;
 use yii\caching\TagDependency;
 use yii\db\Exception;
@@ -13,7 +14,6 @@ use yii\web\Response;
 
 /**
  * Контроллер удаленных запросов к БД
- *
  *
  * @author  Исаков Владислав <visakov@biletur.ru>
  */
@@ -124,14 +124,10 @@ class RemoteQueryController extends Controller {
 	/**
 	 * Сброс тэга
 	 *
-	 *
-	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function actionInvalidateTag() {
 		$params = Yii::$app->request->post();
-
-
 		$error = false;
 
 		if (!array_key_exists('invalidateTag', $params)) {
@@ -165,8 +161,5 @@ class RemoteQueryController extends Controller {
 		if (!array_key_exists('url', $params)) {
 			return;
 		}
-
-
-
 	}
 }
