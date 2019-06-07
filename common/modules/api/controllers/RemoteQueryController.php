@@ -130,8 +130,8 @@ class RemoteQueryController extends Controller {
 	 */
 	public function actionInvalidateTag() {
 		$params = Yii::$app->request->post();
-		throw new BadRequestHttpException('invalidateTag');
-		/*
+
+
 		$error = false;
 
 		if (!array_key_exists('invalidateTag', $params)) {
@@ -143,15 +143,15 @@ class RemoteQueryController extends Controller {
 				'success' => false,
 				'error'   => $error
 			];
-		}*/
+		}
 
 		$invalidateTag = $params['invalidateTag'];
 
 		TagDependency::invalidate(Yii::$app->cache, $invalidateTag);
 
-		/*return [
+		return [
 			'result' => 'success',
-		];*/
+		];
 	}
 
 	/**
