@@ -91,16 +91,14 @@ class RemoteQueryController extends Controller {
 		$invalidateTime = $params['invalidateTime'];
 		$invalidateTag = $params['invalidateTag'];
 
-		$connection = Yii::$app->dbDsp;
-		$command = $connection->createCommand($sql);
-
 		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, md5($sql)]);
 		$result = Yii::$app->cache->get($cacheKey);
-
 		if (false === $result) {
 			$isUsedCache = false;
-
 			try {
+				$connection = Yii::$app->dbDsp;
+				$command = $connection->createCommand($sql);
+
 				$result = $command->queryAll();
 			}
 			catch (Exception $exception) {
