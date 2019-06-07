@@ -123,13 +123,13 @@ class RemoteQueryController extends Controller {
 	/**
 	 * Сброс тэга
 	 *
-	 * @return array
+	 *
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function actionInvalidateTag() {
 		$params = Yii::$app->request->post();
-
+		/*
 		$error = false;
 
 		if (!array_key_exists('invalidateTag', $params)) {
@@ -141,15 +141,15 @@ class RemoteQueryController extends Controller {
 				'success' => false,
 				'error'   => $error
 			];
-		}
+		}*/
 
 		$invalidateTag = $params['invalidateTag'];
 
 		TagDependency::invalidate(Yii::$app->cache, $invalidateTag);
 
-		return [
+		/*return [
 			'result' => 'success',
-		];
+		];*/
 	}
 
 	/**
