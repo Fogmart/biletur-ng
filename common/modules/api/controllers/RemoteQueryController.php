@@ -8,6 +8,7 @@ use yii\db\Exception;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\VerbFilter;
 use yii\rest\Controller;
+use yii\web\BadRequestHttpException;
 use yii\web\Response;
 
 /**
@@ -129,6 +130,7 @@ class RemoteQueryController extends Controller {
 	 */
 	public function actionInvalidateTag() {
 		$params = Yii::$app->request->post();
+		throw new BadRequestHttpException('invalidateTag');
 		/*
 		$error = false;
 
