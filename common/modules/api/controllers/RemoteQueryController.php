@@ -2,14 +2,12 @@
 
 namespace common\modules\api\controllers;
 
-use common\base\helpers\Dump;
 use Yii;
 use yii\caching\TagDependency;
 use yii\db\Exception;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\VerbFilter;
 use yii\rest\Controller;
-use yii\web\BadRequestHttpException;
 use yii\web\Response;
 
 /**

@@ -71,7 +71,6 @@ class FrontendController extends Controller {
 		return parent::beforeAction($action);
 	}
 
-
 	/**
 	 * Получение ссылки на указанное действие исходя из контроллера.
 	 *
@@ -93,6 +92,7 @@ class FrontendController extends Controller {
 			$controllerName,
 			$actionName,
 		]);
+
 		$actionParams[0] = '/' . $prefix . $actionParams[0];
 
 		$url = Yii::$app->urlManager->createUrl($actionParams);
