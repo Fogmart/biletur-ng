@@ -120,7 +120,6 @@ class LogDbTarget extends DbTarget {
 			}
 			// -- -- -- --
 
-
 			// -- Привязываем параметры
 			$rows[] = array_merge($defaultRow, [
 				LogYii::ATTR_LEVEL    => $level,
