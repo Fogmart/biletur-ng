@@ -42,7 +42,10 @@
     "kartik-v/yii2-widget-datepicker": "*",
     "yiisoft/yii2-mongodb": "~2.1.0",
     "kartik-v/yii2-widget-rating": "dev-master",
-    "yiisoft/yii2-twig": "~2.0.0"
+    "yiisoft/yii2-twig": "~2.0.0",
+    "johnitvn/yii2-rbac-plus": "*",
+    "edvlerblog/yii2-adldap-module": "^6.0.0"
+
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",

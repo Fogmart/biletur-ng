@@ -21,10 +21,11 @@ use yii\web\IdentityInterface;
  * @property string  $password write-only password
  */
 class User extends \mdm\admin\models\User implements IdentityInterface {
-/*
-	public function getPrimaryKey($asArray = false) {
-		return 'id';
-	}*/
+
+	const ATTR_ID = 'id';
+	const ATTR_USER_NAME = 'username';
+	const ATTR_PASSWORD_HASH = 'password_hash';
+	const ATTR_STATUS = 'status';
 
 	/**
 	 * {@inheritdoc}

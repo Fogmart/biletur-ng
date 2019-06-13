@@ -1,4 +1,8 @@
 <?php
+
+use common\models\User;
+use common\modules\rbac\Module as MRbac;
+
 $params = array_merge(
 	require __DIR__ . '/../../common/config/params.php',
 	require __DIR__ . '/../../common/config/params-local.php',
@@ -12,7 +16,30 @@ return [
 	'basePath'            => dirname(__DIR__),
 	'controllerNamespace' => 'backend\controllers',
 	'bootstrap'           => ['log'],
-	'modules'             => [],
+	'modules'             => [
+		'gridview' => ['class' => 'kartik\grid\Module'],
+		'rbac'     => [
+			/**
+			 * /rbac/rule
+			 * /rbac/permission
+			 * /rbac/role
+			 * /rbac/assignment
+			 */
+			'class'                    => MRbac::class,
+			'userModelClassName'       => User::class,
+			'userModelIdField'         => User::ATTR_ID,
+			'userModelLoginField'      => User::ATTR_USER_NAME,
+			'userModelLoginFieldLabel' => null,
+			'beforeCreateController'   => function ($route) {
+				/**  @var string $route The route consisting of module, controller and action IDs. */
+				return true;
+			},
+			'beforeAction'             => function ($action) {
+				/** @var yii\base\Action $action the action to be executed. */
+				return true;
+			}
+		]
+	],
 	'components'          => [
 		'request'      => [
 			'csrfParam' => '_csrf-backend',
