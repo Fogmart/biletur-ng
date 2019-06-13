@@ -21,6 +21,7 @@ mix.js('frontend/assets/src/js/widgetPlugin.js', 'frontend/web/js/widget.js')
 
 mix.sass('frontend/assets/src/sass/biletur.scss', 'frontend/web/css')
 mix.sass('frontend/assets/src/sass/excursion.scss', 'frontend/web/css')
+mix.sass('visa/assets/src/sass/visa.scss', 'visa/web/css')
 	.options({
 		imgLoaderOptions: {enabled: false},
 		postCss: [
