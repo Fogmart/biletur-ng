@@ -10,33 +10,24 @@ $params = array_merge(
 );
 
 return [
-	'id'                  => 'app-frontend',
+	'id'                  => 'app-frontend-visa',
 	'name'                => 'Всероссийская сеть Билетур',
 	'basePath'            => dirname(__DIR__),
 	'bootstrap'           => ['log'],
-	'controllerNamespace' => 'frontend\controllers',
+	'controllerNamespace' => 'visa\controllers',
 	'components'          => [
 		'request'      => [
-			'csrfParam' => '_csrf-frontend',
+			'csrfParam' => '_csrf-frontend-visa',
 			'baseUrl'   => '',
 		],
 		'user'         => [
 			'identityClass'   => 'common\models\User',
 			'enableAutoLogin' => true,
-			'identityCookie'  => ['name' => '_identity-biletur', 'httpOnly' => true],
+			'identityCookie'  => ['name' => '_identity-visa-biletur', 'httpOnly' => true],
 		],
 		'session'      => [
 			// this is the name of the session cookie used for login on the frontend
-			'name' => 'biletur-session',
-		],
-		'log'          => [
-			'traceLevel' => YII_DEBUG ? 3 : 0,
-			'targets'    => [
-				[
-					'class'  => 'yii\log\FileTarget',
-					'levels' => ['error', 'warning'],
-				],
-			],
+			'name' => 'biletur-visa-session',
 		],
 		'errorHandler' => [
 			'errorAction' => 'site/error',
@@ -52,27 +43,8 @@ return [
 					'route'   => 'page',
 					'class'   => StaticPageUrlRule::class,
 				],
-
-				'excursion/find-by-name/<q>/<needType>' => 'excursion/find-by-name',
-				'excursion/widget/<city>'               => 'excursion/widget',
-				'excursion/widget/<city>/<needSearch>'  => 'excursion/widget',
-				'excursion/city/<city>'                 => 'excursion/index',
-
 				'<module:[\w-]+>/<controller:[\w-]+>/<action:[\w-]+>/<id:\d+>]' => '<module>/<controller>/<action>',
 				'<controller:\w+>/<action:\w+>/'                                => '<controller>/<action>',
-				'message-widget/<object>/<objectId>/<userName>'                 => 'message/message/widget',
-				'hotels/find-by-name/q/<q>'                                     => 'hotels/find-by-name',
-
-
-				//Редиректы для старых ссылок------------------------------------------------------------
-				'Agency'                                                        => 'old-links/agency',
-				'TimeTbl'                                                       => 'old-links/avia',
-				'TimeTbl/pkc/delays.asp'                                        => 'old-links/avia',
-				'TimeTbl/vvo/delays.asp'                                        => 'old-links/avia',
-				'Passenger/vvo/railway_schedule.asp'                            => 'old-links/rail-road',
-				'Agency/Rekvizit.asp'                                           => 'old-links/accounts',
-				'Agency/foradvertisers.asp'                                     => 'old-links/advertising',
-				//---------------------------------------------------------------------------------------
 			],
 		],
 	],
