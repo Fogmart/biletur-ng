@@ -50,7 +50,7 @@ return [
 	],
 	'components' => [
 		'user'        => [
-			'identityClass' => 'mdm\admin\models\User',
+			'identityClass' => \common\models\User::class,
 			'loginUrl'      => ['site/login'],
 		],
 		'env'         => [
@@ -102,7 +102,7 @@ return [
 			'targets'    => [
 				'db' => [
 					'class'  => LogDbTarget::class,
-					'levels' => ['error', 'warning'],
+					'levels' => ['error'],
 				],
 			],
 		],
