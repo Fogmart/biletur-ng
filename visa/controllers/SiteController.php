@@ -1,29 +1,12 @@
 <?php
-
 namespace visa\controllers;
 
 use common\components\FrontendController;
-use common\models\LoginForm;
-use common\modules\news\models\Profile;
-use frontend\models\ContactForm;
-use frontend\models\PasswordResetRequestForm;
-use frontend\models\ResendVerificationEmailForm;
-use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
-use frontend\models\VerifyEmailForm;
-use Yii;
-use yii\base\InvalidArgumentException;
-use yii\db\Expression;
-use yii\filters\AccessControl;
-use yii\web\BadRequestHttpException;
 
 /**
  * Site controller
  */
 class SiteController extends FrontendController {
-
-	public $layout = 'visa';
-
 	/**
 	 * {@inheritdoc}
 	 */

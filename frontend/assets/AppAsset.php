@@ -2,6 +2,7 @@
 
 namespace frontend\assets;
 
+use common\base\helpers\Dump;
 use yii\helpers\ArrayHelper;
 use yii\web\AssetBundle;
 
@@ -52,6 +53,7 @@ class AppAsset extends AssetBundle {
 				}
 			}
 		}
+
 		foreach ($this->css as $css) {
 			if (is_array($css)) {
 				$file = array_shift($css);
@@ -72,7 +74,8 @@ class AppAsset extends AssetBundle {
 	 * @return false|mixed|string
 	 */
 	public static function getManifest() {
-		$manifest = file_get_contents(\Yii::getAlias("@webroot") . "/mix-manifest.json");
+		$path = \Yii::getAlias("@webroot") . "/mix-manifest.json";
+		$manifest = file_get_contents($path);
 		$manifest = json_decode($manifest, true);
 
 		return $manifest;

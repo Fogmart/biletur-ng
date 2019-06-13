@@ -4,10 +4,10 @@
 
 /* @var $content string */
 
-use frontend\assets\AppAsset;
+use visa\assets\VisaAsset;
 use yii\helpers\Html;
 
-AppAsset::register($this);
+VisaAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

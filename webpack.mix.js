@@ -1,4 +1,5 @@
-const mix = require('laravel-mix');
+const mixCommon = require('laravel-mix');
+const mixVisa = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,17 +12,17 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.ts('frontend/assets/src/ts/test.ts', 'frontend/web/js/biletur.js')
-mix.js('frontend/assets/src/js/commonPlugin.js', 'frontend/web/js/biletur.js')
-mix.js('frontend/assets/src/js/searchExcursionPlugin.js', 'frontend/web/js/biletur.js')
+//Конфиг для основного сайта ----------------------------------------------------------------------
+mixCommon.ts('frontend/assets/src/ts/test.ts', 'frontend/web/js/biletur.js')
+mixCommon.js('frontend/assets/src/js/commonPlugin.js', 'frontend/web/js/biletur.js')
+mixCommon.js('frontend/assets/src/js/searchExcursionPlugin.js', 'frontend/web/js/biletur.js')
     .version();
 
-mix.js('frontend/assets/src/js/widgetPlugin.js', 'frontend/web/js/widget.js')
+mixCommon.js('frontend/assets/src/js/widgetPlugin.js', 'frontend/web/js/widget.js')
 	.version();
 
-mix.sass('frontend/assets/src/sass/biletur.scss', 'frontend/web/css')
-mix.sass('frontend/assets/src/sass/excursion.scss', 'frontend/web/css')
-mix.sass('visa/assets/src/sass/visa.scss', 'visa/web/css')
+mixCommon.sass('frontend/assets/src/sass/biletur.scss', 'frontend/web/css')
+mixCommon.sass('frontend/assets/src/sass/excursion.scss', 'frontend/web/css')
 	.options({
 		imgLoaderOptions: {enabled: false},
 		postCss: [
@@ -29,11 +30,24 @@ mix.sass('visa/assets/src/sass/visa.scss', 'visa/web/css')
 		]
 	});
 
-mix.styles([
+mixCommon.styles([
 	'frontend/web/css/biletur.css',
 	'frontend/web/css/excursion.css',
 	'frontend/assets/src/sass/fonts.css'
 ], 'frontend/web/css/biletur.css')
 	.version();
 
-mix.setPublicPath('frontend/web/');
+mixCommon.setPublicPath('frontend/web/');
+
+//Тут собираем файлы для лэндинга visa -------------------------------------------------------------
+mixVisa.sass('visa/assets/src/sass/visa.scss', 'visa/web/css')
+	.options({
+		imgLoaderOptions: {enabled: false},
+		postCss: [
+			require('postcss-css-variables')()
+		]
+	})
+	.version();
+
+mixVisa.setPublicPath('visa/web/');
+
