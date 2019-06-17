@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models\scheme\t3;
+namespace common\models\oracle\scheme\t3;
 
 use common\models\oracle\scheme\DspBaseModel;
 use common\models\oracle\scheme\t3\RefItems;
@@ -56,6 +56,7 @@ class RITourWps extends DspBaseModel {
 				->joinWith('refItems.active', false, 'JOIN')
 				->asArray()
 				->all();
+
 			Yii::$app->cache->set(
 				$cacheKey, $rows, 0, new TagDependency(
 					[RefItems::class, RIAd::class, RITourWps::tableName()]

@@ -59,6 +59,7 @@ class DspNews extends DspBaseModel implements InvalidateModels {
 			self::AGENCY_NEWS    => ['ru' => 'Новости агентства', 'en' => 'DspNews agency'],
 		];
 	}
+
 	/**
 	 * @inheritDoc
 	 */

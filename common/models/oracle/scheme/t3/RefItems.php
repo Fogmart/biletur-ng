@@ -2,14 +2,14 @@
 
 namespace common\models\oracle\scheme\t3;
 
-use common\models\oracle\scheme\DspBaseModel;
-use common\models\oracle\scheme\sns\Countries;
-use common\models\oracle\scheme\sns\OrgStaff;
 use common\components\helpers\LArray;
 use common\components\helpers\LString;
 use common\models\forms\Common\ContactInfo;
 use common\models\forms\TourBooking\OrderInfoForm;
 use common\models\forms\TourBooking\RefQuotsForm;
+use common\models\oracle\scheme\DspBaseModel;
+use common\models\oracle\scheme\sns\Countries;
+use common\models\oracle\scheme\sns\OrgStaff;
 use common\models\procedures\TourCreateOrderCustomerInfo;
 use common\models\procedures\TourUpdOrdQuot;
 use common\models\scheme\t3\queries\QueryRefItems;
@@ -28,39 +28,39 @@ use yii\db\Expression;
  *
  * Поля таблицы:
  *
- * @property int    $ID
- * @property int    $PARID
- * @property string $ORGID
- * @property string $REFQUOTID
- * @property int    $ITMTYPEID
- * @property string $NAME
- * @property string $PLNBEGDATE
- * @property string $PLNENDDATE
- * @property string $BEGDATE
- * @property string $ENDDATE
- * @property int    $INBUNDLE
- * @property string $SPEC_INFO
- * @property int    $ACTIVE
- * @property int    $ISPRICEVALID
- * @property int    $REQ_BLNK
- * @property int    $REQ_BLNKTYPEID
- * @property string $WHOCRT
- * @property string $WHNCRT
- * @property string $WHOUPD
- * @property string $WHNUPD
- * @property int    $CID
- * @property string $VALIDATORID
- * @property string $WHNVALID
- * @property int    $DAYQTY
- * @property int    $DQ_FIXED
- * @property int    $PRSNINPRICE
- * @property int    $PRICEPER_TU
- * @property int    $TU_LEN
- * @property int    $SHWPRIORITY
- * @property int    $ISDEPENDANT
- * @property int    $LANGID
- * @property int    $PERIODCALCTYPE
- * @property int                                                       $ALLOWPRSNDOCTYPES
+ * @property int                                                   $ID
+ * @property int                                                   $PARID
+ * @property string                                                $ORGID
+ * @property string                                                $REFQUOTID
+ * @property int                                                   $ITMTYPEID
+ * @property string                                                $NAME
+ * @property string                                                $PLNBEGDATE
+ * @property string                                                $PLNENDDATE
+ * @property string                                                $BEGDATE
+ * @property string                                                $ENDDATE
+ * @property int                                                   $INBUNDLE
+ * @property string                                                $SPEC_INFO
+ * @property int                                                   $ACTIVE
+ * @property int                                                   $ISPRICEVALID
+ * @property int                                                   $REQ_BLNK
+ * @property int                                                   $REQ_BLNKTYPEID
+ * @property string                                                $WHOCRT
+ * @property string                                                $WHNCRT
+ * @property string                                                $WHOUPD
+ * @property string                                                $WHNUPD
+ * @property int                                                   $CID
+ * @property string                                                $VALIDATORID
+ * @property string                                                $WHNVALID
+ * @property int                                                   $DAYQTY
+ * @property int                                                   $DQ_FIXED
+ * @property int                                                   $PRSNINPRICE
+ * @property int                                                   $PRICEPER_TU
+ * @property int                                                   $TU_LEN
+ * @property int                                                   $SHWPRIORITY
+ * @property int                                                   $ISDEPENDANT
+ * @property int                                                   $LANGID
+ * @property int                                                   $PERIODCALCTYPE
+ * @property int                                                   $ALLOWPRSNDOCTYPES
  *
  * @property-read \common\models\oracle\scheme\t3\RiTour           $description
  * @property-read \common\models\oracle\scheme\t3\RiTourWps[]      $wps
@@ -70,7 +70,7 @@ use yii\db\Expression;
  * @property-read \common\models\oracle\scheme\t3\RiAd             $riAd
  * @property-read \common\models\oracle\scheme\t3\RefQuots[]       $activeQuots
  * @property-read \common\models\oracle\scheme\t3\RefQuots[]       $quots
- * @property-read \common\models\oracle\scheme\sns\OrgStaff        $staff
+ * @property-read \common\models\oracle\scheme\sns\DspOrgStaff     $staff
  *
  */
 class RefItems extends DspBaseModel {
@@ -236,7 +236,9 @@ class RefItems extends DspBaseModel {
 		if ($this->activeQuots === null) {
 			return null;
 		}
+
 		$summs = [];
+
 		foreach ($this->activeQuots as $quot) {
 			if ($quot->CRNCY != 'RUB') {
 				$summs[] = $quot->getTotRubSumm();
@@ -348,6 +350,7 @@ class RefItems extends DspBaseModel {
 			':P_ORDSUM' => $totalSum,
 			':P_WIWID'  => '',
 		];
+
 		$procedure->call();
 
 		$whoIsWhoId = $procedure->getResult();

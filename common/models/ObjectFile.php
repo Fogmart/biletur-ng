@@ -90,5 +90,4 @@ class ObjectFile extends SiteModel {
 
 		return $path;
 	}
-
 }

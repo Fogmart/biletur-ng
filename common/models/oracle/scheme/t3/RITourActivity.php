@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models\scheme\t3;
+namespace common\models\oracle\scheme\t3;
 
 use common\models\oracle\scheme\DspBaseModel;
 

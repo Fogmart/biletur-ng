@@ -1,28 +1,20 @@
+/* jshint node: true */
+
+
 const mixCommon = require('laravel-mix');
 const mixVisa = require('laravel-mix');
 
-/*
- |--------------------------------------------------------------------------
- | Mix Asset Management
- |--------------------------------------------------------------------------
- |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel application. By default, we are compiling the Sass
- | file for the application as well as bundling up all the JS files.
- |
- */
-
 //Конфиг для основного сайта ----------------------------------------------------------------------
 mixCommon.ts('frontend/assets/src/ts/test.ts', 'frontend/web/js/biletur.js')
-mixCommon.js('frontend/assets/src/js/commonPlugin.js', 'frontend/web/js/biletur.js')
-mixCommon.js('frontend/assets/src/js/searchExcursionPlugin.js', 'frontend/web/js/biletur.js')
-    .version();
+.js('frontend/assets/src/js/commonPlugin.js', 'frontend/web/js/biletur.js')
+.js('frontend/assets/src/js/searchExcursionPlugin.js', 'frontend/web/js/biletur.js')
+.version();
 
 mixCommon.js('frontend/assets/src/js/widgetPlugin.js', 'frontend/web/js/widget.js')
 	.version();
 
 mixCommon.sass('frontend/assets/src/sass/biletur.scss', 'frontend/web/css')
-mixCommon.sass('frontend/assets/src/sass/excursion.scss', 'frontend/web/css')
+.sass('frontend/assets/src/sass/excursion.scss', 'frontend/web/css')
 	.options({
 		imgLoaderOptions: {enabled: false},
 		postCss: [
