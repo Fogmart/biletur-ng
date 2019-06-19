@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'attribute' => 'is_published',
 				'value'     => function ($data) {
-					return $data->is_published === 1 ? 'Да' : 'Нет';
+					return strtotime($data->beg_date) >= time() && strtotime($data->end_date) <= time()  ? 'Да' : 'Нет';
 				},
 			],
 			'insert_stamp',
