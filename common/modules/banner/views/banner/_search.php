@@ -20,8 +20,6 @@ use yii\widgets\ActiveForm;
 
 	<?= $form->field($model, 'id') ?>
 	<?= $form->field($model, 'title') ?>
-	<?= $form->field($model, 'slug') ?>
-	<?= $form->field($model, 'is_published') ?>
 
     <div class="form-group">
 		<?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

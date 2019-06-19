@@ -5,10 +5,10 @@ use yii\helpers\Html;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\modules\pages\models\SearchPage */
+/* @var $searchModel common\modules\banner\models\SearchBanner */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Страницы';
+$this->title = 'Баннеры';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="page-index">
@@ -16,12 +16,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-		<?= Html::a('Новая страница', ['create'], ['class' => 'btn btn-success']) ?>
+		<?= Html::a('Новый баннер', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
 	<?php Pjax::begin(); ?>
-	<?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
 		'filterModel'  => $searchModel,
@@ -29,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			['class' => 'yii\grid\SerialColumn'],
 			'id',
 			'title',
-			'slug',
+
 			[
 				'attribute' => 'is_published',
 				'value'     => function ($data) {

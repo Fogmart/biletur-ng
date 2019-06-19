@@ -8,6 +8,7 @@ use common\modules\news\MNews;
 use common\modules\pages\MPages;
 use common\modules\profile\MProfile;
 use common\modules\seo\MSeo;
+use common\modules\banner\MBanner;
 
 return [
 	'bootstrap'  => ['log'],
@@ -46,6 +47,9 @@ return [
 		],
 		'api'     => [
 			'class' => MApi::class,
+		],
+		'banner'     => [
+			'class' => MBanner::class,
 		]
 	],
 	'components' => [

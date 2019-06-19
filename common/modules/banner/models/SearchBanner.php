@@ -21,7 +21,7 @@ class SearchBanner extends Banner
     public function rules()
     {
         return [
-            [['id', 'is_published'], 'integer'],
+            [['id'], 'integer'],
             [['title', 'seo_title', 'seo_description', 'seo_keywords', 'slug', 'html', 'insert_stamp', 'update_stamp'], 'safe'],
         ];
     }
@@ -44,7 +44,7 @@ class SearchBanner extends Banner
      */
     public function search($params)
     {
-        $query = Page::find();
+        $query = Banner::find();
 
         // add conditions that should always apply here
 
@@ -63,17 +63,16 @@ class SearchBanner extends Banner
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'is_published' => $this->is_published,
             'insert_stamp' => $this->insert_stamp,
             'update_stamp' => $this->update_stamp,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'seo_title', $this->seo_title])
+           /* ->andFilterWhere(['like', 'seo_title', $this->seo_title])
             ->andFilterWhere(['like', 'seo_description', $this->seo_description])
             ->andFilterWhere(['like', 'seo_keywords', $this->seo_keywords])
             ->andFilterWhere(['like', 'slug', $this->slug])
-            ->andFilterWhere(['like', 'html', $this->html]);
+            ->andFilterWhere(['like', 'html', $this->html])*/;
 
         return $dataProvider;
     }

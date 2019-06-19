@@ -6,8 +6,8 @@
 
 use backend\assets\AppAsset;
 use backend\controllers\LogController;
+use common\modules\banner\controllers\BannerController;
 use common\modules\pages\controllers\PageController;
-use common\modules\rbac\rules\Permissions;
 use common\modules\seo\controllers\SeoController;
 use common\widgets\Alert;
 use yii\bootstrap\Nav;
@@ -44,22 +44,22 @@ AppAsset::register($this);
 		[
 			'label'   => 'Пользователи',
 			'visible' => !Yii::$app->user->isGuest,//Yii::$app->user->can(Permissions::P_ADMIN, [], false),
-			'items' => [
+			'items'   => [
 				[
-					'label'   => 'Роли',
-					'url'     => ['/rbac/role'],
+					'label' => 'Роли',
+					'url'   => ['/rbac/role'],
 				],
 				[
-					'label'   => 'Правила',
-					'url'     => ['/rbac/rule'],
+					'label' => 'Правила',
+					'url'   => ['/rbac/rule'],
 				],
 				[
-					'label'   => 'Разрешения',
-					'url'     => ['/rbac/permission'],
+					'label' => 'Разрешения',
+					'url'   => ['/rbac/permission'],
 				],
 				[
-					'label'   => 'Назначение ролей',
-					'url'     => ['/rbac/assignment'],
+					'label' => 'Назначение ролей',
+					'url'   => ['/rbac/assignment'],
 				],
 			]
 		],
@@ -71,6 +71,7 @@ AppAsset::register($this);
 			'items' => [
 				['label' => 'Страницы', 'url' => PageController::getActionUrl(PageController::ACTION_INDEX)],
 				['label' => 'Настройки SEO', 'url' => SeoController::getActionUrl(SeoController::ACTION_INDEX)],
+				['label' => 'Баннеры', 'url' => BannerController::getActionUrl(BannerController::ACTION_INDEX)],
 			],
 		],
 

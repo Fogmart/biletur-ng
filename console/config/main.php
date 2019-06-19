@@ -28,6 +28,7 @@ return [
 				'modules\pages\migrations',
 				'modules\seo\migrations',
 				'modules\profile\migrations',
+				'modules\banner\migrations',
 			],
 		],
 	],

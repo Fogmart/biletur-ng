@@ -1,6 +1,6 @@
 <?php
 
-namespace modules\pages\migrations;
+namespace modules\banner\migrations;
 
 use common\components\OracleMigration;
 use yii\db\Schema;
@@ -22,7 +22,7 @@ class m190618_054543_add_table_banner extends OracleMigration {
 			'end_date'     => Schema::TYPE_DATETIME . ' NOT NULL',
 			'click_count'  => Schema::TYPE_INTEGER . ' DEFAULT 0',
 			'show_count'   => Schema::TYPE_INTEGER . ' DEFAULT 0',
-			'utm'          => Schema::TYPE_STRING . ' DEFAULT ""',
+			'utm'          => Schema::TYPE_STRING . ' DEFAULT NULL',
 			'insert_stamp' => Schema::TYPE_DATETIME . ' NOT NULL',
 			'update_stamp' => Schema::TYPE_DATETIME . ' NOT NULL',
 		]);
