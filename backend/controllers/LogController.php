@@ -7,6 +7,7 @@ use common\models\LogYii;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use common\modules\rbac\rules\Permissions;
 
 /**
  * Class LogController
@@ -18,6 +19,28 @@ use yii\filters\VerbFilter;
 class LogController extends BackendController {
 	const ACTION_INDEX = '';
 	const ACTION_CLEAR = 'clear';
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function behaviors() {
+		return [
+			'access' => [
+				'class' => AccessControl::class,
+				'rules' => [
+					[
+						'actions' => [
+							'index',
+							static::ACTION_INDEX,
+							static::ACTION_CLEAR,
+						],
+						'allow'   => true,
+						'roles'   => [Permissions::ROLE_ADMIN],
+					],
+				],
+			],
+		];
+	}
 
 	/**
 	 * @return string

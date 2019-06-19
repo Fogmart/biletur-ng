@@ -7,8 +7,8 @@ namespace common\modules\rbac\rules;
 
 use yii\rbac\Rule;
 
-class CallCenterRule extends Rule {
-	public $name = "CallCenterRule";
+class ContentRule extends Rule {
+	public $name = "ContentRule";
 
 	public function execute($user, $item, $params) {
 		return true;

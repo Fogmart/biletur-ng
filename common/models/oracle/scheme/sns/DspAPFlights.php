@@ -1,5 +1,4 @@
 <?php
-
 namespace common\models\oracle\scheme\sns;
 
 use common\models\oracle\scheme\DspBaseModel;
@@ -58,6 +57,7 @@ class DspAPFlights extends DspBaseModel {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public static function getFlightsToBoard($apCode, $direction) {
+
 		$sql = "SELECT DEST, AIRLINES, FLNUM ,FACTTIME, PLANDATE, PLANTIME, case
 							when DType is null then
 								plandate || ' ' || plantime

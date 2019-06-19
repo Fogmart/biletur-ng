@@ -7,6 +7,7 @@
 use backend\assets\AppAsset;
 use backend\controllers\LogController;
 use common\modules\pages\controllers\PageController;
+use common\modules\rbac\rules\Permissions;
 use common\modules\seo\controllers\SeoController;
 use common\widgets\Alert;
 use yii\bootstrap\Nav;
@@ -40,6 +41,28 @@ AppAsset::register($this);
 		],
 	]);
 	$menuItems = [
+		[
+			'label'   => 'Пользователи',
+			'visible' => !Yii::$app->user->isGuest,//Yii::$app->user->can(Permissions::P_ADMIN, [], false),
+			'items' => [
+				[
+					'label'   => 'Роли',
+					'url'     => ['/rbac/role'],
+				],
+				[
+					'label'   => 'Правила',
+					'url'     => ['/rbac/rule'],
+				],
+				[
+					'label'   => 'Разрешения',
+					'url'     => ['/rbac/permission'],
+				],
+				[
+					'label'   => 'Назначение ролей',
+					'url'     => ['/rbac/assignment'],
+				],
+			]
+		],
 		[
 			'label' => 'Ошибки сайта', 'url' => LogController::getActionUrl(LogController::ACTION_INDEX)
 		],

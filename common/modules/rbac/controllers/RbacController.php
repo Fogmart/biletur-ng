@@ -13,7 +13,7 @@ use yii\web\ForbiddenHttpException;
 
 class RbacController extends Controller {
 	public function beforeAction($action) {
-		if (!Yii::$app->user->can(Permissions::P_ADMIN)) {
+		if (!Yii::$app->user->can(Permissions::ROLE_ADMIN)) {
 			throw new ForbiddenHttpException('Доступ запрещен');
 		}
 
