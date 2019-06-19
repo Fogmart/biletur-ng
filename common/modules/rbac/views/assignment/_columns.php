@@ -16,7 +16,7 @@ $columns = [
         'attribute' => Yii::$app->getModule('rbac')->userModelLoginField,
     ],
     [
-        'label' => 'Roles',
+        'label' => 'Роли',
         'content' => function($model) {
             $authManager = Yii::$app->authManager;
             $idField = Yii::$app->getModule('rbac')->userModelIdField;
@@ -34,12 +34,12 @@ $columns = [
     ],
 ];
 
-
 $extraColums = \Yii::$app->getModule('rbac')->userModelExtraDataColumls;
 if ($extraColums !== null) {
     // If extra colums exist merge and return 
     $columns = array_merge($columns, $extraColums);
 }
+
 $columns[] = [
     'class' => 'kartik\grid\ActionColumn',
     'template' => '{update}',
@@ -54,4 +54,3 @@ $columns[] = [
         return $columns;
 
 
-        
