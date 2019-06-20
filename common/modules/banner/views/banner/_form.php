@@ -106,7 +106,6 @@ $image = $model->getImage();
                                     <td colspan="2"><?= $image->filename ?></td>
                                 </tr>
                                 </thead>
-
                                 <tr>
                                     <td><img width="200px" src="<?= $image->getWebUrl() ?>"></td>
                                     <td width="300px" class="text-center">
