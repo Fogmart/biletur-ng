@@ -95,7 +95,7 @@ class BannerController extends BackendController {
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			TagDependency::invalidate(Yii::$app->cache, [Page::class]);
 
-			return $this->redirect(['view', 'id' => $model->id]);
+			return $this->redirect(['update', 'id' => $model->id]);
 		}
 
 		Url::remember();
