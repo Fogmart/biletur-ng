@@ -77,6 +77,7 @@ $image = $model->getImage();
 							<?= FileUploadUI::widget([
 								'model'         => $model,
 								'attribute'     => $model::ATTR_FILE,
+
 								'url'           => [
 									'/upload-file/index',
 									'objectName' => Banner::class,
@@ -84,13 +85,14 @@ $image = $model->getImage();
 								],
 								'gallery'       => false,
 								'fieldOptions'  => [
-									'accept' => '*'
+									'accept' => '*',
+                                    'multiple' => false,
 								],
 								'clientOptions' => [
 									'maxFileSize' => 2000000,
 								],
 								'clientEvents'  => [
-									'fileuploaddone' => 'function(e, data) { console.log(e); console.log(data); }',
+									'fileuploaddone' => 'function(e, data) { $(".fileupload-buttonbar").hide(); }',
 									'fileuploadfail' => 'function(error, data) { console.log(error); console.log(data); }',
 								]
 								,

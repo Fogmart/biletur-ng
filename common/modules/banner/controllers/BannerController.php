@@ -12,6 +12,7 @@ use Yii;
 use yii\caching\TagDependency;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
+use yii\helpers\Url;
 
 /**
  * Контроллер баннер
@@ -96,6 +97,8 @@ class BannerController extends BackendController {
 
 			return $this->redirect(['view', 'id' => $model->id]);
 		}
+
+		Url::remember();
 
 		return $this->render('update', [
 			'model' => $model,

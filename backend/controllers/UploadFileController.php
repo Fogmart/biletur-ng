@@ -12,6 +12,7 @@ use yii\web\MethodNotAllowedHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\UploadedFile;
+use yii\helpers\Url;
 
 /**
  * Контроллер загрузки файлов
@@ -37,9 +38,11 @@ class UploadFileController extends BackendController {
 						'actions' => [
 							'index',
 							static::ACTION_INDEX,
+							static::ACTION_GET_FILE,
+							static::ACTION_DELETE,
 						],
 						'allow'   => true,
-						'roles'   => [Permissions::ROLE_ADMIN],
+						'roles'   => ['@'],
 					],
 				],
 			],
@@ -144,9 +147,13 @@ class UploadFileController extends BackendController {
 	 *
 	 * @param int $id
 	 *
-	 * @return array
+	 * @return \yii\web\Response
+	 *
+	 * @throws \Throwable
+	 * @throws \yii\db\StaleObjectException
 	 * @throws \yii\web\NotFoundHttpException
 	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function actionDelete($id) {
 		Yii::$app->response->format = Response::FORMAT_JSON;
@@ -158,7 +165,7 @@ class UploadFileController extends BackendController {
 		}
 		$objectFile->delete();
 
-		return [];
+		return $this->redirect(Url::previous());
 	}
 
 	/**

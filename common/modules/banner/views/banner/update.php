@@ -7,7 +7,6 @@ use yii\helpers\Html;
 
 $this->title = 'Изменение баннера: ' . $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Баннеры', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Изменение';
 ?>
 <div class="page-update">
