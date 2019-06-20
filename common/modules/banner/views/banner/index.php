@@ -27,17 +27,18 @@ $this->params['breadcrumbs'][] = $this->title;
 			['class' => 'yii\grid\SerialColumn'],
 			'id',
 			'title',
-
 			[
 				'attribute' => 'is_published',
 				'value'     => function ($data) {
-					return strtotime($data->beg_date) <= time() && strtotime($data->end_date) >= time()  ? 'Да' : 'Нет';
+					return strtotime($data->beg_date) <= time() && strtotime($data->end_date) >= time() ? 'Да' : 'Нет';
 				},
 			],
 			'beg_date',
 			'end_date',
-
-			['class' => 'yii\grid\ActionColumn'],
+			[
+				'class'    => 'yii\grid\ActionColumn',
+				'template' => '{update} | {delete}',
+			],
 		],
 	]); ?>
 	<?php Pjax::end(); ?>

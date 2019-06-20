@@ -83,7 +83,7 @@ $image = $model->getImage();
 									'objectName' => Banner::class,
 									'objectId'   => $model->id,
 								],
-								'gallery'       => false,
+								'gallery'       => true,
 								'fieldOptions'  => [
 									'accept' => '*',
                                     'multiple' => false,
