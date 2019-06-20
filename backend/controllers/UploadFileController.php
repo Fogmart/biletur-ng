@@ -2,9 +2,12 @@
 
 namespace backend\controllers;
 
+use common\base\helpers\Dump;
 use common\models\ObjectFile;
 use common\modules\banner\models\Banner;
+use common\modules\rbac\rules\Permissions;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\MethodNotAllowedHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -21,6 +24,28 @@ class UploadFileController extends BackendController {
 	const ACTION_DELETE_FROM_CATALOG = 'delete-from-catalog';
 	const ACTION_DELETE_FROM_CATEGORY = 'delete-from-category';
 	const ACTION_GET_FILE = 'get-file';
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function behaviors() {
+		return [
+			'access' => [
+				'class' => AccessControl::class,
+				'rules' => [
+					[
+						'actions' => [
+							'index',
+							static::ACTION_INDEX,
+						],
+						'allow'   => true,
+						'roles'   => [Permissions::ROLE_ADMIN],
+					],
+				],
+			],
+		];
+	}
+
 
 	/**
 	 * Загрузка
@@ -85,6 +110,16 @@ class UploadFileController extends BackendController {
 			return $response;
 		}
 
+		$file = $objectFile->file;
+
+		$objectFile = ObjectFile::findOne([
+			ObjectFile::ATTR_OBJECT_ID => $objectFile->object_id,
+			ObjectFile::ATTR_OBJECT    => $objectFile->object,
+			ObjectFile::ATTR_MESSAGE   => $objectFile->filename,
+		]);
+
+		$objectFile->file = $file;
+
 		if (false === $objectFile->file->saveAs($objectFile->getDir() . '/' . $objectFile->filename, true)) {
 			$response[] = ['error' => 'Невозможно сохранить файл. Обратитись к системным администраторам.'];
 			$objectFile->delete();
@@ -109,9 +144,9 @@ class UploadFileController extends BackendController {
 	 *
 	 * @param int $id
 	 *
+	 * @return array
 	 * @throws \yii\web\NotFoundHttpException
 	 *
-	 * @return array
 	 */
 	public function actionDelete($id) {
 		Yii::$app->response->format = Response::FORMAT_JSON;

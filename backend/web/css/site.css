@@ -124,3 +124,6 @@ table.log{
 .log-message pre{
     font-size: 10px;
 }
+input.toggle {
+    display: none !important;
+}

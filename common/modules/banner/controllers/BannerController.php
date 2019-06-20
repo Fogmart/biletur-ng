@@ -3,6 +3,7 @@
 namespace common\modules\banner\controllers;
 
 use backend\controllers\BackendController;
+use common\base\helpers\Dump;
 use common\modules\banner\models\Banner;
 use common\modules\banner\models\SearchBanner;
 use common\modules\pages\models\Page;
@@ -70,7 +71,6 @@ class BannerController extends BackendController {
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			TagDependency::invalidate(Yii::$app->cache, [Banner::class]);
-
 			return $this->redirect(['index']);
 		}
 

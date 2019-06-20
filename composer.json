@@ -44,7 +44,8 @@
     "kartik-v/yii2-widget-rating": "dev-master",
     "yiisoft/yii2-twig": "~2.0.0",
     "johnitvn/yii2-rbac-plus": "*",
-    "edvlerblog/yii2-adldap-module": "^6.0.0"
+    "edvlerblog/yii2-adldap-module": "^6.0.0",
+    "kartik-v/yii2-field-range": "dev-master"
 
   },
   "require-dev": {

@@ -8,6 +8,7 @@ use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\validators\RequiredValidator;
 use yii\validators\StringValidator;
+use yii\validators\UrlValidator;
 
 /**
  * Поля таблицы:
@@ -42,6 +43,14 @@ class Banner extends ActiveRecord {
 	/** @var string */
 	public $file;
 	const ATTR_FILE = 'file';
+
+	const ZONE_HEADER = 0;
+	const ZONE_LEFT_VERTICAL = 1;
+
+	const ZONE_NAMES = [
+		self::ZONE_HEADER        => 'Верхний',
+		self::ZONE_LEFT_VERTICAL => 'Левый',
+	];
 
 	/**
 	 * @return array
@@ -93,6 +102,7 @@ class Banner extends ActiveRecord {
 			static::ATTR_CLICK_COUNT  => 'Переходы',
 			static::ATTR_INSERT_STAMP => 'Дата создания',
 			static::ATTR_UPDATE_STAMP => 'Дата изменения',
+			static::ATTR_ZONE         => 'Место размещения',
 		];
 	}
 
@@ -104,6 +114,12 @@ class Banner extends ActiveRecord {
 	public function rules() {
 		return [
 			[static::ATTR_TITLE, RequiredValidator::class],
+			[static::ATTR_URL, RequiredValidator::class],
+			[static::ATTR_URL, UrlValidator::class],
+			[static::ATTR_BEG_DATE, RequiredValidator::class],
+			[static::ATTR_END_DATE, RequiredValidator::class],
+			[static::ATTR_ZONE, RequiredValidator::class],
+			[static::ATTR_UTM, StringValidator::class],
 		];
 	}
 
@@ -115,7 +131,7 @@ class Banner extends ActiveRecord {
 	 */
 	public function getImage() {
 		return $this->hasOne(ObjectFile::class, [ObjectFile::ATTR_OBJECT_ID => static::ATTR_ID])
-			->andWhere([ObjectFile::ATTR_OBJECT => static::class]);
+			->andWhere([ObjectFile::ATTR_OBJECT => static::class])->one();
 	}
 
 	const REL_IMAGE = 'image';

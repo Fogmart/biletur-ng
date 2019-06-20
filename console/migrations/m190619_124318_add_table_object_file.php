@@ -9,7 +9,7 @@ class m190619_124318_add_table_object_file extends OracleMigration {
 
 	public function safeUp() {
 		$this->createTable($this->_tableName, [
-				'id'                 => Schema::TYPE_PK,
+				'id'                 => $this->createPk(),
 				'object'             => Schema::TYPE_STRING . '(800) NOT NULL',
 				'object_id'          => Schema::TYPE_INTEGER . ' NOT NULL',
 				'filename'           => Schema::TYPE_STRING . '(600) NOT NULL',

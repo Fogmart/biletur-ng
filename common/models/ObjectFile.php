@@ -2,8 +2,11 @@
 namespace common\models;
 
 
+use common\base\helpers\Dump;
 use common\components\SiteModel;
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 use yii\validators\FileValidator;
 
 /**
@@ -29,12 +32,36 @@ class ObjectFile extends SiteModel {
 	const ATTR_FILE = 'file';
 
 	/**
+	 * @return array
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function behaviors() {
+		return [
+			[
+				'class'              => TimestampBehavior::class,
+				'createdAtAttribute' => 'create_stamp',
+				'updatedAtAttribute' => 'create_stamp',
+				'value'              => new Expression('sysdate'),
+			],
+		];
+	}
+
+	/**
 	 * @inheritdoc
 	 */
 	public function rules() {
 		return [
 			[static::ATTR_FILE, FileValidator::class, 'extensions' => 'gif, jpg, jpeg, png']
 		];
+	}
+	/**
+	 * @return string|string[]
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public static function primaryKey() {
+		return [static::ATTR_ID];
 	}
 
 	/**
@@ -67,9 +94,9 @@ class ObjectFile extends SiteModel {
 	 * @author Исаков Владислав
 	 */
 	public function getPath() {
-		$objectFile = ObjectFile::findOne($this->id);
+		$objectFile = ObjectFile::findOne([static::ATTR_ID => $this->id]);
 
-		$path = Yii::getAlias('@rootdir/frontend/web/images/uploads') . DIRECTORY_SEPARATOR . substr($objectFile->create_stamp, 0, 10) . DIRECTORY_SEPARATOR . md5($objectFile->object . $objectFile->object_id);
+		$path = Yii::getAlias('@uploads') . DIRECTORY_SEPARATOR . substr($objectFile->create_stamp, 0, 10) . DIRECTORY_SEPARATOR . md5($objectFile->object . $objectFile->object_id);
 
 		return $path;
 	}

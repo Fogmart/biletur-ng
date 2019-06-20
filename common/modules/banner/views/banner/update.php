@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\modules\pages\models\Page */
 
-$this->title = 'Изменение страницы: ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Страницы', 'url' => ['index']];
+$this->title = 'Изменение баннера: ' . $model->title;
+$this->params['breadcrumbs'][] = ['label' => 'Баннеры', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Изменение';
 ?>

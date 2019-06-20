@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\modules\pages\models\Page */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Страницы', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Баннеры', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
