@@ -31,11 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'attribute' => 'is_published',
 				'value'     => function ($data) {
-					return strtotime($data->beg_date) >= time() && strtotime($data->end_date) <= time()  ? 'Да' : 'Нет';
+					return strtotime($data->beg_date) <= time() && strtotime($data->end_date) >= time()  ? 'Да' : 'Нет';
 				},
 			],
-			'insert_stamp',
-			'update_stamp',
+			'beg_date',
+			'end_date',
 
 			['class' => 'yii\grid\ActionColumn'],
 		],
