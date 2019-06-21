@@ -36,11 +36,11 @@ class AppAsset extends AssetBundle {
 			if (is_array($js)) {
 				$file = array_shift($js);
 				$options = ArrayHelper::merge($this->jsOptions, $js);
-				$view->registerJsFile($manager->getAssetUrl($this, $manifest[$file]), $options);
+				$view->registerJsFile('/internal' . $manager->getAssetUrl($this, $manifest[$file]), $options);
 			}
 			else {
 				if ($js !== null) {
-					$view->registerJsFile($manager->getAssetUrl($this, $manifest[$js]), $this->jsOptions);
+					$view->registerJsFile('/internal' . $manager->getAssetUrl($this, $manifest[$js]), $this->jsOptions);
 				}
 			}
 		}
@@ -49,11 +49,11 @@ class AppAsset extends AssetBundle {
 			if (is_array($css)) {
 				$file = array_shift($css);
 				$options = ArrayHelper::merge($this->cssOptions, $css);
-				$view->registerCssFile($manager->getAssetUrl($this, $manifest['/' . $file]), $options);
+				$view->registerCssFile('/internal' . $manager->getAssetUrl($this, $manifest['/' . $file]), $options);
 			}
 			else {
 				if ($css !== null) {
-					$view->registerCssFile($manager->getAssetUrl($this, $manifest['/' . $css]), $this->cssOptions);
+					$view->registerCssFile('/internal' . $manager->getAssetUrl($this, $manifest['/' . $css]), $this->cssOptions);
 				}
 			}
 		}
