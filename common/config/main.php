@@ -3,12 +3,12 @@
 use common\components\IpGeoBase;
 use common\components\LogDbTarget;
 use common\modules\api\MApi;
+use common\modules\banner\MBanner;
 use common\modules\message\MMessage;
 use common\modules\news\MNews;
 use common\modules\pages\MPages;
 use common\modules\profile\MProfile;
 use common\modules\seo\MSeo;
-use common\modules\banner\MBanner;
 
 return [
 	'bootstrap'  => ['log'],
@@ -48,16 +48,20 @@ return [
 		'api'     => [
 			'class' => MApi::class,
 		],
-		'banner'     => [
+		'banner'  => [
 			'class' => MBanner::class,
 		]
 	],
 	'components' => [
-		'user'        => [
+		'assetManager' => [
+			'linkAssets'      => true,
+			'appendTimestamp' => true,
+		],
+		'user'         => [
 			'identityClass' => \common\models\User::class,
 			'loginUrl'      => ['site/login'],
 		],
-		'env'         => [
+		'env'          => [
 			'class'              => common\components\Environment::class,
 			'defaultCityId'      => '_1CK0R7WDW',
 			'defaultLanguage'    => 'ru',
@@ -65,7 +69,7 @@ return [
 			'defaultArrCityId'   => '957979',
 			'defaultTourZone'    => 3
 		],
-		'cache'       => [
+		'cache'        => [
 			'class'        => \yii\caching\MemCache::class,
 			'servers'      => [
 				[
@@ -75,15 +79,15 @@ return [
 			],
 			'useMemcached' => true,
 		],
-		'ipgeobase'   => [
+		'ipgeobase'    => [
 			'class'      => IpGeoBase::class,
 			'useLocalDB' => false,
 		],
-		'authManager' => [
+		'authManager'  => [
 			'class'        => 'yii\rbac\DbManager',
 			'defaultRoles' => ['guest', 'user'],
 		],
-		'view'        => [
+		'view'         => [
 			'class'     => 'yii\web\View',
 			'renderers' => [
 				'twig' => [
@@ -101,7 +105,7 @@ return [
 				],
 			],
 		],
-		'log'         => [
+		'log'          => [
 			'traceLevel' => 3,
 			'targets'    => [
 				'db' => [
