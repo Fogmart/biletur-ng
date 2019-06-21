@@ -26,6 +26,7 @@ composer.phar
 composer.lock
 
 yarn.lock
+yarn-error.log
 
 # Mac DS_Store Files
 .DS_Store
@@ -45,3 +46,4 @@ phpunit.phar
 /backend/web/index.php
 /backend/web/index-test.php
 /backend/web/robots.txt
+

@@ -1,11 +1,8 @@
 <?php
-
 namespace backend\controllers;
 
-use common\base\helpers\Dump;
 use common\models\ObjectFile;
 use common\modules\banner\models\Banner;
-use common\modules\rbac\rules\Permissions;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\MethodNotAllowedHttpException;
