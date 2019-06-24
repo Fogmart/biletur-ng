@@ -2,7 +2,7 @@
 const mix = require('laravel-mix');
 
 mix.styles([
-	'backend/web/css/site.css'
+	'backend/assets/src/css/site.css'
 ], 'backend/web/css/site-admin.css')
 	.version();
 

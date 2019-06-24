@@ -31,7 +31,6 @@ class AppAsset extends AssetBundle {
 		'rmrevin\yii\fontawesome\CdnFreeAssetBundle'
 	];
 
-
 	/**
 	 * Переопределение метода для публикации ресурсов с хэшем версии
 	 *
