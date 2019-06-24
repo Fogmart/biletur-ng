@@ -38,6 +38,7 @@ $image = $model->getImage();
 			echo '<label class="control-label">Период показа</label>';
 			echo DatePicker::widget([
 				'model'         => $model,
+				'separator'     => 'по',
 				'attribute'     => $model::ATTR_BEG_DATE,
 				'attribute2'    => $model::ATTR_END_DATE,
 				'options'       => ['placeholder' => 'Дата начала'],
@@ -75,8 +76,8 @@ $image = $model->getImage();
                     <div class="panel-body" id="files">
 						<?php if (null === $image): ?>
 							<?= FileUploadUI::widget([
-								'model'         => $model,
-								'attribute'     => $model::ATTR_FILE,
+								'model'     => $model,
+								'attribute' => $model::ATTR_FILE,
 
 								'url'           => [
 									'/upload-file/index',
@@ -85,8 +86,8 @@ $image = $model->getImage();
 								],
 								'gallery'       => true,
 								'fieldOptions'  => [
-									'accept' => '*',
-                                    'multiple' => false,
+									'accept'   => '*',
+									'multiple' => false,
 								],
 								'clientOptions' => [
 									'maxFileSize' => 2000000,

@@ -46,7 +46,6 @@ class UploadFileController extends BackendController {
 		];
 	}
 
-
 	/**
 	 * Загрузка
 	 *
@@ -160,6 +159,7 @@ class UploadFileController extends BackendController {
 		if (null === $objectFile) {
 			throw new NotFoundHttpException();
 		}
+
 		$objectFile->delete();
 
 		return $this->redirect(Url::previous());

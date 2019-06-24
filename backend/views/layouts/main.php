@@ -74,7 +74,6 @@ AppAsset::register($this);
 				['label' => 'Баннеры', 'url' => BannerController::getActionUrl(BannerController::ACTION_INDEX)],
 			],
 		],
-
 	];
 
 	if (Yii::$app->user->isGuest) {
