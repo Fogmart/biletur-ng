@@ -72,6 +72,7 @@ class BannerController extends BackendController {
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			TagDependency::invalidate(Yii::$app->cache, [Banner::class]);
+
 			return $this->redirect(['index']);
 		}
 
@@ -93,7 +94,7 @@ class BannerController extends BackendController {
 		$model = $this->findModel($id);
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			TagDependency::invalidate(Yii::$app->cache, [Page::class]);
+			TagDependency::invalidate(Yii::$app->cache, [Banner::class]);
 
 			return $this->redirect(['update', 'id' => $model->id]);
 		}
