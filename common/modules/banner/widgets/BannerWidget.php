@@ -5,7 +5,6 @@ use common\modules\banner\models\Banner;
 use yii\db\Expression;
 use yii\caching\TagDependency;
 
-
 /**
  * @author Исаков Владислав <visakov@biletur.ru>
  */

@@ -84,9 +84,9 @@ $image = $model->getImage();
 									'objectName' => Banner::class,
 									'objectId'   => $model->id,
 								],
-								'gallery'       => true,
+								'gallery'       => false,
 								'fieldOptions'  => [
-									'accept'   => '*',
+									'accept'   => 'jpeg, jpg, png, gif',
 									'multiple' => false,
 								],
 								'clientOptions' => [
@@ -94,11 +94,19 @@ $image = $model->getImage();
 								],
 								'clientEvents'  => [
 									'fileuploaddone' => 'function(e, data) { $(".fileupload-buttonbar").hide(); }',
-									'fileuploadfail' => 'function(error, data) { console.log(error); console.log(data); }',
+									'fileuploadfail' => 'function(error, data) {
+									        $(".file-upload-error").hide(); 
+    								        if (error) {
+									            $(".file-upload-error").html(error);
+									            $(".file-upload-error").show();
+									        }
+									        //console.log(error); console.log(data);
+									}',
 								]
 								,
 							]);
 							?>
+                            <div class="file-upload-error alert alert-danger" style="display: none;"></div>
 						<?php endif ?>
 						<?php if (null !== $image): ?>
                             <table class="table table-bordered table-condensed table-hover table-small">
