@@ -5,4 +5,6 @@
  *
  */
 ?>
-<a href="<?= $banner->url ?>" target="_blank"><img alt="" src="<?= $banner->image ?>"></a>
+<?php if (null !== $banner): ?>
+    <a href="<?= $banner->url ?><?= (!empty($banner->utm) ? '?' . $banner->utm : '') ?>" target="_blank"><img alt="" src="<?= $banner->image ?>"></a>
+<?php endif ?>
