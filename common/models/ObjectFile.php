@@ -55,6 +55,7 @@ class ObjectFile extends SiteModel {
 			[static::ATTR_FILE, FileValidator::class, 'extensions' => 'gif, jpg, jpeg, png']
 		];
 	}
+
 	/**
 	 * @return string|string[]
 	 *
