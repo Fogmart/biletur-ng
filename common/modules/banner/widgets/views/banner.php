@@ -5,4 +5,4 @@
  *
  */
 ?>
-<a href="<?= $banner->url ?>" target="_blank"><img src="<?= $banner->image ?>"></a>
+<a href="<?= $banner->url ?>" target="_blank"><img alt="" src="<?= $banner->image ?>"></a>
