@@ -182,6 +182,7 @@ class UploadFileController extends BackendController {
 		if (null === $objectFile) {
 			throw new NotFoundHttpException();
 		}
+
 		$path = $objectFile->getFullPath();
 
 		return Yii::$app->response->sendFile($path, $objectFile->filename);
