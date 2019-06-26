@@ -64,6 +64,10 @@ class SiteController extends FrontendController {
 		];
 	}
 
+	public function actionSetCity($id) {
+		
+	}
+
 	/**
 	 * Displays homepage.
 	 *

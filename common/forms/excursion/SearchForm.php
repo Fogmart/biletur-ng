@@ -67,7 +67,7 @@ class SearchForm extends Model {
 	}
 
 	public function search() {
-		$this->result = $this->searchTripster();
+		$this->result = $this->_searchTripster();
 
 		return $this->result;
 	}
@@ -77,7 +77,7 @@ class SearchForm extends Model {
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
-	public function searchTripster() {
+	private function _searchTripster() {
 		$params = [];
 		$api = Yii::$app->tripsterApi;
 

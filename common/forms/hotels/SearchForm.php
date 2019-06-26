@@ -120,7 +120,7 @@ class SearchForm extends Model {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function search() {
-		$this->result = $this->searchOstrovok();
+		$this->result = $this->_searchOstrovok();
 
 		return $this->result;
 	}
@@ -130,7 +130,7 @@ class SearchForm extends Model {
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
-	public function searchOstrovok() {
+	private function _searchOstrovok() {
 		$titleTypeParams = explode('|', $this->title);
 		$this->objectType = $titleTypeParams[1];
 

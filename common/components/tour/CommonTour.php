@@ -1,11 +1,22 @@
 <?php
-/**
- * @author Исаков Владислав <visakov@biletur.ru>
- */
+namespace common\components\tour;
 
 class CommonTour {
+
+	const SOURCE_BILETUR = 0;
+
+	/** @var int` */
+	public $source;
+
 	/** @var string */
-	public $country;
+	public $countryId;
+
+	/** @var string */
+	public $cityId;
+
+	/** @var string */
+	public $title;
+
 
 
 }

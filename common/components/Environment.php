@@ -90,13 +90,13 @@ class Environment extends Component {
 	public function getCity() {
 		if (null === $this->_city) {
 			// Пытаемся достать город из url (например: moscow.biletur.ru)
-			/*$this->getCityByUrl();
+			$this->_getCityByUrl();
 			if (null !== $this->_city) {
 				return $this->_city;
-			}*/
+			}
 
 			// Пытаемся достать указанный город из куки
-			$this->getCityByCoockie();
+			$this->getCityByCookie();
 			if (null !== $this->_city) {
 				return $this->_city;
 			}
@@ -146,7 +146,7 @@ class Environment extends Component {
 	 *
 	 * @return Cities
 	 */
-	private function getCityByCoockie() {
+	private function getCityByCookie() {
 		if (isset(Yii::$app->request->cookies['current_path'])) {
 			$cityId = Yii::$app->request->cookies['current_path'];
 			if (null !== $cityId) {
@@ -156,7 +156,7 @@ class Environment extends Component {
 					$this->_city = Town::find()->with(['arrCity'])->where(['ID' => $cityId->value])->one();
 					if (null !== $this->_city) {
 						Yii::$app->cache->set(
-							$cacheKey, $this->_city, 24 * 60 * 60, new TagDependency([Town::className()])
+							$cacheKey, $this->_city, 24 * 60 * 60, new TagDependency([Town::class])
 						);
 					}
 				}
@@ -198,7 +198,7 @@ class Environment extends Component {
 					$this->_city = Town::find()->with(['arrCity'])->where(['ID' => $geoCity->CITYID])->one();
 					if (null !== $this->_city) {
 						Yii::$app->cache->set(
-							$cacheKey, $this->_city, 24 * 60 * 60, new TagDependency([Town::className()])
+							$cacheKey, $this->_city, 24 * 60 * 60, new TagDependency([Town::class])
 						);
 					}
 				}
@@ -297,25 +297,25 @@ class Environment extends Component {
 	 * @author isakov.v
 	 * @return Cities
 	 */
-	private function getCityByUrl() {
-		$subdomain = null;
+	private function _getCityByUrl() {
+		$subDomain = null;
 		if (!defined('STDIN')
 			&& preg_match(
 				'/^([\S]+)\.([^\.]+)\.([^\.]+)$/', $_SERVER['HTTP_HOST'], $_common_matches
 			)
 		) {
-			$subdomain = $_common_matches[1];
+			$subDomain = $_common_matches[1];
 		}
 
-		if (null !== $subdomain) {
-			$cacheKey = 'Environment::getCity(' . $subdomain . ')';
+		if (null !== $subDomain) {
+			$cacheKey = 'Environment::getCity(' . $subDomain . ')';
 			$cacheCity = Yii::$app->cache->get($cacheKey);
 
 			if (false === $cacheCity) {
-				$this->_city = Town::findOne(['ename' => $subdomain]);
+				$this->_city = Town::findOne(['ename' => $subDomain]);
 				if (null !== $this->_city) {
 					Yii::$app->cache->set(
-						$cacheKey, $this->_city, 24 * 60 * 60, new TagDependency([Town::className()])
+						$cacheKey, $this->_city, 24 * 60 * 60, new TagDependency([Town::class])
 					);
 				}
 			}

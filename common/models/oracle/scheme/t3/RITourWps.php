@@ -3,8 +3,6 @@
 namespace common\models\oracle\scheme\t3;
 
 use common\models\oracle\scheme\DspBaseModel;
-use common\models\oracle\scheme\t3\RefItems;
-use common\models\oracle\scheme\t3\RIAd;
 use Yii;
 use yii\caching\TagDependency;
 use yii\db\ActiveQuery;
@@ -16,25 +14,25 @@ use yii\db\ActiveQuery;
  *
  * Поля таблицы:
  *
- * @property int    $ID
- * @property int    $NPP
- * @property string $PLACE
- * @property string $CITYID
- * @property string $CITYCODE
- * @property string $CITY
- * @property string $REGION
- * @property string $COUNTRY
- * @property int    $NDAYS
- * @property string $MEETPLACE
- * @property string $MEETTIME
- * @property string $WHOCRT
- * @property string $WHNCRT
- * @property string $WHOCHNG
- * @property string $WHNCHNG
- * @property int    $EDGEPOINT
- * @property int    $DESTPOINT
- * @property int                                                $ITMID
- * @property string                                             $TRNSFRPOINT
+ * @property int                                            $ID
+ * @property int                                            $NPP
+ * @property string                                         $PLACE
+ * @property string                                         $CITYID
+ * @property string                                         $CITYCODE
+ * @property string                                         $CITY
+ * @property string                                         $REGION
+ * @property string                                         $COUNTRY
+ * @property int                                            $NDAYS
+ * @property string                                         $MEETPLACE
+ * @property string                                         $MEETTIME
+ * @property string                                         $WHOCRT
+ * @property string                                         $WHNCRT
+ * @property string                                         $WHOCHNG
+ * @property string                                         $WHNCHNG
+ * @property int                                            $EDGEPOINT
+ * @property int                                            $DESTPOINT
+ * @property int                                            $ITMID
+ * @property string                                         $TRNSFRPOINT
  *
  * @property-read \common\models\oracle\scheme\t3\RefItems  $refItems
  * @property-read \common\models\oracle\scheme\sns\DspTowns $city
@@ -58,8 +56,10 @@ class RITourWps extends DspBaseModel {
 				->all();
 
 			Yii::$app->cache->set(
-				$cacheKey, $rows, 0, new TagDependency(
-					[RefItems::class, RIAd::class, RITourWps::tableName()]
+				$cacheKey, $rows, 0, new TagDependency([
+						'tags' =>
+							[RefItems::class, RIAd::class, RITourWps::tableName()]
+					]
 				)
 			);
 		}
@@ -90,8 +90,10 @@ class RITourWps extends DspBaseModel {
 				->all();
 
 			Yii::$app->cache->set(
-				$cacheKey, $rows, 0, new TagDependency(
-					[RefItems::class, RIAd::class, RITourWps::class]
+				$cacheKey, $rows, 0, new TagDependency([
+						'tags' =>
+							[RefItems::class, RIAd::class, RITourWps::class]
+					]
 				)
 			);
 		}

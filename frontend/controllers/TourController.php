@@ -1,8 +1,9 @@
 <?php
 namespace frontend\controllers;
 
-use common\components\FrontendController;
 use common\components\FrontendMenuController;
+use common\forms\tour\SearchForm;
+use Yii;
 
 /**
  *
@@ -20,8 +21,14 @@ class TourController extends FrontendMenuController {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function actionIndex() {
+		$form = new SearchForm();
 
+		if (Yii::$app->request->isPjax) {
+			$form->load(Yii::$app->request->post());
+		}
 
-		return $this->render('index');
+		$form->search();
+
+		return $this->render('index', ['form' => $form]);
 	}
 }

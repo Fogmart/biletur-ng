@@ -1,5 +1,6 @@
 <?php
 
+use common\components\Environment;
 use common\modules\pages\components\StaticPageUrlRule;
 
 $params = array_merge(
@@ -16,6 +17,14 @@ return [
 	'bootstrap'           => ['log'],
 	'controllerNamespace' => 'frontend\controllers',
 	'components'          => [
+		'env' => [
+			'class' => common\components\Environment::class,
+			'defaultCityId' => '_1CK0R7WDW',
+			'defaultLanguage' => 'ru',
+			'defaultAirportCode' => 'VVO',
+			'defaultArrCityId' => '957979',
+			'defaultTourZone' => 3
+		],
 		'request'      => [
 			'csrfParam' => '_csrf-frontend',
 			'baseUrl'   => '',
@@ -26,7 +35,6 @@ return [
 			'identityCookie'  => ['name' => '_identity-biletur', 'httpOnly' => true],
 		],
 		'session'      => [
-			// this is the name of the session cookie used for login on the frontend
 			'name' => 'biletur-session',
 		],
 		'errorHandler' => [
