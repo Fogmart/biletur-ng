@@ -202,6 +202,7 @@ class RefItems extends DspBaseModel {
 										AND TOURZONEID = " . Yii::$app->env->getTourZone()
 			);
 	}
+	const REL_ACTIVE = 'active';
 
 	/**
 	 * Связь с типами тура через таблицу T3.RI_TOUR_TYPES

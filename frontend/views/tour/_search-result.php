@@ -6,3 +6,9 @@
  * @var \common\components\tour\CommonTour[] $tours
  *
  */
+?>
+
+
+<?php foreach ($tours as $tour):?>
+
+<?php endforeach ?>

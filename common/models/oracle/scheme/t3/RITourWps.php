@@ -3,6 +3,7 @@
 namespace common\models\oracle\scheme\t3;
 
 use common\models\oracle\scheme\DspBaseModel;
+use common\models\oracle\scheme\sns\DspTowns;
 use Yii;
 use yii\caching\TagDependency;
 use yii\db\ActiveQuery;
@@ -39,6 +40,7 @@ use yii\db\ActiveQuery;
  *
  */
 class RITourWps extends DspBaseModel {
+	const ATTR_ITEM_ID = 'ITMID';
 
 	/**
 	 * @return string
@@ -53,17 +55,33 @@ class RITourWps extends DspBaseModel {
 	 * @return array|mixed|\yii\db\ActiveRecord[]
 	 */
 	public static function getActiveRegions() {
-		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, Yii::$app->env->getTourZone()]);
-		$rows = Yii::$app->cache->get($cacheKey);
-		if (false === $rows) {
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, Yii::$app->env->getTourZone(), 18]);
+		$places = Yii::$app->cache->get($cacheKey);
+		if (false === $places) {
+			$places = [];
+
+			/** @var static[] $rows */
 			$rows = static::find()
-				->select('DISTINCT(REGION) AS ID')
-				->joinWith('refItems.active', false, 'JOIN')
-				->asArray()
+				->joinWith(static::REL_REF_ITEMS . '.' . RefItems::REL_ACTIVE, false, 'INNER JOIN')
 				->all();
 
+			foreach ($rows as $row) {
+				if (empty($row->COUNTRY) || empty($row->CITYID)) {
+					continue;
+				}
+
+				$places[$row->COUNTRY][$row->CITYID] = $row->CITY;
+			}
+
+			ksort($places);
+			foreach ($places as &$cities) {
+				ksort($cities);
+			}
+
+			unset($cities);
+
 			Yii::$app->cache->set(
-				$cacheKey, $rows, 0, new TagDependency([
+				$cacheKey, $places, 0, new TagDependency([
 						'tags' =>
 							[RefItems::class, RIAd::class, RITourWps::tableName()]
 					]
@@ -71,36 +89,7 @@ class RITourWps extends DspBaseModel {
 			);
 		}
 
-		return $rows;
-	}
-
-
-
-	/**
-	 * Страны в которых проходят этапы активных туров
-	 *
-	 * @return array|mixed|\yii\db\ActiveRecord[]
-	 */
-	public static function getActiveCountries() {
-		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, Yii::$app->env->getTourZone()]);
-		$rows = Yii::$app->cache->get($cacheKey);
-		if (false === $rows) {
-			$rows = static::find()
-				->select('DISTINCT(COUNTRY) AS ID')
-				->joinWith('refItems.active', false, 'JOIN')
-				->asArray()
-				->all();
-
-			Yii::$app->cache->set(
-				$cacheKey, $rows, 0, new TagDependency([
-						'tags' =>
-							[RefItems::class, RIAd::class, RITourWps::class]
-					]
-				)
-			);
-		}
-
-		return $rows;
+		return $places;
 	}
 
 	/**
@@ -125,8 +114,10 @@ class RITourWps extends DspBaseModel {
 	 * @return ActiveQuery
 	 */
 	public function getRefItems() {
-		return $this->hasOne(RefItems::class, ['ID' => 'ITMID']);
+		return $this->hasOne(RefItems::class, ['ID' => static::ATTR_ITEM_ID]);
 	}
+
+	const REL_REF_ITEMS = 'refItems';
 
 	/**
 	 * Связь этапа со страной
@@ -135,4 +126,6 @@ class RITourWps extends DspBaseModel {
 	public function getCity() {
 		return $this->hasOne(DspTowns::class, ['ID' => 'CITYID']);
 	}
+
+	const REL_CITY = 'city';
 }

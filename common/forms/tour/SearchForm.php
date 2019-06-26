@@ -95,10 +95,9 @@ class SearchForm extends Model {
 	public function getTourToPaths() {
 		$result = [];
 
-		$bileturCountries = RITourWps::getActiveCountries();
 		$bileturRegions = RITourWps::getActiveRegions();
 
-		Dump::dDie([$bileturCountries, $bileturRegions]);
+		Dump::dDie([$bileturRegions]);
 
 
 		return $result;
