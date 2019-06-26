@@ -1,9 +1,10 @@
 <?php
 
 use frontend\controllers\AviaController;
+use frontend\controllers\ExcursionController;
 use frontend\controllers\HotelsController;
 use frontend\controllers\RailRoadController;
-use frontend\controllers\ExcursionController;
+use frontend\controllers\TourController;
 
 /**
  * @var $this yii\web\View
@@ -42,8 +43,10 @@ $this->title = 'Билетур';
     </div>
     <div class="col-md-2">
         <div class="text-center index-icons-block">
-            <img src="/images/plane.png" alt="Туры">
-            <span>Туры</span>
+            <a href="<?= TourController::getActionUrl(TourController::ACTION_INDEX) ?>" class="text-center index-icons-block">
+                <img src="/images/plane.png" alt="Туры">
+                <span>Туры</span>
+            </a>
         </div>
     </div>
     <div class="col-md-2">

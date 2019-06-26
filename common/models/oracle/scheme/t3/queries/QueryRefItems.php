@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models\scheme\t3\queries;
+namespace common\models\oracle\scheme\t3\queries;
 
 use yii\db\ActiveQuery;
 

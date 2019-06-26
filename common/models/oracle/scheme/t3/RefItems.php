@@ -12,7 +12,7 @@ use common\models\oracle\scheme\sns\Countries;
 use common\models\oracle\scheme\sns\OrgStaff;
 use common\models\procedures\TourCreateOrderCustomerInfo;
 use common\models\procedures\TourUpdOrdQuot;
-use common\models\scheme\t3\queries\QueryRefItems;
+use common\models\oracle\scheme\t3\queries\QueryRefItems;
 use common\models\scheme\tour\Orders;
 use common\models\scheme\tour\OrdPerson;
 use common\models\scheme\tour\OrdRemark;
@@ -84,7 +84,7 @@ class RefItems extends DspBaseModel {
 	/** @var \common\models\oracle\scheme\t3\RiTourWps $wpBeg */
 	public $wpBeg;
 
-	/** @var  common\models\oracle\scheme\t3\RiTourWps $wpEnd */
+	/** @var  \common\models\oracle\scheme\t3\RiTourWps $wpEnd */
 	public $wpEnd;
 
 	/**

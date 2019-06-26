@@ -8,6 +8,7 @@ use yii\bootstrap\ActiveForm;
  * @var \common\forms\tour\SearchForm $form
  *
  */
+$form->getTourToPaths();
 ?>
 
 <?php $htmlForm = ActiveForm::begin(['options' => ['data-pjax' => true]]); ?>

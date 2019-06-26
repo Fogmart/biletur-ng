@@ -3,7 +3,9 @@
 namespace common\forms\tour;
 
 use Adldap\Configuration\Validators\IntegerValidator;
+use common\base\helpers\Dump;
 use common\components\tour\CommonTour;
+use common\models\oracle\scheme\t3\RITourWps;
 use yii\base\Model;
 use yii\validators\StringValidator;
 
@@ -92,6 +94,12 @@ class SearchForm extends Model {
 	 */
 	public function getTourToPaths() {
 		$result = [];
+
+		$bileturCountries = RITourWps::getActiveCountries();
+		$bileturRegions = RITourWps::getActiveRegions();
+
+		Dump::dDie([$bileturCountries, $bileturRegions]);
+
 
 		return $result;
 	}

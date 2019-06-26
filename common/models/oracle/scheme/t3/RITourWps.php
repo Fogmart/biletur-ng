@@ -41,6 +41,13 @@ use yii\db\ActiveQuery;
 class RITourWps extends DspBaseModel {
 
 	/**
+	 * @return string
+	 */
+	public static function tableName() {
+		return '{{T3.RI_TOUR_WPS}}';
+	}
+
+	/**
 	 * Регионы в которых проходят этапы активных туров
 	 *
 	 * @return array|mixed|\yii\db\ActiveRecord[]
@@ -49,7 +56,7 @@ class RITourWps extends DspBaseModel {
 		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, Yii::$app->env->getTourZone()]);
 		$rows = Yii::$app->cache->get($cacheKey);
 		if (false === $rows) {
-			$rows = RITourWps::find()
+			$rows = static::find()
 				->select('DISTINCT(REGION) AS ID')
 				->joinWith('refItems.active', false, 'JOIN')
 				->asArray()
@@ -67,12 +74,7 @@ class RITourWps extends DspBaseModel {
 		return $rows;
 	}
 
-	/**
-	 * @return string
-	 */
-	public static function tableName() {
-		return '{{T3.RI_TOUR_WPS}}';
-	}
+
 
 	/**
 	 * Страны в которых проходят этапы активных туров
@@ -83,7 +85,7 @@ class RITourWps extends DspBaseModel {
 		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, Yii::$app->env->getTourZone()]);
 		$rows = Yii::$app->cache->get($cacheKey);
 		if (false === $rows) {
-			$rows = RITourWps::find()
+			$rows = static::find()
 				->select('DISTINCT(COUNTRY) AS ID')
 				->joinWith('refItems.active', false, 'JOIN')
 				->asArray()
