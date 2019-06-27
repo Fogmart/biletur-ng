@@ -3,6 +3,7 @@
 namespace common\forms\tour;
 
 use common\components\tour\CommonTour;
+use common\components\tour\CommonTourWayPoint;
 use common\models\oracle\scheme\t3\RefItems;
 use common\models\oracle\scheme\t3\RITourWps;
 use yii\base\Model;
@@ -82,6 +83,8 @@ class SearchForm extends Model {
 	}
 
 	/**
+	 * Поиск и преобразование к общей структуре отображения туров Билетур
+	 *
 	 * @return CommonTour[]
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
@@ -102,9 +105,32 @@ class SearchForm extends Model {
 			$query->andWhere([RITourWps::tableName() . '.' . RITourWps::ATTR_DESTINATION_POINT => 1]);
 		}
 
+		/** @var RefItems[] $tours */
 		$tours = $query->all();
 
-		return $tours;
+		$commonTours = [];
+		foreach ($tours as $tour) {
+			$commonTour = new CommonTour();
+			$commonTour->source = CommonTour::SOURCE_BILETUR;
+			$commonTour->sourceId = $tour->ID;
+			$commonTour->title = trim(strip_tags($tour->NAME));
+			$commonTour->description = strip_tags((null === $tour->description ? '' : $tour->description->DESCRIPTION));
+
+			//Заполняем точки маршрута
+			foreach ($tour->wps as $wayPoint) {
+				$commonWayPoint = new CommonTourWayPoint();
+				$commonWayPoint->cityId = $wayPoint->CITYID;
+				$commonWayPoint->country = $wayPoint->COUNTRY;
+				$commonWayPoint->number = $wayPoint->NPP;
+				$commonWayPoint->daysCount = $wayPoint->NDAYS;
+
+				$commonTour->wayPoints[] = $commonWayPoint;
+			}
+
+			$commonTours[] = $commonTour;
+		}
+
+		return $commonTours;
 	}
 
 	/**

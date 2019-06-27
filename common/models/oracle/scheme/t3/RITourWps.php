@@ -44,6 +44,7 @@ class RITourWps extends DspBaseModel {
 	const ATTR_CITY_ID = 'CITYID';
 	const ATTR_COUNTRY = 'COUNTRY';
 	const ATTR_DESTINATION_POINT = 'DESTPOINT';
+	const ATTR_NUMBER = 'NPP';
 
 	/**
 	 * @return string

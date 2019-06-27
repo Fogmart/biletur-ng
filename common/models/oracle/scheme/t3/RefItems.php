@@ -134,7 +134,7 @@ class RefItems extends DspBaseModel {
 	 * @return ActiveQuery
 	 */
 	public function getWps() {
-		return $this->hasMany(RITourWps::class, ['ITMID' => 'ID']);
+		return $this->hasMany(RITourWps::class, ['ITMID' => 'ID'])->orderBy([RITourWps::ATTR_NUMBER => SORT_ASC]);
 	}
 	const REL_WPS = 'wps';
 

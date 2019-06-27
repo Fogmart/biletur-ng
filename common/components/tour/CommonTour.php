@@ -9,11 +9,9 @@ class CommonTour {
 	/** @var int` */
 	public $source;
 
-	/** @var string */
-	public $countryId;
-
-	/** @var string */
-	public $cityId;
+	/** @var int|string Идентификатор в системе источника */
+	public $sourceId;
+	const ATTR_SOURCE_ID = 'sourceId';
 
 	/** @var string */
 	public $title;
@@ -29,5 +27,17 @@ class CommonTour {
 	/** @var float */
 	public $price;
 	const ATTR_PRICE = 'price';
+
+	/** @var string */
+	public $image;
+	const ATTR_IMAGE = 'image';
+
+	/** @var string Описание */
+	public $description;
+	const ATTR_DESCRIPTION = 'description';
+
+	/** @var \common\components\tour\CommonTourWayPoint[] */
+	public $wayPoints;
+	const ATTR_WAY_POINTS = 'wayPoints';
 
 }
