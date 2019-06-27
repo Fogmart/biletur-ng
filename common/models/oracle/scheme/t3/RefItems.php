@@ -136,6 +136,7 @@ class RefItems extends DspBaseModel {
 	public function getWps() {
 		return $this->hasMany(RITourWps::class, ['ITMID' => 'ID']);
 	}
+	const REL_WPS = 'wps';
 
 	/**
 	 * Только активные услуги тура

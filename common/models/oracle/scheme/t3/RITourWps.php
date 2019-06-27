@@ -41,6 +41,9 @@ use yii\db\ActiveQuery;
  */
 class RITourWps extends DspBaseModel {
 	const ATTR_ITEM_ID = 'ITMID';
+	const ATTR_CITY_ID = 'CITYID';
+	const ATTR_COUNTRY = 'COUNTRY';
+	const ATTR_DESTINATION_POINT = 'DESTPOINT';
 
 	/**
 	 * @return string

@@ -1,6 +1,9 @@
 <?php
 /**
  * @author Исаков Владислав <visakov@biletur.ru>
+ *
+ * @var \common\forms\tour\SearchForm $form
+ *
  */
 
 use yii\widgets\Pjax; ?>
@@ -18,7 +21,7 @@ use yii\widgets\Pjax; ?>
     <div class="row">
         <div class="col-xs-12">
             <div class="block-panel">
-				<?= $this->render('_search-result', ['form' => $form]) ?>
+				<?= $this->render('_search-result', ['tours' => $form->result]) ?>
             </div>
         </div>
     </div>
