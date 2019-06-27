@@ -3,7 +3,7 @@
 namespace common\models\oracle\scheme\t3;
 
 use common\components\helpers\LArray;
-use common\components\helpers\LString;
+use common\base\helpers\LString;
 use common\models\forms\Common\ContactInfo;
 use common\models\forms\TourBooking\OrderInfoForm;
 use common\models\forms\TourBooking\RefQuotsForm;
@@ -151,6 +151,7 @@ class RefItems extends DspBaseModel {
 			)
 			->orderBy(RefQuots::tableName() . '.ENDDATE');
 	}
+	const REL_ACTIVE_QUOTS = 'activeQuots';
 
 	/**
 	 * Все услуги, привязанные к туру, без каких-либо фильтров
@@ -160,6 +161,7 @@ class RefItems extends DspBaseModel {
 	public function getQuots() {
 		return $this->hasMany(RefQuots::class, ['ITMID' => 'ID']);
 	}
+	const REL_QUOTS = 'quots';
 
 	/**
 	 * Этапы тура
@@ -179,6 +181,7 @@ class RefItems extends DspBaseModel {
 		return $this->hasMany(RILaps::class, ['ITMID' => 'ID'])
 			->orderBy('BEGDATE');
 	}
+	const ATTR_LAPS = 'laps';
 
 	/**
 	 * Активные заезды тура
@@ -190,6 +193,7 @@ class RefItems extends DspBaseModel {
 			->where(RILaps::tableName() . '.BEGDATE > sysdate')
 			->orderBy('BEGDATE');
 	}
+	const ATTR_ACTIVE_LAPS = 'activeLaps';
 
 	/**
 	 * Отбор тура по зоне публикации, используем с joinWith для всех зависимых переменных

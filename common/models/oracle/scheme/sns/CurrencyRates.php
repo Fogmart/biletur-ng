@@ -3,6 +3,7 @@
 namespace common\models\oracle\scheme\sns;
 
 use common\interfaces\InvalidateModels;
+use common\models\oracle\scheme\DspBaseModel;
 use yii\db\ActiveRecord;
 
 /**
@@ -20,7 +21,7 @@ use yii\db\ActiveRecord;
  * @property string $WHOUPD
  * @property string $WHNUPD
  */
-class CurrencyRates extends ActiveRecord implements InvalidateModels {
+class CurrencyRates extends DspBaseModel implements InvalidateModels {
 	/**
 	 * @return string
 	 */

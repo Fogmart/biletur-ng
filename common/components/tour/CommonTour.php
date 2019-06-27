@@ -24,9 +24,9 @@ class CommonTour {
 	public $endDate;
 	const ATTR_END_DATE = 'endDate';
 
-	/** @var float */
-	public $price;
-	const ATTR_PRICE = 'price';
+	/** @var array Минимальная[0]/максимальная[1] цена тура */
+	public $priceMinMax;
+	const ATTR_PRICE_MIN_MAX = 'priceMinMax';
 
 	/** @var string */
 	public $image;
@@ -40,4 +40,7 @@ class CommonTour {
 	public $wayPoints;
 	const ATTR_WAY_POINTS = 'wayPoints';
 
+	/** @var \common\components\tour\CommonLap[] */
+	public $activeLaps;
+	const ATTR_ACTIVE_LAPS = 'activeLaps';
 }

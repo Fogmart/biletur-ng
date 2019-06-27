@@ -4,7 +4,7 @@ namespace common\models\oracle\scheme\t3;
 
 use common\models\oracle\scheme\DspBaseModel;
 use common\interfaces\InvalidateModels;
-use common\models\scheme\sns\CurrencyRates;
+use common\models\oracle\scheme\sns\CurrencyRates;
 use yii\db\ActiveQuery;
 
 /**
@@ -127,6 +127,6 @@ class RefQuots extends DspBaseModel {
 			return $this->TOTSUM;
 		}
 
-		return round($this->TOTSUM * round($this->currencyRate->RATE * (1 + $this->convertProcent->CONVPCNT / 100), 4), $round);
+		return round((int)$this->TOTSUM * round((float)$this->currencyRate->RATE));
 	}
 }

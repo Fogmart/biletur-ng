@@ -2,6 +2,8 @@
 
 namespace common\forms\tour;
 
+use common\components\tour\CommonLap;
+use common\components\tour\CommonLaps;
 use common\components\tour\CommonTour;
 use common\components\tour\CommonTourWayPoint;
 use common\models\oracle\scheme\t3\RefItems;
@@ -115,8 +117,10 @@ class SearchForm extends Model {
 			$commonTour->sourceId = $tour->ID;
 			$commonTour->title = trim(strip_tags($tour->NAME));
 			$commonTour->description = strip_tags((null === $tour->description ? '' : $tour->description->DESCRIPTION));
+			$commonTour->priceMinMax = $tour->quotsSummMinMax();
 
-			//Заполняем точки маршрута
+			//Заполняем точки маршрута(надеюсь это они)
+			/** @todo Еще разобраться что тут */
 			foreach ($tour->wps as $wayPoint) {
 				$commonWayPoint = new CommonTourWayPoint();
 				$commonWayPoint->cityId = $wayPoint->CITYID;
@@ -125,6 +129,16 @@ class SearchForm extends Model {
 				$commonWayPoint->daysCount = $wayPoint->NDAYS;
 
 				$commonTour->wayPoints[] = $commonWayPoint;
+			}
+
+			//Заполняем активные заезды
+			foreach ($tour->activeLaps as $activeLap) {
+				$commonLap = new CommonLap();
+				$commonLap->id = $activeLap->ID;
+				$commonLap->startDate = $activeLap->BEGDATE;
+				$commonLap->endDate = $activeLap->ENDDATE;
+
+				$commonTour->activeLaps[] = $commonLap;
 			}
 
 			$commonTours[] = $commonTour;
@@ -151,8 +165,6 @@ class SearchForm extends Model {
 			}
 		}
 
-
-		//Dump::dDie($result);
 		return $result;
 	}
 }

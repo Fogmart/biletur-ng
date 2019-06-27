@@ -1,6 +1,6 @@
 <?php
 
-namespace common\components\helpers;
+namespace common\base\helpers;
 /**
  * @author isakov.v
  *
