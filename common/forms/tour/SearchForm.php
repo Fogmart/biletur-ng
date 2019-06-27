@@ -92,12 +92,13 @@ class SearchForm extends Model {
 
 		if (!empty($this->tourTo)) {
 			$query->joinWith(RefItems::REL_WPS);
-			if (false !== strpos($this->tourTo, 'country')) {
-				$query->andWhere(['LIKE', RITourWps::tableName() . '.' . RITourWps::ATTR_COUNTRY, str_replace('_country', '', $this->tourTo)]);
+			if (false !== strpos($this->tourTo, 'country_')) {
+				$query->andWhere(['LIKE', RITourWps::tableName() . '.' . RITourWps::ATTR_COUNTRY, str_replace('country_', '', $this->tourTo)]);
 			}
 			else {
 				$query->andWhere([RITourWps::tableName() . '.' . RITourWps::ATTR_CITY_ID => $this->tourTo]);
 			}
+
 			$query->andWhere([RITourWps::tableName() . '.' . RITourWps::ATTR_DESTINATION_POINT => 1]);
 		}
 
