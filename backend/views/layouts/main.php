@@ -14,6 +14,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
+use backend\controllers\TourController;
 
 AppAsset::register($this);
 ?>
@@ -72,6 +73,7 @@ AppAsset::register($this);
 				['label' => 'Страницы', 'url' => PageController::getActionUrl(PageController::ACTION_INDEX)],
 				['label' => 'Настройки SEO', 'url' => SeoController::getActionUrl(SeoController::ACTION_INDEX)],
 				['label' => 'Баннеры', 'url' => BannerController::getActionUrl(BannerController::ACTION_INDEX)],
+				['label' => 'Туры', 'url' => TourController::getActionUrl(TourController::ACTION_INDEX)],
 			],
 		],
 	];

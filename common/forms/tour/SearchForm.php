@@ -74,12 +74,21 @@ class SearchForm extends Model {
 	}
 
 	/**
+	 * Поиск
+	 *
+	 * @param bool $onlyBiletur
+	 *
 	 * @return \common\components\tour\CommonTour[]
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
-	public function search() {
+	public function search($onlyBiletur = false) {
 		$this->result = $this->_searchBiletur();
+		if ($onlyBiletur) {
+			return $this->result;
+		}
+		/** @todo тут дальше ищем другие туры по апи, мерджим с нашими и т.д. */
+
 
 		return $this->result;
 	}
