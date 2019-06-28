@@ -5,6 +5,7 @@ namespace common\modules\seo\models;
 use common\components\SiteModel;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\caching\TagDependency;
 use yii\db\Expression;
 use yii\validators\DefaultValueValidator;
 use yii\validators\NumberValidator;
@@ -112,7 +113,12 @@ class Seo extends SiteModel {
 	 */
 	public static function registerMeta($url, $view) {
 		/** @var static $meta */
-		$meta = static::find()->one([static::ATTR_URL => $url])->one();
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $url]);
+		$meta = Yii::$app->cache->get($cacheKey);
+		if (false === $meta) {
+			$meta = static::find()->one([static::ATTR_URL => $url])->one();
+			Yii::$app->cache->set($cacheKey, $meta, null, new TagDependency(['tags' => static::class]));
+		}
 
 		static::renderMeta($meta, $view);
 	}
@@ -128,7 +134,12 @@ class Seo extends SiteModel {
 	 */
 	public static function registerMetaByObject($object, $objectId, $view) {
 		/** @var static $meta */
-		$meta = static::find()->one([static::ATTR_OBJECT => $object, static::ATTR_OBJECT_ID => $objectId])->one();
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $url]);
+		$meta = Yii::$app->cache->get($cacheKey);
+		if (false === $meta) {
+			$meta = static::find()->one([static::ATTR_OBJECT => $object, static::ATTR_OBJECT_ID => $objectId])->one();
+			Yii::$app->cache->set($cacheKey, $meta, null, new TagDependency(['tags' => static::class]));
+		}
 
 		static::renderMeta($meta, $view);
 	}
