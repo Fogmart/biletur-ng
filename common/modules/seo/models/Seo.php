@@ -109,6 +109,19 @@ class Seo extends SiteModel {
 	}
 
 	/**
+	 * @return array
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function scenarios() {
+		$scenarios = parent::scenarios();
+		$scenarios[self::SCENARIO_URL] = [static::ATTR_URL];
+		$scenarios[self::SCENARIO_OBJECT] = [static::ATTR_OBJECT, static::ATTR_OBJECT_ID];
+
+		return $scenarios;
+	}
+
+	/**
 	 * Метаданные по URL
 	 *
 	 * @param string $url
