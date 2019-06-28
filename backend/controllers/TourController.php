@@ -3,7 +3,9 @@
 namespace backend\controllers;
 
 use common\forms\tour\SearchForm;
+use common\models\oracle\scheme\t3\RefItems;
 use common\modules\rbac\rules\Permissions;
+use common\modules\seo\models\Seo;
 use yii\filters\AccessControl;
 use Yii;
 
@@ -54,5 +56,11 @@ class TourController extends BackendController {
 		}
 
 		return $this->render('index', ['form' => $form]);
+	}
+
+	public function actionUpdate($id) {
+		$seo = Seo::findOne([Seo::ATTR_OBJECT => RefItems::class, Seo::ATTR_OBJECT_ID => $id]);
+
+
 	}
 }
