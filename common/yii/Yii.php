@@ -29,6 +29,8 @@ class Yii extends BaseYii {
  * @property-read \common\modules\api\ostrovok\components\OstrovokApi $ostrovokApi
  * @property-read \common\modules\api\tripster\components\TripsterApi $tripsterApi
  * @property-read \yii\mongodb\Connection                             $mongodb
+ * @property-read \iutbay\yii2imagecache\ImageCache                   $imageCache
+ *
  */
 class Application {
 }

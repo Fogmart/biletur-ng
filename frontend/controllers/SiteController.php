@@ -61,11 +61,12 @@ class SiteController extends FrontendController {
 				'class'           => 'yii\captcha\CaptchaAction',
 				'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
 			],
+			'thumb'   => 'iutbay\yii2imagecache\ThumbAction',
 		];
 	}
 
 	public function actionSetCity($id) {
-		
+
 	}
 
 	/**

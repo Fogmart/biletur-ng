@@ -51,7 +51,7 @@ return [
 					'route'   => 'page',
 					'class'   => StaticPageUrlRule::class,
 				],
-
+				'thumbs/<path:.*>' => 'site/thumb',
 				'excursion/find-by-name/<q>/<needType>' => 'excursion/find-by-name',
 				'excursion/widget/<city>'               => 'excursion/widget',
 				'excursion/widget/<city>/<needSearch>'  => 'excursion/widget',

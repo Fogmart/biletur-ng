@@ -53,6 +53,25 @@ return [
 		]
 	],
 	'components' => [
+		'imageCache'       => [
+			'class'      => 'iutbay\yii2imagecache\ImageCache',
+			'sourcePath' => '@app/web/images/uploads',
+			'sourceUrl'  => '@web/images/uploads',
+			'thumbsPath' => '@app/web/images/thumb',
+			//'thumbsUrl'  => '@web/site/thumbs?path=',
+			'sizes'      => [
+				'thumb'          => [150, 150],
+				'medium'         => [300, 300],
+				'large'          => [600, 600],
+				'280'            => [280, 280],
+				'250'            => [250, 250],
+				'240'            => [240, 240],
+				'200'            => [200, 200],
+				'35'             => [35, 35],
+				'330'            => [330, 330],
+				'mobile-preview' => [310, 310],
+			],
+		],
 		'assetManager' => [
 			'linkAssets'      => true,
 			'appendTimestamp' => true,

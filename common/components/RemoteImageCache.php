@@ -61,6 +61,14 @@ class RemoteImageCache extends Component {
 		return Yii::$app->imageCache->thumb('/images/cache/' . $hashName, $size, ['class' => $class]);
 	}
 
+	/**
+	 * Загрузка изображений со старого сатйа
+	 *
+	 * @param string $url
+	 * @param string $hashName
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
 	private function downloadFile($url, $hashName) {
 		$remoteFilenameParts = explode('/', $url);
 		foreach ($remoteFilenameParts as $part) {
