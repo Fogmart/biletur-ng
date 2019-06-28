@@ -11,4 +11,5 @@ class Permissions {
 	const ROLE_ADMIN = 'Admin';
 	const ROLE_SEO_ADMIN = 'SeoEditor';
 	const ROLE_CONTENT_EDITOR = 'ContentEditor';
+	const ROLE_TOUR_EDITOR = 'TourEditor';
 }
