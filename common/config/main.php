@@ -53,7 +53,7 @@ return [
 		]
 	],
 	'components' => [
-		'imageCache'       => [
+		'imageCache'   => [
 			'class'      => 'iutbay\yii2imagecache\ImageCache',
 			'sourcePath' => '@app/web/images/uploads',
 			'sourceUrl'  => '@web/images/uploads',

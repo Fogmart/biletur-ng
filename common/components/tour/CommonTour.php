@@ -2,6 +2,8 @@
 
 namespace common\components\tour;
 
+use common\models\ObjectFile;
+
 class CommonTour {
 	const SOURCE_BILETUR = 0;
 
@@ -28,6 +30,10 @@ class CommonTour {
 	const ATTR_PRICE_MIN_MAX = 'priceMinMax';
 
 	/** @var string */
+	public $imageOld;
+	const ATTR_IMAGE_OLD = 'imageOld';
+
+	/** @var string */
 	public $image;
 	const ATTR_IMAGE = 'image';
 
@@ -42,4 +48,21 @@ class CommonTour {
 	/** @var \common\components\tour\CommonLap[] */
 	public $activeLaps;
 	const ATTR_ACTIVE_LAPS = 'activeLaps';
+
+	/**
+	 * Получение изображения, если привязано
+	 *
+	 * @return string|null
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function getImage() {
+		$objectFile = ObjectFile::findOne([ObjectFile::ATTR_OBJECT => static::class . '_' . $this->source, ObjectFile::ATTR_ID => $this->sourceId]);
+
+		if (null === $objectFile) {
+			return null;
+		}
+
+		return $objectFile->filename;
+	}
 }

@@ -118,7 +118,7 @@ class SearchForm extends Model {
 			$commonTour->title = trim(strip_tags($tour->NAME));
 			$commonTour->description = strip_tags((null === $tour->description ? '' : $tour->description->DESCRIPTION));
 			$commonTour->priceMinMax = $tour->quotsSummMinMax();
-			$commonTour->image = $tour->description->URL_IMG;
+			$commonTour->imageOld = $tour->description->URL_IMG;
 
 			//Заполняем точки маршрута(надеюсь это они)
 			/** @todo Еще разобраться что тут */
