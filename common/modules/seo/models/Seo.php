@@ -124,8 +124,8 @@ class Seo extends SiteModel {
 	/**
 	 * Метаданные по URL
 	 *
-	 * @param string $url
-	 * @param \yii\web\View
+	 * @param string $url   URL-адрес страницы
+	 * @param \yii\web\View Обьект вьюшки
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
@@ -144,9 +144,9 @@ class Seo extends SiteModel {
 	/**
 	 * Метаданные для обьекта
 	 *
-	 * @param string $object
-	 * @param int    $objectId
-	 * @param \yii\web\View
+	 * @param string $object   Класс обьекта
+	 * @param int    $objectId Идентификатор обьекта
+	 * @param \yii\web\View    Обьект вьюшки
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
