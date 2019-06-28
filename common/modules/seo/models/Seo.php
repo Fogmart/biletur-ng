@@ -39,6 +39,9 @@ class Seo extends SiteModel {
 	const ATTR_INSERT_STAMP = 'insert_stamp';
 	const ATTR_UPDATE_STAMP = 'update_stamp';
 
+	const SCENARIO_URL = 'sc_url';
+	const SCENARIO_OBJECT = 'sc_object';
+
 	/**
 	 * @return array
 	 *
@@ -92,11 +95,13 @@ class Seo extends SiteModel {
 	 */
 	public function rules() {
 		return [
-			[static::ATTR_URL, RequiredValidator::class],
+			[static::ATTR_URL, RequiredValidator::class, 'on' => self::SCENARIO_URL],
 			[static::ATTR_URL, UrlValidator::class],
 			[static::ATTR_SEO_TITLE, RequiredValidator::class],
 			[static::ATTR_SEO_DESCRIPTION, RequiredValidator::class],
 			[static::ATTR_SEO_KEYWORDS, RequiredValidator::class],
+			[static::ATTR_OBJECT, RequiredValidator::class, 'on' => self::SCENARIO_OBJECT],
+			[static::ATTR_OBJECT_ID, RequiredValidator::class, 'on' => self::SCENARIO_OBJECT],
 			[static::ATTR_OBJECT, StringValidator::class],
 			[static::ATTR_OBJECT_ID, NumberValidator::class],
 			[static::ATTR_USER_ID, DefaultValueValidator::class, 'value' => Yii::$app->user->id],
@@ -104,7 +109,7 @@ class Seo extends SiteModel {
 	}
 
 	/**
-	 * Отрисовка меттаданных по URL
+	 * Метаданные по URL
 	 *
 	 * @param string $url
 	 * @param \yii\web\View
@@ -124,7 +129,7 @@ class Seo extends SiteModel {
 	}
 
 	/**
-	 * Отрисовка метаданных для обьекта
+	 * Метаданные для обьекта
 	 *
 	 * @param string $object
 	 * @param int    $objectId

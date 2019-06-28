@@ -78,6 +78,7 @@ class SeoController extends BackendController {
 	 */
 	public function actionCreate() {
 		$model = new Seo();
+		$model->scenario = $model::SCENARIO_URL;
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			TagDependency::invalidate(Yii::$app->cache, [Seo::class]);
@@ -101,6 +102,7 @@ class SeoController extends BackendController {
 	 */
 	public function actionUpdate($id) {
 		$model = $this->findModel($id);
+		$model->scenario = $model::SCENARIO_URL;
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			TagDependency::invalidate(Yii::$app->cache, [Seo::class]);
