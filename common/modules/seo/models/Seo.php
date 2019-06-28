@@ -134,7 +134,7 @@ class Seo extends SiteModel {
 	 */
 	public static function registerMetaByObject($object, $objectId, $view) {
 		/** @var static $meta */
-		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $url]);
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $object, $objectId]);
 		$meta = Yii::$app->cache->get($cacheKey);
 		if (false === $meta) {
 			$meta = static::find()->one([static::ATTR_OBJECT => $object, static::ATTR_OBJECT_ID => $objectId])->one();
