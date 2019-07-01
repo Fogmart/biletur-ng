@@ -5,7 +5,6 @@ namespace common\base\helpers;
 /**
  * Вспомогательный класс для работы с числами
  *
- * @author Залатов Александр <zalatov.ao@dns-shop.ru>
  */
 class Number {
 	/**

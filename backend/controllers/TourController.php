@@ -58,9 +58,21 @@ class TourController extends BackendController {
 		return $this->render('index', ['form' => $form]);
 	}
 
+	/**
+	 * @param int $id
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 *
+	 * @return string
+	 */
 	public function actionUpdate($id) {
 		$seo = Seo::findOne([Seo::ATTR_OBJECT => RefItems::class, Seo::ATTR_OBJECT_ID => $id]);
 
+		if (Yii::$app->request->isPost) {
+			$seo->load(Yii::$app->request->post());
+			$seo->save();
+		}
 
+		return $this->render('update', ['seo' => $seo]);
 	}
 }
