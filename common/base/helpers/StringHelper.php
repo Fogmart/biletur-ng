@@ -171,7 +171,7 @@ class StringHelper extends \yii\helpers\StringHelper {
 	 *
 	 * @return string
 	 *
-	 * @author Залатов Александр <zalatov.ao@dns-shop.ru>
+	 *
 	 */
 	public static function countPostfix($count, $cases, $zeroAsWord = 'нет', $showCount = true) {
 		$countString = preg_replace('/[^\d]+/', '', $count);// Удаляем всё, кроме чисел
@@ -219,8 +219,8 @@ class StringHelper extends \yii\helpers\StringHelper {
 	 *
 	 * @return string
 	 *
-	 * @author Паболков Даниил <pabolkov.d@dns-shop.ru>
-	 * @author Максим Трофимов <trofimov.mv@dns-shop.ru>
+	 *
+	 *
 	 */
 	public static function renderTemplate($template, $templateVariables) {
 		$template = str_replace('\\{', '&#123;', $template);
@@ -242,7 +242,7 @@ class StringHelper extends \yii\helpers\StringHelper {
 	 *
 	 * @return string
 	 *
-	 * @author Залатов Александр <zalatov.ao@dns-shop.ru>
+	 *
 	 */
 	public static function urlAlias($text) {
 		$text = preg_replace('/\[([^\]]+)\]/u', '', $text);
@@ -476,7 +476,7 @@ class StringHelper extends \yii\helpers\StringHelper {
 	/**
 	 * Преобразует BB коды в HTML
 	 *
-	 * @author Гордиенко Егор (Gordienko.EN@dns-shop.ru)
+	 *
 	 *
 	 * @param string $text
 	 *
