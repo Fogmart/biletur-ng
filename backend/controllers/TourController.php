@@ -80,6 +80,8 @@ class TourController extends BackendController {
 			$seo->save();
 		}
 
-		return $this->render('update', ['seo' => $seo]);
+		$refItem = RefItems::findOne([RefItems::ATTR_ID => $id]);
+
+		return $this->render('update', ['seo' => $seo, 'refItem' => $refItem]);
 	}
 }

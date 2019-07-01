@@ -75,6 +75,8 @@ use yii\db\Expression;
  */
 class RefItems extends DspBaseModel {
 
+	const ATTR_ID = 'ID';
+
 	/** @var  common\models\oracle\scheme\sns\DspCountries $mainCountry */
 	public $mainCountry;
 

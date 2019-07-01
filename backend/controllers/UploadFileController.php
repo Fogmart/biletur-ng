@@ -2,6 +2,7 @@
 namespace backend\controllers;
 
 use common\models\ObjectFile;
+use common\models\oracle\scheme\t3\RefItems;
 use common\modules\banner\models\Banner;
 use Yii;
 use yii\filters\AccessControl;
@@ -73,6 +74,12 @@ class UploadFileController extends BackendController {
 				$object = Banner::findOne($objectId);
 				if (null === $object) {
 					throw new NotFoundHttpException('Баннер не найден.');
+				}
+				break;
+			case RefItems::class:
+				$object = RefItems::findOne([RefItems::ATTR_ID => $objectId]);
+				if (null === $object) {
+					throw new NotFoundHttpException('Тур не найден.');
 				}
 				break;
 			default:
