@@ -55,7 +55,7 @@ $image = $refItem->getImage();
 									            $(".file-upload-error").html(error);
 									            $(".file-upload-error").show();
 									        }
-									        //console.log(error); console.log(data);
+									        console.log(error); console.log(data);
 									}',
 			]
 			,

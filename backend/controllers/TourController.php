@@ -1,8 +1,6 @@
 <?php
-
 namespace backend\controllers;
 
-use common\base\helpers\Dump;
 use common\components\tour\CommonTour;
 use common\forms\tour\SearchForm;
 use common\models\oracle\scheme\t3\RefItems;
@@ -10,6 +8,7 @@ use common\modules\rbac\rules\Permissions;
 use common\modules\seo\models\Seo;
 use yii\filters\AccessControl;
 use Yii;
+use yii\helpers\Url;
 
 /**
  * Контроллер добавление доп.инфо для туров
@@ -83,6 +82,8 @@ class TourController extends BackendController {
 		}
 
 		$refItem = RefItems::findOne([RefItems::ATTR_ID => $id]);
+
+		Url::remember();
 
 		return $this->render('update', ['seo' => $seo, 'refItem' => $refItem]);
 	}
