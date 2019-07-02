@@ -29,8 +29,7 @@ $this->params['breadcrumbs'][] = 'Изменение';
 <div class="image-form">
 	<?= FileUploadUI::widget([
 		'model'     => $refItem,
-		'attribute' => $refItem::ATTR_ID,
-
+		'attribute' => $refItem::ATTR_FILE,
 		'url'           => [
 			'/upload-file/index',
 			'objectName' => $seo->object,

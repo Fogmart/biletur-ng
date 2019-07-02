@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\base\helpers\Dump;
 use common\components\tour\CommonTour;
 use common\forms\tour\SearchForm;
 use common\models\oracle\scheme\t3\RefItems;
@@ -67,17 +68,18 @@ class TourController extends BackendController {
 	 * @return string
 	 */
 	public function actionUpdate($id) {
-		$seo = Seo::findOne([Seo::ATTR_OBJECT => RefItems::class, Seo::ATTR_OBJECT_ID => $id]);
+		$seo = Seo::findOne([Seo::ATTR_OBJECT => CommonTour::class, Seo::ATTR_OBJECT_ID => $id]);
 		if (null === $seo) {
 			$seo = new Seo();
 			$seo->object = CommonTour::class;
 			$seo->object_id = $id;
 		}
-		$seo->scenario = Seo::SCENARIO_OBJECT;
 
 		if (Yii::$app->request->isPost) {
 			$seo->load(Yii::$app->request->post());
-			$seo->save();
+			$seo->url = '0';
+			$seo->user_id = Yii::$app->user->id;
+			$seo->save(false);
 		}
 
 		$refItem = RefItems::findOne([RefItems::ATTR_ID => $id]);

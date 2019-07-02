@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use common\components\tour\CommonTour;
 use common\models\ObjectFile;
 use common\models\oracle\scheme\t3\RefItems;
 use common\modules\banner\models\Banner;
@@ -76,7 +77,7 @@ class UploadFileController extends BackendController {
 					throw new NotFoundHttpException('Баннер не найден.');
 				}
 				break;
-			case RefItems::class:
+			case CommonTour::class:
 				$object = RefItems::findOne([RefItems::ATTR_ID => $objectId]);
 				if (null === $object) {
 					throw new NotFoundHttpException('Тур не найден.');

@@ -89,6 +89,9 @@ class RefItems extends DspBaseModel {
 	/** @var  \common\models\oracle\scheme\t3\RiTourWps $wpEnd */
 	public $wpEnd;
 
+	const ATTR_FILE = 'file';
+	public $file;
+
 	/**
 	 * @return QueryRefItems|ActiveQuery
 	 */

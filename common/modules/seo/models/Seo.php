@@ -10,6 +10,7 @@ use yii\db\Expression;
 use yii\validators\DefaultValueValidator;
 use yii\validators\NumberValidator;
 use yii\validators\RequiredValidator;
+use yii\validators\SafeValidator;
 use yii\validators\StringValidator;
 use yii\validators\UrlValidator;
 
@@ -38,9 +39,6 @@ class Seo extends SiteModel {
 	const ATTR_OBJECT_ID = 'object_id';
 	const ATTR_INSERT_STAMP = 'insert_stamp';
 	const ATTR_UPDATE_STAMP = 'update_stamp';
-
-	const SCENARIO_URL = 'sc_url';
-	const SCENARIO_OBJECT = 'sc_object';
 
 	/**
 	 * @return array
@@ -95,30 +93,15 @@ class Seo extends SiteModel {
 	 */
 	public function rules() {
 		return [
-			[static::ATTR_URL, RequiredValidator::class, 'on' => self::SCENARIO_URL],
+			[static::ATTR_URL, SafeValidator::class],
 			[static::ATTR_URL, UrlValidator::class],
 			[static::ATTR_SEO_TITLE, RequiredValidator::class],
 			[static::ATTR_SEO_DESCRIPTION, RequiredValidator::class],
 			[static::ATTR_SEO_KEYWORDS, RequiredValidator::class],
-			[static::ATTR_OBJECT, RequiredValidator::class, 'on' => self::SCENARIO_OBJECT],
-			[static::ATTR_OBJECT_ID, RequiredValidator::class, 'on' => self::SCENARIO_OBJECT],
-			[static::ATTR_OBJECT, StringValidator::class],
-			[static::ATTR_OBJECT_ID, NumberValidator::class],
+			[static::ATTR_OBJECT, SafeValidator::class],
+			[static::ATTR_OBJECT_ID, SafeValidator::class],
 			[static::ATTR_USER_ID, DefaultValueValidator::class, 'value' => Yii::$app->user->id],
 		];
-	}
-
-	/**
-	 * @return array
-	 *
-	 * @author Исаков Владислав <visakov@biletur.ru>
-	 */
-	public function scenarios() {
-		$scenarios = parent::scenarios();
-		$scenarios[self::SCENARIO_URL] = [static::ATTR_URL];
-		$scenarios[self::SCENARIO_OBJECT] = [static::ATTR_OBJECT, static::ATTR_OBJECT_ID];
-
-		return $scenarios;
 	}
 
 	/**
