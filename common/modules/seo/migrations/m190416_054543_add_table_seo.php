@@ -20,7 +20,6 @@ class m190416_054543_add_table_seo extends OracleMigration {
 			'update_stamp'    => Schema::TYPE_DATETIME . ' NOT NULL',
 		]);
 
-		$this->createIndex(null, $this->_tableName, ['url'], true);
 	}
 
 	/**
