@@ -57,12 +57,12 @@ class CommonTour {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function getImage() {
-		$objectFile = ObjectFile::findOne([ObjectFile::ATTR_OBJECT => static::class . '_' . $this->source, ObjectFile::ATTR_ID => $this->sourceId]);
+		$objectFile = ObjectFile::findOne([ObjectFile::ATTR_OBJECT => static::class, ObjectFile::ATTR_OBJECT_ID => $this->sourceId]);
 
 		if (null === $objectFile) {
 			return null;
 		}
 
-		return $objectFile->filename;
+		return $objectFile->getWebUrl();
 	}
 }

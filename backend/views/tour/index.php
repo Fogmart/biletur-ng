@@ -47,13 +47,13 @@ $this->params['breadcrumbs'][] = 'Туры';
         <?php if(null !== $form->result):?>
             <table class="table table-striped table-bordered table-condensed">
                 <tr>
-                    <th>Изображение</th>
+                    <th width="320px">Изображение</th>
                     <th>Название</th>
                     <th>#</th>
                 </tr>
                 <?php foreach ($form->result as $tour):?>
                     <tr>
-                        <td><?= $tour->image ?></td>
+                        <td  class="text-center"><img src="<?= $tour->getImage() ?>" width="300"></td>
                         <td><?= $tour->title ?></td>
                         <td class="text-center"><a href="<?=TourController::getActionUrl(TourController::ACTION_UPDATE, ['id' => $tour->sourceId])?>"><i class="glyphicon glyphicon-pencil"> </i></a></td>
                     </tr>
