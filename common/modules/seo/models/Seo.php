@@ -3,17 +3,14 @@
 namespace common\modules\seo\models;
 
 use common\components\SiteModel;
-use common\components\tour\CommonTour;
 use common\models\ObjectFile;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\caching\TagDependency;
 use yii\db\Expression;
 use yii\validators\DefaultValueValidator;
-use yii\validators\NumberValidator;
 use yii\validators\RequiredValidator;
 use yii\validators\SafeValidator;
-use yii\validators\StringValidator;
 use yii\validators\UrlValidator;
 
 /**
@@ -109,7 +106,7 @@ class Seo extends SiteModel {
 	/**
 	 * Метаданные по URL
 	 *
-	 * @param string $url   URL-адрес страницы
+	 * @param string $url URL-адрес страницы
 	 * @param \yii\web\View Обьект вьюшки
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
@@ -177,7 +174,7 @@ class Seo extends SiteModel {
 			'content' => $meta->seo_keywords
 		]);
 
-		Yii::$app->opengraph->title =  $meta->seo_title;
+		Yii::$app->opengraph->title = $meta->seo_title;
 		Yii::$app->opengraph->description = $meta->seo_description;
 
 		$image = ObjectFile::findOne([ObjectFile::ATTR_OBJECT => $meta->object, ObjectFile::ATTR_OBJECT_ID => $meta->object_id]);
