@@ -1,8 +1,6 @@
 <?php
-
 namespace common\modules\seo\models;
 
-use common\base\helpers\Dump;
 use common\components\SiteModel;
 use common\models\ObjectFile;
 use Yii;
@@ -121,7 +119,7 @@ class Seo extends SiteModel {
 			Yii::$app->cache->set($cacheKey, $meta, null, new TagDependency(['tags' => static::class]));
 		}
 
-		static::renderMeta($meta, $view);
+		static::_renderMeta($meta, $view);
 	}
 
 	/**
@@ -142,7 +140,7 @@ class Seo extends SiteModel {
 			Yii::$app->cache->set($cacheKey, $meta, null, new TagDependency(['tags' => static::class]));
 		}
 
-		static::renderMeta($meta, $view);
+		static::_renderMeta($meta, $view);
 	}
 
 	/**
@@ -153,7 +151,7 @@ class Seo extends SiteModel {
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
-	public static function renderMeta($meta, $view) {
+	private static function _renderMeta($meta, $view) {
 		if (null === $meta) {
 			return;
 		}
