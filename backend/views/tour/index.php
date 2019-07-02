@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = 'Туры';
 		])->label(false); ?>
     </div>
     <div class="col-xs-3">
+
     </div>
     <div class="col-xs-3">
 
@@ -54,7 +55,7 @@ $this->params['breadcrumbs'][] = 'Туры';
                 <?php foreach ($form->result as $tour):?>
                     <tr>
                         <td  class="text-center"><img src="<?= $tour->getImage() ?>" width="300"></td>
-                        <td><?= $tour->title ?></td>
+                        <td><strong><?= $tour->title ?></strong></td>
                         <td class="text-center"><a href="<?=TourController::getActionUrl(TourController::ACTION_UPDATE, ['id' => $tour->sourceId])?>"><i class="glyphicon glyphicon-pencil"> </i></a></td>
                     </tr>
                 <?php endforeach ?>
