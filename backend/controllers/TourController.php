@@ -18,7 +18,7 @@ use yii\helpers\Url;
  * @author  Исаков Владислав <visakov@biletur.ru>
  */
 class TourController extends BackendController {
-	const ACTION_INDEX = '';
+	const ACTION_INDEX = 'index';
 	const ACTION_UPDATE = 'update';
 
 	/**
@@ -31,7 +31,6 @@ class TourController extends BackendController {
 				'rules' => [
 					[
 						'actions' => [
-							'index',
 							static::ACTION_INDEX,
 							static::ACTION_UPDATE,
 						],
