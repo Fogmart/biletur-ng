@@ -1,4 +1,5 @@
 <?php
+
 namespace common\modules\seo\models;
 
 use common\components\SiteModel;
@@ -176,7 +177,13 @@ class Seo extends SiteModel {
 		Yii::$app->opengraph->title = $meta->seo_title;
 		Yii::$app->opengraph->description = $meta->seo_description;
 
-		$image = ObjectFile::findOne([ObjectFile::ATTR_OBJECT => $meta->object, ObjectFile::ATTR_OBJECT_ID => $meta->object_id]);
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, 'image', $meta->object, $meta->object_id]);
+		$image = Yii::$app->cache->get($cacheKey);
+		if (false === $image) {
+			$image = ObjectFile::findOne([ObjectFile::ATTR_OBJECT => $meta->object, ObjectFile::ATTR_OBJECT_ID => $meta->object_id]);
+			Yii::$app->cache->set($cacheKey, $image, null, new TagDependency(['tags' => [static::class]]));
+		}
+
 		if (null !== $image) {
 			Yii::$app->opengraph->image = Yii::$app->request->hostInfo . $image->getWebUrl();
 		}

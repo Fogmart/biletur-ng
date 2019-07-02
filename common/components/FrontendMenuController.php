@@ -5,6 +5,9 @@
 
 namespace common\components;
 
+use common\components\tour\CommonTour;
+use common\modules\seo\models\Seo;
+
 class FrontendMenuController extends FrontendController {
 	public function beforeAction($action) {
 		$this->layout = 'common';
