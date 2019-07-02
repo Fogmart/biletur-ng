@@ -2,6 +2,7 @@
 
 namespace common\modules\seo\models;
 
+use common\base\helpers\Dump;
 use common\components\SiteModel;
 use common\models\ObjectFile;
 use Yii;
@@ -137,7 +138,7 @@ class Seo extends SiteModel {
 		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $object, $objectId]);
 		$meta = Yii::$app->cache->get($cacheKey);
 		if (false === $meta) {
-			$meta = static::find()->one([static::ATTR_OBJECT => $object, static::ATTR_OBJECT_ID => $objectId])->one();
+			$meta = static::find()->where([static::ATTR_OBJECT => $object, static::ATTR_OBJECT_ID => $objectId])->one();
 			Yii::$app->cache->set($cacheKey, $meta, null, new TagDependency(['tags' => static::class]));
 		}
 
@@ -179,7 +180,7 @@ class Seo extends SiteModel {
 
 		$image = ObjectFile::findOne([ObjectFile::ATTR_OBJECT => $meta->object, ObjectFile::ATTR_OBJECT_ID => $meta->object_id]);
 		if (null !== $image) {
-			Yii::$app->opengraph->image = $image->getWebUrl();
+			Yii::$app->opengraph->image = Yii::$app->request->hostInfo . $image->getWebUrl();
 		}
 	}
 }

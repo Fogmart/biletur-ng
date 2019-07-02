@@ -84,6 +84,8 @@ class TourController extends BackendController {
 
 		Url::remember();
 
+		Seo::registerMetaByObject(CommonTour::class, $id, $this->view);
+
 		return $this->render('update', ['seo' => $seo, 'refItem' => $refItem]);
 	}
 }
