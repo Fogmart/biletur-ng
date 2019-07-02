@@ -3,6 +3,8 @@
 namespace common\modules\seo\models;
 
 use common\components\SiteModel;
+use common\components\tour\CommonTour;
+use common\models\ObjectFile;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\caching\TagDependency;
@@ -177,6 +179,10 @@ class Seo extends SiteModel {
 
 		Yii::$app->opengraph->title =  $meta->seo_title;
 		Yii::$app->opengraph->description = $meta->seo_description;
-		Yii::$app->opengraph->image = '';
+
+		$image = ObjectFile::findOne([ObjectFile::ATTR_OBJECT => $meta->object, ObjectFile::ATTR_OBJECT_ID => $meta->object_id]);
+		if (null !== $image) {
+			Yii::$app->opengraph->image = $image->getWebUrl();
+		}
 	}
 }
