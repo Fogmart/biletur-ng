@@ -2,17 +2,19 @@
 
 namespace common\models\oracle\scheme\t3;
 
-use common\components\helpers\LArray;
 use common\base\helpers\LString;
+use common\components\helpers\LArray;
+use common\components\tour\CommonTour;
 use common\models\forms\Common\ContactInfo;
 use common\models\forms\TourBooking\OrderInfoForm;
 use common\models\forms\TourBooking\RefQuotsForm;
+use common\models\ObjectFile;
 use common\models\oracle\scheme\DspBaseModel;
 use common\models\oracle\scheme\sns\Countries;
 use common\models\oracle\scheme\sns\OrgStaff;
+use common\models\oracle\scheme\t3\queries\QueryRefItems;
 use common\models\procedures\TourCreateOrderCustomerInfo;
 use common\models\procedures\TourUpdOrdQuot;
-use common\models\oracle\scheme\t3\queries\QueryRefItems;
 use common\models\scheme\tour\Orders;
 use common\models\scheme\tour\OrdPerson;
 use common\models\scheme\tour\OrdRemark;
@@ -71,7 +73,7 @@ use yii\db\Expression;
  * @property-read \common\models\oracle\scheme\t3\RefQuots[]       $activeQuots
  * @property-read \common\models\oracle\scheme\t3\RefQuots[]       $quots
  * @property-read \common\models\oracle\scheme\sns\DspOrgStaff     $staff
- *
+ * @property-read  ObjectFile                                      $image
  */
 class RefItems extends DspBaseModel {
 
@@ -141,6 +143,7 @@ class RefItems extends DspBaseModel {
 	public function getWps() {
 		return $this->hasMany(RITourWps::class, ['ITMID' => 'ID'])->orderBy([RITourWps::ATTR_NUMBER => SORT_ASC]);
 	}
+
 	const REL_WPS = 'wps';
 
 	/**
@@ -156,6 +159,7 @@ class RefItems extends DspBaseModel {
 			)
 			->orderBy(RefQuots::tableName() . '.ENDDATE');
 	}
+
 	const REL_ACTIVE_QUOTS = 'activeQuots';
 
 	/**
@@ -166,6 +170,7 @@ class RefItems extends DspBaseModel {
 	public function getQuots() {
 		return $this->hasMany(RefQuots::class, ['ITMID' => 'ID']);
 	}
+
 	const REL_QUOTS = 'quots';
 
 	/**
@@ -186,6 +191,7 @@ class RefItems extends DspBaseModel {
 		return $this->hasMany(RILaps::class, ['ITMID' => 'ID'])
 			->orderBy('BEGDATE');
 	}
+
 	const ATTR_LAPS = 'laps';
 
 	/**
@@ -198,6 +204,7 @@ class RefItems extends DspBaseModel {
 			->where(RILaps::tableName() . '.BEGDATE > sysdate')
 			->orderBy('BEGDATE');
 	}
+
 	const ATTR_ACTIVE_LAPS = 'activeLaps';
 
 	/**
@@ -212,6 +219,7 @@ class RefItems extends DspBaseModel {
 										AND TOURZONEID = " . Yii::$app->env->getTourZone()
 			);
 	}
+
 	const REL_ACTIVE = 'active';
 
 	/**
@@ -512,4 +520,17 @@ class RefItems extends DspBaseModel {
 		$this->wpBeg = $wayPointsArray[$maxNpp];
 		$this->wpEnd = $wayPointsArray[$minNpp];
 	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function getImage() {
+		return $this->hasOne(ObjectFile::class, [ObjectFile::ATTR_OBJECT_ID => static::ATTR_ID])
+			->andWhere([ObjectFile::ATTR_OBJECT => CommonTour::class])->one();
+	}
+
+	const REL_IMAGE = 'image';
+
 }
