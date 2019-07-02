@@ -175,6 +175,8 @@ class Seo extends SiteModel {
 			'content' => $meta->seo_keywords
 		]);
 
-		/**@todo дальше регаем опенграфы и еще что-то */
+		Yii::$app->opengraph->title =  $meta->seo_title;
+		Yii::$app->opengraph->description = $meta->seo_description;
+		Yii::$app->opengraph->image = '';
 	}
 }

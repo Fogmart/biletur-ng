@@ -53,6 +53,9 @@ return [
 		]
 	],
 	'components' => [
+		'opengraph' => [
+			'class' => 'fgh151\opengraph\OpenGraph',
+		],
 		'imageCache'   => [
 			'class'      => 'iutbay\yii2imagecache\ImageCache',
 			'sourcePath' => '@app/web/images/uploads',

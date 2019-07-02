@@ -46,7 +46,8 @@
     "johnitvn/yii2-rbac-plus": "*",
     "edvlerblog/yii2-adldap-module": "^6.0.0",
     "kartik-v/yii2-field-range": "dev-master",
-    "iutbay/yii2-imagecache": "*"
+    "iutbay/yii2-imagecache": "*",
+    "fgh151/yii2-opengraph": "*"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",
