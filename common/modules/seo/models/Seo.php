@@ -116,7 +116,7 @@ class Seo extends SiteModel {
 		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $url]);
 		$meta = Yii::$app->cache->get($cacheKey);
 		if (false === $meta) {
-			$meta = static::find()->one([static::ATTR_URL => $url])->one();
+			$meta = static::find()->where([static::ATTR_URL => $url])->one();
 			Yii::$app->cache->set($cacheKey, $meta, null, new TagDependency(['tags' => static::class]));
 		}
 
@@ -174,6 +174,8 @@ class Seo extends SiteModel {
 			'content' => $meta->seo_keywords
 		]);
 
+
+		//Отрисовка OpenGraph тегов
 		Yii::$app->opengraph->title = $meta->seo_title;
 		Yii::$app->opengraph->description = $meta->seo_description;
 
