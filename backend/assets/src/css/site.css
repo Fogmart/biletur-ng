@@ -136,3 +136,6 @@ input.toggle {
     text-shadow: #012b4d 2px 2px 2px;
     text-align: center;
 }
+.resize td {
+    white-space: nowrap;
+}

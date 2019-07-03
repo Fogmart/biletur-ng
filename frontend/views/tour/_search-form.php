@@ -13,7 +13,7 @@ use yii\bootstrap\Html;
 ?>
 
 <?php $htmlForm = ActiveForm::begin(['options' => ['data-pjax' => true]]); ?>
-
+<?= $htmlForm->field($form, $form::ATTR_CITY_IN_WAY_POINT)->hiddenInput()->label(false) ?>
 <div class="row">
     <div class="col-xs-4">
 		<?= $htmlForm->field($form, $form::ATTR_TOUR_TO)->widget(Select2::class, [
@@ -25,8 +25,6 @@ use yii\bootstrap\Html;
 			'pluginOptions' => [
 				'allowClear'         => true,
 				'minimumInputLength' => 2,
-				//'templateResult'     => new JsExpression(' console.log(data);'),
-				//'templateSelection'  => new JsExpression(' console.log(data);'),
 			],
 			'pluginEvents'  => [
 				"select2:select" => "function() { $('#w0').submit(); }",
@@ -41,7 +39,6 @@ use yii\bootstrap\Html;
     <div class="col-xs-2">
 		<?= Html::submitButton('Найти', ['class' => 'btn btn-primary', 'id' => 'search-button']) ?>
     </div>
-
 </div>
 <?php ActiveForm::end(); ?>
 

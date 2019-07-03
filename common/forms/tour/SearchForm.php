@@ -7,7 +7,6 @@ use common\components\tour\CommonTour;
 use common\components\tour\CommonTourWayPoint;
 use common\models\oracle\scheme\t3\RefItems;
 use common\models\oracle\scheme\t3\RITourWps;
-use common\base\helpers\StringHelper;
 use yii\base\Model;
 use yii\validators\NumberValidator;
 use yii\validators\StringValidator;
@@ -25,6 +24,10 @@ class SearchForm extends Model {
 	/** @var string Из какого города(по справочнику Билетур) */
 	public $fromCity;
 	const ATTR_FROM_CITY = 'fromCity';
+
+	/** @var string Город в точке маршрута */
+	public $cityInWayPoint;
+	const ATTR_CITY_IN_WAY_POINT = 'cityInWayPoint';
 
 	/** @var int */
 	public $sortBy;
