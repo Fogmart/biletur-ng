@@ -16,6 +16,7 @@ class AppAsset extends AssetBundle {
 	];
 
 	public $js = [
+		'/js/biletur-admin.js',
 	];
 
 	public $depends = [

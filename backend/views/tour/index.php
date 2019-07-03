@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = 'Туры';
 				<tr>
 					<th width="300px">Изображение для сайта</th>
 					<th>Название</th>
-					<th>#</th>
+					<th width="30px">#</th>
 				</tr>
 				<?php foreach ($form->result as $tour): ?>
 					<tr>
@@ -64,3 +64,15 @@ $this->params['breadcrumbs'][] = 'Туры';
 		<?php endif ?>
 	</div>
 </div>
+<?php $this->registerJs('$(function(){
+ var onSampleResized = function(e){  
+    var table = $(e.currentTarget); 
+  };  
+
+  $("table").colResizable({
+    liveDrag:true,
+    gripInnerHtml:"<div class=\'grip\'></div>", 
+    draggingClass:"dragging", 
+    onResize:onSampleResized
+  });
+});')?>
