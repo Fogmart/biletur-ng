@@ -6,6 +6,7 @@ use common\forms\tour\SearchForm;
 use common\models\oracle\scheme\t3\RefItems;
 use common\modules\rbac\rules\Permissions;
 use common\modules\seo\models\Seo;
+use yii\caching\TagDependency;
 use yii\filters\AccessControl;
 use Yii;
 use yii\helpers\Url;
@@ -81,6 +82,8 @@ class TourController extends BackendController {
 		}
 
 		$refItem = RefItems::findOne([RefItems::ATTR_ID => $id]);
+
+		TagDependency::invalidate(Yii::$app->cache, [RefItems::class, Seo::class]);
 
 		Url::remember();
 

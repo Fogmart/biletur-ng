@@ -6,10 +6,14 @@ use common\components\tour\CommonLap;
 use common\components\tour\CommonTour;
 use common\components\tour\CommonTourWayPoint;
 use common\models\oracle\scheme\t3\RefItems;
+use common\models\oracle\scheme\t3\RILaps;
+use common\models\oracle\scheme\t3\RITour;
 use common\models\oracle\scheme\t3\RITourWps;
 use yii\base\Model;
+use yii\caching\TagDependency;
 use yii\validators\NumberValidator;
 use yii\validators\StringValidator;
+use Yii;
 
 class SearchForm extends Model {
 
@@ -124,17 +128,33 @@ class SearchForm extends Model {
 
 		$commonTours = [];
 		foreach ($tours as $tour) {
+
+			$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$tour->description', $tour->ID]);
+			$description = Yii::$app->cache->get($cacheKey);
+			if (false === $description) {
+				$description = $tour->description;
+				Yii::$app->cache->set($cacheKey, $description, 3600 * 8, new TagDependency(['tags' => RITour::class]));
+			}
+
 			$commonTour = new CommonTour();
 			$commonTour->source = CommonTour::SOURCE_BILETUR;
 			$commonTour->sourceId = $tour->ID;
 			$commonTour->title = trim(strip_tags($tour->NAME));
-			$commonTour->description = strip_tags((null === $tour->description ? '' : $tour->description->DESCRIPTION));
+			$commonTour->description = strip_tags((null === $description ? '' : $description->DESCRIPTION));
 			$commonTour->priceMinMax = $tour->quotsSummMinMax();
-			$commonTour->imageOld = (null !== $tour->description ? $tour->description->URL_IMG : null);
+			$commonTour->imageOld = (null !== $description ? $description->URL_IMG : null);
+			$commonTour->image = $commonTour->getImage();
 
 			//Заполняем точки маршрута(надеюсь это они)
-			/** @todo Еще разобраться что тут */
-			foreach ($tour->wps as $wayPoint) {
+			$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$tour->wps', $tour->ID]);
+			$wps = Yii::$app->cache->get($cacheKey);
+			if (false === $wps) {
+				$wps = $tour->wps;
+
+				Yii::$app->cache->set($cacheKey, $wps, 3600 * 8, new TagDependency(['tags' => RITourWps::class]));
+			}
+
+			foreach ($wps as $wayPoint) {
 				$commonWayPoint = new CommonTourWayPoint();
 				$commonWayPoint->cityId = $wayPoint->CITYID;
 				$commonWayPoint->country = $wayPoint->COUNTRY;
@@ -145,7 +165,15 @@ class SearchForm extends Model {
 			}
 
 			//Заполняем активные заезды
-			foreach ($tour->activeLaps as $activeLap) {
+			$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$tour->activeLaps', $tour->ID]);
+			$activeLaps = Yii::$app->cache->get($cacheKey);
+			if (false === $activeLaps) {
+				$activeLaps = $tour->activeLaps;
+
+				Yii::$app->cache->set($cacheKey, $activeLaps, 3600 * 8, new TagDependency(['tags' => RILaps::class]));
+			}
+
+			foreach ($activeLaps as $activeLap) {
 				$commonLap = new CommonLap();
 				$commonLap->id = $activeLap->ID;
 				$commonLap->startDate = $activeLap->BEGDATE;

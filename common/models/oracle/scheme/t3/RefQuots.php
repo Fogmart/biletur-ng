@@ -5,7 +5,9 @@ namespace common\models\oracle\scheme\t3;
 use common\models\oracle\scheme\DspBaseModel;
 use common\interfaces\InvalidateModels;
 use common\models\oracle\scheme\sns\CurrencyRates;
+use yii\caching\TagDependency;
 use yii\db\ActiveQuery;
+use Yii;
 
 /**
  * @author isakov.v
@@ -127,6 +129,14 @@ class RefQuots extends DspBaseModel {
 			return $this->TOTSUM;
 		}
 
-		return round((int)$this->TOTSUM * round((float)$this->currencyRate->RATE));
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, 'rate']);
+		$rate = Yii::$app->cache->get($cacheKey);
+		if (false === $rate) {
+			$rate = round((float)$this->currencyRate->RATE);
+
+			Yii::$app->cache->set($cacheKey, $rate, 3600 * 8, new TagDependency(['tags' => CurrencyRates::class]));
+		}
+
+		return round((int)$this->TOTSUM * $rate);
 	}
 }

@@ -20,6 +20,7 @@ use common\models\scheme\tour\OrdPerson;
 use common\models\scheme\tour\OrdRemark;
 use common\models\scheme\tour\OrdTour;
 use Yii;
+use yii\caching\TagDependency;
 use yii\db\ActiveQuery;
 use yii\db\Expression;
 
@@ -252,13 +253,22 @@ class RefItems extends DspBaseModel {
 	 * @return array
 	 */
 	public function quotsSummMinMax() {
-		if ($this->activeQuots === null) {
+
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $this->ID]);
+		$activeQuots = Yii::$app->cache->get($cacheKey);
+		if (false === $activeQuots) {
+			$activeQuots = $this->activeQuots;
+
+			Yii::$app->cache->set($cacheKey, $activeQuots, 3600 * 8, new TagDependency(['tags' => [RefQuots::class]]));
+		}
+
+		if ($activeQuots === null) {
 			return null;
 		}
 
 		$summs = [];
 
-		foreach ($this->activeQuots as $quot) {
+		foreach ($activeQuots as $quot) {
 			if ($quot->CRNCY != 'RUB') {
 				$summs[] = $quot->getTotRubSumm();
 			}

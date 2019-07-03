@@ -3,6 +3,9 @@
 namespace common\components\tour;
 
 use common\models\ObjectFile;
+use common\models\oracle\scheme\t3\RefItems;
+use Yii;
+use yii\caching\TagDependency;
 
 class CommonTour {
 	const SOURCE_BILETUR = 0;
@@ -57,8 +60,13 @@ class CommonTour {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function getImage() {
-		$objectFile = ObjectFile::findOne([ObjectFile::ATTR_OBJECT => static::class, ObjectFile::ATTR_OBJECT_ID => $this->sourceId]);
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, static::class, $this->sourceId]);
+		$objectFile = Yii::$app->cache->get($cacheKey);
+		if (false === $objectFile) {
+			$objectFile = ObjectFile::findOne([ObjectFile::ATTR_OBJECT => static::class, ObjectFile::ATTR_OBJECT_ID => $this->sourceId]);
 
+			Yii::$app->cache->set($cacheKey, $objectFile, null, new TagDependency(['tags' => RefItems::class]));
+		}
 		if (null === $objectFile) {
 			return null;
 		}
