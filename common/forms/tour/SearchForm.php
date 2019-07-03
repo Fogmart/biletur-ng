@@ -3,11 +3,11 @@
 namespace common\forms\tour;
 
 use common\components\tour\CommonLap;
-use common\components\tour\CommonLaps;
 use common\components\tour\CommonTour;
 use common\components\tour\CommonTourWayPoint;
 use common\models\oracle\scheme\t3\RefItems;
 use common\models\oracle\scheme\t3\RITourWps;
+use common\base\helpers\StringHelper;
 use yii\base\Model;
 use yii\validators\NumberValidator;
 use yii\validators\StringValidator;
@@ -124,7 +124,7 @@ class SearchForm extends Model {
 			$commonTour = new CommonTour();
 			$commonTour->source = CommonTour::SOURCE_BILETUR;
 			$commonTour->sourceId = $tour->ID;
-			$commonTour->title = trim(strip_tags($tour->NAME));
+			$commonTour->title = StringHelper::ucfirst(trim(strip_tags($tour->NAME)));
 			$commonTour->description = strip_tags((null === $tour->description ? '' : $tour->description->DESCRIPTION));
 			$commonTour->priceMinMax = $tour->quotsSummMinMax();
 			$commonTour->imageOld = (null !== $tour->description ? $tour->description->URL_IMG : null);
