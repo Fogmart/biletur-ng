@@ -3,6 +3,8 @@
 		var LEFT_MENU = $('.left-menu');
 		var methods = {
 			init: function () {
+
+				//Отображение прктилки подгрузки
 				$(document).on('pjax:send', function() {
 					$('.loading-widget').show();
 					$('.block-panel .result .list').html('');
@@ -14,6 +16,7 @@
 					$('.block-panel').removeClass('process');
 				});
 
+				//Фиксация меню
 				$(window).scroll(function () {
 					if ($(this).scrollTop() > 70) {
 						LEFT_MENU.addClass("fixed");
