@@ -94,7 +94,7 @@ class SearchForm extends Model {
 		if ($onlyBiletur) {
 			return $this->result;
 		}
-		/** @todo тут дальше ищем другие туры по апи, мерджим с нашими и т.д. */
+		//TODO тут дальше ищем другие туры по апи, мерджим с нашими и т.д.
 
 
 		return $this->result;
@@ -133,7 +133,6 @@ class SearchForm extends Model {
 
 		$commonTours = [];
 		foreach ($tours as $tour) {
-
 			$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$tour->description', $tour->ID]);
 			$description = Yii::$app->cache->get($cacheKey);
 			if (false === $description) {
