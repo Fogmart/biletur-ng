@@ -8,12 +8,15 @@
  */
 
 ?>
-<div class="result">
-	<div class="loading-widget" style="display: none;"></div>
-	<?php
-	\common\base\helpers\Dump::d($tours);
-	?>
-</div>
-<?php foreach ($tours as $tour):?>
+	<div class="result">
+		<div class="loading-widget" style="display: none;"></div>
+		<?php
+		\common\base\helpers\Dump::d($tours);
+		?>
+	</div>
+<?php foreach ($tours as $tour): ?>
 
 <?php endforeach ?>
+<?php
+$this->registerJs('$(this).searchTourPlugin();');
+?>
