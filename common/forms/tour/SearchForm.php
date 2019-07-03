@@ -123,8 +123,13 @@ class SearchForm extends Model {
 			$query->andWhere([RITourWps::tableName() . '.' . RITourWps::ATTR_DESTINATION_POINT => 1]);
 		}
 
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$tours', $this->tourTo, $this->tourType, $this->cityInWayPoint]);
 		/** @var RefItems[] $tours */
-		$tours = $query->all();
+		$tours = Yii::$app->cache->get($cacheKey);
+		if (false === $tours) {
+			$tours = $query->all();
+			Yii::$app->cache->set($cacheKey, $tours, 3600 * 8, new TagDependency(['tags' => [RefItems::class, RITourWps::class]]));
+		}
 
 		$commonTours = [];
 		foreach ($tours as $tour) {
@@ -145,7 +150,7 @@ class SearchForm extends Model {
 			$commonTour->imageOld = (null !== $description ? $description->URL_IMG : null);
 			$commonTour->image = $commonTour->getImage();
 
-			//Заполняем точки маршрута(надеюсь это они)
+			//Заполняем точки маршрута
 			$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$tour->wps', $tour->ID]);
 			$wps = Yii::$app->cache->get($cacheKey);
 			if (false === $wps) {
