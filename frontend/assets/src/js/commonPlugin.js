@@ -4,7 +4,7 @@
 		var methods = {
 			init: function () {
 
-				//Отображение прктилки подгрузки
+				//Отображение крутилки подгрузки ajax'ом
 				$(document).on('pjax:send', function() {
 					$('.loading-widget').show();
 					$('.block-panel .result .list').html('');
