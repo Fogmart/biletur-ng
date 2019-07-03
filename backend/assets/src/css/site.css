@@ -128,7 +128,7 @@ input.toggle {
     display: none !important;
 }
 
-th {
+.resize th {
     background-image: url(/images/th.png);
     height: 30px;
     background-repeat: no-repeat;

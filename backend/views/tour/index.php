@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = 'Туры';
 <div class="row">
 	<div class="col-xs-12">
 		<?php if (null !== $form->result): ?>
-			<table class="table table-striped table-bordered table-condensed">
+			<table class="table table-striped table-bordered table-condensed resize">
 				<tr>
 					<th width="300px">Изображение для сайта</th>
 					<th>Название</th>
@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = 'Туры';
     var table = $(e.currentTarget); 
   };  
 
-  $("table").colResizable({
+  $("table.resize").colResizable({
     liveDrag:true,
     gripInnerHtml:"<div class=\'grip\'></div>", 
     draggingClass:"dragging", 
