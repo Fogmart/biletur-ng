@@ -105,6 +105,10 @@ body {
 		list-style-type: none;
 		font-weight: lighter;
 	}
+	&.fixed {
+		position: fixed;
+		padding-top: 0px;
+	}
 }
 
 .footer {

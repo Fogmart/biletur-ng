@@ -15,11 +15,16 @@
 				<div class="col-xs-12">
 					<div class="tour-item">
 						<h4><?= $tour->title ?></h4>
+						<div class="col-md-6 col-xs-12">
 						<?php if (null !== $tour->image):?>
 							<?= Yii::$app->imageCache->thumb($tour->image, 'medium', ['class' => 'img-rounded']) ?>
 						<?php else:?>
 							<img src="http://biletur.ru<?= $tour->imageOld ?>">
 						<?php endif ?>
+						</div>
+						<div class="col-md-6 col-xs-12">
+							<?= $tour->description ?>
+						</div>
 					</div>
 				</div>
 			</div>
