@@ -2,11 +2,14 @@
 
 namespace common\components;
 
+use common\models\oracle\scheme\sns\DspAirports;
+use common\models\oracle\scheme\sns\DspTowns;
 use common\models\Town;
 use Yii;
 use yii\base\Component;
 use yii\base\Exception;
 use yii\caching\TagDependency;
+use yii\web\Cookie;
 
 /**
  * Компонент для получения данных о текущем окружении.
@@ -25,7 +28,7 @@ class Environment extends Component {
 	public $defaultArrCityId;
 	/** @var string Идентификатор зоны туров по-умолчанию */
 	public $defaultTourZone;
-	/** @var Town Переменная города для которого отображается сайт. */
+	/** @var DspTowns Переменная города для которого отображается сайт. */
 	private $_city;
 	/** @var string $_language Язык сайта */
 	private $_language;
@@ -52,8 +55,8 @@ class Environment extends Component {
 			$cacheKey = 'Environment::getAirport(' . $this->defaultAirportCode . ')';
 			$this->_airport = Yii::$app->cache->get($cacheKey);
 			if (false === $this->_airport) {
-				$this->_airport = Airport::findOne(['IATACODE' => $this->defaultAirportCode]);
-				Yii::$app->cache->set($cacheKey, $this->_airport, 0, new TagDependency([Airport::className()]));
+				$this->_airport = DspAirports::findOne(['IATACODE' => $this->defaultAirportCode]);
+				Yii::$app->cache->set($cacheKey, $this->_airport, 0, new TagDependency([DspAirports::className()]));
 			}
 		}
 
@@ -72,8 +75,8 @@ class Environment extends Component {
 		$cacheKey = 'Environment::getAirportByCity(' . $this->_city->CODE . ')';
 		$this->_airport = Yii::$app->cache->get($cacheKey);
 		if (false === $this->_airport) {
-			$this->_airport = Airport::findOne(['TOWNCODE' => $this->_city->CODE]);
-			Yii::$app->cache->set($cacheKey, $this->_airport, 0, new TagDependency([Airport::className()]));
+			$this->_airport = DspAirports::findOne(['TOWNCODE' => $this->_city->CODE]);
+			Yii::$app->cache->set($cacheKey, $this->_airport, 0, new TagDependency([DspAirports::className()]));
 		}
 
 		return $this->_airport;
@@ -84,7 +87,7 @@ class Environment extends Component {
 	 *
 	 * @author isakov.v
 	 *
-	 * @return \common\models\scheme\sns\Town
+	 * @return DspTowns
 	 * @throws Exception
 	 */
 	public function getCity() {
@@ -102,7 +105,7 @@ class Environment extends Component {
 			}
 
 			// Пытаемся определить город по GEOip
-			$this->getCityByGEOIp();
+			//$this->getCityByGEOIp();
 			if (null !== $this->_city) {
 				return $this->_city;
 			}
@@ -113,13 +116,13 @@ class Environment extends Component {
 				$this->_city = Yii::$app->cache->get($cacheKey);
 
 				if (false === $this->_city) {
-					$this->_city = Town::find()->with(['arrCity'])->where(['ID' => $this->defaultCityId])->one();
+					$this->_city = DspTowns::find()->with(['arrCity'])->where(['ID' => $this->defaultCityId])->one();
 					if (null === $this->_city) {
 						throw new Exception('Ошибка: Невозможно определить город, и присвоить город по умолчанию.');
 					}
 					else {
 						Yii::$app->cache->set(
-							$cacheKey, $this->_city, 24 * 60 * 60, new TagDependency([Town::className()])
+							$cacheKey, $this->_city, 24 * 60 * 60, new TagDependency(['tags' => [DspTowns::class]])
 						);
 					}
 				}
@@ -153,10 +156,10 @@ class Environment extends Component {
 				$cacheKey = 'Environment::getCity(' . $cityId . ')';
 				$cacheCity = Yii::$app->cache->get($cacheKey);
 				if (false === $cacheCity) {
-					$this->_city = Town::find()->with(['arrCity'])->where(['ID' => $cityId->value])->one();
+					$this->_city = DspTowns::find()->with(['arrCity'])->where(['ID' => $cityId->value])->one();
 					if (null !== $this->_city) {
 						Yii::$app->cache->set(
-							$cacheKey, $this->_city, 24 * 60 * 60, new TagDependency([Town::class])
+							$cacheKey, $this->_city, 24 * 60 * 60, new TagDependency(['tags' => [DspTowns::class]])
 						);
 					}
 				}
@@ -221,16 +224,17 @@ class Environment extends Component {
 	 * @param $cityId
 	 */
 	public function setCityById($cityId) {
-		$this->_city = Town::find()->with(['arrCity'])->where(['ID' => $cityId])->one();
+
+		$this->_city = DspTowns::find()->with(['arrCity'])->where(['ID' => $cityId])->one();
 		if (null !== $this->_city) {
 			// Записываем id города в куку, для быстрого обнаружения
 			Yii::$app->response->cookies->add(
-				new \yii\web\Cookie(['name' => 'current_path', 'value' => $this->_city->ID])
+				new Cookie(['name' => 'current_path', 'value' => $this->_city->ID])
 			);
 		}
 		else {
 			Yii::$app->response->cookies->add(
-				new \yii\web\Cookie(['name' => 'current_path', 'value' => $this->defaultCityId])
+				new Cookie(['name' => 'current_path', 'value' => $this->defaultCityId])
 			);
 		}
 	}

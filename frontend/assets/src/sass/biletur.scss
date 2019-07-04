@@ -2,6 +2,7 @@
 
 $mainBlueColor: #0066b1;
 $mainBlueColorLight: #5492fe;
+$mainRedColor: #dc0531;
 html,
 body {
 	height: auto;
@@ -303,6 +304,10 @@ a.desc:after {
 	font-weight: bolder;
 	margin-bottom: 5px;
 
+	&.town-input {
+		#pointer-events: none;
+		cursor: pointer;
+	}
 }
 
 .call-center-block {
@@ -407,4 +412,11 @@ a.desc:after {
 	white-space: nowrap;
 	-webkit-text-stroke: 1px #fff !important;
 	text-shadow: 1px 1px #999;
+}
+span {
+	&.alphabet-letter {
+		color: $mainRedColor;
+		font-size: 22px;
+		font-weight: bolder;
+	}
 }

@@ -2,8 +2,10 @@
 
 namespace frontend\controllers;
 
+use common\components\Environment;
 use common\components\FrontendController;
 use common\models\LoginForm;
+use common\models\Town;
 use common\modules\news\models\News;
 use frontend\models\ContactForm;
 use frontend\models\PasswordResetRequestForm;
@@ -16,6 +18,7 @@ use yii\base\InvalidArgumentException;
 use yii\db\Expression;
 use yii\filters\AccessControl;
 use yii\web\BadRequestHttpException;
+use yii\web\NotFoundHttpException;
 
 /**
  * Site controller
@@ -24,6 +27,7 @@ class SiteController extends FrontendController {
 	const ACTION_LOGIN = 'login';
 	const ACTION_LOGOUT = 'logout';
 	const ACTION_REGISTER = 'signup';
+	const ACTION_SET_CITY = 'set-city';
 
 	/**
 	 * {@inheritdoc}
@@ -65,8 +69,25 @@ class SiteController extends FrontendController {
 		];
 	}
 
+	/**
+	 * @param int $id
+	 *
+	 * @return \yii\web\Response
+	 *
+	 * @throws \yii\web\NotFoundHttpException
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
 	public function actionSetCity($id) {
+		/** @var Town $city */
+		$city = Town::find()->where([Town::ATTR_ID => $id])->one();
+		if (null === $city) {
+			throw new NotFoundHttpException('Город не найден');
+		}
 
+		Yii::$app->env->setCityById($city->old_id);
+
+		return $this->redirect(Yii::$app->request->referrer);
 	}
 
 	/**

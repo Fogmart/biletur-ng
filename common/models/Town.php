@@ -4,7 +4,9 @@ namespace common\models;
 use common\components\SiteModel;
 use common\interfaces\ILinkedModels;
 use common\models\oracle\scheme\sns\DspTowns;
+use common\models\scheme\sns\queries\QueryTowns;
 use yii\db\Expression;
+use common\models\queries\QueryTown;
 
 /**
  * Модель Городов
@@ -67,6 +69,10 @@ class Town extends SiteModel implements ILinkedModels {
 	 */
 	public static function tableName() {
 		return '{{%town}}';
+	}
+
+	public static function find() {
+		return new QueryTown(get_called_class());
 	}
 
 	/**
@@ -168,4 +174,6 @@ class Town extends SiteModel implements ILinkedModels {
 				break;
 		}
 	}
+
+
 }

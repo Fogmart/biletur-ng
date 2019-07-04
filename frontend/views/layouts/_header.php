@@ -3,14 +3,14 @@
 use rmrevin\yii\fontawesome\FAS;
 use frontend\controllers\ProfileController;
 use frontend\controllers\SiteController;
-
+use frontend\widgets\CityWidget;
 ?>
 <div class="row">
     <div class="col-md-3 col-sm-12">
         <a href="/"><img src="/images/logo_500.png" class="img-responsive" alt="Всероссийская сеть Билетур" height="55"></a>
     </div>
     <div class="col-md-7 col-sm-12" style="padding-top: 25px;">
-        <input type="text" class="biletur-text-input">
+        <input  tabindex="-1" readonly type="text" class="biletur-text-input town-input" value="<?= Yii::$app->env->getCity()->NAME ?>">
         <input type="text" class="biletur-text-input">
         <a href="<?= (Yii::$app->user->isGuest ? SiteController::getActionUrl(SiteController::ACTION_LOGIN) : ProfileController::getActionUrl(ProfileController::ACTION_INDEX)) ?>" class="btn biletur-btn"><?= FAS::icon('user', ['style' => 'margin-right: 5px;']) ?><?= !Yii::$app->user->isGuest ? 'Личный кабинет' : 'Войти' ?></a>
     </div>
@@ -24,3 +24,5 @@ use frontend\controllers\SiteController;
         </div>
     </div>
 </div>
+<?= CityWidget::widget() ?>
+
