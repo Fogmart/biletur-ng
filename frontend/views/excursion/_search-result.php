@@ -68,4 +68,5 @@ $bootstrapColWidth = 12 / $numOfCols;
     </div>
 <?php
 $this->registerJs('$(".result").searchExcursionPlugin();');
+$this->registerJs('$(this).commonPlugin();');
 ?>

@@ -26,7 +26,10 @@
 							<br>
 							<?php foreach ($tour->wayPoints as $wayPoint): ?>
 								<?php if ($wayPoint->daysCount > 0 && null !== $wayPoint->country && null !== $wayPoint->countryFlagImage): ?>
-									<img width="30" alt="<?= $wayPoint->country ?>" src="<?= $wayPoint->countryFlagImage ?>"> <?= $wayPoint->country ?>, <?= $wayPoint->cityName ?><br>
+									<a href="javascript:" class="way-point-tag" data-value="country_<?= $wayPoint->country ?>"><img width="30" alt="<?= $wayPoint->country ?>" src="<?= $wayPoint->countryFlagImage ?>"></a> <a href="javascript:" class="way-point-tag" data-value="country_<?= $wayPoint->country ?>"><?= $wayPoint->country ?></a>, <a
+										href="javascript:" class="way-point-tag" data-value="<?= $wayPoint->cityId ?>"><?=
+										$wayPoint->cityName
+										?></a><br>
 								<?php endif ?>
 							<?php endforeach ?>
 						</div>
@@ -37,4 +40,5 @@
 	</div>
 <?php
 $this->registerJs('$(this).searchTourPlugin();');
+$this->registerJs('$(this).commonPlugin();');
 ?>

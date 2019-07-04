@@ -22,3 +22,4 @@
 		<?php endforeach ?>
     </div>
 </div>
+<?php $this->registerJs('$(this).commonPlugin();'); ?>
