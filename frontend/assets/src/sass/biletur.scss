@@ -307,6 +307,8 @@ a.desc:after {
 	&.town-input {
 		#pointer-events: none;
 		cursor: pointer;
+		background: url(/images/geoloc_sm.jpg) no-repeat scroll 5px 4px;
+		padding-left:30px;
 	}
 }
 
