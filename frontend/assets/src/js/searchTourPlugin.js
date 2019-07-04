@@ -6,7 +6,7 @@
 
 		var methods = {
 			init: function () {
-				//Клик по точке маршрута
+				//Клик по точке маршрута(флаг, страна, город)
 				WAY_POINT_FILTER.click(function () {
 					WAY_POINT_INPUT.val($(this).data('value'));
 					FORM.submit();
