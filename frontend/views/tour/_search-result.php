@@ -6,7 +6,6 @@
  * @var \common\components\tour\CommonTour[] $tours
  *
  */
-
 ?>
 	<div class="result">
 		<div class="loading-widget" style="display: none;"></div>
@@ -14,16 +13,22 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="tour-item">
-						<h4><?= $tour->title ?></h4>
-						<div class="col-md-6 col-xs-12">
-						<?php if (null !== $tour->image):?>
-							<?= Yii::$app->imageCache->thumb($tour->image, 'medium', ['class' => 'img-rounded']) ?>
-						<?php else:?>
-							<img src="http://biletur.ru<?= $tour->imageOld ?>">
-						<?php endif ?>
+						<h4><strong><?= $tour->title ?></strong></h4>
+						<div class="col-md-3 col-xs-12">
+							<?php if (null !== $tour->image): ?>
+								<?= Yii::$app->imageCache->thumb($tour->image, '250', ['class' => 'img-rounded']) ?>
+							<?php else: ?>
+								<img src="http://biletur.ru<?= $tour->imageOld ?>">
+							<?php endif ?>
 						</div>
-						<div class="col-md-6 col-xs-12">
+						<div class="col-md-9 col-xs-12">
 							<?= $tour->description ?>
+							<br>
+							<?php foreach ($tour->wayPoints as $wayPoint): ?>
+								<?php if ($wayPoint->daysCount > 0 && null !== $wayPoint->country && null !== $wayPoint->countryFlagImage): ?>
+									<img width="30" alt="<?= $wayPoint->country ?>" src="<?= $wayPoint->countryFlagImage ?>"> <?= $wayPoint->country ?>, <?= $wayPoint->cityName ?><br>
+								<?php endif ?>
+							<?php endforeach ?>
 						</div>
 					</div>
 				</div>

@@ -137,4 +137,15 @@ class Country extends SiteModel implements ILinkedModels {
 				break;
 		}
 	}
+
+	/**
+	 * Пусть до изображения флага страны
+	 *
+	 * @return string
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function getFlagImage() {
+		return '/images/flags/48' . DIRECTORY_SEPARATOR . strtoupper($this->code) . '.png';
+	}
 }

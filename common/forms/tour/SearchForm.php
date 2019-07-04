@@ -9,6 +9,7 @@ use common\models\oracle\scheme\t3\RefItems;
 use common\models\oracle\scheme\t3\RILaps;
 use common\models\oracle\scheme\t3\RITour;
 use common\models\oracle\scheme\t3\RITourWps;
+use common\models\Town;
 use yii\base\Model;
 use yii\caching\TagDependency;
 use yii\validators\NumberValidator;
@@ -133,6 +134,10 @@ class SearchForm extends Model {
 
 		$commonTours = [];
 		foreach ($tours as $tour) {
+			if (null === $tour->wps || 0 === count($tour->wps)) {
+				continue;
+			}
+
 			$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$tour->description', $tour->ID]);
 			$description = Yii::$app->cache->get($cacheKey);
 			if (false === $description) {
@@ -161,9 +166,11 @@ class SearchForm extends Model {
 			foreach ($wps as $wayPoint) {
 				$commonWayPoint = new CommonTourWayPoint();
 				$commonWayPoint->cityId = $wayPoint->CITYID;
+				$commonWayPoint->cityName = Town::getNameByOldId($commonWayPoint->cityId);
 				$commonWayPoint->country = $wayPoint->COUNTRY;
 				$commonWayPoint->number = $wayPoint->NPP;
 				$commonWayPoint->daysCount = $wayPoint->NDAYS;
+				$commonWayPoint->countryFlagImage = $wayPoint->getFlagImage();
 
 				$commonTour->wayPoints[] = $commonWayPoint;
 			}

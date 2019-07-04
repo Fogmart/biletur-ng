@@ -2,6 +2,7 @@
 
 namespace common\models\oracle\scheme\t3;
 
+use common\models\Country;
 use common\models\oracle\scheme\DspBaseModel;
 use common\models\oracle\scheme\sns\DspTowns;
 use Yii;
@@ -124,7 +125,7 @@ class RITourWps extends DspBaseModel {
 	const REL_REF_ITEMS = 'refItems';
 
 	/**
-	 * Связь этапа со страной
+	 * Связь этапа с городом
 	 * @return \common\models\oracle\scheme\sns\DspTowns
 	 */
 	public function getCity() {
@@ -132,4 +133,32 @@ class RITourWps extends DspBaseModel {
 	}
 
 	const REL_CITY = 'city';
+
+	/**
+	 *
+	 * @return \common\models\Country|null
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function getCountry() {
+		if (null === $this->city) {
+			return null;
+		}
+		return Country::findOne([Country::ATTR_OLD_ID => $this->city->STATEID]);
+	}
+
+	/**
+	 * @return string|null
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function getFlagImage() {
+		$country = $this->getCountry();
+
+		if (null !== $country) {
+			return $country->getFlagImage();
+		}
+
+		return null;
+	}
 }

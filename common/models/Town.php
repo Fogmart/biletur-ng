@@ -5,8 +5,10 @@ use common\components\SiteModel;
 use common\interfaces\ILinkedModels;
 use common\models\oracle\scheme\sns\DspTowns;
 use common\models\scheme\sns\queries\QueryTowns;
+use yii\caching\TagDependency;
 use yii\db\Expression;
 use common\models\queries\QueryTown;
+use Yii;
 
 /**
  * Модель Городов
@@ -173,6 +175,34 @@ class Town extends SiteModel implements ILinkedModels {
 				return trim($data);
 				break;
 		}
+	}
+
+	/**
+	 * @param int|null $id
+	 *
+	 * @return string|null
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public static function getNameByOldId($id) {
+
+		if(null === $id) {
+			return null;
+		}
+
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $id]);
+		$city = Yii::$app->cache->get($cacheKey);
+		if (false === $city) {
+			$city = static::findOne([static::ATTR_OLD_ID => $id]);
+
+			Yii::$app->cache->set($cacheKey, $city, null, new TagDependency(['tags' => [static::class]]));
+		}
+
+		if(null !== $city) {
+			return $city->r_name;
+		}
+
+		return null;
 	}
 
 

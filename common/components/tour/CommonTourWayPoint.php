@@ -16,6 +16,10 @@ class CommonTourWayPoint {
 	public $cityId;
 	const ATTR_CITY_ID = 'cityId';
 
+	/** @var string */
+	public $cityName;
+	const ATTR_CITY_NAME = 'cityName';
+
 	/** @var int Номер точки маршрута в туре */
 	public $number;
 	const ATTR_NUMBER = 'number';
@@ -23,4 +27,8 @@ class CommonTourWayPoint {
 	/** @var int Кол-во дней(?) */
 	public $daysCount;
 	const ATTR_DAYS_COUNT = 'daysCount';
+
+	/** @var string Изображение флага */
+	public $countryFlagImage;
+	const ATTR_COUNTRY_FLAG_IMAGE = 'countryFlagImage';
 }
