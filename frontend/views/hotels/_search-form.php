@@ -68,7 +68,7 @@ use yii\web\JsExpression;
         </div>
         <div class="col-xs-2">
 			<?= $htmlForm->field($form, $form::ATTR_CHECK_IN)->widget(DatePicker::class, [
-				'options'       => ['placeholder' => 'Заезд'],
+				'options'       => ['placeholder' => 'Заезд', 'class' => 'biletur-text-input'],
 				'type'          => DatePicker::TYPE_INPUT,
 				'pluginOptions' => [
 					'autoclose' => true
@@ -78,7 +78,7 @@ use yii\web\JsExpression;
         </div>
         <div class="col-xs-2">
 			<?= $htmlForm->field($form, $form::ATTR_CHECK_OUT)->widget(DatePicker::class, [
-				'options'       => ['placeholder' => 'Выезд'],
+				'options'       => ['placeholder' => 'Выезд', 'class' => 'biletur-text-input'],
 				'type'          => DatePicker::TYPE_INPUT,
 				'pluginOptions' => [
 					'autoclose' => true
@@ -88,6 +88,7 @@ use yii\web\JsExpression;
         </div>
         <div class="col-xs-1">
 			<?= $htmlForm->field($form, $form::ATTR_ADULT_COUNT)->widget(TouchSpin::class, [
+				'options' => ['class' => 'biletur-text-input'],
 				'pluginOptions' => [
 					'verticalbuttons' => true,
 					'min'             => 1,
@@ -101,7 +102,8 @@ use yii\web\JsExpression;
 			<?= $htmlForm->field($form, $form::ATTR_CHILD_COUNT)->textInput(['v-model' => 'childCount'])
 				->widget(TouchSpin::class, [
 					'options'       => [
-						'v-model' => 'childCount'
+						'v-model' => 'childCount',
+						'class' => 'biletur-text-input',
 					],
 					'pluginOptions' => [
 						'verticalbuttons' => true,

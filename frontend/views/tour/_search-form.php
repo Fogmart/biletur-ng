@@ -21,6 +21,7 @@ use yii\bootstrap\Html;
 			'language'      => 'ru',
 			'options'       => [
 				'placeholder' => 'Страна, город, курорт...',
+				'class' => 'biletur-text-input'
 			],
 			'pluginOptions' => [
 				'allowClear'         => true,
@@ -29,7 +30,6 @@ use yii\bootstrap\Html;
 			'pluginEvents'  => [
 				"select2:select" => "function() { $('#w0').submit(); }",
 				"select2:unselect" => "function() { $('#w0').submit(); }",
-
 			]
 		])->label(false); ?>
     </div>

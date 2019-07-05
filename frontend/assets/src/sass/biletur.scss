@@ -3,6 +3,7 @@
 $mainBlueColor: #0066b1;
 $mainBlueColorLight: #5492fe;
 $mainRedColor: #dc0531;
+$mainRedColorLight: #ff93aa;
 html,
 body {
 	height: auto;
@@ -291,6 +292,17 @@ a.desc:after {
 	border-radius: 8px;
 }
 
+.btn-default {
+	border-color: $mainBlueColor;
+	color: $mainBlueColor;
+	font-weight: bolder;
+
+	&:hover, &.focus {
+		background-color: $mainBlueColor;
+		color: #fff;
+	}
+}
+
 .biletur-btn.inverse {
 	background-color: #fff;
 	color: $mainBlueColor;
@@ -305,7 +317,6 @@ a.desc:after {
 	margin-bottom: 5px;
 
 	&.town-input {
-		#pointer-events: none;
 		cursor: pointer;
 		background: url(/images/geoloc_sm.jpg) no-repeat scroll 5px 4px;
 		padding-left:30px;
