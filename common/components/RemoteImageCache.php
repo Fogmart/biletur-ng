@@ -68,7 +68,7 @@ class RemoteImageCache extends Component {
 	}
 
 	/**
-	 * Поиск фотографий пл ключевому слову
+	 * Поиск фотографий по ключевому слову
 	 *
 	 * @param string $keyword
 	 *
