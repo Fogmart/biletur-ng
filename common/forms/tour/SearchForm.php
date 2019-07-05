@@ -208,7 +208,7 @@ class SearchForm extends Model {
 
 			foreach ($imageArray as $url) {
 				$commonTour->additionalImages[] = [
-					'url' => RemoteImageCache::getImage($url, '800', 'img-rounded', true),
+					'url' => RemoteImageCache::getImage($url, null, null, true, false),
 					'src' => RemoteImageCache::getImage($url, '100', 'img-rounded', true),
 				];
 			}

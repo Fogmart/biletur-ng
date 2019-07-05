@@ -20,12 +20,13 @@ class RemoteImageCache extends Component {
 	 * @param string $size
 	 * @param string $class
 	 * @param bool   $onlyPath
+	 * @param bool   $needThumb
 	 *
 	 * @return string
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
-	public static function getImage($url, $size = '', $class = '', $onlyPath = false) {
+	public static function getImage($url, $size = '', $class = '', $onlyPath = false, $needThumb = true) {
 		$url = trim($url);
 
 		//выпиливаем такой адрес из url
@@ -49,22 +50,26 @@ class RemoteImageCache extends Component {
 
 			Yii::$app->cache->set($cacheKey, 1, null);
 		}
+		if ($needThumb) {
+			$ext = pathinfo('/images/uploads/cache/' . $hashName, PATHINFO_EXTENSION);
+			//Если запросили не файл а страницу, чтобы каждый раз не проверять во вьюшках, или вдруг с сервером что-то случилось
+			//и мы получили вместо картинки страницу
+			if (!file_exists('images/uploads/cache/' . $hashName) || $ext == 'ru') {
+				if ($onlyPath) {
+					return Yii::$app->imageCache->thumbSrc('/images/uploads/image-not-found.png', $size);
+				}
 
-		$ext = pathinfo('/images/uploads/cache/' . $hashName, PATHINFO_EXTENSION);
-
-		//Если запросили не файл а страницу, чтобы каждый раз не проверять во вьюшках, или вдруг с сервером что-то случилось
-		//и мы получили вместо картинки страницу
-		if (!file_exists('images/uploads/cache/' . $hashName) || $ext == 'ru') {
-			if ($onlyPath) {
-				return Yii::$app->imageCache->thumbSrc('/images/uploads/image-not-found.png', $size);
+				return Yii::$app->imageCache->thumb('/images/uploads/image-not-found.png', $size, ['class' => $class]);
 			}
-			return Yii::$app->imageCache->thumb('/images/uploads/image-not-found.png', $size, ['class' => $class]);
+
+			if ($onlyPath) {
+				return Yii::$app->imageCache->thumbSrc('/images/uploads/cache/' . $hashName, $size);
+			}
+
+			return Yii::$app->imageCache->thumb('/images/uploads/cache/' . $hashName, $size, ['class' => $class]);
 		}
 
-		if($onlyPath) {
-			return Yii::$app->imageCache->thumbSrc('/images/uploads/cache/' . $hashName, $size);
-		}
-		return Yii::$app->imageCache->thumb('/images/uploads/cache/' . $hashName, $size, ['class' => $class]);
+		return '/images/uploads/cache/' . $hashName;
 	}
 
 	/**
