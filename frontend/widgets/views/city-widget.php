@@ -19,7 +19,7 @@ use frontend\controllers\SiteController;
 				<div class="row">
 					<?php foreach ($towns as $letter => $townArray): ?>
 						<div class="col-xs-6">
-						<span class="alphabet-letter"><?= $letter ?></span>
+						<span class="alphabet-letter"><?= $letter ?></span><hr>
 						<?php foreach ($townArray as $town): ?>
 								<h4><a href="<?= SiteController::getActionUrl(SiteController::ACTION_SET_CITY, ['id' => $town->id]) ?>"><?= $town->r_name ?></a></h4>
 						<?php endforeach ?>

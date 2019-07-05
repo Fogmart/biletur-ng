@@ -297,7 +297,7 @@ a.desc:after {
 	color: $mainBlueColor;
 	font-weight: bolder;
 
-	&:hover, &.focus {
+	&:hover, &:focus {
 		background-color: $mainBlueColor;
 		color: #fff;
 	}
@@ -432,4 +432,8 @@ span {
 		font-size: 22px;
 		font-weight: bolder;
 	}
+}
+#modal-towns hr {
+	margin-top: 0px;
+	margin-bottom: 10px;
 }

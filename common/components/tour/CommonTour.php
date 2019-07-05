@@ -40,16 +40,20 @@ class CommonTour {
 	public $image;
 	const ATTR_IMAGE = 'image';
 
+	/** @var string[] Дополнительные фотографии, если есть */
+	public $additionalImages = [];
+	const ATTR_ADDITIONAL_IMAGES = 'additionalImages';
+
 	/** @var string Описание */
 	public $description;
 	const ATTR_DESCRIPTION = 'description';
 
 	/** @var \common\components\tour\CommonTourWayPoint[] */
-	public $wayPoints;
+	public $wayPoints = [];
 	const ATTR_WAY_POINTS = 'wayPoints';
 
 	/** @var \common\components\tour\CommonLap[] */
-	public $activeLaps;
+	public $activeLaps = [];
 	const ATTR_ACTIVE_LAPS = 'activeLaps';
 
 	/**

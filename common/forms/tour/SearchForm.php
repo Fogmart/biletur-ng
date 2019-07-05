@@ -2,6 +2,8 @@
 
 namespace common\forms\tour;
 
+use common\base\helpers\Dump;
+use common\components\RemoteImageCache;
 use common\components\tour\CommonLap;
 use common\components\tour\CommonTour;
 use common\components\tour\CommonTourWayPoint;
@@ -134,10 +136,6 @@ class SearchForm extends Model {
 
 		$commonTours = [];
 		foreach ($tours as $tour) {
-			if (null === $tour->wps || 0 === count($tour->wps)) {
-				continue;
-			}
-
 			$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$tour->description', $tour->ID]);
 			$description = Yii::$app->cache->get($cacheKey);
 			if (false === $description) {
@@ -153,7 +151,6 @@ class SearchForm extends Model {
 			$commonTour->priceMinMax = $tour->quotsSummMinMax();
 			$commonTour->imageOld = (null !== $description ? $description->URL_IMG : null);
 			$commonTour->image = $commonTour->getImage();
-
 			//Заполняем точки маршрута
 			$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$tour->wps', $tour->ID]);
 			$wps = Yii::$app->cache->get($cacheKey);
@@ -163,16 +160,55 @@ class SearchForm extends Model {
 				Yii::$app->cache->set($cacheKey, $wps, 3600 * 8, new TagDependency(['tags' => RITourWps::class]));
 			}
 
-			foreach ($wps as $wayPoint) {
-				$commonWayPoint = new CommonTourWayPoint();
-				$commonWayPoint->cityId = $wayPoint->CITYID;
-				$commonWayPoint->cityName = Town::getNameByOldId($commonWayPoint->cityId);
-				$commonWayPoint->country = $wayPoint->COUNTRY;
-				$commonWayPoint->number = $wayPoint->NPP;
-				$commonWayPoint->daysCount = $wayPoint->NDAYS;
-				$commonWayPoint->countryFlagImage = $wayPoint->getFlagImage();
+			$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$commonTour->wayPoints', $tour->ID]);
+			$commonTour->wayPoints = Yii::$app->cache->get($cacheKey);
+			if (false === $commonTour->wayPoints) {
+				$commonTour->wayPoints = [];
+				foreach ($wps as $wayPoint) {
+					$commonWayPoint = new CommonTourWayPoint();
+					$commonWayPoint->cityId = $wayPoint->CITYID;
+					$commonWayPoint->cityName = Town::getNameByOldId($commonWayPoint->cityId);
+					$commonWayPoint->country = $wayPoint->COUNTRY;
+					$commonWayPoint->number = $wayPoint->NPP;
+					$commonWayPoint->daysCount = $wayPoint->NDAYS;
+					$commonWayPoint->countryFlagImage = $wayPoint->getFlagImage();
 
-				$commonTour->wayPoints[] = $commonWayPoint;
+					if (1 === $commonWayPoint->number) {
+						continue;
+					}
+
+					if (0 === $commonWayPoint->daysCount) {
+						continue;
+					}
+
+					if (null === $commonWayPoint->cityName) {
+						continue;
+					}
+
+					if (null === $commonWayPoint->country) {
+						continue;
+					}
+
+					$commonTour->wayPoints[] = $commonWayPoint;
+				}
+
+				Yii::$app->cache->set($cacheKey, $commonTour->wayPoints, 3600 * 8, new TagDependency(['tags' => RITourWps::class]));
+			}
+			//Возьмем доп.фото по точкам маршрута
+			$keywords = [];
+			foreach ($commonTour->wayPoints as $wayPoint) {
+				$keywords[] = $wayPoint->cityName;
+			}
+			$imageArray = [];
+			foreach ($keywords as $keyword) {
+				$imageArray =  array_merge($imageArray, RemoteImageCache::getRandomImages($keyword));
+			}
+
+			foreach ($imageArray as $url) {
+				$commonTour->additionalImages[] = [
+					'url' => RemoteImageCache::getImage($url, '800', 'img-rounded', true),
+					'src' => RemoteImageCache::getImage($url, '100', 'img-rounded', true),
+				];
 			}
 
 			//Заполняем активные заезды

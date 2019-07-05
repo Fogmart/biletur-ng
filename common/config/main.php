@@ -53,10 +53,14 @@ return [
 		]
 	],
 	'components' => [
-		'opengraph' => [
+		'remoteImageCache' => [
+			'class'           => \common\components\RemoteImageCache::class,
+			'imageSourceSite' => 'http://biletur.ru'
+		],
+		'opengraph'        => [
 			'class' => 'fgh151\opengraph\OpenGraph',
 		],
-		'imageCache'   => [
+		'imageCache'       => [
 			'class'      => 'iutbay\yii2imagecache\ImageCache',
 			'sourcePath' => '@app/web/images/uploads',
 			'sourceUrl'  => '@web/images/uploads',
@@ -66,24 +70,26 @@ return [
 				'thumb'          => [150, 150],
 				'medium'         => [300, 300],
 				'large'          => [600, 600],
+				'100'            => [100, 100],
 				'280'            => [280, 280],
 				'250'            => [250, 250],
 				'240'            => [240, 240],
 				'200'            => [200, 200],
+				'800'            => [800, 800],
 				'35'             => [35, 35],
 				'330'            => [330, 330],
 				'mobile-preview' => [310, 310],
 			],
 		],
-		'assetManager' => [
+		'assetManager'     => [
 			'linkAssets'      => true,
 			'appendTimestamp' => true,
 		],
-		'user'         => [
+		'user'             => [
 			'identityClass' => \common\models\User::class,
 			'loginUrl'      => ['site/login'],
 		],
-		'env'          => [
+		'env'              => [
 			'class'              => common\components\Environment::class,
 			'defaultCityId'      => '_1CK0R7WDW',
 			'defaultLanguage'    => 'ru',
@@ -91,7 +97,7 @@ return [
 			'defaultArrCityId'   => '957979',
 			'defaultTourZone'    => 3
 		],
-		'cache'        => [
+		'cache'            => [
 			'class'        => \yii\caching\MemCache::class,
 			'servers'      => [
 				[
@@ -101,15 +107,15 @@ return [
 			],
 			'useMemcached' => true,
 		],
-		'ipgeobase'    => [
+		'ipgeobase'        => [
 			'class'      => IpGeoBase::class,
 			'useLocalDB' => false,
 		],
-		'authManager'  => [
+		'authManager'      => [
 			'class'        => 'yii\rbac\DbManager',
 			'defaultRoles' => ['guest', 'user'],
 		],
-		'view'         => [
+		'view'             => [
 			'class'     => 'yii\web\View',
 			'renderers' => [
 				'twig' => [
@@ -127,7 +133,7 @@ return [
 				],
 			],
 		],
-		'log'          => [
+		'log'              => [
 			'traceLevel' => 3,
 			'targets'    => [
 				'db' => [

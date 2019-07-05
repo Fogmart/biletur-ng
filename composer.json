@@ -47,7 +47,8 @@
     "edvlerblog/yii2-adldap-module": "^6.0.0",
     "kartik-v/yii2-field-range": "dev-master",
     "iutbay/yii2-imagecache": "*",
-    "fgh151/yii2-opengraph": "*"
+    "fgh151/yii2-opengraph": "*",
+    "2amigos/yii2-gallery-widget": "~1.0"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",
