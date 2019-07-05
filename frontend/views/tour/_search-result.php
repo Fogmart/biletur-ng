@@ -30,6 +30,10 @@ use common\components\RemoteImageCache;
 						</div>
 						<div class="col-md-9 col-xs-12">
 							<?= $tour->description ?>
+							<?= dosamigos\gallery\Gallery::widget([
+									'items' => $tour->additionalImages
+								]
+							); ?>
 							<br>
 							<?php foreach ($tour->wayPoints as $wayPoint): ?>
 								<?php if ($wayPoint->daysCount > 0 && null !== $wayPoint->country && null !== $wayPoint->countryFlagImage): ?>

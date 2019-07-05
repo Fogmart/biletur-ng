@@ -194,11 +194,13 @@ class SearchForm extends Model {
 
 				Yii::$app->cache->set($cacheKey, $commonTour->wayPoints, 3600 * 8, new TagDependency(['tags' => RITourWps::class]));
 			}
+
 			//Возьмем доп.фото по точкам маршрута
 			$keywords = [];
 			foreach ($commonTour->wayPoints as $wayPoint) {
 				$keywords[] = $wayPoint->cityName;
 			}
+
 			$imageArray = [];
 			foreach ($keywords as $keyword) {
 				$imageArray =  array_merge($imageArray, RemoteImageCache::getRandomImages($keyword));

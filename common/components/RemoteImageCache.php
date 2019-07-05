@@ -77,14 +77,14 @@ class RemoteImageCache extends Component {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public static function getRandomImages($keyword) {
-		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $keyword, 3]);
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $keyword, 4]);
 		$photos = Yii::$app->cache->get($cacheKey);
 		if (false === $photos) {
 			$photos = DspPhotos::find()
 				->select([DspPhotos::ATTR_FILE_NAME])
 				->andWhere(['LIKE', DspPhotos::ATTR_KEYWORDS, $keyword])
 				->orderBy([DspPhotos::ATTR_WHNCRT => SORT_DESC])
-				->limit(10)
+				->limit(7)
 				->indexBy(DspPhotos::ATTR_FILE_NAME)
 				->all();
 

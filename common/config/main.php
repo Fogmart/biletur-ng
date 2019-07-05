@@ -91,7 +91,7 @@ return [
 		],
 		'env'              => [
 			'class'              => common\components\Environment::class,
-			'defaultCityId'      => '_1CK0R7WDW',
+			'defaultCityId'      => '_1CK0R7WDW', //Владивосток
 			'defaultLanguage'    => 'ru',
 			'defaultAirportCode' => 'VVO',
 			'defaultArrCityId'   => '957979',
