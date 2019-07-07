@@ -95,6 +95,9 @@ class CommonTour extends Component {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	private function _prepareBiletur() {
+		/** @var RefItems $tour */
+		$tour = $this->sourceTourData;
+
 		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$tour->description', $tour->ID]);
 		$description = Yii::$app->cache->get($cacheKey);
 		if (false === $description) {
