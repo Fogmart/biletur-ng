@@ -1,7 +1,9 @@
 <?php
+
 namespace frontend\controllers;
 
 use common\components\FrontendMenuController;
+use common\components\tour\CommonTour;
 use common\forms\tour\SearchForm;
 use Yii;
 
@@ -11,7 +13,8 @@ use Yii;
  */
 class TourController extends FrontendMenuController {
 
-	const ACTION_INDEX = '';
+	const ACTION_INDEX = 'index';
+	const ACTION_VIEW = 'view';
 
 	/**
 	 * Точка входа Туры
@@ -30,5 +33,23 @@ class TourController extends FrontendMenuController {
 		$form->search();
 
 		return $this->render('index', ['form' => $form]);
+	}
+
+
+	/**
+	 * Карточка тура
+	 *
+	 * @param string $id
+	 * @param int    $src Источник туры
+	 * @param string $slug
+	 *
+	 * @return string
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function actionView($id, $src, $slug = null) {
+		$commonTour = new CommonTour([CommonTour::ATTR_SOURCE => $src, CommonTour::ATTR_SOURCE_ID => $id]);
+
+		return $this->render('view', ['tour' => $commonTour]);
 	}
 }

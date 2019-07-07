@@ -2,7 +2,6 @@
 
 namespace common\forms\tour;
 
-use common\base\helpers\Dump;
 use common\components\RemoteImageCache;
 use common\components\tour\CommonLap;
 use common\components\tour\CommonTour;
@@ -12,11 +11,11 @@ use common\models\oracle\scheme\t3\RILaps;
 use common\models\oracle\scheme\t3\RITour;
 use common\models\oracle\scheme\t3\RITourWps;
 use common\models\Town;
+use Yii;
 use yii\base\Model;
 use yii\caching\TagDependency;
 use yii\validators\NumberValidator;
 use yii\validators\StringValidator;
-use Yii;
 
 class SearchForm extends Model {
 
@@ -97,6 +96,7 @@ class SearchForm extends Model {
 		if ($onlyBiletur) {
 			return $this->result;
 		}
+
 		//TODO тут дальше ищем другие туры по апи, мерджим с нашими и т.д.
 
 
@@ -136,100 +136,14 @@ class SearchForm extends Model {
 
 		$commonTours = [];
 		foreach ($tours as $tour) {
-			$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$tour->description', $tour->ID]);
-			$description = Yii::$app->cache->get($cacheKey);
-			if (false === $description) {
-				$description = $tour->description;
-				Yii::$app->cache->set($cacheKey, $description, 3600 * 8, new TagDependency(['tags' => RITour::class]));
-			}
+			$commonTour = new CommonTour([
+					CommonTour::ATTR_SOURCE_ID        => $tour->ID,
+					CommonTour::ATTR_SOURCE           => CommonTour::SOURCE_BILETUR,
+					CommonTour::ATTR_SOURCE_TOUR_DATA => $tour
+				]
+			);
 
-			$commonTour = new CommonTour();
-			$commonTour->source = CommonTour::SOURCE_BILETUR;
-			$commonTour->sourceId = $tour->ID;
-			$commonTour->title = trim(strip_tags($tour->NAME));
-			$commonTour->description = strip_tags((null === $description ? '' : $description->DESCRIPTION));
-			$commonTour->priceMinMax = $tour->quotsSummMinMax();
-			$commonTour->imageOld = (null !== $description ? $description->URL_IMG : null);
-			$commonTour->image = $commonTour->getImage();
-			//Заполняем точки маршрута
-			$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$tour->wps', $tour->ID]);
-			$wps = Yii::$app->cache->get($cacheKey);
-			if (false === $wps) {
-				$wps = $tour->wps;
-
-				Yii::$app->cache->set($cacheKey, $wps, 3600 * 8, new TagDependency(['tags' => RITourWps::class]));
-			}
-
-			$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$commonTour->wayPoints', $tour->ID]);
-			$commonTour->wayPoints = Yii::$app->cache->get($cacheKey);
-			if (false === $commonTour->wayPoints) {
-				$commonTour->wayPoints = [];
-				foreach ($wps as $wayPoint) {
-					$commonWayPoint = new CommonTourWayPoint();
-					$commonWayPoint->cityId = $wayPoint->CITYID;
-					$commonWayPoint->cityName = Town::getNameByOldId($commonWayPoint->cityId);
-					$commonWayPoint->country = $wayPoint->COUNTRY;
-					$commonWayPoint->number = $wayPoint->NPP;
-					$commonWayPoint->daysCount = $wayPoint->NDAYS;
-					$commonWayPoint->countryFlagImage = $wayPoint->getFlagImage();
-
-					if (1 === $commonWayPoint->number) {
-						continue;
-					}
-
-					if (0 === $commonWayPoint->daysCount) {
-						continue;
-					}
-
-					if (null === $commonWayPoint->cityName) {
-						continue;
-					}
-
-					if (null === $commonWayPoint->country) {
-						continue;
-					}
-
-					$commonTour->wayPoints[] = $commonWayPoint;
-				}
-
-				Yii::$app->cache->set($cacheKey, $commonTour->wayPoints, 3600 * 8, new TagDependency(['tags' => RITourWps::class]));
-			}
-
-			//Возьмем доп.фото по точкам маршрута
-			$keywords = [];
-			foreach ($commonTour->wayPoints as $wayPoint) {
-				$keywords[] = $wayPoint->cityName;
-			}
-
-			$imageArray = [];
-			foreach ($keywords as $keyword) {
-				$imageArray =  array_merge($imageArray, RemoteImageCache::getRandomImages($keyword));
-			}
-
-			foreach ($imageArray as $url) {
-				$commonTour->additionalImages[] = [
-					'url' => RemoteImageCache::getImage($url, null, null, true, false),
-					'src' => RemoteImageCache::getImage($url, '100', 'img-rounded', true),
-				];
-			}
-
-			//Заполняем активные заезды
-			$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$tour->activeLaps', $tour->ID]);
-			$activeLaps = Yii::$app->cache->get($cacheKey);
-			if (false === $activeLaps) {
-				$activeLaps = $tour->activeLaps;
-
-				Yii::$app->cache->set($cacheKey, $activeLaps, 3600 * 8, new TagDependency(['tags' => RILaps::class]));
-			}
-
-			foreach ($activeLaps as $activeLap) {
-				$commonLap = new CommonLap();
-				$commonLap->id = $activeLap->ID;
-				$commonLap->startDate = $activeLap->BEGDATE;
-				$commonLap->endDate = $activeLap->ENDDATE;
-
-				$commonTour->activeLaps[] = $commonLap;
-			}
+			$commonTour->prepare();
 
 			$commonTours[] = $commonTour;
 		}

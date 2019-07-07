@@ -1,6 +1,5 @@
 <?php
 
-use common\components\Environment;
 use common\modules\pages\components\StaticPageUrlRule;
 
 $params = array_merge(
@@ -17,13 +16,13 @@ return [
 	'bootstrap'           => ['log'],
 	'controllerNamespace' => 'frontend\controllers',
 	'components'          => [
-		'env' => [
-			'class' => common\components\Environment::class,
-			'defaultCityId' => '_1CK0R7WDW',
-			'defaultLanguage' => 'ru',
+		'env'          => [
+			'class'              => common\components\Environment::class,
+			'defaultCityId'      => '_1CK0R7WDW',
+			'defaultLanguage'    => 'ru',
 			'defaultAirportCode' => 'VVO',
-			'defaultArrCityId' => '957979',
-			'defaultTourZone' => 3
+			'defaultArrCityId'   => '957979',
+			'defaultTourZone'    => 3
 		],
 		'request'      => [
 			'csrfParam' => '_csrf-frontend',
@@ -45,22 +44,25 @@ return [
 			'showScriptName'  => false,
 			'suffix'          => '/',
 			'rules'           => [
-				'' => 'site/index',
+				''                                      => 'site/index',
 				[
 					'pattern' => 'page',
 					'route'   => 'page',
 					'class'   => StaticPageUrlRule::class,
 				],
-				'thumbs/<path:.*>' => 'site/thumb',
+				'thumbs/<path:.*>'                      => 'site/thumb',
 				'excursion/find-by-name/<q>/<needType>' => 'excursion/find-by-name',
 				'excursion/widget/<city>'               => 'excursion/widget',
 				'excursion/widget/<city>/<needSearch>'  => 'excursion/widget',
 				'excursion/city/<city>'                 => 'excursion/index',
-				'login'                                 => 'site/login',
-				'profile'                               => 'profile/profile/index',
-				'api/remote-query/'                     => 'api/remote-query/index',
-				'api/remote-query/invalidate-tag'       => 'api/remote-query/invalidate-tag',
-				'api/remote-query/add-request-log'      => 'api/remote-query/add-request-log',
+				'tour/search'                           => 'tour/index/',
+				'tour/<id>/<src>/<slug>'                => 'tour/view/',
+
+				'login'                            => 'site/login',
+				'profile'                          => 'profile/profile/index',
+				'api/remote-query/'                => 'api/remote-query/index',
+				'api/remote-query/invalidate-tag'  => 'api/remote-query/invalidate-tag',
+				'api/remote-query/add-request-log' => 'api/remote-query/add-request-log',
 
 				'<module:[\w-]+>/<controller:[\w-]+>/<action:[\w-]+>/<id:\d+>]' => '<module>/<controller>/<action>',
 				'<controller:\w+>/<action:\w+>/'                                => '<controller>/<action>',
@@ -76,6 +78,7 @@ return [
 				'Passenger/vvo/railway_schedule.asp'                            => 'old-links/rail-road',
 				'Agency/Rekvizit.asp'                                           => 'old-links/accounts',
 				'Agency/foradvertisers.asp'                                     => 'old-links/advertising',
+				'Tourism/tour.asp<id:\d+>]'                                     => ''
 				//---------------------------------------------------------------------------------------
 			],
 		],

@@ -1,6 +1,8 @@
 <?php
 
 use common\components\RemoteImageCache;
+use frontend\controllers\TourController;
+use common\base\helpers\StringHelper;
 
 /**
  * @author Исаков Владислав <visakov@biletur.ru>
@@ -20,6 +22,8 @@ use common\components\RemoteImageCache;
 						<br>
 						<?= $tour->sourceId ?><br>
 						<?= $tour->imageOld ?><br>
+						<?= $tour->priceMinMax[0] ?> <br>
+						<a href="<?= TourController::getActionUrl(TourController::ACTION_VIEW, ['id' => $tour->sourceId, 'src' => $tour->source, 'slug' => StringHelper::urlAlias($tour->title) ])?>">url</a>
 						<div class="col-md-3 col-xs-12">
 							<?php if (null !== $tour->image): ?>
 								<?= $tour->image ?>
