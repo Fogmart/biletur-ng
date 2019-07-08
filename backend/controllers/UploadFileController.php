@@ -6,6 +6,7 @@ use common\models\ObjectFile;
 use common\models\oracle\scheme\t3\RefItems;
 use common\modules\banner\models\Banner;
 use Yii;
+use yii\caching\TagDependency;
 use yii\filters\AccessControl;
 use yii\web\MethodNotAllowedHttpException;
 use yii\web\NotFoundHttpException;
@@ -124,6 +125,8 @@ class UploadFileController extends BackendController {
 			ObjectFile::ATTR_OBJECT    => $objectFile->object,
 			ObjectFile::ATTR_MESSAGE   => $objectFile->filename,
 		]);
+
+		TagDependency::invalidate(Yii::$app->cache, [$objectFile->object]);
 
 		$objectFile->file = $file;
 
