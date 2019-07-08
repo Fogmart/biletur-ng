@@ -316,6 +316,16 @@ a.desc:after {
 	font-weight: bolder;
 	margin-bottom: 5px;
 
+	&.br-l8 {
+		border-top-left-radius: 8px !important;
+		border-bottom-left-radius: 8px !important;
+	}
+
+	&.br-r8 {
+		border-top-right-radius: 8px !important;
+		border-bottom-right-radius: 8px !important;
+	}
+
 	&.town-input {
 		cursor: pointer;
 		background: url(/images/geoloc_sm.jpg) no-repeat scroll 5px 4px;

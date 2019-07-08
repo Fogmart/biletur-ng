@@ -7,6 +7,7 @@
  */
 
 use antkaz\vue\Vue;
+use common\base\helpers\DateHelper;
 use frontend\controllers\HotelsController;
 use kartik\date\DatePicker;
 use kartik\select2\Select2;
@@ -66,24 +67,23 @@ use yii\web\JsExpression;
 			])->label(false);
 			?>
         </div>
-        <div class="col-xs-2">
-			<?= $htmlForm->field($form, $form::ATTR_CHECK_IN)->widget(DatePicker::class, [
-				'options'       => ['placeholder' => 'Заезд', 'class' => 'biletur-text-input'],
-				'type'          => DatePicker::TYPE_INPUT,
+        <div class="col-xs-4">
+			<?php echo DatePicker::widget([
+				'model'         => $form,
+				'separator'     => 'по',
+				'attribute'     => $form::ATTR_CHECK_IN,
+				'attribute2'    => $form::ATTR_CHECK_OUT,
+				'options'       => ['placeholder' => 'Дата заеда', 'class' => 'biletur-text-input br-l8'],
+				'options2'      => ['placeholder' => 'Дата выезда', 'class' => 'biletur-text-input br-r8'],
+				'type'          => DatePicker::TYPE_RANGE,
+				'form'          => $htmlForm,
 				'pluginOptions' => [
-					'autoclose' => true
+					'format'         => 'yyyy-mm-dd',
+					'autoclose'      => true,
+					'todayHighlight' => true,
+					'startDate'      => date(DateHelper::DATE_FORMAT)
 				]
-			])->label(false);
-			?>
-        </div>
-        <div class="col-xs-2">
-			<?= $htmlForm->field($form, $form::ATTR_CHECK_OUT)->widget(DatePicker::class, [
-				'options'       => ['placeholder' => 'Выезд', 'class' => 'biletur-text-input'],
-				'type'          => DatePicker::TYPE_INPUT,
-				'pluginOptions' => [
-					'autoclose' => true
-				]
-			])->label(false);
+			]);
 			?>
         </div>
         <div class="col-xs-1">
