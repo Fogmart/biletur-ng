@@ -174,7 +174,7 @@ class CommonTour extends Component {
 		foreach ($imageArray as $url) {
 			$this->additionalImages[] = [
 				'url' => RemoteImageCache::getImage($url, null, null, true, false),
-				'src' => RemoteImageCache::getImage($url, '100', 'img-rounded', true),
+				//'src' => RemoteImageCache::getImage($url, '100', 'img-rounded', true),
 			];
 		}
 

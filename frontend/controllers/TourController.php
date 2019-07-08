@@ -6,6 +6,7 @@ use common\components\FrontendMenuController;
 use common\components\tour\CommonTour;
 use common\forms\tour\SearchForm;
 use common\base\helpers\StringHelper;
+use common\modules\seo\models\Seo;
 use GuzzleHttp\Tests\Psr7\Str;
 use Yii;
 
@@ -52,6 +53,9 @@ class TourController extends FrontendMenuController {
 	public function actionView($id, $src = CommonTour::SOURCE_BILETUR, $slug = null) {
 		$commonTour = new CommonTour([CommonTour::ATTR_SOURCE => $src, CommonTour::ATTR_SOURCE_ID => $id]);
 		$commonTour->prepare();
+
+		//Регистрируем метатэги
+		Seo::registerMetaByObject(CommonTour::class, $commonTour->sourceId, $this->view);
 
 		//Регистрируем каноническую ссылку для поисковиков, чтбы старые ссылки переиндексировались на новые
 		$this->view->registerLinkTag([
