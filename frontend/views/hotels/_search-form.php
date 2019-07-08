@@ -70,7 +70,7 @@ use yii\web\JsExpression;
         <div class="col-xs-4">
 			<?php echo DatePicker::widget([
 				'model'         => $form,
-				'separator'     => 'по',
+				'separator'     => '<img width="24" src="/images/favicon.ico">',
 				'attribute'     => $form::ATTR_CHECK_IN,
 				'attribute2'    => $form::ATTR_CHECK_OUT,
 				'options'       => ['placeholder' => 'Дата заеда', 'class' => 'biletur-text-input br-l8'],
