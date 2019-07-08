@@ -70,6 +70,7 @@ return [
 				'<controller:\w+>/<action:\w+>/'                                => '<controller>/<action>',
 				'message-widget/<object>/<objectId>/<userName>'                 => 'message/message/widget',
 				'hotels/find-by-name/q/<q>'                                     => 'hotels/find-by-name',
+
 				//Обработка старых ссылок------------------------------------------------------------
 				'Agency'                                                        => 'old-links/agency',
 				'TimeTbl'                                                       => 'old-links/avia',
