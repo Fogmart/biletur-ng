@@ -2,6 +2,7 @@
 
 use common\components\IpGeoBase;
 use common\components\LogDbTarget;
+use common\components\RemoteImageCache;
 use common\modules\api\MApi;
 use common\modules\banner\MBanner;
 use common\modules\message\MMessage;
@@ -9,6 +10,7 @@ use common\modules\news\MNews;
 use common\modules\pages\MPages;
 use common\modules\profile\MProfile;
 use common\modules\seo\MSeo;
+use Edvlerblog\Adldap2\Adldap2Wrapper;
 
 return [
 	'bootstrap'  => ['log'],
@@ -53,8 +55,20 @@ return [
 		]
 	],
 	'components' => [
+		'ldap'             => [
+			'class'   => Adldap2Wrapper::class,
+			'options' => [
+				//'ad_port'      => 389,
+				'domain_controllers' => ['AdServerName1'],
+				'account_suffix'     => '@airagency.ru',
+				'base_dn'            => "DC=test,DC=lan",
+				// for basic functionality this could be a standard, non privileged domain user (required)
+				'admin_username'     => 'ActiveDirectoryUser',
+				'admin_password'     => 'StrongPassword'
+			]
+		],
 		'remoteImageCache' => [
-			'class'           => \common\components\RemoteImageCache::class,
+			'class'           => RemoteImageCache::class,
 			'imageSourceSite' => 'http://biletur.ru'
 		],
 		'opengraph'        => [

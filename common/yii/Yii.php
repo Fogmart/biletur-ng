@@ -31,6 +31,7 @@ class Yii extends BaseYii {
  * @property-read \yii\mongodb\Connection                             $mongodb
  * @property-read \iutbay\yii2imagecache\ImageCache                   $imageCache
  * @property-read fgh151\opengraph\OpenGraph                          $opengraph
+ * @property-read \Edvlerblog\Adldap2\Adldap2Wrapper                  $ldap
  */
 class Application {
 }

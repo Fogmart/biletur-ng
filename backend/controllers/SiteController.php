@@ -74,17 +74,25 @@ class SiteController extends BackendController {
 		}
 
 		$model = new LoginForm();
-		if ($model->load(Yii::$app->request->post()) && $model->login()) {
+		if (Yii::$app->request->isPost) {
+			$model->load(Yii::$app->request->post());
 
-			return $this->goBack();
-		}
-		else {
-			$model->password = '';
+			if (false !== mb_stripos($model->username, '@airagency.ru')) {
+				//Авторизация по LDAP
+				$ldapUser = Yii::$app->ldap->authenticate($model->username, $model->password);
+				Dump::dDie($ldapUser);
+			}
 
-			return $this->render('login', [
-				'model' => $model,
-			]);
+			if ($model->login()) {
+				return $this->goBack();
+			}
 		}
+
+		$model->password = '';
+		return $this->render('login', [
+			'model' => $model,
+		]);
+
 	}
 
 	/**
