@@ -157,7 +157,7 @@ class Seo extends SiteModel {
 			return;
 		}
 
-		$view->title = $meta->seo_title;
+		$view->title = $meta->seo_title . ' | ' . Yii::$app->name;
 
 		$view->registerMetaTag([
 			'name'    => 'title',

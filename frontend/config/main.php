@@ -50,6 +50,7 @@ return [
 					'route'   => 'page',
 					'class'   => StaticPageUrlRule::class,
 				],
+				'site/set-city/<id>'                   => '/site/set-city/',
 				'thumbs/<path:.*>'                      => 'site/thumb',
 				'excursion/find-by-name/<q>/<needType>' => 'excursion/find-by-name',
 				'excursion/widget/<city>'               => 'excursion/widget',
