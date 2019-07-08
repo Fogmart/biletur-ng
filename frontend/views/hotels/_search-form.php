@@ -34,8 +34,8 @@ use yii\web\JsExpression;
 ]) ?>
 <?php $htmlForm = ActiveForm::begin(['options' => ['data-pjax' => true]]); ?>
 <?= $htmlForm->field($form, $form::ATTR_OBJECT_TYPE)->hiddenInput()->label(false) ?>
-    <div class="row">
-        <div class="col-xs-4">
+	<div class="row">
+		<div class="col-xs-4">
 			<?=
 			$htmlForm->field($form, $form::ATTR_TITLE)->widget(Select2::class, [
 				'model'         => $form,
@@ -66,11 +66,11 @@ use yii\web\JsExpression;
 				],
 			])->label(false);
 			?>
-        </div>
-        <div class="col-xs-4">
+		</div>
+		<div class="col-xs-4">
 			<?php echo DatePicker::widget([
 				'model'         => $form,
-				'separator'     => '<img width="24" src="/images/favicon.ico">',
+				'separator'     => '<img width="23" src="/images/favicon.ico">',
 				'attribute'     => $form::ATTR_CHECK_IN,
 				'attribute2'    => $form::ATTR_CHECK_OUT,
 				'options'       => ['placeholder' => 'Дата заеда', 'class' => 'biletur-text-input br-l8'],
@@ -85,10 +85,10 @@ use yii\web\JsExpression;
 				]
 			]);
 			?>
-        </div>
-        <div class="col-xs-1">
+		</div>
+		<div class="col-xs-1">
 			<?= $htmlForm->field($form, $form::ATTR_ADULT_COUNT)->widget(TouchSpin::class, [
-				'options' => ['class' => 'biletur-text-input'],
+				'options'       => ['class' => 'biletur-text-input'],
 				'pluginOptions' => [
 					'verticalbuttons' => true,
 					'min'             => 1,
@@ -96,14 +96,13 @@ use yii\web\JsExpression;
 				]
 			])->label(false);
 			?>
-        </div>
-
-        <div class="col-xs-1">
+		</div>
+		<div class="col-xs-1">
 			<?= $htmlForm->field($form, $form::ATTR_CHILD_COUNT)->textInput(['v-model' => 'childCount'])
 				->widget(TouchSpin::class, [
 					'options'       => [
 						'v-model' => 'childCount',
-						'class' => 'biletur-text-input',
+						'class'   => 'biletur-text-input',
 					],
 					'pluginOptions' => [
 						'verticalbuttons' => true,
@@ -117,19 +116,19 @@ use yii\web\JsExpression;
 					]
 				])->label(false);
 			?>
-        </div>
-        <div class="col-xs-2">
+		</div>
+		<div class="col-xs-2">
 			<?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>
-        </div>
-    </div>
-<?php if (count($form->filters)):?>
-    <div class="row">
-        <div class="col-xs-12">
-            <?php
-                \common\base\helpers\Dump::d($form->filters)
-            ?>
-        </div>
-    </div>
+		</div>
+	</div>
+<?php if (count($form->filters)): ?>
+	<div class="row">
+		<div class="col-xs-12">
+			<?php
+			\common\base\helpers\Dump::d($form->filters)
+			?>
+		</div>
+	</div>
 <?php endif ?>
 <?php ActiveForm::end(); ?>
 
