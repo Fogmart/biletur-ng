@@ -65,7 +65,7 @@ class StaticPageController extends FrontendMenuController {
 
 			$this->view->registerMetaTag([
 					'name'    => 'keywords',
-					'content' => $page->seo_description
+					'content' => $page->seo_keywords
 				]
 			);
 
@@ -74,6 +74,10 @@ class StaticPageController extends FrontendMenuController {
 					'content' => $page->seo_description
 				]
 			);
+
+			//Отрисовка OpenGraph тегов
+			Yii::$app->opengraph->title = $page->seo_title;
+			Yii::$app->opengraph->description = $page->seo_description;
 		}
 
 		//Регистрируем каноническую ссылку для поисковиков, чтобы старые ссылки переиндексировались на новые
