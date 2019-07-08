@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use common\components\FrontendMenuController;
 use common\components\tour\CommonTour;
 use common\forms\tour\SearchForm;
+use common\base\helpers\StringHelper;
+use GuzzleHttp\Tests\Psr7\Str;
 use Yii;
 
 /**
@@ -47,8 +49,16 @@ class TourController extends FrontendMenuController {
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
-	public function actionView($id, $src, $slug = null) {
+	public function actionView($id, $src = CommonTour::SOURCE_BILETUR, $slug = null) {
 		$commonTour = new CommonTour([CommonTour::ATTR_SOURCE => $src, CommonTour::ATTR_SOURCE_ID => $id]);
+		$commonTour->prepare();
+
+		//Регистрируем каноническую ссылку для поисковиков, чтбы старые ссылки переиндексировались на новые
+		$this->view->registerLinkTag([
+				'rel'  => 'canonical',
+				'href' => Yii::$app->request->hostInfo . static::getActionUrl(static::ACTION_VIEW, ['id' => $id, 'src' => $src, 'slug' => StringHelper::urlAlias($commonTour->title)])
+			]
+		);
 
 		return $this->render('view', ['tour' => $commonTour]);
 	}

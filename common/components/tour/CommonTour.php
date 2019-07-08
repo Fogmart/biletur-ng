@@ -2,6 +2,7 @@
 
 namespace common\components\tour;
 
+use common\base\helpers\Dump;
 use common\components\RemoteImageCache;
 use common\models\ObjectFile;
 use common\models\oracle\scheme\t3\RefItems;
@@ -97,6 +98,10 @@ class CommonTour extends Component {
 	private function _prepareBiletur() {
 		/** @var RefItems $tour */
 		$tour = $this->sourceTourData;
+
+		if (null === $tour) {
+			$tour = RefItems::find()->where([RefItems::ATTR_ID => $this->sourceId])->one();
+		}
 
 		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$tour->description', $tour->ID]);
 		$description = Yii::$app->cache->get($cacheKey);

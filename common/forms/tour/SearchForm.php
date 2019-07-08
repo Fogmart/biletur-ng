@@ -2,21 +2,22 @@
 
 namespace common\forms\tour;
 
-use common\components\RemoteImageCache;
-use common\components\tour\CommonLap;
 use common\components\tour\CommonTour;
-use common\components\tour\CommonTourWayPoint;
 use common\models\oracle\scheme\t3\RefItems;
-use common\models\oracle\scheme\t3\RILaps;
-use common\models\oracle\scheme\t3\RITour;
 use common\models\oracle\scheme\t3\RITourWps;
-use common\models\Town;
 use Yii;
 use yii\base\Model;
 use yii\caching\TagDependency;
 use yii\validators\NumberValidator;
 use yii\validators\StringValidator;
 
+/**
+ * Форма поиска туров
+ *
+ * @package common\forms\tour
+ *
+ * @author  Исаков Владислав <visakov@biletur.ru>
+ */
 class SearchForm extends Model {
 
 	/** @var string Страна/город(по справочнику Билетур) */

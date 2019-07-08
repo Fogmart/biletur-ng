@@ -78,7 +78,7 @@ return [
 				'Passenger/vvo/railway_schedule.asp'                            => 'old-links/rail-road',
 				'Agency/Rekvizit.asp'                                           => 'old-links/accounts',
 				'Agency/foradvertisers.asp'                                     => 'old-links/advertising',
-				'Tourism/tour.asp<id:\d+>]'                                     => ''
+				'Tourism/tour.asp'                                              => 'tour/view/'
 				//---------------------------------------------------------------------------------------
 			],
 		],
