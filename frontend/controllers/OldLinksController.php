@@ -1,8 +1,4 @@
 <?php
-/**
- * @author Исаков Владислав <visakov@biletur.ru>
- */
-
 namespace frontend\controllers;
 
 use yii\web\Controller;
@@ -36,5 +32,9 @@ class OldLinksController extends Controller {
 
 	public function actionRailRoad() {
 		return $this->redirect(['/rail-road/'], 301);
+	}
+
+	public function actionHotels() {
+		return $this->redirect(['/hotels/'], 301);
 	}
 }

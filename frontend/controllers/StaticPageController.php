@@ -50,34 +50,36 @@ class StaticPageController extends FrontendMenuController {
 			Yii::$app->cache->set($cacheKey, $seo, null, new TagDependency(['tags' => Seo::class]));
 		}
 
-		$title = $page->seo_title;
-		$description = $page->seo_description;
-		$keywords = $page->seo_keywords;
-
-		//Если есть настройки из модуля SEO то считаем и приоритетными
+		//Если есть настройки из модуля SEO то считаем их приоритетными
 		if (null !== $seo) {
-			$title = $seo->seo_title;
-			$description = $seo->seo_description;
-			$keywords = $seo->seo_keywords;
+			Seo::registerMeta($url, $this->view);
+		}
+		else {
+			$this->view->title =  $page->seo_title . ' | ' . Yii::$app->name;
+
+			$this->view->registerMetaTag([
+					'name'    => 'title',
+					'content' => $page->seo_title
+				]
+			);
+
+			$this->view->registerMetaTag([
+					'name'    => 'keywords',
+					'content' => $page->seo_description
+				]
+			);
+
+			$this->view->registerMetaTag([
+					'name'    => 'description',
+					'content' => $page->seo_description
+				]
+			);
 		}
 
-		$this->view->title = $title . ' - ' . Yii::$app->name;
-
-		$this->view->registerMetaTag([
-				'name'    => 'title',
-				'content' => $title
-			]
-		);
-
-		$this->view->registerMetaTag([
-				'name'    => 'keywords',
-				'content' => $keywords
-			]
-		);
-
-		$this->view->registerMetaTag([
-				'name'    => 'description',
-				'content' => $description
+		//Регистрируем каноническую ссылку для поисковиков, чтобы старые ссылки переиндексировались на новые
+		$this->view->registerLinkTag([
+				'rel'  => 'canonical',
+				'href' => Yii::$app->request->hostInfo . Yii::$app->request->url
 			]
 		);
 

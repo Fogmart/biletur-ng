@@ -62,7 +62,6 @@ return [
 				'domain_controllers' => ['AdServerName1'],
 				'account_suffix'     => '@airagency.ru',
 				'base_dn'            => "DC=airagency,DC=ru",
-				// for basic functionality this could be a standard, non privileged domain user (required)
 				'admin_username'     => 'visakov',
 				'admin_password'     => '27mv3kbn'
 			]

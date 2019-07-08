@@ -50,7 +50,18 @@ return [
 					'route'   => 'page',
 					'class'   => StaticPageUrlRule::class,
 				],
-				'site/set-city/<id>'                   => '/site/set-city/',
+				//Обработка старых ссылок------------------------------------------------------------
+				'Agency'                                                        => 'old-links/agency',
+				'TimeTbl'                                                       => 'old-links/avia',
+				'TimeTbl/pkc/delays.asp'                                        => 'old-links/avia',
+				'TimeTbl/vvo/delays.asp'                                        => 'old-links/avia',
+				'Passenger/vvo/railway_schedule.asp'                            => 'old-links/rail-road',
+				'Agency/Rekvizit.asp'                                           => 'old-links/accounts',
+				'Agency/foradvertisers.asp'                                     => 'old-links/advertising',
+				'Tourism/tour.asp'                                              => 'tour/view/',
+				'tourism/hotel/'                                                => 'old-links/hotels',
+				//---------------------------------------------------------------------------------------
+				'site/set-city/<id>'                    => '/site/set-city/',
 				'thumbs/<path:.*>'                      => 'site/thumb',
 				'excursion/find-by-name/<q>/<needType>' => 'excursion/find-by-name',
 				'excursion/widget/<city>'               => 'excursion/widget',
@@ -70,16 +81,7 @@ return [
 				'message-widget/<object>/<objectId>/<userName>'                 => 'message/message/widget',
 				'hotels/find-by-name/q/<q>'                                     => 'hotels/find-by-name',
 
-				//Обработка старых ссылок------------------------------------------------------------
-				'Agency'                                                        => 'old-links/agency',
-				'TimeTbl'                                                       => 'old-links/avia',
-				'TimeTbl/pkc/delays.asp'                                        => 'old-links/avia',
-				'TimeTbl/vvo/delays.asp'                                        => 'old-links/avia',
-				'Passenger/vvo/railway_schedule.asp'                            => 'old-links/rail-road',
-				'Agency/Rekvizit.asp'                                           => 'old-links/accounts',
-				'Agency/foradvertisers.asp'                                     => 'old-links/advertising',
-				'Tourism/tour.asp'                                              => 'tour/view/'
-				//---------------------------------------------------------------------------------------
+
 			],
 		],
 	],
