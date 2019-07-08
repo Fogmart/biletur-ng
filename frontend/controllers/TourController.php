@@ -7,7 +7,6 @@ use common\components\tour\CommonTour;
 use common\forms\tour\SearchForm;
 use common\base\helpers\StringHelper;
 use common\modules\seo\models\Seo;
-use GuzzleHttp\Tests\Psr7\Str;
 use Yii;
 
 /**
