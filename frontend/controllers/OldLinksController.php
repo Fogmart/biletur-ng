@@ -1,7 +1,9 @@
 <?php
 namespace frontend\controllers;
 
+use common\components\tour\CommonTour;
 use yii\web\Controller;
+use frontend\controllers\TourController;
 
 /**
  * Контроллер для обработки старых ссылок
@@ -36,5 +38,9 @@ class OldLinksController extends Controller {
 
 	public function actionHotels() {
 		return $this->redirect(['/hotels/'], 301);
+	}
+
+	public function actionTour($id) {
+		return $this->redirect(TourController::getActionUrl(TourController::ACTION_VIEW, ['id' => $id, 'src' => CommonTour::SOURCE_BILETUR]), 301);
 	}
 }

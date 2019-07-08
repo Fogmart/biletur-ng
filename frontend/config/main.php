@@ -44,7 +44,7 @@ return [
 			'showScriptName'  => false,
 			'suffix'          => '/',
 			'rules'           => [
-				''                                      => 'site/index',
+				'' => 'site/index',
 				[
 					'pattern' => 'page',
 					'route'   => 'page',
@@ -59,6 +59,7 @@ return [
 				'excursion/city/<city>'                 => 'excursion/index',
 				'tour/search'                           => 'tour/index/',
 				'tour/<id>/<src>/<slug>'                => 'tour/view/',
+				'tour/<id>/<src>'                       => 'tour/view/',
 
 				'login'                            => 'site/login',
 				'profile'                          => 'profile/profile/index',
@@ -79,7 +80,8 @@ return [
 				'Passenger/vvo/railway_schedule.asp'                            => 'old-links/rail-road',
 				'Agency/Rekvizit.asp'                                           => 'old-links/accounts',
 				'Agency/foradvertisers.asp'                                     => 'old-links/advertising',
-				'Tourism/tour.asp'                                              => 'tour/view/',
+				'Tourism/tour.asp'                                              => 'old-links/tour',
+				'tourism/tour.asp'                                              => 'old-links/tour',
 				'tourism/hotel/'                                                => 'old-links/hotels',
 				//---------------------------------------------------------------------------------------
 

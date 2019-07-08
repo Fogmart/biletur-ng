@@ -51,11 +51,12 @@ $image = $refItem->getImage();
 				'fileuploaddone' => 'function(e, data) { $(".fileupload-buttonbar").hide(); }',
 				'fileuploadfail' => 'function(error, data) {
 									        $(".file-upload-error").hide(); 
-								        if (error) {
-									            $(".file-upload-error").html(error);
-									            $(".file-upload-error").show();
-									        }
-									        console.log(error); console.log(data);
+									        if (error) {
+										            $(".file-upload-error").html(error);
+										            $(".file-upload-error").show();
+										        }
+									        console.log(error); 
+									        console.log(data);
 									}',
 			]
 			,

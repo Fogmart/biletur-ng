@@ -56,7 +56,7 @@ class TourController extends FrontendMenuController {
 		//Регистрируем метатэги
 		Seo::registerMetaByObject(CommonTour::class, $commonTour->sourceId, $this->view);
 
-		//Регистрируем каноническую ссылку для поисковиков, чтобы старые ссылки переиндексировались на новые
+		//Регистрируем каноническую ссылку для поисковиков, чтобы старые ссылки без slug не конфликтовали в индексации
 		$this->view->registerLinkTag([
 				'rel'  => 'canonical',
 				'href' => Yii::$app->request->hostInfo . static::getActionUrl(static::ACTION_VIEW, ['id' => $id, 'src' => $src, 'slug' => StringHelper::urlAlias($commonTour->title)])
