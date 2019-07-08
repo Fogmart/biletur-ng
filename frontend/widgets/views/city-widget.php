@@ -17,6 +17,7 @@ use frontend\controllers\SiteController;
 			</div>
 			<div class="modal-body">
 				<div class="row">
+					<!--noindex-->
 					<?php foreach ($towns as $letter => $townArray): ?>
 						<div class="col-xs-6">
 						<span class="alphabet-letter"><?= $letter ?></span><hr>
@@ -25,6 +26,7 @@ use frontend\controllers\SiteController;
 						<?php endforeach ?>
 						</div>
 					<?php endforeach ?>
+					<!--/noindex-->
 				</div>
 			</div>
 		</div>

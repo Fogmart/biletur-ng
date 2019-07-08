@@ -18,12 +18,11 @@ use common\base\helpers\StringHelper;
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="tour-item">
-						<h4><strong><?= $tour->title ?></strong></h4>
+						<h4><a href="<?= TourController::getActionUrl(TourController::ACTION_VIEW, ['id' => $tour->sourceId, 'src' => $tour->source, 'slug' => StringHelper::urlAlias($tour->title) ])?>"><strong><?= $tour->title ?></strong></a></h4>
 						<br>
 						<?= $tour->sourceId ?><br>
 						<?= $tour->imageOld ?><br>
-						<?= $tour->priceMinMax[0] ?> <br>
-						<a href="<?= TourController::getActionUrl(TourController::ACTION_VIEW, ['id' => $tour->sourceId, 'src' => $tour->source, 'slug' => StringHelper::urlAlias($tour->title) ])?>">url</a>
+						от <?= $tour->priceMinMax[0] ?> <br>
 						<div class="col-md-3 col-xs-12">
 							<?php if (null !== $tour->image): ?>
 								<?= $tour->image ?>

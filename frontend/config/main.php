@@ -70,8 +70,7 @@ return [
 				'message-widget/<object>/<objectId>/<userName>'                 => 'message/message/widget',
 				'hotels/find-by-name/q/<q>'                                     => 'hotels/find-by-name',
 
-
-				//Редиректы для старых ссылок------------------------------------------------------------
+				//Обработка старых ссылок------------------------------------------------------------
 				'Agency'                                                        => 'old-links/agency',
 				'TimeTbl'                                                       => 'old-links/avia',
 				'TimeTbl/pkc/delays.asp'                                        => 'old-links/avia',
