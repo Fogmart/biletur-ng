@@ -61,10 +61,10 @@ return [
 				//'ad_port'      => 389,
 				'domain_controllers' => ['AdServerName1'],
 				'account_suffix'     => '@airagency.ru',
-				'base_dn'            => "DC=test,DC=lan",
+				'base_dn'            => "DC=airagency,DC=ru",
 				// for basic functionality this could be a standard, non privileged domain user (required)
-				'admin_username'     => 'ActiveDirectoryUser',
-				'admin_password'     => 'StrongPassword'
+				'admin_username'     => 'visakov',
+				'admin_password'     => '27mv3kbn'
 			]
 		],
 		'remoteImageCache' => [
