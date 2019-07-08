@@ -98,7 +98,7 @@ use yii\web\JsExpression;
 			?>
 		</div>
 		<div class="col-xs-1">
-			<?= $htmlForm->field($form, $form::ATTR_CHILD_COUNT)->textInput(['v-model' => 'childCount'])
+			<?= $htmlForm->field($form, $form::ATTR_CHILD_COUNT)->textInput()
 				->widget(TouchSpin::class, [
 					'options'       => [
 						'v-model' => 'childCount',
@@ -111,7 +111,9 @@ use yii\web\JsExpression;
 					],
 					'pluginEvents'  => [
 						"touchspin.on.startspin " => new JsExpression("function() {
-						    console.log('touchspin.on.startspin'); 
+							if ($(this).val() > 0) {
+								
+							}
 						}")
 					]
 				])->label(false);
