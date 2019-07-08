@@ -4,6 +4,8 @@ namespace backend\controllers;
 
 use common\base\helpers\Dump;
 use common\models\LoginForm;
+use common\models\User;
+use frontend\models\SignupForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -80,6 +82,19 @@ class SiteController extends BackendController {
 			if (false !== mb_stripos($model->username, '@airagency.ru')) {
 				//Авторизация по LDAP
 				$ldapUser = Yii::$app->ldap->authenticate($model->username, $model->password);
+				if (false !== $ldapUser) {
+					$siteUser = User::find()
+						->andWhere([User::ATTR_USER_NAME => $model->username])
+						->one();
+
+					if (null === $siteUser) {
+						$signupForm = new SignupForm();
+						$signupForm->username = $model->username;
+						$signupForm->password = $model->password;
+						$signupForm->signup();
+					}
+				}
+
 				Dump::dDie($ldapUser);
 			}
 
