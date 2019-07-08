@@ -51,18 +51,21 @@ return [
 					'class'   => StaticPageUrlRule::class,
 				],
 
-				'site/set-city/<id>'                    => '/site/set-city/',
-				'thumbs/<path:.*>'                      => 'site/thumb',
+				'site/set-city/<id>' => '/site/set-city/',
+				'thumbs/<path:.*>'   => 'site/thumb',
+
 				'excursion/find-by-name/<q>/<needType>' => 'excursion/find-by-name',
 				'excursion/widget/<city>'               => 'excursion/widget',
 				'excursion/widget/<city>/<needSearch>'  => 'excursion/widget',
 				'excursion/city/<city>'                 => 'excursion/index',
-				'tour/search'                           => 'tour/index/',
-				'tour/<id>/<src>/<slug>'                => 'tour/view/',
-				'tour/<id>/<src>'                       => 'tour/view/',
 
-				'login'                            => 'site/login',
-				'profile'                          => 'profile/profile/index',
+				'tour/search'            => 'tour/index/',
+				'tour/<id>/<src>/<slug>' => 'tour/view/',
+				'tour/<id>/<src>'        => 'tour/view/',
+
+				'login'   => 'site/login',
+				'profile' => 'profile/profile/index',
+
 				'api/remote-query/'                => 'api/remote-query/index',
 				'api/remote-query/invalidate-tag'  => 'api/remote-query/invalidate-tag',
 				'api/remote-query/add-request-log' => 'api/remote-query/add-request-log',
