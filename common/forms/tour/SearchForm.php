@@ -50,8 +50,12 @@ class SearchForm extends Model {
 	public $sortBy;
 	const ATTR_SORT_BY = 'sortBy';
 
-	public $count;
+	public $count = 0;
 	const ATTR_COUNT = 'count';
+
+	/** @var bool Подгрузка ли это при скролле */
+	public $isLoad = false;
+	const ATTR_IS_LOAD = 'isLoad';
 
 	/** @var CommonTour[] */
 	public $result;
@@ -201,6 +205,13 @@ class SearchForm extends Model {
 
 			$commonTours[] = $commonTour;
 		}
+
+		//Слайсим для подгрузки
+		if (!$this->isLoad) { //Если не подгрузка то отдаём с первого элемента, иначе берем номер из формы
+			$this->count = 0;
+		}
+
+		$commonTours = array_slice($commonTours, $this->count, static::ITEMS_PER_PAGE);
 
 		return $commonTours;
 	}

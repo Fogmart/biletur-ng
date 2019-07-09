@@ -8,6 +8,7 @@ use common\forms\tour\SearchForm;
 use common\base\helpers\StringHelper;
 use common\modules\seo\models\Seo;
 use Yii;
+use yii\web\Response;
 
 /**
  *
@@ -17,6 +18,7 @@ class TourController extends FrontendMenuController {
 
 	const ACTION_INDEX = 'index';
 	const ACTION_VIEW = 'view';
+	const ACTION_LOAD = 'load';
 
 	/**
 	 * Точка входа Туры
@@ -37,6 +39,27 @@ class TourController extends FrontendMenuController {
 		return $this->render('index', ['form' => $form]);
 	}
 
+	/**
+	 * Подгрузка при скролле
+	 *
+	 * @return string
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function actionLoad() {
+		Yii::$app->response->format = Response::FORMAT_JSON;
+
+		$form = new SearchForm();
+		$form->isLoad = true;
+
+		if (Yii::$app->request->isPjax) {
+			$form->load(Yii::$app->request->post());
+		}
+
+		$form->search();
+
+		return $this->render('_search-result', ['tours' => $form->result]);
+	}
 
 	/**
 	 * Карточка тура

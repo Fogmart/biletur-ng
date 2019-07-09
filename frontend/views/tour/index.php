@@ -1,4 +1,6 @@
 <?php
+use yii\widgets\Pjax;
+use frontend\controllers\TourController;
 /**
  * @author Исаков Владислав <visakov@biletur.ru>
  *
@@ -6,23 +8,24 @@
  *
  */
 
-use yii\widgets\Pjax; ?>
-<div class="content-header text-center">
-	<h1>Поиск тура</h1>
-</div>
+?>
+	<div class="content-header text-center">
+		<h1>Поиск тура</h1>
+	</div>
+	<div class="load-tour-url" data-url="<?= TourController::getActionUrl(TourController::ACTION_LOAD)?>"></div>
 <?php Pjax::begin(); ?>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="block-panel">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="block-panel">
 				<?= $this->render('_search-form', ['form' => $form]) ?>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="block-panel">
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="block-panel">
 				<?= $this->render('_search-result', ['tours' => $form->result]) ?>
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 <?php Pjax::end(); ?>
