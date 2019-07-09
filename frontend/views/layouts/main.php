@@ -36,6 +36,7 @@ AppAsset::register($this);
 
 <?= $this->render('_footer') ?>
 <?php $this->endBody() ?>
+<?php $this->registerJs('$(this).commonPlugin();');?>
 </body>
 </html>
 <?php $this->endPage() ?>

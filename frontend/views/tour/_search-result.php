@@ -38,6 +38,7 @@ use common\base\helpers\StringHelper;
 								]
 							); ?>
 							<br>
+
 							<?php foreach ($tour->wayPoints as $wayPoint): ?>
 								<?php if ($wayPoint->daysCount > 0 && null !== $wayPoint->country && null !== $wayPoint->countryFlagImage): ?>
 									<a href="javascript:" class="way-point-tag" data-value="country_<?= $wayPoint->country ?>"><img width="30" alt="<?= $wayPoint->country ?>" src="<?= $wayPoint->countryFlagImage ?>"></a> <a href="javascript:" class="way-point-tag" data-value="country_<?= $wayPoint->country ?>"><?= $wayPoint->country ?></a>, <a
@@ -54,5 +55,4 @@ use common\base\helpers\StringHelper;
 	</div>
 <?php
 $this->registerJs('$(this).searchTourPlugin();');
-$this->registerJs('$(this).commonPlugin();');
 ?>
