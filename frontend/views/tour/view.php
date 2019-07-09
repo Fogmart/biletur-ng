@@ -5,3 +5,4 @@
  * @var \common\components\tour\CommonTour $tour
  */
 
+\common\base\helpers\Dump::d($tour);

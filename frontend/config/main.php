@@ -87,7 +87,6 @@ return [
 				'tourism/tour.asp'                                              => 'old-links/tour',
 				'tourism/hotel/'                                                => 'old-links/hotels',
 				//---------------------------------------------------------------------------------------
-
 			],
 		],
 	],
