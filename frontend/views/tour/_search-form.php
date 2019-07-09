@@ -40,12 +40,17 @@ use yii\web\JsExpression;
 		<?= $htmlForm->field($form, $form::ATTR_PRICE_RANGE)->widget(Slider::class, [
 			'sliderColor'   => Slider::TYPE_GREY,
 			'pluginOptions' => [
-				'min'     => $form->priceMinMax[0],
-				'max'     => $form->priceMinMax[1],
-				'step'    => 5000,
-				'range'   => true,
+				'min'       => $form->priceMinMax[0],
+				'max'       => $form->priceMinMax[1],
+				'step'      => 3000,
+				'range'     => true,
+				'formatter' => new yii\web\JsExpression("function(val) {
+						var priceMin = new Number(val[0]);
+						var priceMax = new Number(val[1]);
+						return 'Цена: ' + priceMin.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ') + ' - ' + priceMax.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ') + ' руб';
+			        }")
 			],
-			'pluginEvents' => [
+			'pluginEvents'  => [
 				'slideStop' => new JsExpression("function() { $('#w0').submit(); }")
 			],
 		])->label(false);
@@ -55,7 +60,7 @@ use yii\web\JsExpression;
 
 	</div>
 	<div class="col-xs-2">
-		<?= Html::submitButton('Найти', ['class' => 'btn btn-primary', 'id' => 'search-button']) ?>
+		<?= Html::submitButton('Найти', ['class' => 'btn btn-primary', 'id' => 'search-button', 'style' => 'display: none;']) ?>
 	</div>
 </div>
 <?php ActiveForm::end(); ?>
