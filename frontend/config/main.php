@@ -77,6 +77,7 @@ return [
 
 				//Обработка старых ссылок------------------------------------------------------------
 				'Agency'                                                        => 'old-links/agency',
+				'Agency/index.asp'                                              => 'old-links/agency',
 				'TimeTbl'                                                       => 'old-links/avia',
 				'TimeTbl/pkc/delays.asp'                                        => 'old-links/avia',
 				'TimeTbl/vvo/delays.asp'                                        => 'old-links/avia',
@@ -86,6 +87,14 @@ return [
 				'Tourism/tour.asp'                                              => 'old-links/tour',
 				'tourism/tour.asp'                                              => 'old-links/tour',
 				'tourism/hotel/'                                                => 'old-links/hotels',
+				'order/ordPayInfo.asp'                                          => 'old-links/ord-pay-info',
+				'BackCall/BackCall.asp'                                         => 'old-links/back-call',
+				'Agency/vacancy.asp'                                            => 'old-links/vacancy',
+				'avianet/default.asp'                                           => 'old-links/partners',
+				'Agency/structura/index.asp'                                    => 'old-links/agency-struct',
+				'Agency/Filials/default.asp'                                    => 'old-links/filials',
+				'Agency/Commendations.asp'                                      => 'old-links/commendations',
+				'Agency/awards.asp'                                             => 'old-links/awards',
 				//---------------------------------------------------------------------------------------
 			],
 		],
