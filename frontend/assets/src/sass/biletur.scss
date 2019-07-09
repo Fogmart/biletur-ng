@@ -48,14 +48,17 @@ body {
 			padding: 20px 15px 20px 15px;
 			border-radius: 8px;
 			overflow: hidden;
+
 			.result {
 				min-height: 300px;
 			}
 
 		}
+
 		.block-panel.process {
 			opacity: 0.60;
 		}
+
 		.content-header {
 			width: 100%;
 
@@ -107,6 +110,7 @@ body {
 		list-style-type: none;
 		font-weight: lighter;
 	}
+
 	&.fixed {
 		position: fixed;
 		padding-top: 0px;
@@ -329,7 +333,7 @@ a.desc:after {
 	&.town-input {
 		cursor: pointer;
 		background: url(/images/geoloc_sm.jpg) no-repeat scroll 5px 4px;
-		padding-left:30px;
+		padding-left: 30px;
 	}
 }
 
@@ -414,28 +418,29 @@ a.desc:after {
 	border-radius: 20px;
 	color: #fff;
 	padding: 4px 15px 5px;
-	background-color: rgba(0,0,0,.25);
+	background-color: rgba(0, 0, 0, .25);
 	text-decoration: none;
-	-webkit-transition: color,background-color .3s;
-	-o-transition: color,background-color .3s;
-	transition: color,background-color .3s;
+	-webkit-transition: color, background-color .3s;
+	-o-transition: color, background-color .3s;
+	transition: color, background-color .3s;
 }
 
-.tags .tag:hover{
-	background-color: rgba(0,0,0,.99);
+.tags .tag:hover {
+	background-color: rgba(0, 0, 0, .99);
 }
 
-.tags .tag.active{
+.tags .tag.active {
 	background-color: $mainBlueColor;
 	opacity: .75;
 }
 
 .rating-container .filled-stars {
-	color:$mainBlueColorLight !important;
+	color: $mainBlueColorLight !important;
 	white-space: nowrap;
 	-webkit-text-stroke: 1px #fff !important;
 	text-shadow: 1px 1px #999;
 }
+
 span {
 	&.alphabet-letter {
 		color: $mainRedColor;
@@ -443,6 +448,7 @@ span {
 		font-weight: bolder;
 	}
 }
+
 #modal-towns hr {
 	margin-top: 0px;
 	margin-bottom: 10px;
@@ -463,3 +469,28 @@ span {
 		background-color: $mainRedColor;
 	}
 }
+
+.slider{
+	&.slider-horizontal {
+		width: 100% !important;
+		margin-top: 6px !important;
+
+		.slider-selection {
+			background: #b4c0ff !important;
+		}
+
+		.slider-handle {
+			top: -8px;
+			width: 30px;
+			height: 30px;
+			margin-left: -15px;
+
+			&.round {
+				background: url("/images/favicon.ico") transparent;
+				border-radius: 0px;
+			}
+		}
+	}
+
+}
+

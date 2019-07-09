@@ -35,9 +35,9 @@ AppAsset::register($this);
                 <li><a href="<?= AviaController::getActionUrl(AviaController::ACTION_INDEX) ?>">Авиабилеты</a></li>
                 <li><a href="<?= RailRoadController::getActionUrl(RailRoadController::ACTION_INDEX) ?>">Ж/Д Билеты</a></li>
                 <li><a href="<?= TourController::getActionUrl(TourController::ACTION_INDEX) ?>">Туры</a></li>
+	            <li>Круизы</li>
                 <li><a href="<?= HotelsController::getActionUrl(HotelsController::ACTION_INDEX) ?>">Отели</a></li>
                 <li><a href="<?= ExcursionController::getActionUrl(ExcursionController::ACTION_INDEX) ?>">Экскурсии</a></li>
-                <li>Круизы</li>
                 <li>Визы</li>
                 <li>Страхование</li>
             </ul>

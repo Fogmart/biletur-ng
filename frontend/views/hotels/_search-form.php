@@ -82,7 +82,7 @@ use yii\web\JsExpression;
 					'autoclose'      => true,
 					'todayHighlight' => true,
 					'startDate'      => date(DateHelper::DATE_FORMAT)
-				]
+				],
 			]);
 			?>
 		</div>

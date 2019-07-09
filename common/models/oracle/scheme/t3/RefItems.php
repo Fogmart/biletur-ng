@@ -2,6 +2,7 @@
 
 namespace common\models\oracle\scheme\t3;
 
+use common\base\helpers\Dump;
 use common\base\helpers\LString;
 use common\components\helpers\LArray;
 use common\components\tour\CommonTour;
@@ -250,9 +251,12 @@ class RefItems extends DspBaseModel {
 
 	/**
 	 * Формируем строку "Цена от до" для вьюшки каталога
+	 *
+	 * @param bool $needFormat
+	 *
 	 * @return array
 	 */
-	public function quotsSummMinMax() {
+	public function quotsSummMinMax($needFormat = true) {
 
 		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $this->ID]);
 		$activeQuots = Yii::$app->cache->get($cacheKey);
@@ -270,10 +274,10 @@ class RefItems extends DspBaseModel {
 
 		foreach ($activeQuots as $quot) {
 			if ($quot->CRNCY != 'RUB') {
-				$summs[] = $quot->getTotRubSumm();
+				$summs[] = (int)$quot->getTotRubSumm();
 			}
 			else {
-				$summs[] = $quot->TOTSUM;
+				$summs[] = (int)$quot->TOTSUM;
 			}
 		}
 		if (count($summs) == 0) {
@@ -285,13 +289,22 @@ class RefItems extends DspBaseModel {
 		sort($summs);
 
 		if (count($summs) == 1) {
-			return [LString::formatMoney($summs[0])];
+			if ($needFormat) {
+				return [LString::formatMoney($summs[0])];
+			}
+			else {
+				return $summs[0];
+			}
 		}
 
 		$minSum = $summs[0];
 		$maxSum = $summs[count($summs) - 1];
-
-		return [LString::formatMoney($minSum), LString::formatMoney($maxSum)];
+		if ($needFormat) {
+			return [LString::formatMoney($minSum), LString::formatMoney($maxSum)];
+		}
+		else {
+			return [$minSum, $maxSum];
+		}
 	}
 
 	/**

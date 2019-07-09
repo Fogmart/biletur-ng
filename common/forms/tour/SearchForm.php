@@ -2,6 +2,7 @@
 
 namespace common\forms\tour;
 
+use common\base\helpers\Dump;
 use common\components\tour\CommonTour;
 use common\models\oracle\scheme\t3\RefItems;
 use common\models\oracle\scheme\t3\RITourWps;
@@ -9,6 +10,7 @@ use Yii;
 use yii\base\Model;
 use yii\caching\TagDependency;
 use yii\validators\NumberValidator;
+use yii\validators\SafeValidator;
 use yii\validators\StringValidator;
 
 /**
@@ -36,9 +38,20 @@ class SearchForm extends Model {
 	public $cityInWayPoint;
 	const ATTR_CITY_IN_WAY_POINT = 'cityInWayPoint';
 
+	/** @var string */
+	public $priceRange;
+	const ATTR_PRICE_RANGE = 'priceRange';
+
+	/** @var array */
+	public $priceMinMax;
+	const ATTR_PRICE_MIN_MAX = 'priceMinMax';
+
 	/** @var int */
 	public $sortBy;
 	const ATTR_SORT_BY = 'sortBy';
+
+	public $count;
+	const ATTR_COUNT = 'count';
 
 	/** @var CommonTour[] */
 	public $result;
@@ -50,11 +63,21 @@ class SearchForm extends Model {
 	const SORT_TYPE_PRICE_MAX = 1;
 
 	//Параметры пагинации
-	const ITEMS_PER_PAGE = 20;
+	const ITEMS_PER_PAGE = 10;
 
 	public $page = 0;
 	public $pageSize = self::ITEMS_PER_PAGE;
 	public $pagination;
+
+	public function __construct($config = []) {
+
+		$this->priceMinMax = static::_getMinMaxPrices();
+		if (empty($this->priceRange)) {
+			$this->priceRange = implode(',', $this->priceMinMax);
+		}
+
+		parent::__construct($config);
+	}
 
 	/**
 	 * @return array
@@ -79,7 +102,11 @@ class SearchForm extends Model {
 			[static::ATTR_FROM_CITY, StringValidator::class],
 			[static::ATTR_TOUR_TO, StringValidator::class],
 			[static::ATTR_TOUR_TYPE, StringValidator::class],
+			[static::ATTR_PRICE_RANGE, SafeValidator::class],
+
+
 			[static::ATTR_SORT_BY, NumberValidator::class],
+			[static::ATTR_COUNT, NumberValidator::class],
 		];
 	}
 
@@ -93,6 +120,7 @@ class SearchForm extends Model {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function search($onlyBiletur = false) {
+
 		$this->result = $this->_searchBiletur();
 		if ($onlyBiletur) {
 			return $this->result;
@@ -112,6 +140,8 @@ class SearchForm extends Model {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	private function _searchBiletur() {
+		$filterPrice = explode(',', $this->priceRange);
+
 		$query = RefItems::find();
 		$query->joinWith(RefItems::REL_ACTIVE);
 
@@ -146,6 +176,29 @@ class SearchForm extends Model {
 
 			$commonTour->prepare();
 
+			//Фильтруем по ценам
+			if (null === $commonTour->priceMinMax) {
+				continue;
+			}
+			//Dump::d($commonTour);
+
+			if (count($commonTour->priceMinMax) === 2) {
+				if ((int)str_replace(' ', '', $commonTour->priceMinMax[0]) < $filterPrice[0]) {
+					continue;
+				}
+				if ((int)str_replace(' ', '', $commonTour->priceMinMax[0]) > $filterPrice[1]) {
+					continue;
+				}
+			}
+			else {
+				if ((int)str_replace(' ', '', $commonTour->priceMinMax[0]) < $filterPrice[0]) {
+					continue;
+				}
+				if ((int)str_replace(' ', '', $commonTour->priceMinMax[0]) > $filterPrice[1]) {
+					continue;
+				}
+			}
+
 			$commonTours[] = $commonTour;
 		}
 
@@ -171,5 +224,28 @@ class SearchForm extends Model {
 		}
 
 		return $result;
+	}
+
+	private static function _getMinMaxPrices() {
+		$priceMinMaxArray = [];
+		$query = RefItems::find();
+		$query->joinWith(RefItems::REL_ACTIVE);
+		$tours = $query->all();
+		/** @var RefItems[] $tours */
+		foreach ($tours as $tour) {
+			$minMax = $tour->quotsSummMinMax(false);
+			if (null === $minMax) {
+				continue;
+			}
+			if (is_array($minMax)) {
+				$priceMinMaxArray[] = (int)$minMax[0];
+			}
+			else {
+				$priceMinMaxArray[] = (int)$minMax;
+			}
+		}
+		sort($priceMinMaxArray);
+
+		return [$priceMinMaxArray[0], $priceMinMaxArray[count($priceMinMaxArray) - 1]];
 	}
 }

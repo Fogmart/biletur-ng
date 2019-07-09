@@ -48,7 +48,8 @@
     "kartik-v/yii2-field-range": "dev-master",
     "iutbay/yii2-imagecache": "*",
     "fgh151/yii2-opengraph": "*",
-    "2amigos/yii2-gallery-widget": "~1.0"
+    "2amigos/yii2-gallery-widget": "~1.0",
+    "kartik-v/yii2-slider": "dev-master"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",
