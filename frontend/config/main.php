@@ -76,25 +76,25 @@ return [
 				'hotels/find-by-name/q/<q>'                                     => 'hotels/find-by-name',
 
 				//Обработка старых ссылок------------------------------------------------------------
-				'Agency'                                                        => 'old-links/agency',
-				'Agency/index.asp'                                              => 'old-links/agency',
+				'Agency'                                                        => 'old-links/agency',//static
+				'Agency/index.asp'                                              => 'old-links/agency',//static
 				'TimeTbl'                                                       => 'old-links/avia',
 				'TimeTbl/pkc/delays.asp'                                        => 'old-links/avia',
 				'TimeTbl/vvo/delays.asp'                                        => 'old-links/avia',
 				'Passenger/vvo/railway_schedule.asp'                            => 'old-links/rail-road',
-				'Agency/Rekvizit.asp'                                           => 'old-links/accounts',
-				'Agency/foradvertisers.asp'                                     => 'old-links/advertising',
+				'Agency/Rekvizit.asp'                                           => 'old-links/accounts',//static
+				'Agency/foradvertisers.asp'                                     => 'old-links/advertising',//static
 				'Tourism/tour.asp'                                              => 'old-links/tour',
 				'tourism/tour.asp'                                              => 'old-links/tour',
 				'tourism/hotel/'                                                => 'old-links/hotels',
-				'order/ordPayInfo.asp'                                          => 'old-links/ord-pay-info',
-				'BackCall/BackCall.asp'                                         => 'old-links/back-call',
-				'Agency/vacancy.asp'                                            => 'old-links/vacancy',
-				'avianet/default.asp'                                           => 'old-links/partners',
-				'Agency/structura/index.asp'                                    => 'old-links/agency-struct',
-				'Agency/Filials/default.asp'                                    => 'old-links/filials',
-				'Agency/Commendations.asp'                                      => 'old-links/commendations',
-				'Agency/awards.asp'                                             => 'old-links/awards',
+				'order/ordPayInfo.asp'                                          => 'old-links/ord-pay-info',//static
+				'BackCall/BackCall.asp'                                         => 'old-links/back-call',//dynamic form
+				'Agency/vacancy.asp'                                            => 'old-links/vacancy',//dynamic
+				'avianet/default.asp'                                           => 'old-links/partners',//static
+				'Agency/structura/index.asp'                                    => 'old-links/agency-struct',//static
+				'Agency/Filials/default.asp'                                    => 'old-links/filials',//dynamic
+				'Agency/Commendations.asp'                                      => 'old-links/commendations',//static
+				'Agency/awards.asp'                                             => 'old-links/awards', //static
 				//---------------------------------------------------------------------------------------
 			],
 		],
