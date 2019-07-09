@@ -465,6 +465,23 @@ span {
 }
 
 .slider{
+	.tooltip.top {
+		margin-top: -45px;
+
+		.tooltip-arrow {
+			border-top-color: $mainBlueColorLight;
+		}
+	}
+
+	.tooltip-inner {
+		padding: 5px 8px;
+		color: #fff;
+		text-align: center;
+		background-color: $mainBlueColorLight;
+		border-radius: 4px;
+		font-weight: bolder;
+	}
+
 	&.slider-horizontal {
 		width: 100% !important;
 		margin-top: 6px !important;

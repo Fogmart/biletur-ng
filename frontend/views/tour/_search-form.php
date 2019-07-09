@@ -44,6 +44,7 @@ use yii\web\JsExpression;
 				'max'       => $form->priceMinMax[1],
 				'step'      => 3000,
 				'range'     => true,
+				'tooltip'   => 'always',
 				'formatter' => new yii\web\JsExpression("function(val) {
 						var priceMin = new Number(val[0]);
 						var priceMax = new Number(val[1]);
