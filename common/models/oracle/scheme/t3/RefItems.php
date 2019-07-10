@@ -235,6 +235,7 @@ class RefItems extends DspBaseModel {
 				'T3.RI_TOUR_TYPES', ['ITMID' => 'ID']
 			);
 	}
+	const REL_TYPES = 'types';
 
 	/**
 	 * Связь с сотрудниками, привязанными к туру, сделал 1=1(hasOne) т.к. не понял может ли быть 1=n(hasMany)

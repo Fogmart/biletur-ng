@@ -5,6 +5,7 @@ namespace common\forms\tour;
 use common\components\tour\CommonTour;
 use common\models\oracle\scheme\t3\RefItems;
 use common\models\oracle\scheme\t3\RITourWps;
+use common\models\oracle\scheme\t3\TourTypes;
 use Yii;
 use yii\base\Model;
 use yii\caching\TagDependency;
@@ -25,8 +26,8 @@ class SearchForm extends Model {
 	const ATTR_TOUR_TO = 'tourTo';
 
 	/** @var string Тип тура(по справочнику Билетур) */
-	public $tourType;
-	const ATTR_TOUR_TYPE = 'tourType';
+	public $filterTourType;
+	const ATTR_FILTER_TOUR_TYPE = 'filterTourType';
 
 	/** @var string Из какого города(по справочнику Билетур) */
 	public $fromCity;
@@ -59,6 +60,7 @@ class SearchForm extends Model {
 	/** @var CommonTour[] */
 	public $result;
 
+
 	/** @var int Сортировка от дешевых */
 	const SORT_TYPE_PRICE_MIN = 0;
 
@@ -85,9 +87,9 @@ class SearchForm extends Model {
 	 */
 	public function attributeLabels() {
 		return [
-			static::ATTR_FROM_CITY => 'Из города',
-			static::ATTR_TOUR_TO   => 'Страна, курорт, город',
-			static::ATTR_TOUR_TYPE => 'Вид отдыха'
+			static::ATTR_FROM_CITY        => 'Из города',
+			static::ATTR_TOUR_TO          => 'Страна, курорт, город',
+			static::ATTR_FILTER_TOUR_TYPE => 'Вид отдыха'
 		];
 	}
 
@@ -100,7 +102,7 @@ class SearchForm extends Model {
 		return [
 			[static::ATTR_FROM_CITY, StringValidator::class],
 			[static::ATTR_TOUR_TO, StringValidator::class],
-			[static::ATTR_TOUR_TYPE, StringValidator::class],
+			[static::ATTR_FILTER_TOUR_TYPE, SafeValidator::class],
 			[static::ATTR_PRICE_RANGE, SafeValidator::class],
 
 			[static::ATTR_SORT_BY, SafeValidator::class],
@@ -155,7 +157,13 @@ class SearchForm extends Model {
 			$query->andWhere([RITourWps::tableName() . '.' . RITourWps::ATTR_DESTINATION_POINT => 1]);
 		}
 
-		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$tours', $this->tourTo, $this->tourType, $this->cityInWayPoint]);
+		//Фильтр по типу тура
+		if (!empty($this->filterTourType)) {
+			$query->joinWith(RefItems::REL_TYPES);
+			$query->andWhere([TourTypes::tableName() . '.' . TourTypes::ATTR_ID => (int)$this->filterTourType]);
+		}
+
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$tours', $this->tourTo, $this->filterTourType, $this->cityInWayPoint, $this->priceRange]);
 		/** @var RefItems[] $tours */
 		$tours = Yii::$app->cache->get($cacheKey);
 		if (false === $tours) {
@@ -180,18 +188,18 @@ class SearchForm extends Model {
 			}
 
 			if (count($commonTour->priceMinMax) === 2) {
-				if ((int)str_replace(' ', '', $commonTour->priceMinMax[0]) < $filterPrice[0]) {
+				if ((int)$commonTour->priceMinMax[0] < $filterPrice[0]) {
 					continue;
 				}
-				if ((int)str_replace(' ', '', $commonTour->priceMinMax[0]) > $filterPrice[1]) {
+				if ((int)$commonTour->priceMinMax[0] > $filterPrice[1]) {
 					continue;
 				}
 			}
 			else {
-				if ((int)str_replace(' ', '', $commonTour->priceMinMax[0]) < $filterPrice[0]) {
+				if ((int)$commonTour->priceMinMax[0] < $filterPrice[0]) {
 					continue;
 				}
-				if ((int)str_replace(' ', '', $commonTour->priceMinMax[0]) > $filterPrice[1]) {
+				if ((int)$commonTour->priceMinMax[0] > $filterPrice[1]) {
 					continue;
 				}
 			}
@@ -270,5 +278,12 @@ class SearchForm extends Model {
 		sort($priceMinMaxArray);
 
 		return [$priceMinMaxArray[0], $priceMinMaxArray[count($priceMinMaxArray) - 1]];
+	}
+
+	/**
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function getTypes() {
+		return TourTypes::getActive();
 	}
 }

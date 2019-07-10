@@ -1,7 +1,8 @@
 <?php
 
-namespace common\models\scheme\t3;
+namespace common\models\oracle\scheme\t3;
 
+use common\base\helpers\Dump;
 use common\models\oracle\scheme\DspBaseModel;
 use common\models\oracle\scheme\t3\RefItems;
 use common\models\oracle\scheme\t3\RIAd;
@@ -27,6 +28,9 @@ use yii\caching\TagDependency;
  */
 class TourTypes extends DspBaseModel {
 
+	const ATTR_ID = 'ID';
+	const ATTR_NAME = 'NAME';
+
 	/**
 	 * @return string
 	 */
@@ -40,19 +44,21 @@ class TourTypes extends DspBaseModel {
 	 * @return array|mixed
 	 */
 	public static function getActive() {
-		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, Yii::$app->env->getTourZone()]);
-		$rows = Yii::$app->cache->get(md5($cacheKey));
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, Yii::$app->env->getTourZone(), 1]);
+		$rows = Yii::$app->cache->get($cacheKey);
 		if (false === $rows) {
 			$rows = TourTypes::find()
 				->select('T3.TOURTYPES.ID, T3.TOURTYPES.NAME')
 				->joinWith('refItems.active', false, 'JOIN')
 				->orderBy('T3.TOURTYPES.ID DESC')
-				->asArray()
+
 				->all();
 
 			Yii::$app->cache->set(
-				md5($cacheKey), $rows, 0, new TagDependency(
-					[RefItems::class, TourTypes::class, RIAd::class]
+				$cacheKey, $rows, 0, new TagDependency([
+						'tags' =>
+							[RefItems::class, TourTypes::class, RIAd::class]
+					]
 				)
 			);
 		}

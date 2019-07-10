@@ -4,6 +4,7 @@ use kartik\select2\Select2;
 use kartik\slider\Slider;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
+use yii\helpers\ArrayHelper;
 use yii\web\JsExpression;
 
 /**
@@ -13,6 +14,7 @@ use yii\web\JsExpression;
  * @var \common\forms\tour\SearchForm $form
  *
  */
+
 ?>
 
 <?php $htmlForm = ActiveForm::begin(['options' => ['data-pjax' => true]]); ?>
@@ -39,6 +41,26 @@ use yii\web\JsExpression;
 		])->label(false); ?>
 	</div>
 	<div class="col-xs-3">
+		<?=
+		$htmlForm->field($form, $form::ATTR_FILTER_TOUR_TYPE)->widget(
+			Select2::class, [
+				'data'          => ArrayHelper::map($form->getTypes(), 'ID', 'NAME'),
+				'options'       => [
+					'placeholder' => 'Вид отдыха...',
+					'class'       => 'biletur-text-input'
+				],
+				'pluginOptions' => [
+					'allowClear' => true
+				],
+				'pluginEvents'  => [
+					"select2:select"   => "function() { $('#w0').submit(); }",
+					"select2:unselect" => "function() { $('#w0').submit(); }",
+				]
+			]
+		)->label(false);
+		?>
+	</div>
+	<div class="col-xs-3">
 		<?= $htmlForm->field($form, $form::ATTR_PRICE_RANGE)->widget(Slider::class, [
 			'sliderColor'   => Slider::TYPE_GREY,
 			'pluginOptions' => [
@@ -59,16 +81,14 @@ use yii\web\JsExpression;
 		])->label(false);
 		?>
 	</div>
-	<div class="col-xs-3">
 
-	</div>
 	<div class="col-xs-2">
 		<?= Html::submitButton('Найти', ['class' => 'btn btn-primary', 'id' => 'search-button', 'style' => 'display: none;']) ?>
 	</div>
 </div>
 <div class="row">
 	<div class="col-xs-6">
-		<a data-value="<?= $form::SORT_TYPE_PRICE_MIN ?>" class="sort-price <?= ($form->sortBy == $form::SORT_TYPE_PRICE_MIN ? ' selected': '') ?>" href="javascript:;">минимальная цена</a> | <a data-value="<?= $form::SORT_TYPE_PRICE_MAX ?>" class="sort-price <?= ($form->sortBy == $form::SORT_TYPE_PRICE_MAX ? ' selected': '') ?>" href="javascript:;
+		<a data-value="<?= $form::SORT_TYPE_PRICE_MIN ?>" class="sort-price <?= ($form->sortBy == $form::SORT_TYPE_PRICE_MIN ? ' selected' : '') ?>" href="javascript:;">минимальная цена</a> | <a data-value="<?= $form::SORT_TYPE_PRICE_MAX ?>" class="sort-price <?= ($form->sortBy == $form::SORT_TYPE_PRICE_MAX ? ' selected' : '') ?>" href="javascript:;
 ">максимальная цена</a>
 	</div>
 </div>
