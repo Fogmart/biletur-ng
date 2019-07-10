@@ -10,6 +10,7 @@
 		var IS_AJAX = false;
 		var methods = {
 			init: function () {
+				$('.tour-block').fadeIn();
 				//Клик по точке маршрута(флаг, страна, город)
 				WAY_POINT_FILTER.click(function () {
 					WAY_POINT_INPUT.val($(this).data('value'));
@@ -17,42 +18,23 @@
 				});
 				COUNT_INPUT.val($('.tour-block').length);
 
+				//Подгрузка данных
 				$(window).scroll(function () {
-					if (($(window).scrollTop() + $(window).height() >= $(document).height() - 200) && true !== IS_AJAX) {
-						IS_AJAX = true;
-						//$(this).searchTourPlugin('load');
+					if (($(window).scrollTop() + $(window).height() >= $(document).height() - 300) && true !== IS_AJAX) {
 						$.ajax({
 							url: LOAD_TOUR_URL,
 							method: "POST",
 							async: false,
 							data: TOUR_SEARCH_FORM.serialize(),
 							beforeSend: function () {
-
+								IS_AJAX = true;
 							}
 						}).done(function (data) {
 							RESULT_BLOCK.append(data);
 							COUNT_INPUT.val($('.tour-block').length);
-
-							IS_AJAX = false;
+							$('.tour-block').fadeIn();
 						});
 					}
-				});
-			},
-			//Подгрузка туров при скролле
-			load: function () {
-				$.ajax({
-					url: LOAD_TOUR_URL,
-					method: "POST",
-					async: false,
-					data: TOUR_SEARCH_FORM.serialize(),
-					beforeSend: function () {
-
-					}
-				}).done(function (data) {
-					RESULT_BLOCK.append(data);
-					COUNT_INPUT.val($('.tour-block').length);
-
-					IS_AJAX = false;
 				});
 			}
 		};

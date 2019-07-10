@@ -11,7 +11,7 @@ use frontend\controllers\TourController;
 ?>
 
 <?php foreach ($tours as $tour): ?>
-	<div class="row tour-block">
+	<div class="row tour-block" style="display: none;">
 		<div class="col-xs-12">
 			<div class="tour-item">
 				<h4><a href="<?= TourController::getActionUrl(TourController::ACTION_VIEW, ['id' => $tour->sourceId, 'src' => $tour->source, 'slug' => StringHelper::urlAlias($tour->title) ])?>"><strong><?= $tour->title ?></strong></a></h4>

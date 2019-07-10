@@ -56,6 +56,7 @@ class TourController extends FrontendMenuController {
 		if (Yii::$app->request->isAjax) {
 			$form->load(Yii::$app->request->post());
 		}
+
 		$form->isLoad = true;
 
 		$form->search();
