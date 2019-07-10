@@ -264,7 +264,36 @@ class Place extends SiteModel implements ILinkedModels {
 				}
 
 				break;
-
+			case self::ATTR_IS_SALE_SPUTNIK:
+				if (null === $data) {
+					return 0;
+				}
+				break;
+			case self::ATTR_IS_SALE_PAPER:
+				if (null === $data) {
+					return 0;
+				}
+				break;
+			case self::ATTR_IS_SALE_TOUR:
+				if (null === $data) {
+					return 0;
+				}
+				break;
+			case self::ATTR_IS_SALE_RAIL_ROAD:
+				if (null === $data) {
+					return 0;
+				}
+				break;
+			case self::ATTR_IS_SALE_AVIA:
+				if (null === $data) {
+					return 0;
+				}
+				break;
+			case self::ATTR_IS_SALE_IATA:
+				if (null === $data) {
+					return 0;
+				}
+				break;
 			default:
 				return trim($data);
 				break;

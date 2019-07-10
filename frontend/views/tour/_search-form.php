@@ -102,9 +102,7 @@ use yii\web\JsExpression;
 		])->label(false);
 		?>
 	</div>
-
-		<?= Html::submitButton('Найти', ['class' => 'btn btn-primary', 'id' => 'search-button', 'style' => 'display: none;']) ?>
-
+	<?= Html::submitButton('Найти', ['class' => 'btn btn-primary', 'id' => 'search-button', 'style' => 'display: none;']) ?>
 </div>
 <div class="row">
 	<div class="col-xs-6">
