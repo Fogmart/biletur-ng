@@ -27,7 +27,7 @@ use yii\web\JsExpression;
 			'data'          => $form->getTourToPaths(),
 			'language'      => 'ru',
 			'options'       => [
-				'placeholder' => 'Страна, город, курорт...',
+				'placeholder' => 'Страна, город, курорт',
 				'class'       => 'biletur-text-input'
 			],
 			'pluginOptions' => [
@@ -46,7 +46,7 @@ use yii\web\JsExpression;
 			Select2::class, [
 				'data'          => ArrayHelper::map($form->getTypes(), 'ID', 'NAME'),
 				'options'       => [
-					'placeholder' => 'Вид отдыха...',
+					'placeholder' => 'Вид отдыха',
 					'class'       => 'biletur-text-input'
 				],
 				'pluginOptions' => [
