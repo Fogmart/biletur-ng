@@ -126,11 +126,14 @@ class SyncData extends Component {
 		static $start_time;
 
 		// if we go over our bound, just ignore it
-		if ($done > $total)
+		if ($done > $total) {
 			return;
+		}
 
-		if (empty($start_time))
+		if (empty($start_time)) {
 			$start_time = time();
+		}
+
 		$now = time();
 
 		$perc = (double)($done / $total);
