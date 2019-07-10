@@ -3,7 +3,6 @@
 		var FORM = $('#w0');
 		var WAY_POINT_FILTER = $('.way-point-tag');
 		var WAY_POINT_INPUT = $('#searchform-tourto');
-		var TOUR_BLOCK = $('.tour-block');
 		var COUNT_INPUT = $('#searchform-count');
 		var LOAD_TOUR_URL = $('.load-tour-url').data('url');
 		var RESULT_BLOCK = $('.result');
@@ -16,12 +15,26 @@
 					WAY_POINT_INPUT.val($(this).data('value'));
 					FORM.submit();
 				});
-				COUNT_INPUT.val(TOUR_BLOCK.length);
+				COUNT_INPUT.val($('.tour-block').length);
 
 				$(window).scroll(function () {
-					if (($(window).scrollTop() + $(window).height() >= $(document).height() - 200) && !IS_AJAX) {
+					if (($(window).scrollTop() + $(window).height() >= $(document).height() - 200) && true !== IS_AJAX) {
+						IS_AJAX = true;
+						//$(this).searchTourPlugin('load');
+						$.ajax({
+							url: LOAD_TOUR_URL,
+							method: "POST",
+							async: false,
+							data: TOUR_SEARCH_FORM.serialize(),
+							beforeSend: function () {
 
-						$(this).searchTourPlugin('load');
+							}
+						}).done(function (data) {
+							RESULT_BLOCK.append(data);
+							COUNT_INPUT.val($('.tour-block').length);
+
+							IS_AJAX = false;
+						});
 					}
 				});
 			},
@@ -30,14 +43,15 @@
 				$.ajax({
 					url: LOAD_TOUR_URL,
 					method: "POST",
-					async: true,
+					async: false,
 					data: TOUR_SEARCH_FORM.serialize(),
 					beforeSend: function () {
-						console.log('send');
-						IS_AJAX = true;
+
 					}
 				}).done(function (data) {
 					RESULT_BLOCK.append(data);
+					COUNT_INPUT.val($('.tour-block').length);
+
 					IS_AJAX = false;
 				});
 			}

@@ -50,6 +50,7 @@ class SearchForm extends Model {
 	public $sortBy;
 	const ATTR_SORT_BY = 'sortBy';
 
+	/** @var int  */
 	public $count = 0;
 	const ATTR_COUNT = 'count';
 
@@ -67,11 +68,7 @@ class SearchForm extends Model {
 	const SORT_TYPE_PRICE_MAX = 1;
 
 	//Параметры пагинации
-	const ITEMS_PER_PAGE = 10;
-
-	public $page = 0;
-	public $pageSize = self::ITEMS_PER_PAGE;
-	public $pagination;
+	const ITEMS_PER_PAGE = 15;
 
 	public function __construct($config = []) {
 
@@ -108,9 +105,8 @@ class SearchForm extends Model {
 			[static::ATTR_TOUR_TYPE, StringValidator::class],
 			[static::ATTR_PRICE_RANGE, SafeValidator::class],
 
-
-			[static::ATTR_SORT_BY, NumberValidator::class],
-			[static::ATTR_COUNT, NumberValidator::class],
+			[static::ATTR_SORT_BY, SafeValidator::class],
+			[static::ATTR_COUNT, SafeValidator::class],
 		];
 	}
 
@@ -184,7 +180,6 @@ class SearchForm extends Model {
 			if (null === $commonTour->priceMinMax) {
 				continue;
 			}
-			//Dump::d($commonTour);
 
 			if (count($commonTour->priceMinMax) === 2) {
 				if ((int)str_replace(' ', '', $commonTour->priceMinMax[0]) < $filterPrice[0]) {
@@ -207,7 +202,7 @@ class SearchForm extends Model {
 		}
 
 		//Слайсим для подгрузки
-		if (!$this->isLoad) { //Если не подгрузка то отдаём с первого элемента, иначе берем номер из формы
+		if (false === $this->isLoad) { //Если не подгрузка то отдаём с первого элемента, иначе берем номер из формы
 			$this->count = 0;
 		}
 

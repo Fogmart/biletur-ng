@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\base\helpers\Dump;
 use common\components\FrontendMenuController;
 use common\components\tour\CommonTour;
 use common\forms\tour\SearchForm;
@@ -47,18 +48,19 @@ class TourController extends FrontendMenuController {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function actionLoad() {
+		$this->layout = false;
 		Yii::$app->response->format = Response::FORMAT_JSON;
 
 		$form = new SearchForm();
-		$form->isLoad = true;
 
-		if (Yii::$app->request->isPjax) {
+		if (Yii::$app->request->isAjax) {
 			$form->load(Yii::$app->request->post());
 		}
+		$form->isLoad = true;
 
 		$form->search();
 
-		return $this->render('_search-result', ['tours' => $form->result]);
+		return $this->renderAjax('__tours', ['tours' => $form->result]);
 	}
 
 	/**
