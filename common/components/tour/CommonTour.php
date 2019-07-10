@@ -2,7 +2,7 @@
 
 namespace common\components\tour;
 
-use common\base\helpers\Dump;
+use BadFunctionCallException;
 use common\components\RemoteImageCache;
 use common\models\ObjectFile;
 use common\models\oracle\scheme\t3\RefItems;
@@ -79,17 +79,19 @@ class CommonTour extends Component {
 	 */
 	public function prepare() {
 		if (null === $this->source) {
-			throw new \BadFunctionCallException('Не задан параметр source');
+			throw new BadFunctionCallException('Не задан параметр source');
 		}
 		if (null === $this->sourceId) {
-			throw new \BadFunctionCallException('Не задан параметр sourceId');
+			throw new BadFunctionCallException('Не задан параметр sourceId');
 		}
 
+		//Каждому источнику соответствующий метод
 		switch ($this->source) {
 			case static::SOURCE_BILETUR:
 				$this->_prepareBiletur();
 				break;
 			default:
+				throw new BadFunctionCallException('Не задан обработчик для источника');
 				break;
 		}
 	}

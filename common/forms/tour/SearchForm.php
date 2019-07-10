@@ -198,6 +198,7 @@ class SearchForm extends Model {
 				]
 			);
 
+			//Конвертируем данные тура к общему объекту
 			$commonTour->prepare();
 
 			//Фильтруем по ценам
