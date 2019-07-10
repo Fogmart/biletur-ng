@@ -82,7 +82,7 @@ class SearchForm extends Model {
 	const SORT_TYPE_MAX = 1;
 
 	//Параметры пагинации
-	const ITEMS_PER_PAGE = 8;
+	const ITEMS_PER_PAGE = 15;
 
 	public function __construct($config = []) {
 

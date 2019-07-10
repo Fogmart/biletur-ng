@@ -1,5 +1,8 @@
 (function ($) {
 	$.fn.searchTourPlugin = function () {
+		var LOADING_WIDGET = $('.loading-widget');
+		var BLOCK_PANEL = $('.block-panel');
+		var BLOCK_PANEL_RESULT_LIST = $('.block-panel .result .list');
 		var FORM = $('#w0');
 		var WAY_POINT_FILTER = $('.way-point-tag');
 		var WAY_POINT_INPUT = $('#searchform-tourto');
@@ -15,6 +18,13 @@
 		var methods = {
 			init: function () {
 				$('.tour-block').fadeIn();
+
+				//Отображение крутилки подгрузки ajax'ом
+				$(document).on('pjax:send', function() {
+					LOADING_WIDGET.show();
+					BLOCK_PANEL_RESULT_LIST.html('');
+					BLOCK_PANEL.addClass('process');
+				});
 
 				//Клик по точке маршрута(флаг, страна, город)
 				WAY_POINT_FILTER.click(function () {

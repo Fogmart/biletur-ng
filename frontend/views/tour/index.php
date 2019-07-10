@@ -29,3 +29,4 @@ use frontend\controllers\TourController;
 		</div>
 	</div>
 <?php Pjax::end(); ?>
+<?php $this->registerJs('$(this).commonPlugin();'); ?>

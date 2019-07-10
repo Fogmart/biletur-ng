@@ -16,4 +16,3 @@ use common\base\helpers\StringHelper;
 		<div class="loading-widget" style="display: none;"></div>
 		<?= $this->render('__tours', ['tours' => $tours]) ?>
 	</div>
-<?php $this->registerJs('$(this).commonPlugin();'); ?>
