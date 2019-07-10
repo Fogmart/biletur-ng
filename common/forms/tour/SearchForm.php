@@ -2,7 +2,6 @@
 
 namespace common\forms\tour;
 
-use common\base\helpers\Dump;
 use common\components\tour\CommonTour;
 use common\models\oracle\scheme\t3\RefItems;
 use common\models\oracle\scheme\t3\RIAd;
@@ -237,8 +236,8 @@ class SearchForm extends Model {
 			$commonTours[] = $commonTour;
 		}
 
-		//Слайсим для подгрузки
-		if (false === $this->isLoad) { //Если не подгрузка то отдаём с первого элемента, иначе берем номер из формы
+		//Если не подгрузка то отдаём с первого элемента, иначе берем номер из формы
+		if (false === $this->isLoad) {
 			$this->count = 0;
 		}
 
@@ -261,6 +260,7 @@ class SearchForm extends Model {
 				break;
 		}
 
+		//Слайсим для подгрузки
 		$commonTours = array_slice($commonTours, $this->count, static::ITEMS_PER_PAGE);
 
 		return $commonTours;
@@ -287,6 +287,13 @@ class SearchForm extends Model {
 		return $result;
 	}
 
+	/**
+	 * Максимальная и минимальная цена доступных туров
+	 *
+	 * @return array
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
 	private static function _getMinMaxPrices() {
 		$cacheKey = Yii::$app->cache->buildKey([__METHOD__]);
 		$priceMinMaxArray = Yii::$app->cache->get($cacheKey);
