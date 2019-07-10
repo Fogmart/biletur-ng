@@ -2,14 +2,12 @@
 
 namespace common\forms\tour;
 
-use common\base\helpers\Dump;
 use common\components\tour\CommonTour;
 use common\models\oracle\scheme\t3\RefItems;
 use common\models\oracle\scheme\t3\RITourWps;
 use Yii;
 use yii\base\Model;
 use yii\caching\TagDependency;
-use yii\validators\NumberValidator;
 use yii\validators\SafeValidator;
 use yii\validators\StringValidator;
 
@@ -47,10 +45,10 @@ class SearchForm extends Model {
 	const ATTR_PRICE_MIN_MAX = 'priceMinMax';
 
 	/** @var int */
-	public $sortBy;
+	public $sortBy = self::SORT_TYPE_PRICE_MIN;
 	const ATTR_SORT_BY = 'sortBy';
 
-	/** @var int  */
+	/** @var int */
 	public $count = 0;
 	const ATTR_COUNT = 'count';
 
@@ -68,7 +66,7 @@ class SearchForm extends Model {
 	const SORT_TYPE_PRICE_MAX = 1;
 
 	//Параметры пагинации
-	const ITEMS_PER_PAGE = 15;
+	const ITEMS_PER_PAGE = 8;
 
 	public function __construct($config = []) {
 
@@ -204,6 +202,25 @@ class SearchForm extends Model {
 		//Слайсим для подгрузки
 		if (false === $this->isLoad) { //Если не подгрузка то отдаём с первого элемента, иначе берем номер из формы
 			$this->count = 0;
+		}
+
+		//Сортировка по цене
+		switch ($this->sortBy) {
+			case static::SORT_TYPE_PRICE_MIN:
+				usort($commonTours, function ($a, $b) {
+					return (int)$a->priceMinMax[0] > (int)$b->priceMinMax[0];
+				});
+				break;
+			case static::SORT_TYPE_PRICE_MAX:
+				usort($commonTours, function ($a, $b) {
+					return (int)$a->priceMinMax[0] < (int)$b->priceMinMax[0];
+				});
+				break;
+			default:
+				usort($commonTours, function ($a, $b) {
+					return (int)$a->priceMinMax[0] > (int)$b->priceMinMax[0];
+				});
+				break;
 		}
 
 		$commonTours = array_slice($commonTours, $this->count, static::ITEMS_PER_PAGE);

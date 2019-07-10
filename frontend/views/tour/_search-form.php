@@ -18,6 +18,7 @@ use yii\web\JsExpression;
 <?php $htmlForm = ActiveForm::begin(['options' => ['data-pjax' => true]]); ?>
 <?= $htmlForm->field($form, $form::ATTR_CITY_IN_WAY_POINT)->hiddenInput()->label(false) ?>
 <?= $htmlForm->field($form, $form::ATTR_COUNT)->hiddenInput()->label(false) ?>
+<?= $htmlForm->field($form, $form::ATTR_SORT_BY)->hiddenInput()->label(false) ?>
 <div class="row">
 	<div class="col-xs-4">
 		<?= $htmlForm->field($form, $form::ATTR_TOUR_TO)->widget(Select2::class, [
@@ -63,6 +64,12 @@ use yii\web\JsExpression;
 	</div>
 	<div class="col-xs-2">
 		<?= Html::submitButton('Найти', ['class' => 'btn btn-primary', 'id' => 'search-button', 'style' => 'display: none;']) ?>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-6">
+		<a data-value="<?= $form::SORT_TYPE_PRICE_MIN ?>" class="sort-price <?= ($form->sortBy == $form::SORT_TYPE_PRICE_MIN ? ' selected': '') ?>" href="javascript:;">минимальная цена</a> | <a data-value="<?= $form::SORT_TYPE_PRICE_MAX ?>" class="sort-price <?= ($form->sortBy == $form::SORT_TYPE_PRICE_MAX ? ' selected': '') ?>" href="javascript:;
+">максимальная цена</a>
 	</div>
 </div>
 <?php ActiveForm::end(); ?>

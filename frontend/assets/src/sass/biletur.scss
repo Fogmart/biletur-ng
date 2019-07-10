@@ -504,4 +504,8 @@ span {
 	}
 
 }
-
+.sort-price {
+	&.selected {
+		text-decoration: underline dashed;
+	}
+}

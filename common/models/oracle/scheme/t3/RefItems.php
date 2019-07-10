@@ -290,7 +290,7 @@ class RefItems extends DspBaseModel {
 
 		if (count($summs) == 1) {
 			if ($needFormat) {
-				return [LString::formatMoney($summs[0])];
+				return [$summs[0]];
 			}
 			else {
 				return $summs[0];
@@ -300,7 +300,7 @@ class RefItems extends DspBaseModel {
 		$minSum = $summs[0];
 		$maxSum = $summs[count($summs) - 1];
 		if ($needFormat) {
-			return [LString::formatMoney($minSum), LString::formatMoney($maxSum)];
+			return [$minSum, $maxSum];
 		}
 		else {
 			return [$minSum, $maxSum];
