@@ -31,7 +31,7 @@
 						LEFT_MENU.removeClass("fixed");
 					}
 
-					if($(this).scrollTop() != 0) {
+					if($(this).scrollTop() > 100) {
 						BUTTON_TO_TOP.fadeIn();
 					} else {
 						BUTTON_TO_TOP.fadeOut();

@@ -14,13 +14,13 @@ use yii\web\JsExpression;
  * @var \common\forms\tour\SearchForm $form
  *
  */
-
 ?>
 
 <?php $htmlForm = ActiveForm::begin(['options' => ['data-pjax' => true]]); ?>
 <?= $htmlForm->field($form, $form::ATTR_CITY_IN_WAY_POINT)->hiddenInput()->label(false) ?>
 <?= $htmlForm->field($form, $form::ATTR_COUNT)->hiddenInput()->label(false) ?>
 <?= $htmlForm->field($form, $form::ATTR_SORT_BY)->hiddenInput()->label(false) ?>
+<?= $htmlForm->field($form, $form::ATTR_SORT_DAYS_BY)->hiddenInput()->label(false) ?>
 <div class="row">
 	<div class="col-xs-4">
 		<?= $htmlForm->field($form, $form::ATTR_TOUR_TO)->widget(Select2::class, [
@@ -40,7 +40,7 @@ use yii\web\JsExpression;
 			]
 		])->label(false); ?>
 	</div>
-	<div class="col-xs-3">
+	<div class="col-xs-2">
 		<?=
 		$htmlForm->field($form, $form::ATTR_FILTER_TOUR_TYPE)->widget(
 			Select2::class, [
@@ -60,7 +60,7 @@ use yii\web\JsExpression;
 		)->label(false);
 		?>
 	</div>
-	<div class="col-xs-3">
+	<div class="col-xs-2">
 		<?= $htmlForm->field($form, $form::ATTR_PRICE_RANGE)->widget(Slider::class, [
 			'sliderColor'   => Slider::TYPE_GREY,
 			'pluginOptions' => [
@@ -81,14 +81,34 @@ use yii\web\JsExpression;
 		])->label(false);
 		?>
 	</div>
-
-	<div class="col-xs-2">
-		<?= Html::submitButton('Найти', ['class' => 'btn btn-primary', 'id' => 'search-button', 'style' => 'display: none;']) ?>
+	<div class="col-xs-offset-1 col-xs-2">
+		<?= $htmlForm->field($form, $form::FILTER_DAYS_COUNT)->widget(Slider::class, [
+			'sliderColor'   => Slider::TYPE_GREY,
+			'pluginOptions' => [
+				'min'       => $form->daysMinMax[0],
+				'max'       => $form->daysMinMax[1],
+				'step'      => 1,
+				'range'     => true,
+				'tooltip'   => 'always',
+				'formatter' => new yii\web\JsExpression("function(val) {
+						var min = new Number(val[0]);
+						var max = new Number(val[1]);
+						return 'Длительность: ' + min + ' - ' + max + ' дней';
+			        }")
+			],
+			'pluginEvents'  => [
+				'slideStop' => new JsExpression("function() { $('#w0').submit(); }")
+			],
+		])->label(false);
+		?>
 	</div>
+
+		<?= Html::submitButton('Найти', ['class' => 'btn btn-primary', 'id' => 'search-button', 'style' => 'display: none;']) ?>
+
 </div>
 <div class="row">
 	<div class="col-xs-6">
-		<a data-value="<?= $form::SORT_TYPE_PRICE_MIN ?>" class="sort-price <?= ($form->sortBy == $form::SORT_TYPE_PRICE_MIN ? ' selected' : '') ?>" href="javascript:;">минимальная цена</a> | <a data-value="<?= $form::SORT_TYPE_PRICE_MAX ?>" class="sort-price <?= ($form->sortBy == $form::SORT_TYPE_PRICE_MAX ? ' selected' : '') ?>" href="javascript:;
+		<a data-value="<?= $form::SORT_TYPE_MIN ?>" class="sort price <?= ($form->sortBy == $form::SORT_TYPE_MIN ? ' selected' : '') ?>" href="javascript:;">минимальная цена</a> | <a data-value="<?= $form::SORT_TYPE_MAX ?>" class="sort price <?= ($form->sortBy == $form::SORT_TYPE_MAX ? ' selected' : '') ?>" href="javascript:;
 ">максимальная цена</a>
 	</div>
 </div>

@@ -10,7 +10,6 @@ use common\base\helpers\LString;
  * @var \common\components\tour\CommonTour[] $tours
  */
 ?>
-
 <?php foreach ($tours as $tour): ?>
 	<div class="row tour-block" style="display: none;">
 		<div class="col-xs-12">
@@ -19,6 +18,7 @@ use common\base\helpers\LString;
 				<br>
 
 				<b>от <?= LString::formatMoney($tour->priceMinMax[0]) ?> </b><br>
+				<b>дней <?=$tour->daysCount ?> </b><br>
 				<div class="col-md-3 col-xs-12">
 					<?php if (null !== $tour->image): ?>
 						<?= $tour->image ?>
@@ -44,6 +44,5 @@ use common\base\helpers\LString;
 	</div>
 <?php endforeach ?>
 <?php
-$this->registerJs('$(this).commonPlugin();');
 $this->registerJs('$(this).searchTourPlugin();');
 ?>

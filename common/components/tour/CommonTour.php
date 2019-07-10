@@ -60,6 +60,10 @@ class CommonTour extends Component {
 	public $description;
 	const ATTR_DESCRIPTION = 'description';
 
+	/** @var int Общее Кол-во дней */
+	public $daysCount;
+	const ATTR_DAYS = 'daysCount';
+
 	/** @var \common\components\tour\CommonTourWayPoint[] */
 	public $wayPoints = [];
 	const ATTR_WAY_POINTS = 'wayPoints';
@@ -153,11 +157,15 @@ class CommonTour extends Component {
 				if (null === $commonWayPoint->country) {
 					continue;
 				}
-
 				$this->wayPoints[] = $commonWayPoint;
 			}
 
 			Yii::$app->cache->set($cacheKey, $this->wayPoints, 3600 * 8, new TagDependency(['tags' => RITourWps::class]));
+		}
+
+		$this->daysCount = 0;
+		foreach ($this->wayPoints as $wps) {
+			$this->daysCount = (int)$this->daysCount + (int)$wps->daysCount;
 		}
 
 		//Возьмем доп.фото по точкам маршрута

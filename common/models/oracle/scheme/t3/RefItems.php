@@ -80,6 +80,8 @@ use yii\db\Expression;
 class RefItems extends DspBaseModel {
 
 	const ATTR_ID = 'ID';
+	const ATTR_ACTIVE = 'ACTIVE';
+	const ATTR_END_DATE = 'ENDDATE';
 
 	/** @var  common\models\oracle\scheme\sns\DspCountries $mainCountry */
 	public $mainCountry;

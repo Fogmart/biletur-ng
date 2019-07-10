@@ -2,13 +2,16 @@
 
 namespace common\forms\tour;
 
+use common\base\helpers\Dump;
 use common\components\tour\CommonTour;
 use common\models\oracle\scheme\t3\RefItems;
+use common\models\oracle\scheme\t3\RIAd;
 use common\models\oracle\scheme\t3\RITourWps;
 use common\models\oracle\scheme\t3\TourTypes;
 use Yii;
 use yii\base\Model;
 use yii\caching\TagDependency;
+use yii\db\Expression;
 use yii\validators\SafeValidator;
 use yii\validators\StringValidator;
 
@@ -29,6 +32,10 @@ class SearchForm extends Model {
 	public $filterTourType;
 	const ATTR_FILTER_TOUR_TYPE = 'filterTourType';
 
+	/** @var string */
+	public $filterDaysCount;
+	const FILTER_DAYS_COUNT = 'filterDaysCount';
+
 	/** @var string Из какого города(по справочнику Билетур) */
 	public $fromCity;
 	const ATTR_FROM_CITY = 'fromCity';
@@ -45,9 +52,17 @@ class SearchForm extends Model {
 	public $priceMinMax;
 	const ATTR_PRICE_MIN_MAX = 'priceMinMax';
 
+	/** @var array */
+	public $daysMinMax;
+	const ATTR_DAYS_MIN_MAX = 'daysMinMax';
+
 	/** @var int */
-	public $sortBy = self::SORT_TYPE_PRICE_MIN;
+	public $sortBy = self::SORT_TYPE_MIN;
 	const ATTR_SORT_BY = 'sortBy';
+
+	/** @var int */
+	public $sortDaysBy = self::SORT_TYPE_MIN;
+	const ATTR_SORT_DAYS_BY = 'sortDaysBy';
 
 	/** @var int */
 	public $count = 0;
@@ -60,12 +75,11 @@ class SearchForm extends Model {
 	/** @var CommonTour[] */
 	public $result;
 
+	/** @var int Сортировка от меньшего */
+	const SORT_TYPE_MIN = 0;
 
-	/** @var int Сортировка от дешевых */
-	const SORT_TYPE_PRICE_MIN = 0;
-
-	/** @var int Сортировка от дорогих */
-	const SORT_TYPE_PRICE_MAX = 1;
+	/** @var int Сортировка от большего */
+	const SORT_TYPE_MAX = 1;
 
 	//Параметры пагинации
 	const ITEMS_PER_PAGE = 8;
@@ -73,6 +87,7 @@ class SearchForm extends Model {
 	public function __construct($config = []) {
 
 		$this->priceMinMax = static::_getMinMaxPrices();
+		$this->daysMinMax = static::_getMinMaxDays();
 		if (empty($this->priceRange)) {
 			$this->priceRange = implode(',', $this->priceMinMax);
 		}
@@ -104,8 +119,10 @@ class SearchForm extends Model {
 			[static::ATTR_TOUR_TO, StringValidator::class],
 			[static::ATTR_FILTER_TOUR_TYPE, SafeValidator::class],
 			[static::ATTR_PRICE_RANGE, SafeValidator::class],
+			[static::FILTER_DAYS_COUNT, SafeValidator::class],
 
 			[static::ATTR_SORT_BY, SafeValidator::class],
+			[static::ATTR_SORT_DAYS_BY, SafeValidator::class],
 			[static::ATTR_COUNT, SafeValidator::class],
 		];
 	}
@@ -143,7 +160,9 @@ class SearchForm extends Model {
 		$filterPrice = explode(',', $this->priceRange);
 
 		$query = RefItems::find();
-		$query->joinWith(RefItems::REL_ACTIVE);
+		$query->joinWith(RefItems::REL_ACTIVE, true, 'INNER JOIN');
+		$query->andWhere([RefItems::tableName() . '.' . RefItems::ATTR_ACTIVE => 1]);
+		$query->andWhere(['>', RefItems::tableName() . '.' . RefItems::ATTR_END_DATE, new Expression('sysdate') ]);
 
 		if (!empty($this->tourTo)) {
 			$query->joinWith(RefItems::REL_WPS);
@@ -204,6 +223,17 @@ class SearchForm extends Model {
 				}
 			}
 
+
+			//Фильтруем по кол-ву дней
+			if (!empty($this->filterDaysCount)) {
+				$filterDays = explode(',', $this->filterDaysCount);
+				$filterDaysMin = $filterDays[0];
+				$filterDaysMax = $filterDays[1];
+				if ((int)$commonTour->daysCount < (int)$filterDaysMin || (int)$commonTour->daysCount > (int)$filterDaysMax) {
+					continue;
+				}
+			}
+
 			$commonTours[] = $commonTour;
 		}
 
@@ -214,12 +244,12 @@ class SearchForm extends Model {
 
 		//Сортировка по цене
 		switch ($this->sortBy) {
-			case static::SORT_TYPE_PRICE_MIN:
+			case static::SORT_TYPE_MIN:
 				usort($commonTours, function ($a, $b) {
 					return (int)$a->priceMinMax[0] > (int)$b->priceMinMax[0];
 				});
 				break;
-			case static::SORT_TYPE_PRICE_MAX:
+			case static::SORT_TYPE_MAX:
 				usort($commonTours, function ($a, $b) {
 					return (int)$a->priceMinMax[0] < (int)$b->priceMinMax[0];
 				});
@@ -258,26 +288,81 @@ class SearchForm extends Model {
 	}
 
 	private static function _getMinMaxPrices() {
-		$priceMinMaxArray = [];
-		$query = RefItems::find();
-		$query->joinWith(RefItems::REL_ACTIVE);
-		$tours = $query->all();
-		/** @var RefItems[] $tours */
-		foreach ($tours as $tour) {
-			$minMax = $tour->quotsSummMinMax(false);
-			if (null === $minMax) {
-				continue;
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__]);
+		$priceMinMaxArray = Yii::$app->cache->get($cacheKey);
+		if (false === $priceMinMaxArray) {
+			$priceMinMaxArray = [];
+			$query = RefItems::find();
+			$query->andWhere([RefItems::tableName() . '.' . RefItems::ATTR_ACTIVE => 1]);
+			$query->andWhere(['>', RefItems::tableName() . '.' . RefItems::ATTR_END_DATE, new Expression('sysdate') ]);
+			$query->joinWith(RefItems::REL_ACTIVE);
+			$tours = $query->all();
+			/** @var RefItems[] $tours */
+			foreach ($tours as $tour) {
+				$minMax = $tour->quotsSummMinMax(false);
+				if (null === $minMax) {
+					continue;
+				}
+				if (is_array($minMax)) {
+					$priceMinMaxArray[] = (int)$minMax[0];
+				}
+				else {
+					$priceMinMaxArray[] = (int)$minMax;
+				}
 			}
-			if (is_array($minMax)) {
-				$priceMinMaxArray[] = (int)$minMax[0];
-			}
-			else {
-				$priceMinMaxArray[] = (int)$minMax;
-			}
+			sort($priceMinMaxArray);
+
+			Yii::$app->cache->set($cacheKey, $priceMinMaxArray, 3600 * 8, new TagDependency(['tags' => [RefItems::class, RIAd::class]]));
 		}
-		sort($priceMinMaxArray);
 
 		return [$priceMinMaxArray[0], $priceMinMaxArray[count($priceMinMaxArray) - 1]];
+	}
+
+	/**
+	 * Минимальное/максимальное кол-во дней в турах
+	 *
+	 * @return array
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	private static function _getMinMaxDays() {
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, 4]);
+		$daysMinMaxArray = Yii::$app->cache->get($cacheKey);
+		if (false === $daysMinMaxArray) {
+			$daysMinMaxArray = [];
+			$query = RefItems::find();
+			$query->joinWith(RefItems::REL_ACTIVE, true, 'INNER JOIN');
+			$query->andWhere([RefItems::tableName() . '.' . RefItems::ATTR_ACTIVE => 1]);
+			$query->andWhere(['>', RefItems::tableName() . '.' . RefItems::ATTR_END_DATE, new Expression('sysdate') ]);
+
+			$query->joinWith(RefItems::REL_WPS);
+			/** @var RefItems[] $tours */
+			$tours = $query->all();
+			foreach ($tours as $tour) {
+				$days = 0;
+				foreach ($tour->wps as $wps) {
+					if($wps->NPP == 1) {
+						continue;
+					}
+					if($wps->COUNTRY == null) {
+						continue;
+					}
+					if($wps->CITYID == null) {
+						continue;
+					}
+
+					$days = $days + (int)$wps->NDAYS;
+				}
+				$daysMinMaxArray[$tour->ID] = $days;
+			}
+			$daysMinMaxArray = array_unique($daysMinMaxArray);
+
+			sort($daysMinMaxArray);
+
+			Yii::$app->cache->set($cacheKey, $daysMinMaxArray, 3600 * 8, new TagDependency(['tags' => [RefItems::class, RITourWps::class]]));
+		}
+
+		return [$daysMinMaxArray[0], $daysMinMaxArray[count($daysMinMaxArray) - 1]];
 	}
 
 	/**
