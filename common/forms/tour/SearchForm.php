@@ -214,7 +214,7 @@ class SearchForm extends Model {
 					CommonTour::ATTR_SOURCE_TOUR_DATA => $tour
 				]
 			);
-			//Конвертируем данные тура к общему объекту
+			//Приводим данные тура к общему объекту
 			$commonTour->prepare();
 			$commonTours[] = $commonTour;
 		}
@@ -266,6 +266,7 @@ class SearchForm extends Model {
 					continue;
 				}
 			}
+
 			$filteredTours[] = $commonTour;
 		}
 
