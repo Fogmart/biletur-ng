@@ -5,9 +5,18 @@
 
 namespace common\components\behaviors;
 
-
+/**
+ * Переопределяем класс, потомучто oci опять глючит
+ *
+ * @author  Исаков Владислав <visakov@biletur.ru>
+ */
 class SitemapBehavior extends \himiklab\sitemap\behaviors\SitemapBehavior {
 
+	/**
+	 * @inheritDoc
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
 	public function generateSiteMap() {
 		$result = [];
 		$n = 0;
