@@ -83,6 +83,12 @@ class SearchForm extends Model {
 	//Параметры пагинации
 	const ITEMS_PER_PAGE = 15;
 
+	/**
+	 * @inheritDoc
+	 *
+	 * @author Isakov Vlad <visakov@biletur.ru>
+	 *
+	 */
 	public function __construct($config = []) {
 
 		$this->priceMinMax = static::_getMinMaxPrices();
@@ -140,6 +146,7 @@ class SearchForm extends Model {
 		$this->result = $this->_searchBiletur();
 
 		if ($onlyBiletur) {
+			$this->_filter();
 			$this->_sort();
 			$this->_slice();
 
@@ -148,7 +155,10 @@ class SearchForm extends Model {
 
 		$this->result = array_merge($this->result, $this->_searchApi());
 
-		//Сортируем вывод
+		//Фильтруем
+		$this->_filter();
+
+		//Сортируем
 		$this->_sort();
 
 		//Разрезаем на пагинацию для подгрузку аяксом
@@ -165,8 +175,6 @@ class SearchForm extends Model {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	private function _searchBiletur() {
-		$filterPrice = explode(',', $this->priceRange);
-
 		$query = RefItems::find();
 		$query->joinWith(RefItems::REL_ACTIVE, true, 'INNER JOIN');
 		$query->andWhere([RefItems::tableName() . '.' . RefItems::ATTR_ACTIVE => 1]);
@@ -206,10 +214,27 @@ class SearchForm extends Model {
 					CommonTour::ATTR_SOURCE_TOUR_DATA => $tour
 				]
 			);
-
 			//Конвертируем данные тура к общему объекту
 			$commonTour->prepare();
+			$commonTours[] = $commonTour;
+		}
 
+		return $commonTours;
+	}
+
+	private function _searchApi() {
+		return [];
+	}
+
+	/**
+	 * Общая фильтрация
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	private function _filter() {
+		$filterPrice = explode(',', $this->priceRange);
+		$filteredTours = [];
+		foreach ($this->result as $commonTour) {
 			//Фильтруем по ценам
 			if (null === $commonTour->priceMinMax) {
 				continue;
@@ -241,15 +266,10 @@ class SearchForm extends Model {
 					continue;
 				}
 			}
-
-			$commonTours[] = $commonTour;
+			$filteredTours[] = $commonTour;
 		}
 
-		return $commonTours;
-	}
-
-	private function _searchApi() {
-		return [];
+		$this->result = $filteredTours;
 	}
 
 	/**
