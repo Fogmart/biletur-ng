@@ -64,6 +64,14 @@ class CommonTour extends Component {
 	public $daysCount;
 	const ATTR_DAYS = 'daysCount';
 
+	/** @var bool Флаг горячего тура */
+	public $isHotTour = false;
+	const ATTR_IS_HOT_TOUR = 'isHotTour';
+
+	/** @var bool Флаг прямого рейса */
+	public $isDirectFlight = false;
+	const ATTR_IS_DIRECT_FLIGHT = 'isDirectFlight';
+
 	/** @var \common\components\tour\CommonTourWayPoint[] */
 	public $wayPoints = [];
 	const ATTR_WAY_POINTS = 'wayPoints';

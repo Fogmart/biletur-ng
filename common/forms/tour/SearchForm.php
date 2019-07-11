@@ -297,6 +297,7 @@ class SearchForm extends Model {
 				});
 				break;
 		}
+
 	}
 
 	/**
