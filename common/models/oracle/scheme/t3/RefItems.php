@@ -2,8 +2,6 @@
 
 namespace common\models\oracle\scheme\t3;
 
-use common\base\helpers\Dump;
-use common\base\helpers\LString;
 use common\components\helpers\LArray;
 use common\components\tour\CommonTour;
 use common\models\forms\Common\ContactInfo;
@@ -82,6 +80,9 @@ class RefItems extends DspBaseModel {
 	const ATTR_ID = 'ID';
 	const ATTR_ACTIVE = 'ACTIVE';
 	const ATTR_END_DATE = 'ENDDATE';
+	const ATTR_NAME = 'NAME';
+	const ATTR_WHNCRT = 'WHNCRT';
+	const ATTR_WHNUPD = 'WHNUPD';
 
 	/** @var  common\models\oracle\scheme\sns\DspCountries $mainCountry */
 	public $mainCountry;
@@ -237,6 +238,7 @@ class RefItems extends DspBaseModel {
 				'T3.RI_TOUR_TYPES', ['ITMID' => 'ID']
 			);
 	}
+
 	const REL_TYPES = 'types';
 
 	/**

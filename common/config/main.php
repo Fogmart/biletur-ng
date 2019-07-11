@@ -3,6 +3,8 @@
 use common\components\IpGeoBase;
 use common\components\LogDbTarget;
 use common\components\RemoteImageCache;
+use common\models\sitemap\SitemapTour;
+use common\models\User;
 use common\modules\api\MApi;
 use common\modules\banner\MBanner;
 use common\modules\message\MMessage;
@@ -22,6 +24,12 @@ return [
 	'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
 
 	'modules'    => [
+		'sitemap' => [
+			'class'  => 'himiklab\sitemap\Sitemap',
+			'models' => [
+				SitemapTour::class
+			]
+		],
 		'rbac'    => [
 			'class'                  => 'johnitvn\rbacplus\Module',
 			/** Определяем права доступа к модулю управления правами юзеров */
@@ -99,7 +107,7 @@ return [
 			'appendTimestamp' => true,
 		],
 		'user'             => [
-			'identityClass' => \common\models\User::class,
+			'identityClass' => User::class,
 			'loginUrl'      => ['site/login'],
 		],
 		'env'              => [

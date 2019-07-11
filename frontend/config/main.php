@@ -44,13 +44,18 @@ return [
 			'showScriptName'  => false,
 			'suffix'          => '/',
 			'rules'           => [
-				'' => 'site/index',
+				''                   => 'site/index',
+				'sitemap.xml'        => 'sitemap/default/index',
 				[
 					'pattern' => 'page',
 					'route'   => 'page',
 					'class'   => StaticPageUrlRule::class,
 				],
-
+				[
+					'pattern' => 'sitemap',
+					'route'   => 'sitemap/default/index',
+					'suffix'  => '.xml'
+				],
 				'site/set-city/<id>' => '/site/set-city/',
 				'thumbs/<path:.*>'   => 'site/thumb',
 
