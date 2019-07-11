@@ -60,7 +60,7 @@ class SyncController extends Controller {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function actionUpdateIpGeoBase() {
-		\Yii::$app->ipgeobase->updateDB();
+		Yii::$app->ipgeobase->updateDB();
 	}
 
 	/**
@@ -205,5 +205,16 @@ class SyncController extends Controller {
 
 			$mealInBase->save();
 		}
+	}
+
+	/**
+	 * Обновление данных по IP-geo локации
+	 *
+	 * @throws \yii\base\Exception
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function actionIpGeoUpdate() {
+		Yii::$app->ipgeobase->updateDB();
 	}
 }

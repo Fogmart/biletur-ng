@@ -1,5 +1,8 @@
 <?php
 
+use common\components\IpGeoBase;
+use common\models\User;
+
 $params = array_merge(
 	require __DIR__ . '/../../common/config/params.php',
 	require __DIR__ . '/../../common/config/params-local.php',
@@ -33,7 +36,11 @@ return [
 		],
 	],
 	'components'          => [
-		'log'   => [
+		'ipgeobase' => [
+			'class'      => IpGeoBase::class,
+			'useLocalDB' => false,
+		],
+		'log'       => [
 			'targets' => [
 				[
 					'class'  => 'yii\log\FileTarget',
@@ -41,10 +48,10 @@ return [
 				],
 			],
 		],
-		'user'  => [
-			'class' => \common\models\User::class,
+		'user'      => [
+			'class' => User::class,
 		],
-		'cache' => [
+		'cache'     => [
 			'class'        => \yii\caching\MemCache::class,
 			'servers'      => [
 				[
