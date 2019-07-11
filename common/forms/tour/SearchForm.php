@@ -138,12 +138,21 @@ class SearchForm extends Model {
 	public function search($onlyBiletur = false) {
 
 		$this->result = $this->_searchBiletur();
+
 		if ($onlyBiletur) {
+			$this->_sort();
+			$this->_slice();
+
 			return $this->result;
 		}
 
-		//TODO тут дальше ищем другие туры по апи, мерджим с нашими и т.д.
+		$this->result = array_merge($this->result, $this->_searchApi());
 
+		//Сортируем вывод
+		$this->_sort();
+
+		//Разрезаем на пагинацию для подгрузку аяксом
+		$this->_slice();
 
 		return $this->result;
 	}
@@ -161,7 +170,7 @@ class SearchForm extends Model {
 		$query = RefItems::find();
 		$query->joinWith(RefItems::REL_ACTIVE, true, 'INNER JOIN');
 		$query->andWhere([RefItems::tableName() . '.' . RefItems::ATTR_ACTIVE => 1]);
-		$query->andWhere(['>', RefItems::tableName() . '.' . RefItems::ATTR_END_DATE, new Expression('sysdate') ]);
+		$query->andWhere(['>', RefItems::tableName() . '.' . RefItems::ATTR_END_DATE, new Expression('sysdate')]);
 
 		if (!empty($this->tourTo)) {
 			$query->joinWith(RefItems::REL_WPS);
@@ -223,7 +232,6 @@ class SearchForm extends Model {
 				}
 			}
 
-
 			//Фильтруем по кол-ву дней
 			if (!empty($this->filterDaysCount)) {
 				$filterDays = explode(',', $this->filterDaysCount);
@@ -237,34 +245,51 @@ class SearchForm extends Model {
 			$commonTours[] = $commonTour;
 		}
 
+		return $commonTours;
+	}
+
+	private function _searchApi() {
+		return [];
+	}
+
+	/**
+	 * Сортировка результата
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	private function _sort() {
+		//Сортировка по цене
+		switch ($this->sortBy) {
+			case static::SORT_TYPE_MIN:
+				usort($this->result, function ($a, $b) {
+					return (int)$a->priceMinMax[0] > (int)$b->priceMinMax[0];
+				});
+				break;
+			case static::SORT_TYPE_MAX:
+				usort($this->result, function ($a, $b) {
+					return (int)$a->priceMinMax[0] < (int)$b->priceMinMax[0];
+				});
+				break;
+			default:
+				usort($this->result, function ($a, $b) {
+					return (int)$a->priceMinMax[0] > (int)$b->priceMinMax[0];
+				});
+				break;
+		}
+	}
+
+	/**
+	 * Пагинация результата
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	private function _slice() {
 		//Если не подгрузка то отдаём с первого элемента, иначе берем номер из формы
 		if (false === $this->isLoad) {
 			$this->count = 0;
 		}
 
-		//Сортировка по цене
-		switch ($this->sortBy) {
-			case static::SORT_TYPE_MIN:
-				usort($commonTours, function ($a, $b) {
-					return (int)$a->priceMinMax[0] > (int)$b->priceMinMax[0];
-				});
-				break;
-			case static::SORT_TYPE_MAX:
-				usort($commonTours, function ($a, $b) {
-					return (int)$a->priceMinMax[0] < (int)$b->priceMinMax[0];
-				});
-				break;
-			default:
-				usort($commonTours, function ($a, $b) {
-					return (int)$a->priceMinMax[0] > (int)$b->priceMinMax[0];
-				});
-				break;
-		}
-
-		//Слайсим для подгрузки
-		$commonTours = array_slice($commonTours, $this->count, static::ITEMS_PER_PAGE);
-
-		return $commonTours;
+		$this->result = array_slice($this->result, $this->count, static::ITEMS_PER_PAGE);
 	}
 
 	/**
@@ -302,7 +327,7 @@ class SearchForm extends Model {
 			$priceMinMaxArray = [];
 			$query = RefItems::find();
 			$query->andWhere([RefItems::tableName() . '.' . RefItems::ATTR_ACTIVE => 1]);
-			$query->andWhere(['>', RefItems::tableName() . '.' . RefItems::ATTR_END_DATE, new Expression('sysdate') ]);
+			$query->andWhere(['>', RefItems::tableName() . '.' . RefItems::ATTR_END_DATE, new Expression('sysdate')]);
 			$query->joinWith(RefItems::REL_ACTIVE);
 			$tours = $query->all();
 			/** @var RefItems[] $tours */
@@ -341,7 +366,7 @@ class SearchForm extends Model {
 			$query = RefItems::find();
 			$query->joinWith(RefItems::REL_ACTIVE, true, 'INNER JOIN');
 			$query->andWhere([RefItems::tableName() . '.' . RefItems::ATTR_ACTIVE => 1]);
-			$query->andWhere(['>', RefItems::tableName() . '.' . RefItems::ATTR_END_DATE, new Expression('sysdate') ]);
+			$query->andWhere(['>', RefItems::tableName() . '.' . RefItems::ATTR_END_DATE, new Expression('sysdate')]);
 
 			$query->joinWith(RefItems::REL_WPS);
 			/** @var RefItems[] $tours */
@@ -349,13 +374,13 @@ class SearchForm extends Model {
 			foreach ($tours as $tour) {
 				$days = 0;
 				foreach ($tour->wps as $wps) {
-					if($wps->NPP == 1) {
+					if ($wps->NPP == 1) {
 						continue;
 					}
-					if($wps->COUNTRY == null) {
+					if ($wps->COUNTRY == null) {
 						continue;
 					}
-					if($wps->CITYID == null) {
+					if ($wps->CITYID == null) {
 						continue;
 					}
 
