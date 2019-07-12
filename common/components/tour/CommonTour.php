@@ -121,7 +121,7 @@ class CommonTour extends Component {
 		$description = Yii::$app->cache->get($cacheKey);
 		if (false === $description) {
 			$description = $tour->description;
-			Yii::$app->cache->set($cacheKey, $description, 3600 * 8, new TagDependency(['tags' => RITour::class]));
+			Yii::$app->cache->set($cacheKey, $description, 3600 * 24, new TagDependency(['tags' => RITour::class]));
 		}
 
 		$this->title = trim(strip_tags($tour->NAME));
@@ -135,7 +135,7 @@ class CommonTour extends Component {
 		if (false === $wps) {
 			$wps = $tour->wps;
 
-			Yii::$app->cache->set($cacheKey, $wps, 3600 * 8, new TagDependency(['tags' => RITourWps::class]));
+			Yii::$app->cache->set($cacheKey, $wps, 3600 * 24, new TagDependency(['tags' => RITourWps::class]));
 		}
 
 		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$commonTour->wayPoints', $tour->ID]);
@@ -170,7 +170,7 @@ class CommonTour extends Component {
 				$this->wayPoints[$commonWayPoint->cityId] = $commonWayPoint;
 			}
 
-			Yii::$app->cache->set($cacheKey, $this->wayPoints, 3600 * 8, new TagDependency(['tags' => RITourWps::class]));
+			Yii::$app->cache->set($cacheKey, $this->wayPoints, 3600 * 24, new TagDependency(['tags' => RITourWps::class]));
 		}
 
 		$this->daysCount = 0;
@@ -202,7 +202,7 @@ class CommonTour extends Component {
 		if (false === $activeLaps) {
 			$activeLaps = $tour->activeLaps;
 
-			Yii::$app->cache->set($cacheKey, $activeLaps, 3600 * 8, new TagDependency(['tags' => RILaps::class]));
+			Yii::$app->cache->set($cacheKey, $activeLaps, 3600 * 24, new TagDependency(['tags' => RILaps::class]));
 		}
 
 		foreach ($activeLaps as $activeLap) {
