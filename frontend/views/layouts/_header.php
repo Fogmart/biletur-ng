@@ -1,9 +1,10 @@
 <?php
 
-use rmrevin\yii\fontawesome\FAS;
 use frontend\controllers\ProfileController;
 use frontend\controllers\SiteController;
 use frontend\widgets\CityWidget;
+use rmrevin\yii\fontawesome\FAS;
+
 ?>
 <div class="row">
     <div class="col-md-3 col-sm-12">
@@ -11,6 +12,13 @@ use frontend\widgets\CityWidget;
     </div>
     <div class="col-md-7 col-sm-12" style="padding-top: 25px;">
         <input  tabindex="-1" readonly type="text" class="biletur-text-input town-input" value="<?= Yii::$app->env->getCity()->NAME ?>">
+	    <?php if (!isset(Yii::$app->request->cookies['current_path'])): ?>
+		    <div class="dropdown-city">
+			    <span>Ваш город <strong><?= Yii::$app->env->getCity()->NAME ?> </strong>?</span>
+			    <br>
+			    <a class="btn btn-sm btn-success close-geo-message" href="javascript:">Да</a> <a href="javascript:;" class="select-geo-city">Выбрать</a>
+		    </div>
+	    <?php endif ?>
         <input type="text" class="biletur-text-input">
         <a href="<?= (Yii::$app->user->isGuest ? SiteController::getActionUrl(SiteController::ACTION_LOGIN) : ProfileController::getActionUrl(ProfileController::ACTION_INDEX)) ?>" class="btn biletur-btn"><?= FAS::icon('user', ['style' => 'margin-right: 5px;']) ?><?= !Yii::$app->user->isGuest ? 'Личный кабинет' : 'Войти' ?></a>
     </div>

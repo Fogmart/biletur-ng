@@ -8,6 +8,9 @@
 		var TOWN_INPUT = $('.town-input');
 		var TOWN_SELECT_MODAL = $('#modal-towns');
 		var BUTTON_TO_TOP = $('#scrollUp');
+		var BUTTON_CLOSE_GEO_MESSAGE = $('.close-geo-message');
+		var BUTTON_OPEN_GEO_MODAL = $('.select-geo-city');
+		var GEO_MESSAGE = $('.dropdown-city');
 
 		var methods = {
 			init: function () {
@@ -45,6 +48,15 @@
 
 				BUTTON_TO_TOP.click(function() {
 					$('body,html').animate({scrollTop:0},500);
+				});
+
+				BUTTON_CLOSE_GEO_MESSAGE.click(function () {
+					GEO_MESSAGE.hide();
+				});
+
+				BUTTON_OPEN_GEO_MODAL.click(function () {
+					GEO_MESSAGE.hide();
+					TOWN_SELECT_MODAL.modal('show');
 				});
 			}
 		};

@@ -215,6 +215,9 @@ class Environment extends Component {
 		if (null !== $this->_city) {
 			// Записываем id города в куку, для быстрого обнаружения
 			$this->setCityById($this->_city->ID);
+			Yii::$app->response->cookies->add(
+				new Cookie(['name' => 'city-found-by-geo', 'value' => true])
+			);
 		}
 
 		return $this->_city;
