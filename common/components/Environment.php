@@ -10,6 +10,7 @@ use Yii;
 use yii\base\Component;
 use yii\base\Exception;
 use yii\caching\TagDependency;
+use yii\db\Expression;
 use yii\web\Cookie;
 
 /**
@@ -86,10 +87,10 @@ class Environment extends Component {
 	/**
 	 * Получение города.
 	 *
-	 * @author isakov.v
-	 *
 	 * @return DspTowns
 	 * @throws Exception
+	 * @author isakov.v
+	 *
 	 */
 	public function getCity() {
 		if (null === $this->_city) {
@@ -147,9 +148,9 @@ class Environment extends Component {
 	/**
 	 * Получение города из кук.
 	 *
+	 * @return Cities
 	 * @author isakov.v
 	 *
-	 * @return Cities
 	 */
 	private function getCityByCookie() {
 		if (isset(Yii::$app->request->cookies['current_path'])) {
@@ -177,11 +178,14 @@ class Environment extends Component {
 	/**
 	 * Получение города по geoip.
 	 *
-	 * @author isakov.v
 	 * @return Cities
+	 * @author isakov.v
 	 */
 	private function getCityByGEOIp() {
 		$ip = Yii::$app->request->userIP;
+		//$ip = '46.46.35.2'; //Тест Уссурийск
+		//$ip = '77.34.84.3'; //Тест Находка
+
 		if (null !== $ip) {
 			$ip = ip2long($ip);
 
@@ -195,15 +199,14 @@ class Environment extends Component {
 			if (false === $cacheCity) {
 				/** @var GeobaseIp $geoCity */
 				$geoCity = GeobaseIp::find()
-					->where(['>=', GeobaseIp::ATTR_IP_BEGIN, $ip])
-					->andWhere(['<=', GeobaseIp::ATTR_IP_END, $ip])
+					->andWhere(new Expression($ip . ' between "ip_begin" and "ip_end"'))
 					->one();
 
 				if (null !== $geoCity) {
-					$this->_city = Town::find()->with(['arrCity'])->where([[Town::ATTR_ID_GEOBASE] => $geoCity->city_id])->one();
+					$this->_city = Town::find()->where([Town::ATTR_ID_GEOBASE => $geoCity->city_id])->one();
 					if (null !== $this->_city) {
 						Yii::$app->cache->set(
-							$cacheKey, $this->_city, 24 * 60 * 60, new TagDependency([Town::class])
+							$cacheKey, $this->_city, 3600 * 24 * 7, new TagDependency(['tags' => [Town::class]])
 						);
 					}
 				}
@@ -214,7 +217,7 @@ class Environment extends Component {
 		}
 		if (null !== $this->_city) {
 			// Записываем id города в куку, для быстрого обнаружения
-			$this->setCityById($this->_city->ID);
+			$this->setCityById($this->_city->old_id);
 			Yii::$app->response->cookies->add(
 				new Cookie(['name' => 'city-found-by-geo', 'value' => true])
 			);
@@ -303,8 +306,8 @@ class Environment extends Component {
 	/**
 	 * Получение города из url.
 	 *
-	 * @author isakov.v
 	 * @return Cities
+	 * @author isakov.v
 	 */
 	private function _getCityByUrl() {
 		$subDomain = null;
