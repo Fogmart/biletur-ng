@@ -20,10 +20,6 @@ class GeobaseCity extends SiteModel {
 	const ATTR_LATITUDE = 'latitude';
 	const ATTR_LONGITUDE = 'longitude';
 
-	/*public static function tableName() {
-		return '{{%geobase_city}';
-	}*/
-
 	public function attributeLabels() {
 		return [
 			static::ATTR_ID        => 'id',
