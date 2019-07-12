@@ -152,7 +152,7 @@ class CommonTour extends Component {
 				$commonWayPoint->daysCount = $wayPoint->NDAYS;
 				$commonWayPoint->countryFlagImage = $wayPoint->getFlagImage();
 
-				if (1 === $commonWayPoint->number) {
+				if (1 === $commonWayPoint->number && $commonWayPoint->country == 'Россия') {
 					continue;
 				}
 
@@ -167,7 +167,7 @@ class CommonTour extends Component {
 				if (null === $commonWayPoint->country) {
 					continue;
 				}
-				$this->wayPoints[] = $commonWayPoint;
+				$this->wayPoints[$commonWayPoint->cityId] = $commonWayPoint;
 			}
 
 			Yii::$app->cache->set($cacheKey, $this->wayPoints, 3600 * 8, new TagDependency(['tags' => RITourWps::class]));
