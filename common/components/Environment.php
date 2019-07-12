@@ -193,27 +193,15 @@ class Environment extends Component {
 			if ($ip < 0) {
 				$ip += 4294967296;
 			}
+			/** @var GeobaseIp $geoCity */
+			$geoCity = GeobaseIp::find()
+				->andWhere(new Expression($ip . ' between "ip_begin" and "ip_end"'))
+				->one();
 
-			$cacheKey = 'Environment::getCity(' . $ip . ')';
-			$cacheCity = Yii::$app->cache->get($cacheKey);
-			if (false === $cacheCity) {
-				/** @var GeobaseIp $geoCity */
-				$geoCity = GeobaseIp::find()
-					->andWhere(new Expression($ip . ' between "ip_begin" and "ip_end"'))
-					->one();
+			if (null !== $geoCity) {
+				$this->_city = Town::find()->where([Town::ATTR_ID_GEOBASE => $geoCity->city_id])->one();
+			}
 
-				if (null !== $geoCity) {
-					$this->_city = Town::find()->where([Town::ATTR_ID_GEOBASE => $geoCity->city_id])->one();
-					if (null !== $this->_city) {
-						Yii::$app->cache->set(
-							$cacheKey, $this->_city, 3600 * 24 * 7, new TagDependency(['tags' => [Town::class]])
-						);
-					}
-				}
-			}
-			else {
-				$this->_city = $cacheCity;
-			}
 		}
 		if (null !== $this->_city) {
 			// Записываем id города в куку, для быстрого обнаружения
