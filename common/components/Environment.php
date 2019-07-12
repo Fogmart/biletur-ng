@@ -2,6 +2,7 @@
 
 namespace common\components;
 
+use common\models\GeobaseIp;
 use common\models\oracle\scheme\sns\DspAirports;
 use common\models\oracle\scheme\sns\DspTowns;
 use common\models\Town;
@@ -106,11 +107,10 @@ class Environment extends Component {
 			}
 
 			// Пытаемся определить город по GEOip
-			/*$this->getCityByGEOIp();
+			$this->getCityByGEOIp();
 			if (null !== $this->_city) {
 				return $this->_city;
 			}
-			*/
 
 			// Если не получили город ни одним из методов - присваиваем город по умолчанию.
 			if (null === $this->_city && isset($this->defaultCityId)) {
@@ -193,14 +193,14 @@ class Environment extends Component {
 			$cacheKey = 'Environment::getCity(' . $ip . ')';
 			$cacheCity = Yii::$app->cache->get($cacheKey);
 			if (false === $cacheCity) {
-				/** @var IpRange $geoCity */
-				$geoCity = IpRange::find()
-					->where(['>=', 'BEGRANGE', $ip])
-					->andWhere(['<=', 'ENDRANGE', $ip])
+				/** @var GeobaseIp $geoCity */
+				$geoCity = GeobaseIp::find()
+					->where(['>=', GeobaseIp::ATTR_IP_BEGIN, $ip])
+					->andWhere(['<=', GeobaseIp::ATTR_IP_END, $ip])
 					->one();
 
 				if (null !== $geoCity) {
-					$this->_city = Town::find()->with(['arrCity'])->where(['ID' => $geoCity->CITYID])->one();
+					$this->_city = Town::find()->with(['arrCity'])->where([[Town::ATTR_ID_GEOBASE] => $geoCity->city_id])->one();
 					if (null !== $this->_city) {
 						Yii::$app->cache->set(
 							$cacheKey, $this->_city, 24 * 60 * 60, new TagDependency([Town::class])

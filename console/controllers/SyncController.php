@@ -53,7 +53,7 @@ class SyncController extends Controller {
 	}
 
 	/**
-	 * Обновление базы данных ip адресов
+	 * Обновление базы данных ip адресов //раз в неделю
 	 *
 	 * @throws \yii\base\Exception
 	 *
@@ -207,14 +207,5 @@ class SyncController extends Controller {
 		}
 	}
 
-	/**
-	 * Обновление данных по IP-geo локации
-	 *
-	 * @throws \yii\base\Exception
-	 *
-	 * @author Исаков Владислав <visakov@biletur.ru>
-	 */
-	public function actionIpGeoUpdate() {
-		Yii::$app->ipgeobase->updateDB();
-	}
+
 }
