@@ -1,14 +1,15 @@
 <?php
+
 namespace common\models;
 
 use common\components\SiteModel;
 use common\interfaces\ILinkedModels;
 use common\models\oracle\scheme\sns\DspTowns;
+use common\models\queries\QueryTown;
 use common\models\scheme\sns\queries\QueryTowns;
+use Yii;
 use yii\caching\TagDependency;
 use yii\db\Expression;
-use common\models\queries\QueryTown;
-use Yii;
 
 /**
  * Модель Городов
@@ -38,6 +39,7 @@ use Yii;
  * @property double $rang
  * @property string $insert_stamp           <= $WHNCRT
  * @property string $update_stamp           <= $WHNUPD
+ * @property int    $id_geobase
  */
 class Town extends SiteModel implements ILinkedModels {
 
@@ -63,6 +65,8 @@ class Town extends SiteModel implements ILinkedModels {
 	const ATTR_RANG = 'rang';
 	const ATTR_INSERT_STAMP = 'insert_stamp';
 	const ATTR_UPDATE_STAMP = 'update_stamp';
+	const ATTR_ID_GEOBASE = 'id_geobase';
+
 
 	/**
 	 * @return string
@@ -186,7 +190,7 @@ class Town extends SiteModel implements ILinkedModels {
 	 */
 	public static function getNameByOldId($id) {
 
-		if(null === $id) {
+		if (null === $id) {
 			return null;
 		}
 
@@ -198,7 +202,7 @@ class Town extends SiteModel implements ILinkedModels {
 			Yii::$app->cache->set($cacheKey, $city, null, new TagDependency(['tags' => [static::class]]));
 		}
 
-		if(null !== $city) {
+		if (null !== $city) {
 			return $city->r_name;
 		}
 

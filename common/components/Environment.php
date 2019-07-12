@@ -93,10 +93,11 @@ class Environment extends Component {
 	public function getCity() {
 		if (null === $this->_city) {
 			// Пытаемся достать город из url (например: moscow.biletur.ru)
-			$this->_getCityByUrl();
+			/*$this->_getCityByUrl();
 			if (null !== $this->_city) {
 				return $this->_city;
 			}
+			*/
 
 			// Пытаемся достать указанный город из куки
 			$this->getCityByCookie();
@@ -105,10 +106,11 @@ class Environment extends Component {
 			}
 
 			// Пытаемся определить город по GEOip
-			//$this->getCityByGEOIp();
+			/*$this->getCityByGEOIp();
 			if (null !== $this->_city) {
 				return $this->_city;
 			}
+			*/
 
 			// Если не получили город ни одним из методов - присваиваем город по умолчанию.
 			if (null === $this->_city && isset($this->defaultCityId)) {
@@ -135,7 +137,7 @@ class Environment extends Component {
 		if (null !== $this->_city) {
 			// Записываем id города в куку, для быстрого обнаружения
 			Yii::$app->response->cookies->add(
-				new \yii\web\Cookie(['name' => 'current_path', 'value' => $this->_city->ID])
+				new Cookie(['name' => 'current_path', 'value' => $this->_city->ID])
 			);
 		}
 
@@ -275,7 +277,7 @@ class Environment extends Component {
 
 	private function _setLanguageToCookie() {
 		Yii::$app->response->cookies->add(
-			new \yii\web\Cookie(['name' => 'language', 'value' => $this->_language])
+			new Cookie(['name' => 'language', 'value' => $this->_language])
 		);
 	}
 
@@ -331,7 +333,7 @@ class Environment extends Component {
 		if (null !== $this->_city) {
 			// Записываем id города в куку, для быстрого обнаружения
 			Yii::$app->response->cookies->add(
-				new \yii\web\Cookie(['name' => 'current_path', 'value' => $this->_city->ID])
+				new Cookie(['name' => 'current_path', 'value' => $this->_city->ID])
 			);
 		}
 

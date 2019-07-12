@@ -1,13 +1,11 @@
 <?php
-/**
- * @author Исаков Владислав <visakov@biletur.ru>
- */
-
 namespace common\components;
-
 
 use yii\db\ActiveRecord;
 
+/**
+ * @author Исаков Владислав <visakov@biletur.ru>
+ */
 class SiteModel extends ActiveRecord {
 	/**
 	 * @return array|string[]

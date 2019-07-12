@@ -1,6 +1,7 @@
 <?php
 
 use common\components\IpGeoBase;
+use common\components\LogDbTarget;
 use common\models\User;
 
 $params = array_merge(
@@ -41,10 +42,11 @@ return [
 			'useLocalDB' => false,
 		],
 		'log'       => [
-			'targets' => [
-				[
-					'class'  => 'yii\log\FileTarget',
-					'levels' => ['error', 'warning'],
+			'traceLevel' => 3,
+			'targets'    => [
+				'db' => [
+					'class'  => LogDbTarget::class,
+					'levels' => ['error'],
 				],
 			],
 		],

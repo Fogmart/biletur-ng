@@ -2,6 +2,9 @@
 
 namespace console\controllers;
 
+use common\models\GeobaseCity;
+use common\models\Town;
+use Yii;
 use yii\console\Controller;
 use yii\db\Connection;
 use yii\di\Instance;
@@ -35,7 +38,7 @@ class UtilController extends Controller {
 	 */
 	public function actionCreateModel() {
 		/** @var \yii\db\Connection $db */
-		$db = \Yii::$app->get($this->db);
+		$db = Yii::$app->get($this->db);
 
 		$db = Instance::ensure($db, Connection::class);
 		$tableSchema = $db->schema->getTableSchema($this->createTb);
@@ -104,5 +107,26 @@ class UtilController extends Controller {
 		}
 
 		file_put_contents($path . '_' . ucfirst(strtolower($this->createTb)) . '.php', $classFile);
+	}
+
+	/**
+	 * Привязка справочника городов к базе геолокации
+	 *
+	 * @throws \yii\db\Exception
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function actionLinkGeoTown() {
+		/** @var GeobaseCity[] $geoCities */
+		$geoCities = GeobaseCity::find()->all();
+		foreach ($geoCities as $geoCity) {
+			/** @var Town $town */
+			$town = Town::findOne([Town::ATTR_NAME => $geoCity->name]);
+			if (null === $town) {
+				continue;
+			}
+			$town->id_geobase = $geoCity->id;
+			$town->save();
+		}
 	}
 }
