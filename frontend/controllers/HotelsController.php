@@ -75,9 +75,9 @@ class HotelsController extends FrontendMenuController {
 		/** @var \common\modules\api\ostrovok\components\objects\Autocomplete $autocompleteData */
 		$autocompleteData = $response->result;
 
-		$hotels = $data = $autocompleteData->hotels;
+		$hotels = $autocompleteData->hotels;
 
-		$regions = $data = $autocompleteData->regions;
+		$regions = $autocompleteData->regions;
 
 		$result = [];
 

@@ -20,6 +20,6 @@ class m190712_054540_add_column_to_towns extends OracleMigration {
 	 * {@inheritdoc}
 	 */
 	public function safeDown() {
-		$this->dropColumn($this->_tableName . 'id_geobase');
+		$this->dropColumn($this->_tableName, 'id_geobase');
 	}
 }

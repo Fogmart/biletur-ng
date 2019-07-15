@@ -464,10 +464,11 @@ span {
 	}
 }
 
-.slider{
+.slider {
 	.tooltip {
 		z-index: 1;
 	}
+
 	.tooltip.top {
 		margin-top: -45px;
 
@@ -506,6 +507,7 @@ span {
 		}
 	}
 }
+
 .sort {
 	&.selected {
 		text-decoration: underline dashed;
