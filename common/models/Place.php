@@ -245,7 +245,6 @@ class Place extends SiteModel implements ILinkedModels {
 				if (null === $data) {
 					return new Expression('sysdate');
 				}
-
 				return $data;
 				break;
 			case DspPlaces::ATTR_FILIALID:
@@ -254,7 +253,6 @@ class Place extends SiteModel implements ILinkedModels {
 				if (null !== $filial) {
 					return $filial->id;
 				}
-
 				break;
 			case DspPlaces::ATTR_CITYID:
 				/** @var \common\models\Town $town */
@@ -262,37 +260,48 @@ class Place extends SiteModel implements ILinkedModels {
 				if (null !== $town) {
 					return $town->id;
 				}
-
 				break;
 			case self::ATTR_IS_SALE_SPUTNIK:
 				if (null === $data) {
 					return 0;
 				}
+
+				return trim($data);
 				break;
 			case self::ATTR_IS_SALE_PAPER:
 				if (null === $data) {
 					return 0;
 				}
+
+				return trim($data);
 				break;
 			case self::ATTR_IS_SALE_TOUR:
 				if (null === $data) {
 					return 0;
 				}
+
+				return trim($data);
 				break;
 			case self::ATTR_IS_SALE_RAIL_ROAD:
 				if (null === $data) {
 					return 0;
 				}
+
+				return trim($data);
 				break;
 			case self::ATTR_IS_SALE_AVIA:
 				if (null === $data) {
 					return 0;
 				}
+
+				return trim($data);
 				break;
 			case self::ATTR_IS_SALE_IATA:
 				if (null === $data) {
 					return 0;
 				}
+
+				return trim($data);
 				break;
 			default:
 				return trim($data);

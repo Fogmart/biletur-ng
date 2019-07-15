@@ -527,3 +527,9 @@ span {
 		margin-bottom: 10px;
 	}
 }
+
+.help-block {
+	&.help-block-error {
+		font-size: 10px;
+	}
+}
