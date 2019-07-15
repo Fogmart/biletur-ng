@@ -60,7 +60,6 @@ class Seo extends SiteModel {
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
-
 	public static function tableName() {
 		return 'seo';
 	}
