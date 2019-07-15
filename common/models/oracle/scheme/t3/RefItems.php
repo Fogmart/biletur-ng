@@ -8,12 +8,12 @@ use common\models\forms\Common\ContactInfo;
 use common\models\forms\TourBooking\OrderInfoForm;
 use common\models\forms\TourBooking\RefQuotsForm;
 use common\models\ObjectFile;
+use common\models\oracle\procedures\TourCreateOrderCustomerInfo;
+use common\models\oracle\procedures\TourUpdOrdQuot;
 use common\models\oracle\scheme\DspBaseModel;
-use common\models\oracle\scheme\sns\Countries;
-use common\models\oracle\scheme\sns\OrgStaff;
+use common\models\oracle\scheme\sns\DspCountries;
+use common\models\oracle\scheme\sns\DspOrgStaff;
 use common\models\oracle\scheme\t3\queries\QueryRefItems;
-use common\models\procedures\TourCreateOrderCustomerInfo;
-use common\models\procedures\TourUpdOrdQuot;
 use common\models\scheme\tour\Orders;
 use common\models\scheme\tour\OrdPerson;
 use common\models\scheme\tour\OrdRemark;
@@ -84,7 +84,7 @@ class RefItems extends DspBaseModel {
 	const ATTR_WHNCRT = 'WHNCRT';
 	const ATTR_WHNUPD = 'WHNUPD';
 
-	/** @var  common\models\oracle\scheme\sns\DspCountries $mainCountry */
+	/** @var  DspCountries $mainCountry */
 	public $mainCountry;
 
 	/** @var  string $route */
@@ -233,7 +233,7 @@ class RefItems extends DspBaseModel {
 	 * @return mixed
 	 */
 	public function getTypes() {
-		return $this->hasMany(TourTypes::className(), ['ID' => 'TOURTYPEID'])
+		return $this->hasMany(TourTypes::class, ['ID' => 'TOURTYPEID'])
 			->viaTable(
 				'T3.RI_TOUR_TYPES', ['ITMID' => 'ID']
 			);
@@ -248,7 +248,7 @@ class RefItems extends DspBaseModel {
 	 * @return mixed
 	 */
 	public function getStaff() {
-		return $this->hasOne(OrgStaff::className(), ['ID' => 'STAFFID'])
+		return $this->hasOne(DspOrgStaff::class, ['ID' => 'STAFFID'])
 			->viaTable(
 				RIStaff::tableName(), ['ITMID' => 'ID']
 			);
@@ -323,7 +323,6 @@ class RefItems extends DspBaseModel {
 		$this->_setMainCountry();
 		$this->_setRoute();
 		$this->_setBegEndWayPoints();
-
 
 		$totalSum = 0;
 		//Посчитаем итоговую сумму по услугам.
@@ -473,7 +472,7 @@ class RefItems extends DspBaseModel {
 			}
 		}
 
-		Yii::$app->memcache->set(md5('order-info-message-' . $order->ID), 1, 60 * 60 * 5);
+		Yii::$app->cache->set(md5('order-info-message-' . $order->ID), 1, 60 * 60 * 5);
 
 		$order->autoValidate();
 
@@ -486,7 +485,7 @@ class RefItems extends DspBaseModel {
 	 */
 	private function _setMainCountry() {
 		if (null == $this->wps) {
-			$this->mainCountry = new Countries();
+			$this->mainCountry = new DspCountries();
 
 			return;
 		}
@@ -560,5 +559,4 @@ class RefItems extends DspBaseModel {
 	}
 
 	const REL_IMAGE = 'image';
-
 }
