@@ -286,7 +286,7 @@ class SyncController extends Controller {
 
 					$tourDate->hotels[] = $hotel;
 				}
-				$tourDate->minPrice = $xmlTourDate->MinPrice;
+				$tourDate->minPrice = (int)$xmlTourDate->MinPrice;
 
 				$tour->tourDates[] = $tourDate;
 			}
