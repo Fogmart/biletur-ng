@@ -6,6 +6,6 @@ class Service {
 	/** @var string */
 	public $serviceName;
 
-	/** @var float */
+	/** @var string */
 	public $servicePrice;
 }
