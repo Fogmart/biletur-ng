@@ -221,8 +221,10 @@ class SyncController extends Controller {
 	 */
 	public function actionLoadTourTrans() {
 		$xmlTours = simplexml_load_file(Yii::getAlias('@tourTransData') . DIRECTORY_SEPARATOR . 'tours.xml');
-
-		foreach ($xmlTours as $xmlTour) {
+		$jsonTours = [];
+		print_r($xmlTours->Tour);
+		die;
+		foreach ($xmlTours->Tours as $xmlTour) {
 			$tour = new Tour();
 			$tour->url = (string)$xmlTour->attributes()['url'];
 			$tour->id = (int)$xmlTour->Id;
@@ -266,8 +268,8 @@ class SyncController extends Controller {
 
 			foreach ($xmlTour->TourDates->TourDate as $xmlTourDate) {
 				$tourDate = new TourDate();
-				$tourDate->date = $xmlTourDate->Date;
-				$tourDate->placesLeft = $xmlTourDate->PlacesLeft;
+				$tourDate->date = (string)$xmlTourDate->Date;
+				$tourDate->placesLeft = (int)$xmlTourDate->PlacesLeft;
 				foreach ($xmlTourDate->Hotels->Hotel as $xmlHotel) {
 					$hotel = new Hotel();
 					$hotel->hotelName = (string)$xmlHotel->HotelName;
@@ -291,12 +293,10 @@ class SyncController extends Controller {
 				$tour->tourDates[] = $tourDate;
 			}
 
-			print_r($tour);
-
-			die;
+			$jsonTours[] = json_encode($tour);
 		}
 
-		//print_r($xml);
+		print_r(count($jsonTours));
 	}
 
 
