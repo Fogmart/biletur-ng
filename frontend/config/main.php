@@ -11,6 +11,7 @@ $params = array_merge(
 
 $modulesUrlRules = array_merge(
 	require __DIR__ . '/../../common/modules/banner/config/url-rules.php',
+	require __DIR__ . '/../../common/modules/api/config/url-rules.php',
 	require __DIR__ . '/../../common/modules/message/config/url-rules.php',
 	require __DIR__ . '/../../common/modules/news/config/url-rules.php',
 	require __DIR__ . '/../../common/modules/order/config/url-rules.php',
@@ -18,6 +19,7 @@ $modulesUrlRules = array_merge(
 	require __DIR__ . '/../../common/modules/profile/config/url-rules.php',
 	require __DIR__ . '/../../common/modules/seo/config/url-rules.php'
 );
+
 $commonUrlRules = [
 	''                   => 'site/index',
 	'sitemap.xml'        => 'sitemap/default/index',
@@ -44,15 +46,9 @@ $commonUrlRules = [
 	'tour/<id>/<src>'        => 'tour/view/',
 
 	'login'   => 'site/login',
-	'profile' => 'profile/profile/index',
-
-	'api/remote-query/'                => 'api/remote-query/index',
-	'api/remote-query/invalidate-tag'  => 'api/remote-query/invalidate-tag',
-	'api/remote-query/add-request-log' => 'api/remote-query/add-request-log',
 
 	'<module:[\w-]+>/<controller:[\w-]+>/<action:[\w-]+>/<id:\d+>]' => '<module>/<controller>/<action>',
 	'<controller:\w+>/<action:\w+>/'                                => '<controller>/<action>',
-	'message-widget/<object>/<objectId>/<userName>'                 => 'message/message/widget',
 	'hotels/find-by-name/q/<q>'                                     => 'hotels/find-by-name',
 
 	//Обработка старых ссылок------------------------------------------------------------
