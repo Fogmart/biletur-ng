@@ -216,6 +216,9 @@ class SyncController extends Controller {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function actionLoadTourTrans() {
+		$command = 'wget -c -T 60 -P ' . Yii::getAlias('@tourTransData') . ' ' . Tour::XML_URL;
+		exec($command, $output, $status);
+
 		Tour::loadFromXml();
 	}
 }
