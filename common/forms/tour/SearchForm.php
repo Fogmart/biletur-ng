@@ -3,6 +3,7 @@
 namespace common\forms\tour;
 
 use common\components\tour\CommonTour;
+use common\components\tour\tourtrans\Tour;
 use common\models\oracle\scheme\t3\RefItems;
 use common\models\oracle\scheme\t3\RIAd;
 use common\models\oracle\scheme\t3\RITourWps;
@@ -11,6 +12,7 @@ use Yii;
 use yii\base\Model;
 use yii\caching\TagDependency;
 use yii\db\Expression;
+use yii\mongodb\Query;
 use yii\validators\SafeValidator;
 use yii\validators\StringValidator;
 
@@ -153,7 +155,7 @@ class SearchForm extends Model {
 			return $this->result;
 		}
 
-		$this->result = array_merge($this->result, $this->_searchApi());
+		$this->result = array_merge($this->result, $this->_searchTransTour());
 
 		//Фильтруем
 		$this->_filter();
@@ -222,8 +224,47 @@ class SearchForm extends Model {
 		return $commonTours;
 	}
 
-	private function _searchApi() {
-		return [];
+	/**
+	 * Поиск туров Туртранс(mongoDb)
+	 *
+	 * @return array
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	private function _searchTransTour() {
+		$commonTours = [];
+		$query = new Query();
+
+		/** @var \common\components\tour\tourtrans\Tour[] $tours */
+		$query = $query->select([])->from(Tour::COLLECTION_TOURS);
+
+		if (!empty($this->tourTo)) {
+			if (false !== strpos($this->tourTo, 'country_')) {
+				$query->andWhere(['in', 'countries', str_replace('country_', '', $this->tourTo)]);
+			}
+			else {
+				$query->andWhere(['in', 'cities', $this->tourTo]);
+			}
+		}
+
+		$query->limit(50);
+		$tours = $query->all();
+
+		foreach ($tours as $tour) {
+			$tour = json_decode($tour['objectData']);
+			$commonTour = new CommonTour([
+					CommonTour::ATTR_SOURCE_ID        => $tour->id,
+					CommonTour::ATTR_SOURCE           => CommonTour::SOURCE_TOURTRANS,
+					CommonTour::ATTR_SOURCE_TOUR_DATA => $tour
+				]
+			);
+
+			//Приводим данные тура к общему объекту
+			$commonTour->prepare();
+			$commonTours[] = $commonTour;
+		}
+
+		return $commonTours;
 	}
 
 	/**
@@ -331,6 +372,18 @@ class SearchForm extends Model {
 			}
 		}
 
+		$cacheKey = Yii::$app->cache->buildKey([Tour::COLLECTION_FILTERS_GEO]);
+		$tourtransRoutes = Yii::$app->cache->get($cacheKey);
+		//Если нет фильтров туртранса, то перезагрузим данные в mongoDb и установим их
+		if (false === $tourtransRoutes) {
+			Tour::loadFromXml();
+			$tourtransRoutes = Yii::$app->cache->get($cacheKey);
+		}
+
+		$result = array_merge($result, $tourtransRoutes);
+
+		$result = array_unique($result);
+
 		return $result;
 	}
 
@@ -342,7 +395,7 @@ class SearchForm extends Model {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	private static function _getMinMaxPrices() {
-		$cacheKey = Yii::$app->cache->buildKey([__METHOD__]);
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, 1]);
 		$priceMinMaxArray = Yii::$app->cache->get($cacheKey);
 		if (false === $priceMinMaxArray) {
 			$priceMinMaxArray = [];
@@ -364,10 +417,20 @@ class SearchForm extends Model {
 					$priceMinMaxArray[] = (int)$minMax;
 				}
 			}
+
+			$query = new Query();
+
+			//Цены туртранса
+			$tourTransTours = $query->select(['minPrice'])->from(Tour::COLLECTION_TOURS)->all();
+			foreach ($tourTransTours as $tourTransTour) {
+				$priceMinMaxArray[] = $tourTransTour['minPrice'];
+			}
+
 			sort($priceMinMaxArray);
 
-			Yii::$app->cache->set($cacheKey, $priceMinMaxArray, 3600 * 8, new TagDependency(['tags' => [RefItems::class, RIAd::class]]));
+			Yii::$app->cache->set($cacheKey, $priceMinMaxArray, 3600 * 8, new TagDependency(['tags' => [RefItems::class, RIAd::class, Tour::class]]));
 		}
+
 
 		return [$priceMinMaxArray[0], $priceMinMaxArray[count($priceMinMaxArray) - 1]];
 	}
@@ -380,7 +443,7 @@ class SearchForm extends Model {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	private static function _getMinMaxDays() {
-		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, 4]);
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, 5]);
 		$daysMinMaxArray = Yii::$app->cache->get($cacheKey);
 		if (false === $daysMinMaxArray) {
 			$daysMinMaxArray = [];
@@ -409,11 +472,19 @@ class SearchForm extends Model {
 				}
 				$daysMinMaxArray[$tour->ID] = $days;
 			}
+
+			//Кол-во дней туров туртранса
+			$query = new Query();
+			$tourTransTours = $query->select(['id', 'duration'])->from(Tour::COLLECTION_TOURS)->all();
+			foreach ($tourTransTours as $tourTransTour) {
+				$daysMinMaxArray['tt_' . $tourTransTour['id']] = $tourTransTour['duration'];
+			}
+
 			$daysMinMaxArray = array_unique($daysMinMaxArray);
 
 			sort($daysMinMaxArray);
 
-			Yii::$app->cache->set($cacheKey, $daysMinMaxArray, 3600 * 8, new TagDependency(['tags' => [RefItems::class, RITourWps::class]]));
+			Yii::$app->cache->set($cacheKey, $daysMinMaxArray, 3600 * 8, new TagDependency(['tags' => [RefItems::class, RITourWps::class, Tour::class]]));
 		}
 
 		return [$daysMinMaxArray[0], $daysMinMaxArray[count($daysMinMaxArray) - 1]];

@@ -66,7 +66,7 @@ use yii\web\JsExpression;
 			'pluginOptions' => [
 				'min'       => $form->priceMinMax[0],
 				'max'       => $form->priceMinMax[1],
-				'step'      => 3000,
+				'step'      => 1000,
 				'range'     => true,
 				'tooltip'   => 'always',
 				'formatter' => new yii\web\JsExpression("function(val) {

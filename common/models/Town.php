@@ -40,6 +40,8 @@ use yii\db\Expression;
  * @property string $insert_stamp           <= $WHNCRT
  * @property string $update_stamp           <= $WHNUPD
  * @property int    $id_geobase
+ *
+ * @property-read \common\models\Country $country
  */
 class Town extends SiteModel implements ILinkedModels {
 
@@ -209,5 +211,14 @@ class Town extends SiteModel implements ILinkedModels {
 		return null;
 	}
 
+	/**
+	 * @return \yii\db\ActiveQuery
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function getCountry() {
+		return $this->hasOne(Country::class, [Country::ATTR_ID => static::ATTR_COUNTRY_ID]);
+	}
 
+	const REL_COUNTRY = 'country';
 }

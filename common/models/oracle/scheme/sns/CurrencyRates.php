@@ -4,7 +4,6 @@ namespace common\models\oracle\scheme\sns;
 
 use common\interfaces\InvalidateModels;
 use common\models\oracle\scheme\DspBaseModel;
-use yii\db\ActiveRecord;
 
 /**
  * @author isakov.v
@@ -22,6 +21,13 @@ use yii\db\ActiveRecord;
  * @property string $WHNUPD
  */
 class CurrencyRates extends DspBaseModel implements InvalidateModels {
+
+	const ATTR_CURRENCY_CODE = 'CCODE';
+	const ATTR_RATE = 'RATE';
+	const ATTR_RATE_DATE = 'RATEDATE';
+	const ATTR_WHNUPD = 'WHNUPD';
+	const ATTR_WHOUPD = 'WHOUPD';
+
 	/**
 	 * @return string
 	 */
@@ -43,5 +49,25 @@ class CurrencyRates extends DspBaseModel implements InvalidateModels {
 	 */
 	public function getInvalidateField() {
 		return 'ROWNUM';
+	}
+
+	/**
+	 * Получение актуального курса для валюты
+	 *
+	 * @param string $currency
+	 *
+	 * @return mixed|string
+	 *
+	 * @throws \yii\base\InvalidConfigException
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public static function getActualRate($currency) {
+		$rate = static::find()
+			->andWhere([static::ATTR_CURRENCY_CODE => $currency])
+			->orderBy([static::ATTR_RATE_DATE => SORT_DESC])
+			->one();
+
+		return $rate->RATE;
 	}
 }

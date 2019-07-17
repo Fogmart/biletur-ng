@@ -3,7 +3,8 @@
 namespace common\components\tour;
 
 use BadFunctionCallException;
-use common\components\RemoteImageCache;
+use common\components\tour\tourtrans\Tour;
+use common\models\Country;
 use common\models\ObjectFile;
 use common\models\oracle\scheme\t3\RefItems;
 use common\models\oracle\scheme\t3\RILaps;
@@ -16,6 +17,7 @@ use yii\caching\TagDependency;
 
 class CommonTour extends Component {
 	const SOURCE_BILETUR = 0;
+	const SOURCE_TOURTRANS = 1;
 
 	/** @var int` */
 	public $source;
@@ -98,6 +100,9 @@ class CommonTour extends Component {
 			case static::SOURCE_BILETUR:
 				$this->_prepareBiletur();
 				break;
+			case static::SOURCE_TOURTRANS:
+				$this->_prepareTourtrans();
+				break;
 			default:
 				throw new BadFunctionCallException('Не задан обработчик для источника');
 				break;
@@ -138,7 +143,7 @@ class CommonTour extends Component {
 			Yii::$app->cache->set($cacheKey, $wps, 3600 * 24, new TagDependency(['tags' => RITourWps::class]));
 		}
 
-		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$commonTour->wayPoints', $tour->ID]);
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$commonTour->wayPoints', $tour->ID, 2]);
 		$this->wayPoints = Yii::$app->cache->get($cacheKey);
 		if (false === $this->wayPoints) {
 			$this->wayPoints = [];
@@ -167,19 +172,21 @@ class CommonTour extends Component {
 				if (null === $commonWayPoint->country) {
 					continue;
 				}
-				$this->wayPoints[$commonWayPoint->cityId] = $commonWayPoint;
+				$this->wayPoints[$commonWayPoint->country][] = $commonWayPoint;
 			}
 
 			Yii::$app->cache->set($cacheKey, $this->wayPoints, 3600 * 24, new TagDependency(['tags' => RITourWps::class]));
 		}
 
 		$this->daysCount = 0;
-		foreach ($this->wayPoints as $wps) {
-			$this->daysCount = (int)$this->daysCount + (int)$wps->daysCount;
+		foreach ($this->wayPoints as $country => $wayPoints) {
+			foreach ($wayPoints as $wps) {
+				$this->daysCount = (int)$this->daysCount + (int)$wps->daysCount;
+			}
 		}
 
 		//Возьмем доп.фото по точкам маршрута
-		$keywords = [];
+		/*$keywords = [];
 		foreach ($this->wayPoints as $wayPoint) {
 			$keywords[] = $wayPoint->cityName;
 		}
@@ -194,7 +201,7 @@ class CommonTour extends Component {
 				'url' => RemoteImageCache::getImage($url, null, null, true, false),
 				//'src' => RemoteImageCache::getImage($url, '100', 'img-rounded', true),
 			];
-		}
+		}*/
 
 		//Заполняем активные заезды
 		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$tour->activeLaps', $tour->ID]);
@@ -213,6 +220,68 @@ class CommonTour extends Component {
 
 			$this->activeLaps[] = $commonLap;
 		}
+	}
+
+	/**
+	 * Конвертация тура Туртранса
+	 *
+	 * @throws \yii\base\InvalidConfigException
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	private function _prepareTourtrans() {
+		/** @var \common\components\tour\tourtrans\Tour $tour */
+		$tour = $this->sourceTourData;
+		$this->title = $tour->title;
+		$this->description = $tour->include;
+		$this->priceMinMax = [$tour->minPrice, $tour->minPrice];
+		$this->imageOld = Tour::SITE_URL . $tour->image;
+		$this->wayPoints = [];
+		$this->daysCount = $tour->duration;
+
+		$route = str_replace(["*"], '', $tour->route);
+		$route = explode("–", $route);
+
+		foreach ($route as $index => $place) {
+
+			$cacheKey = Yii::$app->cache->buildKey(['$town', trim($place)]);
+			$town = Yii::$app->cache->get($cacheKey);
+			if (false === $town) {
+				/** @var Town $town */
+				$town = Town::find()
+					->andWhere([Town::tableName() . '.' . Town::ATTR_NAME => trim($place)])
+					->joinWith(Town::REL_COUNTRY, true, 'INNER JOIN')
+					->one();
+
+				Yii::$app->cache->set($cacheKey, $town, null);
+			}
+			if (null === $town) {
+				continue;
+			}
+
+			$commonWayPoint = new CommonTourWayPoint();
+			$commonWayPoint->cityId = $town->old_id;
+			$commonWayPoint->cityName = $town->name;
+			$commonWayPoint->country = $town->country->name;
+			$commonWayPoint->number = $index;
+			$commonWayPoint->daysCount = 1;
+			$commonWayPoint->countryFlagImage = $this->getFlagImageByCountryName($commonWayPoint->country);
+
+			$this->wayPoints[$commonWayPoint->country][] = $commonWayPoint;
+		}
+
+		if (null === $tour->tourDates) {
+			return;
+		}
+
+		foreach ($tour->tourDates as $tourDate) {
+			$commonLap = new CommonLap();
+			$commonLap->id = md5($tour->id . $tourDate->date);
+			$commonLap->startDate = $tourDate->date;
+			$commonLap->endDate = $tourDate->date;
+			$this->activeLaps[] = $commonLap;
+		}
+
 	}
 
 	/**
@@ -235,5 +304,39 @@ class CommonTour extends Component {
 		}
 
 		return $objectFile->getWebUrl();
+	}
+
+	/**
+	 * Поиск флага по названию страны
+	 *
+	 * @param string $name
+	 *
+	 * @return mixed|string|null
+	 *
+	 * @throws \yii\base\InvalidConfigException
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public static function getFlagImageByCountryName($name) {
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $name]);
+		$flagImage = Yii::$app->cache->get($cacheKey);
+		if (false === $flagImage) {
+			/** @var Country $country */
+			$country = Country::find()
+				->andWhere([Country::ATTR_NAME => $name])
+				->one();
+
+			if (null !== $country) {
+				$flagImage = $country->getFlagImage();
+			}
+			else {
+				$flagImage = null;
+			}
+
+			Yii::$app->cache->set($cacheKey, $flagImage, null);
+		}
+
+		return $flagImage;
+
 	}
 }

@@ -3,13 +3,7 @@
 namespace console\controllers;
 
 use common\components\SyncData;
-use common\components\tour\tourtrans\AccomodationType;
-use common\components\tour\tourtrans\Discount;
-use common\components\tour\tourtrans\Hotel;
-use common\components\tour\tourtrans\Service;
 use common\components\tour\tourtrans\Tour;
-use common\components\tour\tourtrans\TourDate;
-use common\components\tour\tourtrans\TourDay;
 use common\models\CommonHotelMeal;
 use common\models\CommonHotelSerpFilters;
 use common\models\Country;
@@ -88,8 +82,10 @@ class SyncController extends Controller {
 		$collection = Yii::$app->mongodb->getCollection('api_ostrovok_hotel');
 
 		//дропаем коллекцию
-		//$collection->drop();
-		print_r($handle) . PHP_EOL;
+		if ($collection->count() > 0) {
+			$collection->drop();
+		}
+
 		if ($handle) {
 			$count = 0;
 			$objects = [];
@@ -215,89 +211,11 @@ class SyncController extends Controller {
 	}
 
 	/**
-	 * Закгрузка туров Туртранс в mongoDb
+	 * Закрузка туров Туртранс в mongoDb
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function actionLoadTourTrans() {
-		$xmlTours = simplexml_load_file(Yii::getAlias('@tourTransData') . DIRECTORY_SEPARATOR . 'tours.xml');
-		$jsonTours = [];
-		print_r($xmlTours->Tour);
-		die;
-		foreach ($xmlTours->Tours as $xmlTour) {
-			$tour = new Tour();
-			$tour->url = (string)$xmlTour->attributes()['url'];
-			$tour->id = (int)$xmlTour->Id;
-			$tour->tourCode = (string)$xmlTour->TourCode;
-			$tour->title = (string)$xmlTour->Title;
-			$tour->image = (string)$xmlTour->Image->attributes()['url'];
-			$tour->duration = (int)$xmlTour->Duration;
-			$tour->nightMoves = (int)$xmlTour->NightMoves;
-			$tour->commission = (int)$xmlTour->Comission;
-			$tour->minPrice = (int)$xmlTour->MinPrice;
-			$tour->currency = (string)$xmlTour->Currency;
-			$tour->route = (string)$xmlTour->Route;
-			$tour->countries = (array)$xmlTour->Countries->Country;
-			$tour->visa = (string)$xmlTour->visa;
-			$tour->include = (string)$xmlTour->Include;
-			$tour->freeFormula = (string)$xmlTour->FreeFormula;
-
-			foreach ($xmlTour->Additional->Service as $xmlService) {
-				$service = new Service();
-				$service->serviceName = (string)$xmlService->ServiceName;
-				$service->servicePrice = (string)$xmlService->ServicePrice;
-
-				$tour->additional[] = $service;
-			}
-
-			foreach ($xmlTour->Discounts->Discount as $xmlDiscount) {
-				$discount = new Discount();
-				$discount->name = (string)$xmlDiscount->Name;
-				$discount->price = (int)$xmlDiscount->Price;
-				$discount->currency = (string)$xmlDiscount->Currency;
-
-				$tour->discounts[] = $discount;
-			}
-
-			foreach ($xmlTour->TourDays->TourDay as $xmlTourDay) {
-				$tourDay = new TourDay();
-				$tourDay->num = (int)$xmlTourDay->Num;
-				$tourDay->title = (string)$xmlTourDay->Title;
-				$tourDay->text = (string)$xmlTourDay->Text;
-			}
-
-			foreach ($xmlTour->TourDates->TourDate as $xmlTourDate) {
-				$tourDate = new TourDate();
-				$tourDate->date = (string)$xmlTourDate->Date;
-				$tourDate->placesLeft = (int)$xmlTourDate->PlacesLeft;
-				foreach ($xmlTourDate->Hotels->Hotel as $xmlHotel) {
-					$hotel = new Hotel();
-					$hotel->hotelName = (string)$xmlHotel->HotelName;
-					$hotel->hotelCategory = (string)$xmlHotel->HotelCategory;
-					foreach ($xmlHotel->AccomodationTypes->AccomodationType as $xmlAccomodationType) {
-						$accomondationType = new AccomodationType();
-						$accomondationType->room = (string)$xmlAccomodationType->Room;
-						$accomondationType->category = (string)$xmlAccomodationType->Category;
-						$accomondationType->guests = (string)$xmlAccomodationType->Guests;
-						$accomondationType->nights = (string)$xmlAccomodationType->Nights;
-						$accomondationType->board = (string)$xmlAccomodationType->Board;
-						$accomondationType->price = (int)$xmlAccomodationType->Price;
-
-						$hotel->accomodationTypes[] = $accomondationType;
-					}
-
-					$tourDate->hotels[] = $hotel;
-				}
-				$tourDate->minPrice = (int)$xmlTourDate->MinPrice;
-
-				$tour->tourDates[] = $tourDate;
-			}
-
-			$jsonTours[] = json_encode($tour);
-		}
-
-		print_r(count($jsonTours));
+		Tour::loadFromXml();
 	}
-
-
 }
