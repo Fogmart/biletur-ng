@@ -11,6 +11,9 @@ use frontend\controllers\TourController;
  */
 ?>
 <?php foreach ($tours as $tour): ?>
+	<?php
+	// \common\base\helpers\Dump::d($tour->sourceTourData);
+	?>
 	<div class="row tour-block" style="display: none;">
 		<div class="col-xs-12">
 			<div class="tour-item">
@@ -21,10 +24,9 @@ use frontend\controllers\TourController;
 				<b>дней <?= $tour->daysCount ?> </b><br>
 				<div class="col-md-3 col-xs-12">
 					<?php if (null !== $tour->image): ?>
-						<?= $tour->image ?>
 						<?= Yii::$app->imageCache->thumb($tour->image, '250', ['class' => 'img-rounded']) ?>
 					<?php else: ?>
-						<?= RemoteImageCache::getImage($tour->imageOld, '250', 'img-rounded') ?>
+						<?= RemoteImageCache::getImage($tour->imageOld, '250', 'img-rounded', false, true, $tour->sourceId == \common\components\tour\CommonTour::SOURCE_BILETUR) ?>
 					<?php endif ?>
 				</div>
 				<div class="col-md-9 col-xs-12">

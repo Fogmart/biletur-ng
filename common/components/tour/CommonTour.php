@@ -130,6 +130,7 @@ class CommonTour extends Component {
 		}
 
 		$this->title = trim(strip_tags($tour->NAME));
+		$this->sourceId = CommonTour::SOURCE_BILETUR;
 		$this->description = strip_tags((null === $description ? '' : $description->DESCRIPTION));
 		$this->priceMinMax = $tour->quotsSummMinMax();
 		$this->imageOld = (null !== $description ? $description->URL_IMG : null);
@@ -233,6 +234,7 @@ class CommonTour extends Component {
 		/** @var \common\components\tour\tourtrans\Tour $tour */
 		$tour = $this->sourceTourData;
 		$this->title = $tour->title;
+		$this->sourceId = CommonTour::SOURCE_TOURTRANS;
 		$this->description = $tour->include;
 		$this->priceMinMax = [$tour->minPrice, $tour->minPrice];
 		$this->imageOld = Tour::SITE_URL . $tour->image;
@@ -249,7 +251,7 @@ class CommonTour extends Component {
 			if (false === $town) {
 				/** @var Town $town */
 				$town = Town::find()
-					->andWhere([Town::tableName() . '.' . Town::ATTR_NAME => trim($place)])
+					->andWhere(['LIKE', Town::tableName() . '.' . Town::ATTR_NAME, trim($place)])
 					->joinWith(Town::REL_COUNTRY, true, 'INNER JOIN')
 					->one();
 

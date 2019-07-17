@@ -144,7 +144,7 @@ class Tour {
 			$tour->title = (string)$xmlTour->Title;
 
 			if (property_exists($xmlTour, 'Image')) {
-				$tour->image = (string)$xmlTour->Image->attributes()['url'];
+				$tour->image = str_replace('76x43/', '', (string)$xmlTour->Image->attributes()['url']);
 			}
 
 			$tour->duration = (int)$xmlTour->Duration;
@@ -218,13 +218,13 @@ class Tour {
 			$cities = [];
 
 			foreach ($route as $index => $place) {
-				$cacheKey = Yii::$app->cache->buildKey(['$town', trim($place)]);
+				$cacheKey = Yii::$app->cache->buildKey(['$town', trim($place), 3]);
 				$town = Yii::$app->cache->get($cacheKey);
 
 				if (false === $town) {
 					/** @var Town $town */
 					$town = Town::find()
-						->andWhere([Town::tableName() . '.' . Town::ATTR_NAME => trim($place)])
+						->andWhere(['LIKE', Town::tableName() . '.' . Town::ATTR_NAME, trim($place)])
 						->joinWith(Town::REL_COUNTRY, true, 'INNER JOIN')
 						->one();
 
@@ -237,11 +237,10 @@ class Tour {
 
 				$routes['country_' . $town->country->name] = $town->country->name;
 				$routes[$town->old_id] = $town->name;
-				$cities = $town->old_id;
+				$cities[] = $town->old_id;
 			}
 
 			$tour->cities = $cities;
-
 			$tours[] = $tour;
 		}
 

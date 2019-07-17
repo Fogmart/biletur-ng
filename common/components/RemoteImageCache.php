@@ -21,22 +21,25 @@ class RemoteImageCache extends Component {
 	 * @param string $class
 	 * @param bool   $onlyPath
 	 * @param bool   $needThumb
+	 * @param bool   $isBiletur
 	 *
 	 * @return string
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
-	public static function getImage($url, $size = '', $class = '', $onlyPath = false, $needThumb = true) {
-		$url = trim($url);
+	public static function getImage($url, $size = '', $class = '', $onlyPath = false, $needThumb = true, $isBiletur = true) {
+		if ($isBiletur) {
+			$url = trim($url);
 
-		//выпиливаем такой адрес из url
-		$url = str_replace('https://www.airagency.ru', '', $url);
+			//выпиливаем такой адрес из url
+			$url = str_replace('https://www.airagency.ru', '', $url);
 
-		//хак для уменшенных картинок, берем их оригиналы
-		$url = str_replace('_100', '', $url);
-		$url = str_replace('/100/', '/', $url);
-		$url = str_replace('(2)', '', $url);
-		$url = 'http://biletur.ru' . $url;
+			//хак для уменшенных картинок, берем их оригиналы
+			$url = str_replace('_100', '', $url);
+			$url = str_replace('/100/', '/', $url);
+			$url = str_replace('(2)', '', $url);
+			$url = 'http://biletur.ru' . $url;
+		}
 
 		$hashName = md5($url) . '.' . strtolower(trim(pathinfo($url, PATHINFO_EXTENSION)));
 

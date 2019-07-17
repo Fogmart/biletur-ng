@@ -247,11 +247,15 @@ class SearchForm extends Model {
 			}
 		}
 
-		$query->limit(50);
+		$query->limit(300);
 		$tours = $query->all();
 
 		foreach ($tours as $tour) {
 			$tour = json_decode($tour['objectData']);
+			if ($tour->minPrice == 0) {
+				continue;
+			}
+
 			$commonTour = new CommonTour([
 					CommonTour::ATTR_SOURCE_ID        => $tour->id,
 					CommonTour::ATTR_SOURCE           => CommonTour::SOURCE_TOURTRANS,
