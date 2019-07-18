@@ -3,6 +3,7 @@
 use common\base\helpers\LString;
 use common\base\helpers\StringHelper;
 use common\components\RemoteImageCache;
+use common\components\tour\CommonTour;
 use frontend\controllers\TourController;
 
 /**
@@ -26,7 +27,7 @@ use frontend\controllers\TourController;
 					<?php if (null !== $tour->image): ?>
 						<?= Yii::$app->imageCache->thumb($tour->image, '250', ['class' => 'img-rounded']) ?>
 					<?php else: ?>
-						<?= RemoteImageCache::getImage($tour->imageOld, '250', 'img-rounded', false, true, $tour->sourceId == \common\components\tour\CommonTour::SOURCE_BILETUR) ?>
+						<?= RemoteImageCache::getImage($tour->imageOld, '250', 'img-rounded', false, true, ($tour->sourceId == CommonTour::SOURCE_BILETUR)) ?>
 					<?php endif ?>
 				</div>
 				<div class="col-md-9 col-xs-12">

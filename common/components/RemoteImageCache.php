@@ -130,7 +130,6 @@ class RemoteImageCache extends Component {
 		if (!is_dir($imageFolder)) {
 			mkdir($imageFolder);
 		}
-		sleep(1);
 
 		$userAgents = [
 			'Mozilla/5.0 (Linux; Android 7.0; BLL-L22 Build/HUAWEIBLL-L22) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.91 Mobile Safari/537.36',
