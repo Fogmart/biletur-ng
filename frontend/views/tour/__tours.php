@@ -20,7 +20,6 @@ use frontend\controllers\TourController;
 			<div class="tour-item">
 				<h4><a href="<?= TourController::getActionUrl(TourController::ACTION_VIEW, ['id' => $tour->sourceId, 'src' => $tour->source, 'slug' => StringHelper::urlAlias($tour->title)]) ?>"><strong><?= $tour->title ?></strong></a></h4>
 				<br>
-
 				<b>от <?= LString::formatMoney($tour->priceMinMax[0]) ?> </b><br>
 				<b>дней <?= $tour->daysCount ?> </b><br>
 				<div class="col-md-3 col-xs-12">

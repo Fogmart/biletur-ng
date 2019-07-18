@@ -81,10 +81,19 @@ return [
 		'opengraph'        => [
 			'class' => 'fgh151\opengraph\OpenGraph',
 		],
+		'imageresize'      => [
+			'class'       => 'noam148\imageresize\ImageResize',
+			//path relative web folder. In case of multiple environments (frontend, backend) add more paths
+			'cachePath'   => ['assets/images', '../../frontend/web/assets/images'],
+			//use filename (seo friendly) for resized images else use a hash
+			'useFilename' => true,
+			//show full url (for example in case of a API)
+			'absoluteUrl' => false,
+		],
 		'imageCache'       => [
 			'class'      => 'iutbay\yii2imagecache\ImageCache',
-			'sourcePath' => '@app/web/images/uploads',
-			'sourceUrl'  => '@web/images/uploads',
+			'sourcePath' => '@app/web/images',
+			'sourceUrl'  => '@web/images',
 			'thumbsPath' => '@app/web/images/thumb',
 			//'thumbsUrl'  => '@web/site/thumbs?path=',
 			'sizes'      => [

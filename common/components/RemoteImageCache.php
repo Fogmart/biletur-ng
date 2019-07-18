@@ -42,12 +42,13 @@ class RemoteImageCache extends Component {
 		}
 
 		$hashName = md5($url) . '.' . strtolower(trim(pathinfo($url, PATHINFO_EXTENSION)));
-
-		$imageFolder = Yii::getAlias('@remoteImageCache') . DIRECTORY_SEPARATOR . substr($hashName, 0, 2);
+		$subDir = substr($hashName, 0, 2);
+		$imageFolder = Yii::getAlias('@remoteImageCache') . DIRECTORY_SEPARATOR . $subDir;
 
 		//Чтобы каждый раз не дёргать диск на проверку скаченного файла поставим факт скачивания в кэш
 		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $hashName, 3]);
 		$imageCached = Yii::$app->cache->get($cacheKey);
+
 		if (false === $imageCached) {
 			if (!file_exists($imageFolder . DIRECTORY_SEPARATOR . $hashName)) {
 				static::_downloadFile($url, $hashName);
@@ -55,11 +56,13 @@ class RemoteImageCache extends Component {
 
 			Yii::$app->cache->set($cacheKey, 1, null);
 		}
+
 		if ($needThumb) {
 			$ext = pathinfo($imageFolder . DIRECTORY_SEPARATOR . $hashName, PATHINFO_EXTENSION);
 			//Если запросили не файл а страницу, чтобы каждый раз не проверять во вьюшках, или вдруг с сервером что-то случилось
 			//и мы получили вместо картинки страницу
 			if (!file_exists($imageFolder . DIRECTORY_SEPARATOR . $hashName) || $ext == 'ru') {
+
 				if ($onlyPath) {
 					return Yii::$app->imageCache->thumbSrc(Yii::getAlias('@images') . DIRECTORY_SEPARATOR . 'image-not-found.png', $size);
 				}
@@ -74,7 +77,7 @@ class RemoteImageCache extends Component {
 			return Yii::$app->imageCache->thumb($imageFolder . DIRECTORY_SEPARATOR . $hashName, $size, ['class' => $class]);
 		}
 
-		return '/images/uploads/cache/' . $hashName;
+		return '/images/cache/' . $hashName;
 	}
 
 	/**

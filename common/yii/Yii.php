@@ -32,6 +32,7 @@ class Yii extends BaseYii {
  * @property-read \iutbay\yii2imagecache\ImageCache                   $imageCache
  * @property-read fgh151\opengraph\OpenGraph                          $opengraph
  * @property-read \Edvlerblog\Adldap2\Adldap2Wrapper                  $ldap
+ * @property-read noam148\imageresize\ImageResize                     $imageresize
  */
 class Application {
 }
