@@ -43,33 +43,35 @@ class RemoteImageCache extends Component {
 
 		$hashName = md5($url) . '.' . strtolower(trim(pathinfo($url, PATHINFO_EXTENSION)));
 
+		$imageFolder = Yii::getAlias('@remoteImageCache') . DIRECTORY_SEPARATOR . substr($hashName, 0, 2);
+
 		//Чтобы каждый раз не дёргать диск на проверку скаченного файла поставим факт скачивания в кэш
-		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $hashName]);
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $hashName, 3]);
 		$imageCached = Yii::$app->cache->get($cacheKey);
 		if (false === $imageCached) {
-			if (!file_exists('images/uploads/cache/' . $hashName)) {
+			if (!file_exists($imageFolder . DIRECTORY_SEPARATOR . $hashName)) {
 				static::_downloadFile($url, $hashName);
 			}
 
 			Yii::$app->cache->set($cacheKey, 1, null);
 		}
 		if ($needThumb) {
-			$ext = pathinfo('/images/uploads/cache/' . $hashName, PATHINFO_EXTENSION);
+			$ext = pathinfo($imageFolder . DIRECTORY_SEPARATOR . $hashName, PATHINFO_EXTENSION);
 			//Если запросили не файл а страницу, чтобы каждый раз не проверять во вьюшках, или вдруг с сервером что-то случилось
 			//и мы получили вместо картинки страницу
-			if (!file_exists('images/uploads/cache/' . $hashName) || $ext == 'ru') {
+			if (!file_exists($imageFolder . DIRECTORY_SEPARATOR . $hashName) || $ext == 'ru') {
 				if ($onlyPath) {
-					return Yii::$app->imageCache->thumbSrc('/images/uploads/image-not-found.png', $size);
+					return Yii::$app->imageCache->thumbSrc(Yii::getAlias('@images') . DIRECTORY_SEPARATOR . 'image-not-found.png', $size);
 				}
 
-				return Yii::$app->imageCache->thumb('/images/uploads/image-not-found.png', $size, ['class' => $class]);
+				return Yii::$app->imageCache->thumb(Yii::getAlias('@images') . DIRECTORY_SEPARATOR . 'image-not-found.png', $size, ['class' => $class]);
 			}
 
 			if ($onlyPath) {
-				return Yii::$app->imageCache->thumbSrc('/images/uploads/cache/' . $hashName, $size);
+				return Yii::$app->imageCache->thumbSrc($imageFolder . DIRECTORY_SEPARATOR . $hashName, $size);
 			}
 
-			return Yii::$app->imageCache->thumb('/images/uploads/cache/' . $hashName, $size, ['class' => $class]);
+			return Yii::$app->imageCache->thumb($imageFolder . DIRECTORY_SEPARATOR . $hashName, $size, ['class' => $class]);
 		}
 
 		return '/images/uploads/cache/' . $hashName;
@@ -122,12 +124,41 @@ class RemoteImageCache extends Component {
 				$url = str_replace($part, $encodedPart, $url);
 			}
 		}
-		if (!is_dir('images/uploads/cache')) {
-			mkdir('images/uploads/cache');
+
+		$imageFolder = Yii::getAlias('@remoteImageCache') . DIRECTORY_SEPARATOR . substr($hashName, 0, 2);
+
+		if (!is_dir($imageFolder)) {
+			mkdir($imageFolder);
 		}
+		sleep(1);
 
-		@file_put_contents('images/uploads/cache/' . $hashName, @file_get_contents($url));
+		$userAgents = [
+			'Mozilla/5.0 (Linux; Android 7.0; BLL-L22 Build/HUAWEIBLL-L22) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.91 Mobile Safari/537.36',
+			'Mozilla/5.0 (Linux; Android 5.1.1; A37fw Build/LMY47V) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.84 Mobile Safari/537.36',
+			'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0',
+			'Mozilla/5.0 (Linux; Android 4.4.2; de-de; SAMSUNG GT-I9195 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/1.5 Chrome/28.0.1500.94 Mobile Safari/537.36',
+			'Mozilla/5.0 (Linux; U; Android 2.2.1; en-us; Nexus One Build/FRG83) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1',
+			'Mozilla/5.0 (Linux; Android 6.0.1; SM-G532M Build/MMB29T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Mobile Safari/537.36',
+			'Mozilla/5.0 (Linux; Android 5.1; A37f Build/LMY47V) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.93 Mobile Safari/537.36',
+			'Mozilla/5.0 (Linux; Android 6.0; vivo 1713 Build/MRA58K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36',
+			'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 YaBrowser/17.3.1.840 Yowser/2.5 Safari/537.36',
+			'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 YaBrowser/17.3.1.840 Yowser/2.5 Safari/537.36',
+			'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 YaBrowser/17.1.0.2034 Yowser/2.5 Safari/537.36',
+			'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 YaBrowser/17.9.1.768 Yowser/2.5 Safari/537.36',
+			'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 YaBrowser/18.3.1.1232 Yowser/2.5 Safari/537.36',
+			'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+			'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36',
+			'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36',
+			'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36',
+			'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36',
+			'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36',
+			'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36',
+			'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'
+		];
+
+		$index = rand(0, count($userAgents) - 1);
+
+		$command = 'wget -U "' . $userAgents[$index] . '" -c -T 60 -O ' . $imageFolder . DIRECTORY_SEPARATOR . $hashName . ' ' . $url;
+		exec($command, $output, $status);
 	}
-
-
 }

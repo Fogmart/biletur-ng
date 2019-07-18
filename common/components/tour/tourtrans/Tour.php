@@ -2,6 +2,7 @@
 
 namespace common\components\tour\tourtrans;
 
+use common\components\RemoteImageCache;
 use common\models\oracle\scheme\sns\CurrencyRates;
 use common\models\Town;
 use Yii;
@@ -114,7 +115,7 @@ class Tour {
 	}
 
 	/**
-	 * Загрузка туров из XML в mongoDb и установка в кэш фильтров
+	 * Загрузка туров из XML в mongoDb, установка в кэш фильтров и загрузка изображений
 	 *
 	 * @throws \yii\mongodb\Exception
 	 *
@@ -145,6 +146,7 @@ class Tour {
 
 			if (property_exists($xmlTour, 'Image')) {
 				$tour->image = str_replace('76x43/', '', (string)$xmlTour->Image->attributes()['url']);
+				RemoteImageCache::getImage(Tour::SITE_URL . $tour->image, '250', 'img-rounded', true, true, false);
 			}
 
 			$tour->duration = (int)$xmlTour->Duration;
