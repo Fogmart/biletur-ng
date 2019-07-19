@@ -86,7 +86,7 @@ return [
 			//path relative web folder. In case of multiple environments (frontend, backend) add more paths
 			'cachePath'   => ['assets/images', '../../frontend/web/assets/images'],
 			//use filename (seo friendly) for resized images else use a hash
-			'useFilename' => true,
+			'useFilename' => false,
 			//show full url (for example in case of a API)
 			'absoluteUrl' => false,
 		],

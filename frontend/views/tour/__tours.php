@@ -24,7 +24,8 @@ use frontend\controllers\TourController;
 				<b>дней <?= $tour->daysCount ?> </b><br>
 				<div class="col-md-3 col-xs-12">
 					<?php if (null !== $tour->image): ?>
-						<?= Yii::$app->imageCache->thumb($tour->image, '250', ['class' => 'img-rounded']) ?>
+						<?php //Yii::$app->imageCache->thumb($tour->image, '250', ['class' => 'img-rounded']) ?>
+
 					<?php else: ?>
 						<?= RemoteImageCache::getImage($tour->imageOld, '250', 'img-rounded', false, true, ($tour->sourceId == CommonTour::SOURCE_BILETUR)) ?>
 					<?php endif ?>

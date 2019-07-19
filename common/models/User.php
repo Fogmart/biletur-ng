@@ -2,7 +2,6 @@
 
 namespace common\models;
 
-use common\base\helpers\Dump;
 use yii\web\IdentityInterface;
 
 /**
@@ -26,6 +25,9 @@ class User extends \mdm\admin\models\User implements IdentityInterface {
 	const ATTR_USER_NAME = 'username';
 	const ATTR_PASSWORD_HASH = 'password_hash';
 	const ATTR_STATUS = 'status';
+
+	public $identityClass;
+	public $loginUrl;
 
 	/**
 	 * {@inheritdoc}

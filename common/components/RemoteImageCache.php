@@ -3,6 +3,7 @@
 namespace common\components;
 
 use common\models\oracle\scheme\sns\DspPhotos;
+use sem\helpers\Html;
 use Yii;
 use yii\base\Component;
 
@@ -46,7 +47,7 @@ class RemoteImageCache extends Component {
 		$imageFolder = Yii::getAlias('@remoteImageCache') . DIRECTORY_SEPARATOR . $subDir;
 
 		//Чтобы каждый раз не дёргать диск на проверку скаченного файла поставим факт скачивания в кэш
-		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $hashName, 3]);
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $hashName, 6]);
 		$imageCached = Yii::$app->cache->get($cacheKey);
 
 		if (false === $imageCached) {
@@ -64,17 +65,18 @@ class RemoteImageCache extends Component {
 			if (!file_exists($imageFolder . DIRECTORY_SEPARATOR . $hashName) || $ext == 'ru') {
 
 				if ($onlyPath) {
-					return Yii::$app->imageCache->thumbSrc(Yii::getAlias('@images') . DIRECTORY_SEPARATOR . 'image-not-found.png', $size);
+					return Yii::$app->imageresize->getUrl(Yii::getAlias('@images') . DIRECTORY_SEPARATOR . 'image-not-found.png', $size, $size);
 				}
+				echo $imageFolder . DIRECTORY_SEPARATOR . $hashName;
 
-				return Yii::$app->imageCache->thumb(Yii::getAlias('@images') . DIRECTORY_SEPARATOR . 'image-not-found.png', $size, ['class' => $class]);
+				return Html::img(Yii::$app->imageresize->getUrl(Yii::getAlias('@images') . DIRECTORY_SEPARATOR . 'image-not-found.png', $size, $size), ['class' => $class]);
 			}
 
 			if ($onlyPath) {
-				return Yii::$app->imageCache->thumbSrc($imageFolder . DIRECTORY_SEPARATOR . $hashName, $size);
+				return Yii::$app->imageresize->getUrl($imageFolder . DIRECTORY_SEPARATOR . $hashName, $size, $size);
 			}
 
-			return Yii::$app->imageCache->thumb($imageFolder . DIRECTORY_SEPARATOR . $hashName, $size, ['class' => $class]);
+			return Html::img(Yii::$app->imageresize->getUrl($imageFolder . DIRECTORY_SEPARATOR . $hashName, $size, $size), ['class' => $class]);
 		}
 
 		return '/images/cache/' . $hashName;
@@ -162,5 +164,9 @@ class RemoteImageCache extends Component {
 
 		$command = 'wget -U "' . $userAgents[$index] . '" -c -T 60 -O ' . $imageFolder . DIRECTORY_SEPARATOR . $hashName . ' ' . $url;
 		exec($command, $output, $status);
+
+		if ($output === []) {
+			file_put_contents($imageFolder . DIRECTORY_SEPARATOR . $hashName, file_get_contents($url));
+		}
 	}
 }
