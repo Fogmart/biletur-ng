@@ -254,7 +254,7 @@ class SearchForm extends Model {
 			}
 		}
 
-		$query->limit(600);
+		$query->limit(300);
 		$tours = $query->all();
 
 		foreach ($tours as $tour) {
