@@ -28,6 +28,7 @@ use sem\helpers\Html;
 					<?php endif ?>
 				</div>
 				<div class="col-md-9 col-xs-12">
+					<?php //\common\base\helpers\Dump::d($tour->sourceTourData) ?>
 					<?= $tour->description ?>
 					<br>
 					<?php foreach ($tour->wayPoints as $country => $wayPoints): ?>

@@ -216,11 +216,14 @@ class Tour {
 
 
 			$route = str_replace(["*"], '', $tour->route);
+			$route = preg_replace("/\([^)]+\)/", "", $route);
+
 			$route = explode("–", $route);
+
 			$cities = [];
 
 			foreach ($route as $index => $place) {
-				$cacheKey = Yii::$app->cache->buildKey(['$town', trim($place), 3]);
+				$cacheKey = Yii::$app->cache->buildKey(['$town', trim($place), 5]);
 				$town = Yii::$app->cache->get($cacheKey);
 
 				if (false === $town) {
@@ -232,7 +235,6 @@ class Tour {
 
 					Yii::$app->cache->set($cacheKey, $town, null);
 				}
-
 				if (null === $town) {
 					continue;
 				}

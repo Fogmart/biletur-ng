@@ -244,10 +244,11 @@ class CommonTour extends Component {
 		$this->daysCount = $tour->duration;
 
 		$route = str_replace(["*"], '', $tour->route);
+		$route = preg_replace("/\([^)]+\)/", "", $route);
 		$route = explode("–", $route);
 
 		foreach ($route as $index => $place) {
-			$cacheKey = Yii::$app->cache->buildKey(['$town', trim($place), 1]);
+			$cacheKey = Yii::$app->cache->buildKey(['$town', trim($place), 2]);
 			$town = Yii::$app->cache->get($cacheKey);
 			if (false === $town) {
 				/** @var Town $town */
