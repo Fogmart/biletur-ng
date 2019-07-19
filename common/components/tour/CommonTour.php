@@ -247,8 +247,7 @@ class CommonTour extends Component {
 		$route = explode("–", $route);
 
 		foreach ($route as $index => $place) {
-
-			$cacheKey = Yii::$app->cache->buildKey(['$town', trim($place)]);
+			$cacheKey = Yii::$app->cache->buildKey(['$town', trim($place), 1]);
 			$town = Yii::$app->cache->get($cacheKey);
 			if (false === $town) {
 				/** @var Town $town */
