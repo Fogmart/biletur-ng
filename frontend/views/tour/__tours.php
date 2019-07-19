@@ -24,7 +24,7 @@ use sem\helpers\Html;
 					<?php if (null !== $tour->image): ?>
 						<?= Html::img(Yii::$app->imageresize->getUrl($tour->image, 250, 250), ['class' => 'img-rounded']); ?>
 					<?php else: ?>
-						<?= RemoteImageCache::getImage($tour->imageOld, '250', 'img-rounded', false, true, ($tour->sourceId == CommonTour::SOURCE_BILETUR)) ?>
+						<?= RemoteImageCache::getImage($tour->imageOld, '250', 'img-rounded', false, true, ($tour->source == CommonTour::SOURCE_BILETUR)) ?>
 					<?php endif ?>
 				</div>
 				<div class="col-md-9 col-xs-12">

@@ -345,7 +345,7 @@ class SearchForm extends Model {
 				break;
 			default:
 				usort($this->result, function ($a, $b) {
-					return (int)$a->sourceId > (int)$b->sourceId;
+					return (int)$a->source > (int)$b->source;
 				});
 				break;
 		}

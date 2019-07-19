@@ -19,7 +19,7 @@ class CommonTour extends Component {
 	const SOURCE_BILETUR = 0;
 	const SOURCE_TOURTRANS = 1;
 
-	/** @var int` */
+	/** @var int Источник тура */
 	public $source;
 	const ATTR_SOURCE = 'source';
 
@@ -130,9 +130,10 @@ class CommonTour extends Component {
 		}
 
 		$this->title = trim(strip_tags($tour->NAME));
-		$this->sourceId = CommonTour::SOURCE_BILETUR;
+		$this->sourceId = $tour->ID;
 		$this->description = strip_tags((null === $description ? '' : $description->DESCRIPTION));
 		$this->priceMinMax = $tour->quotsSummMinMax();
+		$this->source = CommonTour::SOURCE_BILETUR;
 		$this->imageOld = (null !== $description ? $description->URL_IMG : null);
 		$this->image = $this->getImage();
 		//Заполняем точки маршрута
@@ -234,7 +235,8 @@ class CommonTour extends Component {
 		/** @var \common\components\tour\tourtrans\Tour $tour */
 		$tour = $this->sourceTourData;
 		$this->title = $tour->title;
-		$this->sourceId = CommonTour::SOURCE_TOURTRANS;
+		$this->source = CommonTour::SOURCE_TOURTRANS;
+		$this->sourceId = $tour->id;
 		$this->description = $tour->include;
 		$this->priceMinMax = [$tour->minPrice, $tour->minPrice];
 		$this->imageOld = Tour::SITE_URL . $tour->image;
