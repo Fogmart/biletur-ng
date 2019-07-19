@@ -57,8 +57,12 @@ class SearchForm extends Model {
 	public $daysMinMax;
 	const ATTR_DAYS_MIN_MAX = 'daysMinMax';
 
+	/** @var string */
+	public $hotelClass;
+	const ATTR_HOTEL_CLASS = 'hotelClass';
+
 	/** @var int */
-	public $sortBy = self::SORT_TYPE_MIN;
+	public $sortBy = self::SORT_TYPE_DEFAULT;
 	const ATTR_SORT_BY = 'sortBy';
 
 	/** @var int */
@@ -81,6 +85,9 @@ class SearchForm extends Model {
 
 	/** @var int Сортировка от большего */
 	const SORT_TYPE_MAX = 1;
+
+	/** @var int Сортировка по-молчанию(Первые наши туры) */
+	const SORT_TYPE_DEFAULT = 2;
 
 	//Параметры пагинации
 	const ITEMS_PER_PAGE = 15;
@@ -247,7 +254,7 @@ class SearchForm extends Model {
 			}
 		}
 
-		$query->limit(300);
+		$query->limit(600);
 		$tours = $query->all();
 
 		foreach ($tours as $tour) {
@@ -338,7 +345,7 @@ class SearchForm extends Model {
 				break;
 			default:
 				usort($this->result, function ($a, $b) {
-					return (int)$a->priceMinMax[0] > (int)$b->priceMinMax[0];
+					return (int)$a->sourceId > (int)$b->sourceId;
 				});
 				break;
 		}
