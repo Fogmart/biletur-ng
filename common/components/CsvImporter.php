@@ -38,10 +38,12 @@ class CsvImporter {
 
 		$data = [];
 
-		if ($max_lines > 0)
+		if ($max_lines > 0) {
 			$line_count = 0;
-		else
+		}
+		else {
 			$line_count = -1; // so loop limit is ignored
+		}
 
 		while ($line_count < $max_lines && ($row = fgetcsv($this->fp, $this->length, $this->delimiter)) !== false) {
 			if ($this->parse_header) {
