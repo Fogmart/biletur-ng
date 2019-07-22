@@ -136,6 +136,7 @@ class CommonTour extends Component {
 		$this->source = CommonTour::SOURCE_BILETUR;
 		$this->imageOld = (null !== $description ? $description->URL_IMG : null);
 		$this->image = $this->getImage();
+
 		//Заполняем точки маршрута
 		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$tour->wps', $tour->ID]);
 		$wps = Yii::$app->cache->get($cacheKey);
@@ -188,7 +189,7 @@ class CommonTour extends Component {
 		}
 
 		//Возьмем доп.фото по точкам маршрута
-		/*$keywords = [];
+		$keywords = [];
 		foreach ($this->wayPoints as $wayPoint) {
 			$keywords[] = $wayPoint->cityName;
 		}
@@ -203,7 +204,7 @@ class CommonTour extends Component {
 				'url' => RemoteImageCache::getImage($url, null, null, true, false),
 				//'src' => RemoteImageCache::getImage($url, '100', 'img-rounded', true),
 			];
-		}*/
+		}
 
 		//Заполняем активные заезды
 		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$tour->activeLaps', $tour->ID]);
@@ -227,7 +228,7 @@ class CommonTour extends Component {
 	/**
 	 * Конвертация тура Туртранса
 	 *
-	 * @throws \yii\base\InvalidConfigException
+	 *
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
@@ -317,7 +318,6 @@ class CommonTour extends Component {
 	 *
 	 * @return mixed|string|null
 	 *
-	 * @throws \yii\base\InvalidConfigException
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */

@@ -2,12 +2,14 @@
 
 namespace console\controllers;
 
+use common\components\CsvImporter;
 use common\models\GeobaseCity;
 use common\models\Town;
 use Yii;
 use yii\console\Controller;
 use yii\db\Connection;
 use yii\di\Instance;
+use yii\validators\EmailValidator;
 
 /**
  * Разные утилиты
@@ -128,5 +130,37 @@ class UtilController extends Controller {
 			$town->id_geobase = $geoCity->id;
 			$town->save();
 		}
+	}
+
+	public function actionHorConv() {
+		$csv = Yii::getAlias('@tourTransData') . DIRECTORY_SEPARATOR . 'horeca.csv';
+
+		$importer = new CsvImporter($csv, false, '|');
+		$data = $importer->get();
+		$validRecords = [];
+		$notValidRecords = [];
+		foreach ($data as $row) {
+			$email = $row[5];
+			$validator = new EmailValidator();
+			$companyName = explode('/', $row[0]);
+			if ($validator->validate($email)) {
+				$validRecords[] = [$companyName[0], $row[5]];
+			}
+			else {
+				$notValidRecords[] = [$companyName[0]];
+			}
+		}
+
+		$fp = fopen(Yii::getAlias('@tourTransData') . DIRECTORY_SEPARATOR . 'horeca_valid.csv', 'w');
+		foreach ($validRecords as $fields) {
+			fputcsv($fp, $fields);
+		}
+		fclose($fp);
+
+		$fp = fopen(Yii::getAlias('@tourTransData') . DIRECTORY_SEPARATOR . 'horeca_not_valid.csv', 'w');
+		foreach ($notValidRecords as $fields) {
+			fputcsv($fp, $fields);
+		}
+		fclose($fp);
 	}
 }

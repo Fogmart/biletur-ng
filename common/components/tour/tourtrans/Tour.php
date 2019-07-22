@@ -85,18 +85,14 @@ class Tour {
 	/** @var string */
 	public $objectData;
 
-
-	/**
-	 * @param \common\components\tour\tourtrans\Tour $tour
-	 *
-	 * @author Исаков Владислав <visakov@biletur.ru>
-	 */
 	/**
 	 * Получение суммы в рублях с округлением
 	 *
 	 * @param int $round
 	 *
 	 * @return float|string
+	 * @throws \yii\base\InvalidConfigException
+	 *
 	 */
 	public function getTotRubSumm($round = 0) {
 		if ($this->currency == 'RUB') {
@@ -189,10 +185,12 @@ class Tour {
 				$tourDate = new TourDate();
 				$tourDate->date = (string)$xmlTourDate->Date;
 				$tourDate->placesLeft = (int)$xmlTourDate->PlacesLeft;
+
 				foreach ($xmlTourDate->Hotels->Hotel as $xmlHotel) {
 					$hotel = new Hotel();
 					$hotel->hotelName = (string)$xmlHotel->HotelName;
 					$hotel->hotelCategory = (string)$xmlHotel->HotelCategory;
+
 					foreach ($xmlHotel->AccomodationTypes->AccomodationType as $xmlAccomodationType) {
 						$accomondationType = new AccomodationType();
 						$accomondationType->room = (string)$xmlAccomodationType->Room;
@@ -235,6 +233,7 @@ class Tour {
 
 					Yii::$app->cache->set($cacheKey, $town, null);
 				}
+
 				if (null === $town) {
 					continue;
 				}
