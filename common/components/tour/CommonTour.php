@@ -104,6 +104,9 @@ class CommonTour extends Component {
 			case static::SOURCE_TOURTRANS:
 				$this->_prepareTourtrans();
 				break;
+			case static::SOURCE_TARI_TOUR:
+				$this->_prepareTariTour();
+				break;
 			default:
 				throw new BadFunctionCallException('Не задан обработчик для источника');
 				break;
@@ -287,6 +290,18 @@ class CommonTour extends Component {
 			$commonLap->endDate = $tourDate->date;
 			$this->activeLaps[] = $commonLap;
 		}
+
+	}
+
+	/**
+	 * Конвертация Таритур
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	private function _prepareTariTour() {
+		/** @var \common\components\tour\tari\Tour $tour */
+		$tour = $this->sourceTourData;
+		$this->title = $tour->tourName;
 
 	}
 

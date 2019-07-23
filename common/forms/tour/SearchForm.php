@@ -324,7 +324,8 @@ class SearchForm extends Model {
 				CommonTour::ATTR_SOURCE_TOUR_DATA => $tariTour
 			]);
 
-
+			//Приводим данные тура к общему объекту
+			$commonTour->prepare();
 			$commonTours[] = $commonTour;
 		}
 
