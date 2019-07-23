@@ -28,6 +28,7 @@ class Yii extends BaseYii {
  * @property-read \common\components\Environment                      $env
  * @property-read \common\modules\api\ostrovok\components\OstrovokApi $ostrovokApi
  * @property-read \common\modules\api\tripster\components\TripsterApi $tripsterApi
+ * @property-read \common\modules\api\taritour\components\TariApi     $tariApi
  * @property-read \yii\mongodb\Connection                             $mongodb
  * @property-read \iutbay\yii2imagecache\ImageCache                   $imageCache
  * @property-read fgh151\opengraph\OpenGraph                          $opengraph

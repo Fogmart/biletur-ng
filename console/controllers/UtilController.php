@@ -132,32 +132,34 @@ class UtilController extends Controller {
 		}
 	}
 
-	public function actionHorConv() {
-		$csv = Yii::getAlias('@tourTransData') . DIRECTORY_SEPARATOR . 'horeca.csv';
+	public function actionCsvConv() {
+		$csv = Yii::getAlias('@tourTransData') . DIRECTORY_SEPARATOR . '660.csv';
 
 		$importer = new CsvImporter($csv, false, '|');
 		$data = $importer->get();
+
 		$validRecords = [];
 		$notValidRecords = [];
+
 		foreach ($data as $row) {
-			$email = $row[5];
+			$email = $row[6];
 			$validator = new EmailValidator();
-			$companyName = explode('/', $row[0]);
+			$companyName = explode('/', $row[1]);
 			if ($validator->validate($email)) {
-				$validRecords[] = [$companyName[0], $row[5]];
+				$validRecords[] = [$row[6], $companyName[0]];
 			}
 			else {
 				$notValidRecords[] = [$companyName[0]];
 			}
 		}
 
-		$fp = fopen(Yii::getAlias('@tourTransData') . DIRECTORY_SEPARATOR . 'horeca_valid.csv', 'w');
+		$fp = fopen(Yii::getAlias('@tourTransData') . DIRECTORY_SEPARATOR . '660_valid.csv', 'w');
 		foreach ($validRecords as $fields) {
 			fputcsv($fp, $fields);
 		}
 		fclose($fp);
 
-		$fp = fopen(Yii::getAlias('@tourTransData') . DIRECTORY_SEPARATOR . 'horeca_not_valid.csv', 'w');
+		$fp = fopen(Yii::getAlias('@tourTransData') . DIRECTORY_SEPARATOR . '660_not_valid.csv', 'w');
 		foreach ($notValidRecords as $fields) {
 			fputcsv($fp, $fields);
 		}

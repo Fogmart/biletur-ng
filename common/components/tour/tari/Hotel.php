@@ -3,30 +3,28 @@
 namespace common\components\tour\tari;
 
 /**
- * Класс тура ТариТур
+ * Класс отелей Таритур
  *
  * @package common\components\tour\tari
  *
  * @author  Исаков Владислав <visakov@biletur.ru>
  */
-class Tour {
+class Hotel {
 	/** @var int */
-	public $offerId;
+	public $id;
 
 	/** @var string */
-	public $tourName;
+	public $Name;
 
 	/** @var string */
-	public $tourDate;
-
-	/** @var string */
-	public $price;
+	public $HotelCategory;
 
 	/** @var int */
-	public $mealId;
+	public $CityID;
 
-	/** @var bool */
-	public $ticketsIncluded;
+	/** @var string */
+	public $Description;
 
-
+	/** @var int */
+	public $BoardType;
 }
