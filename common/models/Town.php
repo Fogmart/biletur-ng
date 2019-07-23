@@ -212,6 +212,62 @@ class Town extends SiteModel implements ILinkedModels {
 	}
 
 	/**
+	 * @param string|null $name
+	 *
+	 * @return string|null
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public static function getOldIdByName($name) {
+
+		if (null === $name) {
+			return null;
+		}
+
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $name, 1]);
+		$city = Yii::$app->cache->get($cacheKey);
+		if (false === $city) {
+			$city = static::findOne([static::ATTR_R_NAME => $name]);
+
+			Yii::$app->cache->set($cacheKey, $city, null, new TagDependency(['tags' => [static::class]]));
+		}
+
+		if (null !== $city) {
+			return $city->old_id;
+		}
+
+		return null;
+	}
+
+	/**
+	 * @param string|null $name
+	 *
+	 * @return string|null
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public static function getCountryNameByName($name) {
+
+		if (null === $name) {
+			return null;
+		}
+
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $name]);
+		$city = Yii::$app->cache->get($cacheKey);
+		if (false === $city) {
+			$city = static::findOne([static::ATTR_R_NAME => $name]);
+
+			Yii::$app->cache->set($cacheKey, $city, null, new TagDependency(['tags' => [static::class]]));
+		}
+
+		if (null !== $city) {
+			return $city->country->r_name;
+		}
+
+		return null;
+	}
+
+	/**
 	 * @return \yii\db\ActiveQuery
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>

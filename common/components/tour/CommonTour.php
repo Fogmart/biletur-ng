@@ -18,6 +18,7 @@ use yii\caching\TagDependency;
 class CommonTour extends Component {
 	const SOURCE_BILETUR = 0;
 	const SOURCE_TOURTRANS = 1;
+	const SOURCE_TARI_TOUR = 2;
 
 	/** @var int Источник тура */
 	public $source;
@@ -189,7 +190,7 @@ class CommonTour extends Component {
 		}
 
 		//Возьмем доп.фото по точкам маршрута
-		$keywords = [];
+		/*$keywords = [];
 		foreach ($this->wayPoints as $wayPoint) {
 			$keywords[] = $wayPoint->cityName;
 		}
@@ -204,7 +205,7 @@ class CommonTour extends Component {
 				'url' => RemoteImageCache::getImage($url, null, null, true, false),
 				//'src' => RemoteImageCache::getImage($url, '100', 'img-rounded', true),
 			];
-		}
+		}*/
 
 		//Заполняем активные заезды
 		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, '$tour->activeLaps', $tour->ID]);

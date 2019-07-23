@@ -2,7 +2,9 @@
 
 namespace common\forms\tour;
 
+use common\base\helpers\DateHelper;
 use common\components\tour\CommonTour;
+use common\components\tour\tari\Resort;
 use common\components\tour\tourtrans\Tour;
 use common\models\oracle\scheme\t3\RefItems;
 use common\models\oracle\scheme\t3\RIAd;
@@ -163,6 +165,7 @@ class SearchForm extends Model {
 		}
 
 		$this->result = array_merge($this->result, $this->_searchTransTour());
+		$this->result = array_merge($this->result, $this->_searchTariTour());
 
 		//Фильтруем
 		$this->_filter();
@@ -272,6 +275,56 @@ class SearchForm extends Model {
 
 			//Приводим данные тура к общему объекту
 			$commonTour->prepare();
+			$commonTours[] = $commonTour;
+		}
+
+		return $commonTours;
+	}
+
+	/**
+	 * Поиск в Таритур
+	 *
+	 * @return CommonTour[]
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	private function _searchTariTour() {
+		$commonTours = [];
+		$params = [];
+		if (!empty($this->tourTo)) {
+			//Ищем идентификаторы курортов
+			$query = new Query();
+			$query->select([])->from(Yii::$app->tariApi::COLLECTION_RESORTS);
+
+			if (false !== strpos($this->tourTo, 'country_')) {
+				$country = str_replace('country_', '', $this->tourTo);
+				$query->andWhere([Resort::ATTR_COUNTRY_NAME => $country]);
+			}
+			else {
+				$query->andWhere([Resort::ATTR_BILETUR_CITY_ID => $this->tourTo]);
+			}
+
+			$resorts = $query->all();
+
+			foreach ($resorts as $resort) {
+				$params[Yii::$app->tariApi::PARAM_RESORTS][] = $resort[Resort::ATTR_ID];
+			}
+		}
+		$filterPrice = explode(',', $this->priceRange);
+		$params[Yii::$app->tariApi::PARAM_PRICE_MIN] = $filterPrice[0];
+		$params[Yii::$app->tariApi::PARAM_PRICE_MAX] = $filterPrice[1];
+		$params[Yii::$app->tariApi::PARAM_DATE_FROM] = date(DateHelper::INTL_FORMAT_DATE_RU);
+
+		/** @var \common\components\tour\tari\Tour[] $tariTours */
+		$tariTours = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_TOURS_GET_TOURS_2, $params);
+		foreach ($tariTours as $tariTour) {
+			$commonTour = new CommonTour([
+				CommonTour::ATTR_SOURCE_ID        => $tariTour->offerId,
+				CommonTour::ATTR_SOURCE           => CommonTour::SOURCE_TARI_TOUR,
+				CommonTour::ATTR_SOURCE_TOUR_DATA => $tariTour
+			]);
+
+
 			$commonTours[] = $commonTour;
 		}
 

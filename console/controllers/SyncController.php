@@ -2,6 +2,7 @@
 namespace console\controllers;
 
 use common\components\SyncData;
+use common\components\tour\tari\Resort;
 use common\components\tour\tourtrans\Tour;
 use common\models\CommonHotelMeal;
 use common\models\CommonHotelSerpFilters;
@@ -219,5 +220,68 @@ class SyncController extends Controller {
 		//exec($command, $output, $status);
 
 		Tour::loadFromXml();
+	}
+
+	/**
+	 * Загрузка справочников ТариТур в mongoDb
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function actionLoadTariRefs() {
+		/** @var \common\components\tour\tari\City[]|[] $cities */
+		$cities = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_GET_CITIES);
+
+		/** @var \common\components\tour\tari\Hotel[]|[] $hotels */
+		$hotels = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_GET_HOTELS);
+
+		/** @var \common\components\tour\tari\Country[]|[] $countries */
+		$countries = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_GET_COUNTRIES);
+
+		/** @var \common\components\tour\tari\Resort[] $resorts */
+		$resorts = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_GET_RESORTS);
+
+		$citiesCollection = Yii::$app->mongodb->getCollection(Yii::$app->tariApi::COLLECTION_CITIES);
+		$hotelCollection = Yii::$app->mongodb->getCollection(Yii::$app->tariApi::COLLECTION_HOTELS);
+		$countriesCollection = Yii::$app->mongodb->getCollection(Yii::$app->tariApi::COLLECTION_COUNTRIES);
+		$resortCollection = Yii::$app->mongodb->getCollection(Yii::$app->tariApi::COLLECTION_RESORTS);
+
+		//Дропаем коллекции
+		if ($citiesCollection->count() > 0) {
+			$citiesCollection->drop();
+		}
+
+		if ($hotelCollection->count() > 0) {
+			$hotelCollection->drop();
+		}
+
+		if ($countriesCollection->count() > 0) {
+			$countriesCollection->drop();
+		}
+
+		if ($resortCollection->count() > 0) {
+			$resortCollection->drop();
+		}
+
+		//Загружаем новые данные
+		Yii::$app->mongodb->createCommand()->batchInsert(Yii::$app->tariApi::COLLECTION_CITIES, $cities);
+		Yii::$app->mongodb->createCommand()->batchInsert(Yii::$app->tariApi::COLLECTION_HOTELS, $hotels);
+		Yii::$app->mongodb->createCommand()->batchInsert(Yii::$app->tariApi::COLLECTION_COUNTRIES, $countries);
+
+		$commonResorts = [];
+		foreach ($resorts as $resort) {
+			$commonResort = new Resort();
+			$commonResort->id = $resort->id;
+			$commonResort->name = $resort->name;
+			$commonResort->countryId = $resort->countryId;
+			$commonResort->bileturCityId = Town::getOldIdByName($resort->name);
+			$commonResort->countryName = Town::getCountryNameByName($resort->name);
+			if (null === $commonResort) {
+				continue;
+			}
+
+			$commonResorts[] = $commonResort;
+		}
+
+		Yii::$app->mongodb->createCommand()->batchInsert(Yii::$app->tariApi::COLLECTION_RESORTS, $commonResorts);
 	}
 }

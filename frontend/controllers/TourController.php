@@ -2,11 +2,10 @@
 
 namespace frontend\controllers;
 
-use common\base\helpers\Dump;
+use common\base\helpers\StringHelper;
 use common\components\FrontendMenuController;
 use common\components\tour\CommonTour;
 use common\forms\tour\SearchForm;
-use common\base\helpers\StringHelper;
 use common\modules\seo\models\Seo;
 use Yii;
 use yii\web\Response;
@@ -29,6 +28,9 @@ class TourController extends FrontendMenuController {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function actionIndex() {
+		//$hotelCollection = Yii::$app->mongodb->getCollection(Yii::$app->tariApi::COLLECTION_RESORTS);
+		//Dump::dDie($hotelCollection->findOne([Resort::ATTR_ID => (string)300]));
+
 		$form = new SearchForm();
 
 		if (Yii::$app->request->isPjax) {

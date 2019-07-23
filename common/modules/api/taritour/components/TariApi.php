@@ -15,7 +15,7 @@ use yii\base\Configurable;
  */
 class TariApi extends Component implements Configurable {
 
-	const FORMAT_JSON = 'json';
+	const FORMAT_JSON = 'application_json';
 
 	const PARAM_COUNT = 'count';
 	const PARAM_COUNTRY_ID = 'countryId';
@@ -47,8 +47,15 @@ class TariApi extends Component implements Configurable {
 	const METHOD_TOURS_GET_BY_HOTEL = 'tours.gettoursbyhotel';
 
 	const METHOD_GET_CITIES = 'cities.getcities';
+	const METHOD_GET_HOTELS = 'hotels.gethotels';
 	const METHOD_GET_CURRENCY = 'curs.getcurs';
 	const METHOD_GET_COUNTRIES = 'countries.getcountries';
+	const METHOD_GET_RESORTS = 'GetResorts';
+
+	const COLLECTION_COUNTRIES = 'api_tari_countries';
+	const COLLECTION_CITIES = 'api_tari_cities';
+	const COLLECTION_HOTELS = 'api_tari_hotels';
+	const COLLECTION_RESORTS = 'api_tari_resorts';
 
 	private $_apiUrl;
 
@@ -89,16 +96,26 @@ class TariApi extends Component implements Configurable {
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
-	public function request($method, $params) {
+	public function request($method, $params = []) {
 		$queryString = http_build_query(array_merge($params, [static::PARAM_FORMAT => static::FORMAT_JSON]));
 
-		$curl = curl_init($this->_apiUrl . $method . '&' . $queryString);
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $method, $params]);
+		$results = Yii::$app->cache->get($cacheKey);
 
-		$results = curl_exec($curl);
+		if (false === $results) {
+			$curl = curl_init($this->_apiUrl . $method . '&' . $queryString);
+			curl_setopt_array($curl, [
+				CURLOPT_RETURNTRANSFER => true,
+			]);
 
-		curl_close($curl);
+			$results = curl_exec($curl);
 
-		$results = json_decode($results);
+			curl_close($curl);
+
+			$results = json_decode($results);
+
+			Yii::$app->cache->set($cacheKey, $results, 3600 * 8);
+		}
 
 		return $results;
 	}
