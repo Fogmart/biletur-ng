@@ -73,3 +73,13 @@
 	font-weight:900;
 	font-style:normal
 }
+
+@font-face {
+	font-family: 'calibri';
+	src: url('/fonts/calibri.eot');
+	src: url('/fonts/calibri.eot') format('embedded-opentype'),
+	url('/fonts/calibri.woff2') format('woff2'),
+	url('/fonts/calibri.woff') format('woff'),
+	url('/fonts/calibri.ttf') format('truetype'),
+	url('/fonts/calibri.svg#calibri') format('svg');
+}
