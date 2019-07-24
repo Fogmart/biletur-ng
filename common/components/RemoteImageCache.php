@@ -73,10 +73,20 @@ class RemoteImageCache extends Component {
 			}
 
 			if ($onlyPath) {
-				return Yii::$app->imageresize->getUrl($imageFolder . DIRECTORY_SEPARATOR . $hashName, $size, $size);
+				try {
+					return Yii::$app->imageresize->getUrl($imageFolder . DIRECTORY_SEPARATOR . $hashName, $size, $size);
+				}
+				catch (\Exception $exception) {
+					return Yii::$app->imageresize->getUrl(Yii::getAlias('@images') . DIRECTORY_SEPARATOR . 'image-not-found.png', $size, $size);
+				}
 			}
 
-			return Html::img(Yii::$app->imageresize->getUrl($imageFolder . DIRECTORY_SEPARATOR . $hashName, $size, $size), ['class' => $class]);
+			try {
+				return Html::img(Yii::$app->imageresize->getUrl($imageFolder . DIRECTORY_SEPARATOR . $hashName, $size, $size), ['class' => $class]);
+			}
+			catch (\Exception $exception) {
+				return Html::img(Yii::$app->imageresize->getUrl(Yii::getAlias('@images') . DIRECTORY_SEPARATOR . 'image-not-found.png', $size, $size), ['class' => $class]);
+			}
 		}
 
 		return '/images/cache/' . $hashName;
@@ -166,7 +176,17 @@ class RemoteImageCache extends Component {
 		exec($command, $output, $status);
 
 		if ($output === []) {
-			file_put_contents($imageFolder . DIRECTORY_SEPARATOR . $hashName, file_get_contents($url));
+			try {
+				$image = file_get_contents($url);
+			}
+			catch (\Exception $exception) {
+				return false;
+			}
+			if (false !== $image) {
+				file_put_contents($imageFolder . DIRECTORY_SEPARATOR . $hashName, $image);
+			}
 		}
+
+		return true;
 	}
 }

@@ -4,6 +4,7 @@ namespace common\forms\tour;
 
 use common\base\helpers\DateHelper;
 use common\components\tour\CommonTour;
+use common\components\tour\tari\Program;
 use common\components\tour\tari\Resort;
 use common\components\tour\tourtrans\Tour;
 use common\models\oracle\scheme\t3\RefItems;
@@ -164,7 +165,8 @@ class SearchForm extends Model {
 			return $this->result;
 		}
 
-		$this->result = array_merge($this->result, $this->_searchTransTour());
+		//$this->result = array_merge($this->result, $this->_searchTransTour());
+		//Dump::d($this->_searchTariTour());
 		$this->result = array_merge($this->result, $this->_searchTariTour());
 
 		//Фильтруем
@@ -309,19 +311,36 @@ class SearchForm extends Model {
 			foreach ($resorts as $resort) {
 				$params[Yii::$app->tariApi::PARAM_RESORTS][] = $resort[Resort::ATTR_ID];
 			}
+
+			$params[Yii::$app->tariApi::PARAM_RESORTS] = implode(',', $params[Yii::$app->tariApi::PARAM_RESORTS]);
 		}
+
 		$filterPrice = explode(',', $this->priceRange);
 		$params[Yii::$app->tariApi::PARAM_PRICE_MIN] = $filterPrice[0];
 		$params[Yii::$app->tariApi::PARAM_PRICE_MAX] = $filterPrice[1];
-		$params[Yii::$app->tariApi::PARAM_DATE_FROM] = date(DateHelper::INTL_FORMAT_DATE_RU);
+		$params[Yii::$app->tariApi::PARAM_DATE_FROM] = date(DateHelper::DATE_FORMAT_TARI);
 
-		/** @var \common\components\tour\tari\Tour[] $tariTours */
-		$tariTours = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_TOURS_GET_TOURS_2, $params);
+		/** @var \common\components\tour\tari\TourDesc[] $tariTours */
+		$tariTours = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_TOURS_GET_NAMES_DESC, $params);
 		foreach ($tariTours as $tariTour) {
+			//Поищем в монго, если нет то возьмем из апи
+			$query = new Query();
+			$query->select([])->from(Yii::$app->tariApi::COLLECTION_TOUR_PROGRAMS);
+			$query->andWhere([Program::ATTR_TOUR_ID => (int)$tariTour->TourID]);
+			$tourAdditionalInfo = $query->one();
+
+			if (false !== $tourAdditionalInfo) {
+				$tourAdditionalInfo = $tourAdditionalInfo[Program::ATTR_STEPS];
+			}
+			else {
+				$tourAdditionalInfo = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_TOURS_GET_PROGRAM, [Yii::$app->tariApi::PARAM_ID => $tariTour->TourID]);
+			}
+
 			$commonTour = new CommonTour([
-				CommonTour::ATTR_SOURCE_ID        => $tariTour->offerId,
-				CommonTour::ATTR_SOURCE           => CommonTour::SOURCE_TARI_TOUR,
-				CommonTour::ATTR_SOURCE_TOUR_DATA => $tariTour
+				CommonTour::ATTR_SOURCE_ID                   => $tariTour->TourID,
+				CommonTour::ATTR_SOURCE                      => CommonTour::SOURCE_TARI_TOUR,
+				CommonTour::ATTR_SOURCE_TOUR_DATA            => $tariTour,
+				CommonTour::ATTR_SOURCE_TOUR_ADDITIONAL_DATA => $tourAdditionalInfo
 			]);
 
 			//Приводим данные тура к общему объекту

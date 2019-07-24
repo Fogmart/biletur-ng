@@ -17,7 +17,6 @@ class CommonLap {
 	public $startDate;
 	const ATTR_START_DATE = 'startDate';
 
-
 	/** @var string */
 	public $endDate;
 	const ATTR_END_DATE = 'endDate';

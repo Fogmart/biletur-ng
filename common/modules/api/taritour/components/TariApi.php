@@ -14,9 +14,9 @@ use yii\base\Configurable;
  * @author  Исаков Владислав <visakov@biletur.ru>
  */
 class TariApi extends Component implements Configurable {
-
 	const FORMAT_JSON = 'application_json';
 
+	const PARAM_ID = 'id';
 	const PARAM_COUNT = 'count';
 	const PARAM_COUNTRY_ID = 'countryId';
 	const PARAM_DEPART_CITY_ID = 'departCityId';
@@ -56,6 +56,11 @@ class TariApi extends Component implements Configurable {
 	const COLLECTION_CITIES = 'api_tari_cities';
 	const COLLECTION_HOTELS = 'api_tari_hotels';
 	const COLLECTION_RESORTS = 'api_tari_resorts';
+	const COLLECTION_TOURS = 'api_tari_tours';
+	const COLLECTION_TOUR_PROGRAMS = 'api_tari_tour_programs';
+
+	public $tourUrl;
+	public $imageTourUrl;
 
 	private $_apiUrl;
 
@@ -71,6 +76,32 @@ class TariApi extends Component implements Configurable {
 			Yii::configure($this, $config);
 		}
 		parent::__construct($config);
+	}
+
+	/**
+	 * @param string $value
+	 *
+	 * @return $this
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function setImageTourUrl($value) {
+		$this->imageTourUrl = $value;
+
+		return $this;
+	}
+
+	/**
+	 * @param string $value
+	 *
+	 * @return $this
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function setTourUrl($value) {
+		$this->tourUrl = $value;
+
+		return $this;
 	}
 
 	/**
@@ -98,7 +129,6 @@ class TariApi extends Component implements Configurable {
 	 */
 	public function request($method, $params = []) {
 		$queryString = http_build_query(array_merge($params, [static::PARAM_FORMAT => static::FORMAT_JSON]));
-
 		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $method, $params]);
 		$results = Yii::$app->cache->get($cacheKey);
 

@@ -3,6 +3,7 @@
 namespace common\components\tour;
 
 use BadFunctionCallException;
+use common\components\RemoteImageCache;
 use common\components\tour\tourtrans\Tour;
 use common\models\Country;
 use common\models\ObjectFile;
@@ -31,6 +32,10 @@ class CommonTour extends Component {
 	/** @var RefItems */
 	public $sourceTourData;
 	const ATTR_SOURCE_TOUR_DATA = 'sourceTourData';
+
+	/** @var RefItems */
+	public $sourceTourAdditionalData;
+	const ATTR_SOURCE_TOUR_ADDITIONAL_DATA = 'sourceTourAdditionalData';
 
 	/** @var string */
 	public $title;
@@ -74,6 +79,10 @@ class CommonTour extends Component {
 	/** @var bool Флаг прямого рейса */
 	public $isDirectFlight = false;
 	const ATTR_IS_DIRECT_FLIGHT = 'isDirectFlight';
+
+	/** @var string */
+	public $sourceUrl;
+	const ATTR_URL = 'url';
 
 	/** @var \common\components\tour\CommonTourWayPoint[] */
 	public $wayPoints = [];
@@ -299,10 +308,18 @@ class CommonTour extends Component {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	private function _prepareTariTour() {
-		/** @var \common\components\tour\tari\Tour $tour */
+		/** @var \common\components\tour\tari\TourDesc $tour */
 		$tour = $this->sourceTourData;
-		$this->title = $tour->tourName;
-
+		$this->title = $tour->TourNames;
+		$this->sourceId = $tour->TourID;
+		$this->description = $tour->ListDesc;
+		$this->daysCount = $tour->TourDays;
+		$this->beginDate = $tour->MinDate;
+		$this->endDate = $tour->MaxDate;
+		$this->imageOld = Yii::$app->tariApi->imageTourUrl . $tour->SeasonID . '_' . $tour->TourNameID . DIRECTORY_SEPARATOR . 'tumb.png';
+		RemoteImageCache::getImage($this->imageOld, '195', 'img-rounded', true, true, false);
+		$this->sourceUrl = Yii::$app->tariApi->tourUrl . $tour->TourNameID . DIRECTORY_SEPARATOR . $tour->SeasonID;
+		$this->priceMinMax = [$tour->mhDBL, $tour->mDBL];
 	}
 
 	/**
