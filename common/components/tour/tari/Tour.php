@@ -1,6 +1,8 @@
 <?php
-
 namespace common\components\tour\tari;
+
+use darkdrim\simplehtmldom\SimpleHTMLDom;
+use Yii;
 
 /**
  * Класс тура ТариТур
@@ -16,6 +18,9 @@ class Tour {
 	/** @var string */
 	public $tourName;
 
+	/** @var int */
+	public $tourId;
+
 	/** @var string */
 	public $tourDate;
 
@@ -28,5 +33,47 @@ class Tour {
 	/** @var bool */
 	public $ticketsIncluded;
 
+	/** @var string */
+	public $tourUrl;
 
+	/** @var string */
+	public $spoUrl;
+
+	/** @var string */
+	public $resortId;
+
+	/** @var string */
+	public $description;
+
+	/** @var string */
+	public $image;
+
+	/** @var int */
+	public $tourNameId;
+
+	/**
+	 * Парсинг недостающей информации с сайта
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function parseInfo() {
+		$tourNameId = str_replace('http://www.versiatour.ru/sbornie/tour/bynameid/', '', $this->spoUrl);
+		$tourNameId = explode('/', $tourNameId);
+		$tourNameId = $tourNameId[0];
+
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $tourNameId]);
+		$info = Yii::$app->cache->get($cacheKey);
+		if (false === $info) {
+			$str = file_get_contents($this->spoUrl);
+
+			$html = SimpleHTMLDom::str_get_html($str);
+			$descr = $html->find('.descr_d1', 0);
+			//$image = $html->find('td .imgrcorners');
+			print_r($descr);
+			die;
+
+			$html->clear();
+			unset($html);
+		}
+	}
 }

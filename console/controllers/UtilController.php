@@ -233,17 +233,19 @@ class UtilController extends Controller {
 			$importer = new CsvImporter($csvFile, false, ';');
 			$data = $importer->get();
 			$i = 1;
+			$operatorRegion = [];
 			foreach ($data as $row) {
 				static::showStatus($i, count($data));
 				$fullNumber = $row[0];
 				if ('7' === substr($fullNumber, 0, 1)) {
 					$fullNumber = '8' . substr($fullNumber, 1, 10);
 				}
+
 				$operCode = substr($fullNumber, 1, 3);
 				$number = substr($fullNumber, 4, 7);
+
 				$query = new Query();
 				$query->select([])->from(TelCapacity::COLLECTION_CAPACITY);
-
 				$query->andWhere([TelCapacity::ATTR_CODE => (int)$operCode]);
 				$query->andWhere(['<=', TelCapacity::ATTR_BEG_NUMBER, (int)$number]);
 				$query->andWhere(['>=', TelCapacity::ATTR_END_NUMBER, (int)$number]);
@@ -263,9 +265,15 @@ class UtilController extends Controller {
 				$newData[] = array_merge($row, [
 					$operatorCapacityCode,
 					$operator,
-					$convertedPhone
+					$convertedPhone,
 				]);
+				$key = $operator . ' - ' . $capacity[TelCapacity::ATTR_REGION];
 
+				if (!array_key_exists($key, $operatorRegion)) {
+					$operatorRegion[$key] = 0;
+				}
+
+				$operatorRegion[$key]++;
 				$i++;
 			}
 
@@ -273,6 +281,10 @@ class UtilController extends Controller {
 			foreach ($newData as $fields) {
 				fputcsv($fp, $fields, ';', ' ');
 			}
+			foreach ($operatorRegion as $key => $value) {
+				fputcsv($fp, [$key, $value], ';', ' ');
+			}
+
 			fclose($fp);
 			$fNum++;
 		}

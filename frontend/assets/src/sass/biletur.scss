@@ -4,6 +4,7 @@ $mainBlueColor: #0066b1;
 $mainBlueColorLight: #5492fe;
 $mainRedColor: #dc0531;
 $mainRedColorLight: #ff93aa;
+$mainContainerLight: #b6dcff;
 html,
 body {
 	height: auto;
@@ -28,13 +29,13 @@ body {
 	.inner-index-container {
 		padding: 10px 20px 20px;
 		min-height: 80vh;
-		background-color: cornflowerblue;
+		background-color: $mainContainerLight;
 	}
 
 	.inner-container {
 		padding: 10px 20px 20px;
 		margin-left: 200px;
-		background-color: cornflowerblue;
+		background-color: $mainContainerLight;
 		min-height: 80vh;
 		border-top-left-radius: 8px;
 

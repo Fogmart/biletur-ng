@@ -42,6 +42,4 @@ class TelCapacity extends Component {
 
 	public $region;
 	const ATTR_REGION = 'region';
-
-
 }
