@@ -52,6 +52,9 @@ class Tour {
 	/** @var int */
 	public $tourNameId;
 
+	/** @var int */
+	public $hotelId;
+
 	/**
 	 * Парсинг недостающей информации с сайта
 	 *
@@ -62,20 +65,36 @@ class Tour {
 		$tourNameId = explode('/', $tourNameId);
 		$tourNameId = $tourNameId[0];
 
-		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $tourNameId]);
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $tourNameId, 1]);
 		$info = Yii::$app->cache->get($cacheKey);
 		if (false === $info) {
 			$html = HtmlDomParser::file_get_html($this->spoUrl, false, null, 0);
-			$this->description = $html->find('.descr_d1', 0)->text();
-			$this->image = str_replace('//', '', $html->find('td .imgrcorners', 0)->getAttribute('src'));
-			$this->tourId = $html->find('.print-page', 0)->getAttribute('href');
-			$this->tourId = substr($this->tourId, strpos($this->tourId, '?') + 1, 10);
-			parse_str($this->tourId, $this->tourId);
-			$this->tourId = $this->tourId['tid'];
+			$description = $html->find('.descr_d1', 0)->text();
+			$image = $html->find('td .imgrcorners', 0);
+
+			if (null !== $image) {
+				$image = str_replace('//', '', $this->image->getAttribute('src'));
+			}
+
+			$tourId = $html->find('.print-page', 0)->getAttribute('href');
+			$tourId = substr($tourId, strpos($tourId, '?') + 1, 10);
+			parse_str($tourId, $tourId);
+			$tourId = $tourId['tid'];
 			$html->clear();
 			unset($html);
 
-			print_r($this);
+			$info = [
+				'description' => $description,
+				'image'       => $image,
+				'tourId'      => $tourId
+			];
+
+			Yii::$app->cache->set($cacheKey, $info, null);
 		}
+
+		$this->tourNameId = $tourNameId;
+		$this->description = $info['description'];
+		$this->image = $info['image'];
+		$this->tourId = $info['tourId'];
 	}
 }

@@ -1,6 +1,7 @@
 <?php
 namespace console\controllers;
 
+use common\base\helpers\DateHelper;
 use common\components\SyncData;
 use common\components\tour\tari\Program;
 use common\components\tour\tari\Resort;
@@ -231,24 +232,22 @@ class SyncController extends Controller {
 	 */
 	public function actionLoadTariRefs() {
 		/** @var \common\components\tour\tari\City[]|[] $cities */
-		//$cities = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_GET_CITIES);
+		$cities = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_GET_CITIES);
 
 		/** @var \common\components\tour\tari\Hotel[]|[] $hotels */
-		//$hotels = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_GET_HOTELS);
+		$hotels = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_GET_HOTELS);
 
 		/** @var \common\components\tour\tari\Country[]|[] $countries */
-		//$countries = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_GET_COUNTRIES);
+		$countries = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_GET_COUNTRIES);
 
 		/** @var \common\components\tour\tari\Resort[] $resorts */
-		//$resorts = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_GET_RESORTS);
+		$resorts = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_GET_RESORTS);
+
+
+		$params[Yii::$app->tariApi::PARAM_DATE_FROM] = date(DateHelper::INTL_FORMAT_DATE_RU);
 
 		/** @var \common\components\tour\tari\Tour[] $tours */
-		$tours = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_TOURS_GET_TOURS_2);
-
-		//$params[Yii::$app->tariApi::PARAM_DATE_FROM] = date(DateHelper::INTL_FORMAT_DATE_RU);
-
-		/** @var \common\components\tour\tari\TourDesc[] */
-		//$tariTours = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_TOURS_GET_NAMES_DESC, $params);
+		$tours = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_TOURS_GET_TOURS_2, $params);
 
 		$citiesCollection = Yii::$app->mongodb->getCollection(Yii::$app->tariApi::COLLECTION_CITIES);
 		$hotelCollection = Yii::$app->mongodb->getCollection(Yii::$app->tariApi::COLLECTION_HOTELS);
@@ -283,11 +282,12 @@ class SyncController extends Controller {
 		}
 
 		//Загружаем новые данные
-		//Yii::$app->mongodb->createCommand()->batchInsert(Yii::$app->tariApi::COLLECTION_CITIES, $cities);
-		//Yii::$app->mongodb->createCommand()->batchInsert(Yii::$app->tariApi::COLLECTION_HOTELS, $hotels);
-		//Yii::$app->mongodb->createCommand()->batchInsert(Yii::$app->tariApi::COLLECTION_COUNTRIES, $countries);
+		Yii::$app->mongodb->createCommand()->batchInsert(Yii::$app->tariApi::COLLECTION_CITIES, $cities);
+		Yii::$app->mongodb->createCommand()->batchInsert(Yii::$app->tariApi::COLLECTION_HOTELS, $hotels);
+		Yii::$app->mongodb->createCommand()->batchInsert(Yii::$app->tariApi::COLLECTION_COUNTRIES, $countries);
 
-		$tourDescriptions = [];
+		//Подгрузка доп данных для туров
+		$tourWithDescriptions = [];
 		foreach ($tours as $tour) {
 			$tourDescription = new TariTour();
 			$tourDescription->offerId = $tour->offerId;
@@ -296,9 +296,11 @@ class SyncController extends Controller {
 			$tourDescription->tourDate = $tour->tourDate;
 			$tourDescription->price = $tour->price;
 			$tourDescription->spoUrl = $tour->spoUrl;
-			$tourDescription->mealId = $tour->mealId;
+			$tourDescription->mealId = (int)$tour->mealId;
+			$tourDescription->hotelId = (int)$tour->hotelId;
 			$tourDescription->ticketsIncluded = $tour->ticketsIncluded;
 
+			//Отпарсим недостающие данные с сайта
 			try {
 				$tourDescription->parseInfo();
 			}
@@ -306,13 +308,13 @@ class SyncController extends Controller {
 				continue;
 			}
 
-			$tourDescriptions[] = $tourDescription;
+			$tourWithDescriptions[] = $tourDescription;
 		}
 
-		Yii::$app->mongodb->createCommand()->batchInsert(Yii::$app->tariApi::COLLECTION_TOURS, $tourDescriptions);
+		Yii::$app->mongodb->createCommand()->batchInsert(Yii::$app->tariApi::COLLECTION_TOURS, $tourWithDescriptions);
 
 		$tourPrograms = [];
-		foreach ($tariTours as $tariTour) {
+		foreach ($tourWithDescriptions as $tariTour) {
 			$tariTourProgram = new Program();
 			$tariTourProgram->tourId = (int)$tariTour->TourID;
 			$tariTourProgram->steps = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_TOURS_GET_PROGRAM, [Yii::$app->tariApi::PARAM_ID => $tariTour->TourID]);
