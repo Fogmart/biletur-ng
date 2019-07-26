@@ -3,6 +3,7 @@
 namespace common\forms\tour;
 
 use common\base\helpers\DateHelper;
+use common\base\helpers\Dump;
 use common\components\tour\CommonTour;
 use common\components\tour\tari\Program;
 use common\components\tour\tari\Resort;
@@ -325,8 +326,8 @@ class SearchForm extends Model {
 			$query->andWhere(['in', TariTour::ATTR_RESORT_ID, $params[Yii::$app->tariApi::PARAM_RESORTS]]);
 		}
 
-		$query->andWhere(['>', TariTour::ATTR_PRICE_ID, (int)$filterPrice[0]]);
-		$query->andWhere(['<', TariTour::ATTR_PRICE_ID, (int)$filterPrice[1]]);
+		$query->andWhere(['>', TariTour::ATTR_PRICE, (int)$filterPrice[0]]);
+		$query->andWhere(['<', TariTour::ATTR_PRICE, (int)$filterPrice[1]]);
 		$query->andWhere(['<', TariTour::ATTR_TOUR_DATE, date(DateHelper::DATE_FORMAT_TARI)]);
 
 		$tariTours = $query->limit(100)->all();
@@ -356,6 +357,7 @@ class SearchForm extends Model {
 			//Приводим данные тура к общему объекту
 			$commonTour->prepare();
 			$commonTours[] = $commonTour;
+			Dump::d($commonTour);
 		}
 
 		return $commonTours;

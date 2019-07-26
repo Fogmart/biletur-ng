@@ -255,7 +255,7 @@ class Town extends SiteModel implements ILinkedModels {
 		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $name]);
 		$city = Yii::$app->cache->get($cacheKey);
 		if (false === $city) {
-			$city = static::findOne([static::ATTR_R_NAME => $name]);
+			$city = static::findOne([static::ATTR_NAME => $name]);
 
 			Yii::$app->cache->set($cacheKey, $city, null, new TagDependency(['tags' => [static::class]]));
 		}

@@ -3,7 +3,6 @@
 namespace common\components\tour;
 
 use BadFunctionCallException;
-use common\base\helpers\Dump;
 use common\components\RemoteImageCache;
 use common\components\tour\tari\Tour as TariTour;
 use common\components\tour\tourtrans\Tour;
@@ -311,10 +310,10 @@ class CommonTour extends Component {
 	private function _prepareTariTour() {
 		/** @var \common\components\tour\tari\Tour $tour */
 		$tour = $this->sourceTourData;
-		Dump::dDie($tour);
-		$this->title = $tour->tourName;
+
+		$this->title = $tour[TariTour::ATTR_TOUR_NAME];
 		$this->description = $tour[TariTour::ATTR_DESCRIPTION];
-		/*$this->daysCount =*/
+		$this->daysCount = 10;
 		$this->beginDate = $tour[TariTour::ATTR_TOUR_DATE];
 		$this->endDate = $tour[TariTour::ATTR_TOUR_DATE];
 		$this->imageOld = $tour[TariTour::ATTR_IMAGE];
@@ -375,6 +374,5 @@ class CommonTour extends Component {
 		}
 
 		return $flagImage;
-
 	}
 }
