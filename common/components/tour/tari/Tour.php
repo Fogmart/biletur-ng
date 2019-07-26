@@ -1,7 +1,8 @@
 <?php
+
 namespace common\components\tour\tari;
 
-use darkdrim\simplehtmldom\SimpleHTMLDom;
+use Sunra\PhpSimple\HtmlDomParser;
 use Yii;
 
 /**
@@ -64,16 +65,17 @@ class Tour {
 		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $tourNameId]);
 		$info = Yii::$app->cache->get($cacheKey);
 		if (false === $info) {
-			$str = file_get_contents($this->spoUrl);
-
-			$html = SimpleHTMLDom::str_get_html($str);
-			$descr = $html->find('.descr_d1', 0);
-			//$image = $html->find('td .imgrcorners');
-			print_r($descr);
-			die;
-
+			$html = HtmlDomParser::file_get_html($this->spoUrl, false, null, 0);
+			$this->description = $html->find('.descr_d1', 0)->text();
+			$this->image = str_replace('//', '', $html->find('td .imgrcorners', 0)->getAttribute('src'));
+			$this->tourId = $html->find('.print-page', 0)->getAttribute('href');
+			$this->tourId = substr($this->tourId, strpos($this->tourId, '?') + 1, 10);
+			parse_str($this->tourId, $this->tourId);
+			$this->tourId = $this->tourId['tid'];
 			$html->clear();
 			unset($html);
+
+			print_r($this);
 		}
 	}
 }

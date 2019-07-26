@@ -296,7 +296,15 @@ class SyncController extends Controller {
 			$tourDescription->tourDate = $tour->tourDate;
 			$tourDescription->price = $tour->price;
 			$tourDescription->spoUrl = $tour->spoUrl;
-			$tourDescription->parseInfo();
+			$tourDescription->mealId = $tour->mealId;
+			$tourDescription->ticketsIncluded = $tour->ticketsIncluded;
+
+			try {
+				$tourDescription->parseInfo();
+			}
+			catch (\Exception $exception) {
+				continue;
+			}
 
 			$tourDescriptions[] = $tourDescription;
 		}
