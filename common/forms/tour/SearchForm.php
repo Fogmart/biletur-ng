@@ -6,6 +6,7 @@ use common\base\helpers\DateHelper;
 use common\components\tour\CommonTour;
 use common\components\tour\tari\Program;
 use common\components\tour\tari\Resort;
+use common\components\tour\tari\Tour as TariTour;
 use common\components\tour\tourtrans\Tour;
 use common\models\oracle\scheme\t3\RefItems;
 use common\models\oracle\scheme\t3\RIAd;
@@ -292,7 +293,8 @@ class SearchForm extends Model {
 	 */
 	private function _searchTariTour() {
 		$commonTours = [];
-		$params = [];
+		$params[Yii::$app->tariApi::PARAM_RESORTS] = [];
+
 		if (!empty($this->tourTo)) {
 			//Ищем идентификаторы курортов
 			$query = new Query();
@@ -316,17 +318,25 @@ class SearchForm extends Model {
 		}
 
 		$filterPrice = explode(',', $this->priceRange);
-		$params[Yii::$app->tariApi::PARAM_PRICE_MIN] = $filterPrice[0];
-		$params[Yii::$app->tariApi::PARAM_PRICE_MAX] = $filterPrice[1];
-		$params[Yii::$app->tariApi::PARAM_DATE_FROM] = date(DateHelper::DATE_FORMAT_TARI);
+		$query = new Query();
+		$query->select([])->from(Yii::$app->tariApi::COLLECTION_TOURS);
 
-		/** @var \common\components\tour\tari\TourDesc[] $tariTours */
-		$tariTours = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_TOURS_GET_NAMES_DESC, $params);
+		if (count($params[Yii::$app->tariApi::PARAM_RESORTS]) > 0) {
+			$query->andWhere(['in', TariTour::ATTR_RESORT_ID, $params[Yii::$app->tariApi::PARAM_RESORTS]]);
+		}
+
+		$query->andWhere(['>', TariTour::ATTR_PRICE_ID, (int)$filterPrice[0]]);
+		$query->andWhere(['<', TariTour::ATTR_PRICE_ID, (int)$filterPrice[1]]);
+		$query->andWhere(['<', TariTour::ATTR_TOUR_DATE, date(DateHelper::DATE_FORMAT_TARI)]);
+
+		$tariTours = $query->limit(100)->all();
+
+		//$tariTours
 		foreach ($tariTours as $tariTour) {
-			//Поищем в монго, если нет то возьмем из апи
+			//Поищем программу тура в монго, если нет то возьмем из апи
 			$query = new Query();
 			$query->select([])->from(Yii::$app->tariApi::COLLECTION_TOUR_PROGRAMS);
-			$query->andWhere([Program::ATTR_TOUR_ID => (int)$tariTour->TourID]);
+			$query->andWhere([Program::ATTR_TOUR_ID => (int)$tariTour[TariTour::ATTR_TOUR_ID]]);
 			$tourAdditionalInfo = $query->one();
 
 			if (false !== $tourAdditionalInfo) {
@@ -337,7 +347,7 @@ class SearchForm extends Model {
 			}
 
 			$commonTour = new CommonTour([
-				CommonTour::ATTR_SOURCE_ID                   => $tariTour->TourID,
+				CommonTour::ATTR_SOURCE_ID                   => $tariTour[TariTour::ATTR_TOUR_ID],
 				CommonTour::ATTR_SOURCE                      => CommonTour::SOURCE_TARI_TOUR,
 				CommonTour::ATTR_SOURCE_TOUR_DATA            => $tariTour,
 				CommonTour::ATTR_SOURCE_TOUR_ADDITIONAL_DATA => $tourAdditionalInfo

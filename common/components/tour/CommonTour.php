@@ -3,7 +3,9 @@
 namespace common\components\tour;
 
 use BadFunctionCallException;
+use common\base\helpers\Dump;
 use common\components\RemoteImageCache;
+use common\components\tour\tari\Tour as TariTour;
 use common\components\tour\tourtrans\Tour;
 use common\models\Country;
 use common\models\ObjectFile;
@@ -299,7 +301,6 @@ class CommonTour extends Component {
 			$commonLap->endDate = $tourDate->date;
 			$this->activeLaps[] = $commonLap;
 		}
-
 	}
 
 	/**
@@ -308,18 +309,18 @@ class CommonTour extends Component {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	private function _prepareTariTour() {
-		/** @var \common\components\tour\tari\TourDesc $tour */
+		/** @var \common\components\tour\tari\Tour $tour */
 		$tour = $this->sourceTourData;
-		$this->title = $tour->TourNames;
-		$this->sourceId = $tour->TourID;
-		$this->description = $tour->ListDesc;
-		$this->daysCount = $tour->TourDays;
-		$this->beginDate = $tour->MinDate;
-		$this->endDate = $tour->MaxDate;
-		$this->imageOld = Yii::$app->tariApi->imageTourUrl . $tour->SeasonID . '_' . $tour->TourNameID . DIRECTORY_SEPARATOR . 'tumb.png';
+		Dump::dDie($tour);
+		$this->title = $tour->tourName;
+		$this->description = $tour[TariTour::ATTR_DESCRIPTION];
+		/*$this->daysCount =*/
+		$this->beginDate = $tour[TariTour::ATTR_TOUR_DATE];
+		$this->endDate = $tour[TariTour::ATTR_TOUR_DATE];
+		$this->imageOld = $tour[TariTour::ATTR_IMAGE];
 		RemoteImageCache::getImage($this->imageOld, '195', 'img-rounded', true, true, false);
-		$this->sourceUrl = Yii::$app->tariApi->tourUrl . $tour->TourNameID . DIRECTORY_SEPARATOR . $tour->SeasonID;
-		$this->priceMinMax = [$tour->mhDBL, $tour->mDBL];
+		$this->sourceUrl = $tour[TariTour::ATTR_SPO_URL];
+		$this->priceMinMax = [$tour[TariTour::ATTR_PRICE], $tour[TariTour::ATTR_PRICE]];
 	}
 
 	/**

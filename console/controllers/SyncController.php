@@ -288,7 +288,10 @@ class SyncController extends Controller {
 
 		//Подгрузка доп данных для туров
 		$tourWithDescriptions = [];
+		$i = 1;
 		foreach ($tours as $tour) {
+			SyncData::showStatus($i, count($tours));
+			$i++;
 			$tourDescription = new TariTour();
 			$tourDescription->offerId = $tour->offerId;
 			$tourDescription->tourName = $tour->tourName;
@@ -314,10 +317,17 @@ class SyncController extends Controller {
 		Yii::$app->mongodb->createCommand()->batchInsert(Yii::$app->tariApi::COLLECTION_TOURS, $tourWithDescriptions);
 
 		$tourPrograms = [];
+		$i = 1;
 		foreach ($tourWithDescriptions as $tariTour) {
+			SyncData::showStatus($i, count($tourWithDescriptions));
+			$i++;
+			if (null === $tariTour->tourId) {
+				continue;
+			}
+
 			$tariTourProgram = new Program();
-			$tariTourProgram->tourId = (int)$tariTour->TourID;
-			$tariTourProgram->steps = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_TOURS_GET_PROGRAM, [Yii::$app->tariApi::PARAM_ID => $tariTour->TourID]);
+			$tariTourProgram->tourId = (int)$tariTour->tourId;
+			$tariTourProgram->steps = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_TOURS_GET_PROGRAM, [Yii::$app->tariApi::PARAM_ID => $tariTour->tourId]);
 			$tourPrograms[] = $tariTourProgram;
 		}
 
