@@ -114,6 +114,7 @@ class Tour {
 	 * Загрузка туров из XML в mongoDb, установка в кэш фильтров и загрузка изображений
 	 *
 	 * @throws \yii\mongodb\Exception
+	 * @throws \yii\base\InvalidConfigException
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
@@ -211,11 +212,8 @@ class Tour {
 			}
 
 			$tour->objectData = json_encode($tour);
-
-
 			$route = str_replace(["*"], '', $tour->route);
 			$route = preg_replace("/\([^)]+\)/", "", $route);
-
 			$route = explode("–", $route);
 
 			$cities = [];

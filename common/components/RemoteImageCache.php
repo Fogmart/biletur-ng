@@ -72,6 +72,7 @@ class RemoteImageCache extends Component {
 				return Html::img(Yii::$app->imageresize->getUrl(Yii::getAlias('@images') . DIRECTORY_SEPARATOR . 'image-not-found.png', $size, $size), ['class' => $class]);
 			}
 
+			//Возвращаем только путь
 			if ($onlyPath) {
 				try {
 					return Yii::$app->imageresize->getUrl($imageFolder . DIRECTORY_SEPARATOR . $hashName, $size, $size);

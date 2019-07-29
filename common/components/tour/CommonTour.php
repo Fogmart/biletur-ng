@@ -351,7 +351,6 @@ class CommonTour extends Component {
 	 *
 	 * @return mixed|string|null
 	 *
-	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public static function getFlagImageByCountryName($name) {
