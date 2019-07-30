@@ -1,5 +1,4 @@
 <?php
-
 namespace frontend\controllers;
 
 use common\base\helpers\StringHelper;
@@ -28,9 +27,6 @@ class TourController extends FrontendMenuController {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function actionIndex() {
-		//$hotelCollection = Yii::$app->mongodb->getCollection(Yii::$app->tariApi::COLLECTION_RESORTS);
-		//Dump::dDie($hotelCollection->findOne([Resort::ATTR_ID => (string)300]));
-
 		$form = new SearchForm();
 
 		if (Yii::$app->request->isPjax) {

@@ -332,7 +332,6 @@ class SyncController extends Controller {
 		}
 
 		Yii::$app->mongodb->createCommand()->batchInsert(Yii::$app->tariApi::COLLECTION_TOUR_PROGRAMS, $tourPrograms);
-
 		$commonResorts = [];
 		foreach ($resorts as $resort) {
 			$commonResort = new Resort();
@@ -348,6 +347,5 @@ class SyncController extends Controller {
 			$commonResorts[] = $commonResort;
 		}
 		Yii::$app->mongodb->createCommand()->batchInsert(Yii::$app->tariApi::COLLECTION_RESORTS, $commonResorts);
-
 	}
 }

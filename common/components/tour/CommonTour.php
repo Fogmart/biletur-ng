@@ -4,6 +4,8 @@ namespace common\components\tour;
 
 use BadFunctionCallException;
 use common\components\RemoteImageCache;
+use common\components\tour\tari\City;
+use common\components\tour\tari\Hotel;
 use common\components\tour\tari\Tour as TariTour;
 use common\components\tour\tourtrans\Tour;
 use common\models\Country;
@@ -16,6 +18,7 @@ use common\models\Town;
 use Yii;
 use yii\base\Component;
 use yii\caching\TagDependency;
+use yii\mongodb\Query;
 
 class CommonTour extends Component {
 	const SOURCE_BILETUR = 0;
@@ -34,7 +37,7 @@ class CommonTour extends Component {
 	public $sourceTourData;
 	const ATTR_SOURCE_TOUR_DATA = 'sourceTourData';
 
-	/** @var RefItems */
+	/** @var [] */
 	public $sourceTourAdditionalData;
 	const ATTR_SOURCE_TOUR_ADDITIONAL_DATA = 'sourceTourAdditionalData';
 
@@ -310,16 +313,40 @@ class CommonTour extends Component {
 	private function _prepareTariTour() {
 		/** @var \common\components\tour\tari\Tour $tour */
 		$tour = $this->sourceTourData;
-
 		$this->title = $tour[TariTour::ATTR_TOUR_NAME];
 		$this->description = $tour[TariTour::ATTR_DESCRIPTION];
-		$this->daysCount = 10;
+
+
+		$this->daysCount = (int)$this->sourceTourAdditionalData[count($this->sourceTourAdditionalData) - 1]['Day'];
 		$this->beginDate = $tour[TariTour::ATTR_TOUR_DATE];
 		$this->endDate = $tour[TariTour::ATTR_TOUR_DATE];
 		$this->imageOld = $tour[TariTour::ATTR_IMAGE];
 		RemoteImageCache::getImage($this->imageOld, '195', 'img-rounded', true, true, false);
 		$this->sourceUrl = $tour[TariTour::ATTR_SPO_URL];
 		$this->priceMinMax = [$tour[TariTour::ATTR_PRICE], $tour[TariTour::ATTR_PRICE]];
+
+		$hotelId = $this->sourceTourData[TariTour::ATTR_HOTEL_ID];
+		$query = new Query();
+		$query->select([])->from(Yii::$app->tariApi::COLLECTION_HOTELS);
+		$query->andWhere([Hotel::ATTR_ID => (string)$hotelId]);
+		$hotel = $query->one();
+		//Dump::dDie($hotel);
+		if (false === $hotel) {
+			return;
+		}
+
+		$query = new Query();
+		$query->select([])->from(Yii::$app->tariApi::COLLECTION_CITIES);
+		$query->andWhere([City::ATTR_ID => $hotel[Hotel::ATTR_CITY_ID]]);
+		$city = $query->one();
+		if (false === $city) {
+			return;
+		}
+
+		$wayPoint = new CommonTourWayPoint();
+		$wayPoint->cityId = Town::getOldIdByName($city[City::ATTR_NAME]);
+		$wayPoint->cityName = $city[City::ATTR_NAME];
+		$this->wayPoints[] = $wayPoint;
 	}
 
 	/**
