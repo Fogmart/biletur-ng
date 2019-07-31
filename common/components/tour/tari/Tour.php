@@ -36,6 +36,10 @@ class Tour {
 	public $mealId;
 	const ATTR_MEAL_ID = 'mealId';
 
+	/** @var int */
+	public $daysCount = 0;
+	const ATTR_DAYS_COUNT = 'daysCount';
+
 	/** @var bool */
 	public $ticketsIncluded;
 	const ATTR_TICKETS_INCLUDED = 'ticketsIncluded';

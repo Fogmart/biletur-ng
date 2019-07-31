@@ -288,6 +288,7 @@ class SyncController extends Controller {
 
 		//Подгрузка доп данных для туров
 		$tourWithDescriptions = [];
+		$tourPrograms = [];
 		$i = 1;
 		foreach ($tours as $tour) {
 			SyncData::showStatus($i, count($tours));
@@ -312,26 +313,22 @@ class SyncController extends Controller {
 			}
 
 			$tourWithDescriptions[] = $tourDescription;
-		}
 
-		Yii::$app->mongodb->createCommand()->batchInsert(Yii::$app->tariApi::COLLECTION_TOURS, $tourWithDescriptions);
-
-		$tourPrograms = [];
-		$i = 1;
-		foreach ($tourWithDescriptions as $tariTour) {
-			SyncData::showStatus($i, count($tourWithDescriptions));
-			$i++;
-			if (null === $tariTour->tourId) {
+			if (null === $tourDescription->tourId) {
 				continue;
 			}
 
 			$tariTourProgram = new Program();
-			$tariTourProgram->tourId = (int)$tariTour->tourId;
-			$tariTourProgram->steps = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_TOURS_GET_PROGRAM, [Yii::$app->tariApi::PARAM_ID => $tariTour->tourId]);
+			$tariTourProgram->tourId = (int)$tourDescription->tourId;
+			$tariTourProgram->steps = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_TOURS_GET_PROGRAM, [Yii::$app->tariApi::PARAM_ID => $tourDescription->tourId]);
+			$tourDescription->daysCount = (int)$tariTourProgram->steps[count($tariTourProgram->steps) - 1]->Day;
+
 			$tourPrograms[] = $tariTourProgram;
 		}
 
+		Yii::$app->mongodb->createCommand()->batchInsert(Yii::$app->tariApi::COLLECTION_TOURS, $tourWithDescriptions);
 		Yii::$app->mongodb->createCommand()->batchInsert(Yii::$app->tariApi::COLLECTION_TOUR_PROGRAMS, $tourPrograms);
+
 		$commonResorts = [];
 		foreach ($resorts as $resort) {
 			$commonResort = new Resort();
@@ -347,5 +344,9 @@ class SyncController extends Controller {
 			$commonResorts[] = $commonResort;
 		}
 		Yii::$app->mongodb->createCommand()->batchInsert(Yii::$app->tariApi::COLLECTION_RESORTS, $commonResorts);
+
+		$tourCollection->createIndex([TariTour::ATTR_RESORT_ID]);
+		$resortCollection->createIndex([Resort::ATTR_ID]);
+		$tourProgramCollection->createIndex([Program::ATTR_TOUR_ID]);
 	}
 }

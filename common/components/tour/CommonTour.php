@@ -315,7 +315,7 @@ class CommonTour extends Component {
 		$this->title = $tour[TariTour::ATTR_TOUR_NAME];
 		$this->description = $tour[TariTour::ATTR_DESCRIPTION];
 
-		$this->daysCount = (int)$this->sourceTourAdditionalData[count($this->sourceTourAdditionalData) - 1]['Day'];
+		//$this->daysCount = (int)$this->sourceTourAdditionalData[count($this->sourceTourAdditionalData) - 1]['Day'];
 		$this->beginDate = $tour[TariTour::ATTR_TOUR_DATE];
 		$this->endDate = $tour[TariTour::ATTR_TOUR_DATE];
 		$this->imageOld = $tour[TariTour::ATTR_IMAGE];
@@ -325,7 +325,7 @@ class CommonTour extends Component {
 
 		$query = new Query();
 		$query->select([])->from(Yii::$app->tariApi::COLLECTION_RESORTS);
-		$query->andWhere([Resort::ATTR_ID => $tour[TariTour::ATTR_RESORT_ID]]);
+		$query->andWhere([Resort::ATTR_ID => (string)$tour[TariTour::ATTR_RESORT_ID]]);
 		$resort = $query->one();
 
 		if (false === $resort) {
@@ -337,7 +337,10 @@ class CommonTour extends Component {
 		$wayPoint->cityName = $resort[Resort::ATTR_NAME];
 		$wayPoint->country = $resort[Resort::ATTR_COUNTRY_NAME];
 		$wayPoint->countryFlagImage = $this->getFlagImageByCountryName($wayPoint->country);
-		$this->wayPoints[] = $wayPoint;
+		$wayPoint->number = 1;
+		$wayPoint->daysCount = 0;
+		$this->wayPoints[$wayPoint->country][] = $wayPoint;
+		//Dump::dDie($this->wayPoints);
 	}
 
 	/**
@@ -355,6 +358,7 @@ class CommonTour extends Component {
 
 			Yii::$app->cache->set($cacheKey, $objectFile, null, new TagDependency(['tags' => RefItems::class]));
 		}
+
 		if (null === $objectFile) {
 			return null;
 		}
