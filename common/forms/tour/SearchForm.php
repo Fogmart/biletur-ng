@@ -440,7 +440,6 @@ class SearchForm extends Model {
 	private function _searchTariTour() {
 		$commonTours = [];
 		$params[Yii::$app->tariApi::PARAM_RESORTS] = [];
-		//Dump::dDie($this->tourTo);
 		if (!empty($this->tourTo)) {
 			$params[Yii::$app->tariApi::PARAM_RESORTS] = [999];
 			//Ищем идентификаторы курортов
