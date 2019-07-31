@@ -442,6 +442,7 @@ class SearchForm extends Model {
 		$params[Yii::$app->tariApi::PARAM_RESORTS] = [];
 		//Dump::dDie($this->tourTo);
 		if (!empty($this->tourTo)) {
+			$params[Yii::$app->tariApi::PARAM_RESORTS] = [999];
 			//Ищем идентификаторы курортов
 			$query = new Query();
 			$query->select([])->from(Yii::$app->tariApi::COLLECTION_RESORTS);
@@ -457,10 +458,8 @@ class SearchForm extends Model {
 			$resorts = $query->all();
 
 			foreach ($resorts as $resort) {
-				$params[Yii::$app->tariApi::PARAM_RESORTS][] = $resort[Resort::ATTR_ID];
+				$params[Yii::$app->tariApi::PARAM_RESORTS][] = (int)$resort[Resort::ATTR_ID];
 			}
-
-			//$params[Yii::$app->tariApi::PARAM_RESORTS] = implode(',', $params[Yii::$app->tariApi::PARAM_RESORTS]);
 		}
 
 		$filterPrice = explode(',', $this->priceRange);
@@ -475,14 +474,11 @@ class SearchForm extends Model {
 		$query->andWhere(['<', TariTour::ATTR_PRICE, (int)$filterPrice[1]]);
 		$query->andWhere(['<', TariTour::ATTR_TOUR_DATE, date(DateHelper::DATE_FORMAT_TARI)]);
 
-		$tariTours = $query->limit(300)->all();
-		//Dump::d($params[Yii::$app->tariApi::PARAM_RESORTS]);
-		//Dump::dDie($tariTours);
-		//$tariTours
+		$tariTours = $query->limit(500)->all();
 		foreach ($tariTours as $tariTour) {
 			$commonTour = new CommonTour([
-				CommonTour::ATTR_SOURCE_ID        => $tariTour[TariTour::ATTR_TOUR_ID],
 				CommonTour::ATTR_SOURCE           => CommonTour::SOURCE_TARI_TOUR,
+				CommonTour::ATTR_SOURCE_ID        => $tariTour[TariTour::ATTR_TOUR_ID],
 				CommonTour::ATTR_SOURCE_TOUR_DATA => $tariTour,
 				CommonTour::ATTR_DAYS             => $tariTour[TariTour::ATTR_DAYS_COUNT]
 			]);

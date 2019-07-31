@@ -312,8 +312,6 @@ class SyncController extends Controller {
 				continue;
 			}
 
-			$tourWithDescriptions[] = $tourDescription;
-
 			if (null === $tourDescription->tourId) {
 				continue;
 			}
@@ -321,8 +319,10 @@ class SyncController extends Controller {
 			$tariTourProgram = new Program();
 			$tariTourProgram->tourId = (int)$tourDescription->tourId;
 			$tariTourProgram->steps = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_TOURS_GET_PROGRAM, [Yii::$app->tariApi::PARAM_ID => $tourDescription->tourId]);
+
 			$tourDescription->daysCount = (int)$tariTourProgram->steps[count($tariTourProgram->steps) - 1]->Day;
 
+			$tourWithDescriptions[$tourDescription->tourId] = $tourDescription;
 			$tourPrograms[] = $tariTourProgram;
 		}
 
