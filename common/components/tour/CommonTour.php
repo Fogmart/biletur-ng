@@ -4,8 +4,7 @@ namespace common\components\tour;
 
 use BadFunctionCallException;
 use common\components\RemoteImageCache;
-use common\components\tour\tari\City;
-use common\components\tour\tari\Hotel;
+use common\components\tour\tari\Resort;
 use common\components\tour\tari\Tour as TariTour;
 use common\components\tour\tourtrans\Tour;
 use common\models\Country;
@@ -316,7 +315,6 @@ class CommonTour extends Component {
 		$this->title = $tour[TariTour::ATTR_TOUR_NAME];
 		$this->description = $tour[TariTour::ATTR_DESCRIPTION];
 
-
 		$this->daysCount = (int)$this->sourceTourAdditionalData[count($this->sourceTourAdditionalData) - 1]['Day'];
 		$this->beginDate = $tour[TariTour::ATTR_TOUR_DATE];
 		$this->endDate = $tour[TariTour::ATTR_TOUR_DATE];
@@ -325,27 +323,20 @@ class CommonTour extends Component {
 		$this->sourceUrl = $tour[TariTour::ATTR_SPO_URL];
 		$this->priceMinMax = [$tour[TariTour::ATTR_PRICE], $tour[TariTour::ATTR_PRICE]];
 
-		$hotelId = $this->sourceTourData[TariTour::ATTR_HOTEL_ID];
 		$query = new Query();
-		$query->select([])->from(Yii::$app->tariApi::COLLECTION_HOTELS);
-		$query->andWhere([Hotel::ATTR_ID => (string)$hotelId]);
-		$hotel = $query->one();
-		//Dump::dDie($hotel);
-		if (false === $hotel) {
-			return;
-		}
+		$query->select([])->from(Yii::$app->tariApi::COLLECTION_RESORTS);
+		$query->andWhere([Resort::ATTR_ID => $tour[TariTour::ATTR_RESORT_ID]]);
+		$resort = $query->one();
 
-		$query = new Query();
-		$query->select([])->from(Yii::$app->tariApi::COLLECTION_CITIES);
-		$query->andWhere([City::ATTR_ID => $hotel[Hotel::ATTR_CITY_ID]]);
-		$city = $query->one();
-		if (false === $city) {
+		if (false === $resort) {
 			return;
 		}
 
 		$wayPoint = new CommonTourWayPoint();
-		$wayPoint->cityId = Town::getOldIdByName($city[City::ATTR_NAME]);
-		$wayPoint->cityName = $city[City::ATTR_NAME];
+		$wayPoint->cityId = $resort[Resort::ATTR_BILETUR_CITY_ID];
+		$wayPoint->cityName = $resort[Resort::ATTR_NAME];
+		$wayPoint->country = $resort[Resort::ATTR_COUNTRY_NAME];
+		$wayPoint->countryFlagImage = $this->getFlagImageByCountryName($wayPoint->country);
 		$this->wayPoints[] = $wayPoint;
 	}
 

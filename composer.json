@@ -51,7 +51,8 @@
     "2amigos/yii2-gallery-widget": "~1.0",
     "kartik-v/yii2-slider": "dev-master",
     "noam148/yii2-image-resize": "*",
-    "sunra/php-simple-html-dom-parser": "1.5.2"
+    "sunra/php-simple-html-dom-parser": "1.5.2",
+    "ext-simplexml": "*"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",
