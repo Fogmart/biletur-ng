@@ -221,6 +221,28 @@ class SearchForm extends Model {
 	}
 
 	/**
+	 * Постановка поиска в очередь Турвизора
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function setSearchTourVisorQueue() {
+		$cacheKey = Yii::$app->cache->buildKey($this->attributes);
+		//1. Ищем по этому ключу результат в монго
+		//2. Если находим - отдаем. Если нет то отправляем запрос в апи турвизора и ставим в кэш его идентификатор для этого ключа кэша.
+
+
+	}
+
+	/**
+	 * Запрос результата поиска Турвизора
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function getSearchTourVisorQueue() {
+
+	}
+
+	/**
 	 * Максимальная и минимальная цена доступных туров
 	 *
 	 * @return array
@@ -490,9 +512,6 @@ class SearchForm extends Model {
 		return $commonTours;
 	}
 
-	private function _searchTourVisor() {
-
-	}
 
 	/**
 	 * Общая фильтрация

@@ -89,4 +89,17 @@ class TourController extends FrontendMenuController {
 
 		return $this->render('view', ['tour' => $commonTour]);
 	}
+
+	public function getQueueSearch() {
+		$this->layout = false;
+		Yii::$app->response->format = Response::FORMAT_JSON;
+
+		$form = new SearchForm();
+
+		if (Yii::$app->request->isAjax) {
+			$form->load(Yii::$app->request->post());
+		}
+
+
+	}
 }

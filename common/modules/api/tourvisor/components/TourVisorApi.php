@@ -6,6 +6,13 @@ use Yii;
 use yii\base\Component;
 use yii\base\Configurable;
 
+/**
+ * API Турвизора
+ *
+ * @see     https://drive.google.com/drive/folders/0B1Lc2hczO1lCWGxwdU1xQmFMRXc
+ *
+ * @author  Исаков Владислав <visakov@biletur.ru>
+ */
 class TourVisorApi extends Component implements Configurable {
 
 	private $_apiUrl;
@@ -14,6 +21,10 @@ class TourVisorApi extends Component implements Configurable {
 
 	const FORMAT_JSON = 'json';
 	const PARAM_FORMAT = 'format';
+
+	const METHOD_SEARCH = 'search.php';
+	const METHOD_RESULT = 'result.php';
+	const METHOD_LIST = 'list.php';
 
 	const PARAM_DEPARTURE = 'departure'; //код города вылета
 	const PARAM_COUNTRY = 'country'; //код страны
@@ -41,6 +52,26 @@ class TourVisorApi extends Component implements Configurable {
 	const PARAM_PRICE_TO = 'priceto'; // цена до (в рублях, опционально)
 	const PARAM_CURRENCY = 'currency'; //валюта, в которой производить выдачу результатов поиска. 0 = рубли (по-умолчанию), 1 – у.е. (USD или EUR, зависит от страны), 2 – бел.рубли, 3 – тенге
 	const PARAM_HIDE_REGULAR = 'hideregular'; //1 - скрыть туры на регулярных рейсах
+
+	const RESULT_PARAM_TYPE = 'type'; //что получаем в ответе. status - только статус запроса, result - результаты (туры) + статус. По умолчанию - result
+	const RESULT_PARAM_REQUEST_ID = 'requestid'; // идентификатор запроса, который мы получили при вызове search.php (этот параметр является обязательным!)
+	const RESULT_PARAM_PAGE = 'page'; // страница результатов поиска, которую нужно загрузить (по умолчанию = 1). За один раз выдается ограниченное количество отелей (см.следующий параметр onpage). Если этого количества недостаточно, можно загрузить больше результатов, указав page=2, затем page=3 и т.д. (этот параметр не является обязательным)
+	const RESULT_PARAM_ON_PAGE = 'onpage'; // сколько отелей выдавать на одной странице (по умолчанию 25) (этот параметр не является обязательным)
+	const RESULT_PARAM_NO_DESCRIPTION = 'nodescription'; //если этот параметр = 1, то краткое описание отеля не передается (удобно, если Вы его не используете, чтобы уменьшить объем передаваемой информации)
+	const RESULT_PARAM_OPERATOR_STATUS = 'operatorstatus'; //если = 1, передает расширенный статус по операторам (показывает какие операторы были найдены, минимальная цена и количество найденных отелей по каждому туроператору)
+
+	const TYPE_RESULT = 'result';
+	const TYPE_STATUS = 'status';
+
+	//Коллекции mongodb
+	const COLLECTION_DEPARTURE = 'api_tourtrans_departure';
+	const COLLECTION_COUNTRY = 'api_tourtrans_country';
+	const COLLECTION_REGION = 'api_tourtrans_region';
+	const COLLECTION_SUB_REGION = 'api_tourtrans_sub_region';
+	const COLLECTION_MEAL = 'api_tourtrans_meal';
+	const COLLECTION_STARS = 'api_tourtrans_stars';
+	const COLLECTION_HOTEL = 'api_tourtrans_hotel';
+	const COLLECTION_FLY_DATE = 'api_tourtrans_fly_date';
 
 	/**
 	 * @param array $config
