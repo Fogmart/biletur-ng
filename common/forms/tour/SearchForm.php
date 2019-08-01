@@ -406,7 +406,7 @@ class SearchForm extends Model {
 			}
 		}
 
-		$query->limit(300);
+		$query->limit(500);
 		$tours = $query->all();
 
 		foreach ($tours as $tour) {
@@ -422,7 +422,7 @@ class SearchForm extends Model {
 				]
 			);
 
-			//Приводим данные тура к общему объекту
+			//Приводим данные тура к общему объекту и добавляем в массив
 			$commonTour->prepare();
 			$commonTours[] = $commonTour;
 		}
@@ -473,7 +473,7 @@ class SearchForm extends Model {
 		$query->andWhere(['<', TariTour::ATTR_PRICE, (int)$filterPrice[1]]);
 		$query->andWhere(['<', TariTour::ATTR_TOUR_DATE, date(DateHelper::DATE_FORMAT_TARI)]);
 
-		$tariTours = $query->limit(500)->all();
+		$tariTours = $query->limit(1000)->all();
 		foreach ($tariTours as $tariTour) {
 			$commonTour = new CommonTour([
 				CommonTour::ATTR_SOURCE           => CommonTour::SOURCE_TARI_TOUR,
@@ -488,6 +488,10 @@ class SearchForm extends Model {
 		}
 
 		return $commonTours;
+	}
+
+	private function _searchTourVisor() {
+
 	}
 
 	/**
