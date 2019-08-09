@@ -90,6 +90,9 @@ class TourController extends FrontendMenuController {
 		return $this->render('view', ['tour' => $commonTour]);
 	}
 
+	/**
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
 	public function getQueueSearch() {
 		$this->layout = false;
 		Yii::$app->response->format = Response::FORMAT_JSON;
@@ -99,7 +102,5 @@ class TourController extends FrontendMenuController {
 		if (Yii::$app->request->isAjax) {
 			$form->load(Yii::$app->request->post());
 		}
-
-
 	}
 }

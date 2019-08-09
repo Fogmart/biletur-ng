@@ -1,13 +1,14 @@
 <?php
-use yii\widgets\Pjax;
+
 use frontend\controllers\TourController;
+use yii\widgets\Pjax;
+
 /**
  * @author Исаков Владислав <visakov@biletur.ru>
  *
  * @var \common\forms\tour\SearchForm $form
  *
  */
-
 ?>
 	<div class="content-header text-center">
 		<h1>Поиск тура</h1>
