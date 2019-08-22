@@ -22,13 +22,12 @@ use sem\helpers\Html;
 				<b>дней <?= $tour->daysCount ?> </b><br>
 				<div class="col-md-3 col-xs-12">
 					<?php if (null !== $tour->image): ?>
-						<?= Html::img(Yii::$app->imageresize->getUrl($tour->image, 195, 195), ['class' => 'img-rounded']); ?>
+						<?= Html::img(Yii::$app->imageresize->getUrl($tour->image, 195, 195), ['class' => 'img-rounded f-left']); ?>
 					<?php else: ?>
-						<?= RemoteImageCache::getImage($tour->imageOld, '195', 'img-rounded', false, true, ($tour->source == CommonTour::SOURCE_BILETUR)) ?>
+						<?= RemoteImageCache::getImage($tour->imageOld, '195', 'img-rounded f-left', false, true, ($tour->source == CommonTour::SOURCE_BILETUR)) ?>
 					<?php endif ?>
 				</div>
 				<div class="col-md-9 col-xs-12">
-					<?php //\common\base\helpers\Dump::d($tour->sourceTourData) ?>
 					<?= $tour->description ?>
 					<br>
 					<?php foreach ($tour->wayPoints as $country => $wayPoints): ?>
@@ -43,6 +42,4 @@ use sem\helpers\Html;
 		</div>
 	</div>
 <?php endforeach ?>
-<?php
-$this->registerJs('$(this).searchTourPlugin();');
-?>
+<?php $this->registerJs('$(this).searchTourPlugin();'); ?>

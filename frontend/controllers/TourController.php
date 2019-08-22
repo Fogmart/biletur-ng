@@ -1,4 +1,5 @@
 <?php
+
 namespace frontend\controllers;
 
 use common\base\helpers\StringHelper;
@@ -74,7 +75,12 @@ class TourController extends FrontendMenuController {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function actionView($id, $src = CommonTour::SOURCE_BILETUR, $slug = null) {
-		$commonTour = new CommonTour([CommonTour::ATTR_SOURCE => $src, CommonTour::ATTR_SOURCE_ID => $id]);
+		$commonTour = new CommonTour([
+				CommonTour::ATTR_SOURCE    => $src,
+				CommonTour::ATTR_SOURCE_ID => $id
+			]
+		);
+
 		$commonTour->prepare();
 
 		//Регистрируем метатэги

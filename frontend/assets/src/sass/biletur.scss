@@ -53,7 +53,6 @@ body {
 			.result {
 				min-height: 300px;
 			}
-
 		}
 
 		.block-panel.process {
@@ -535,4 +534,15 @@ span {
 	&.help-block-error {
 		font-size: 10px;
 	}
+}
+
+.clearfix::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+.f-left {
+	float: left;
+	margin-right: 15px;
 }

@@ -18,6 +18,7 @@ use Yii;
 use yii\base\Component;
 use yii\caching\TagDependency;
 use yii\mongodb\Query;
+use yii\web\NotFoundHttpException;
 
 class CommonTour extends Component {
 	const SOURCE_BILETUR = 0;
@@ -131,6 +132,7 @@ class CommonTour extends Component {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	private function _prepareBiletur() {
+
 		/** @var RefItems $tour */
 		$tour = $this->sourceTourData;
 
@@ -251,6 +253,18 @@ class CommonTour extends Component {
 	private function _prepareTourtrans() {
 		/** @var \common\components\tour\tourtrans\Tour $tour */
 		$tour = $this->sourceTourData;
+		if (null === $tour) {
+			$query = new Query();
+			/** @var \common\components\tour\tourtrans\Tour $tours */
+			$query = $query->select([])->from(Tour::COLLECTION_TOURS);
+			$query->andWhere(['id' => (int)$this->sourceId]);
+			$tour = $query->one();
+			if (false === $tour) {
+				throw new NotFoundHttpException('Тур не найден');
+			}
+			$tour = json_decode($tour['objectData']);
+		}
+
 		$this->title = $tour->title;
 		$this->source = CommonTour::SOURCE_TOURTRANS;
 		$this->sourceId = $tour->id;
@@ -312,6 +326,14 @@ class CommonTour extends Component {
 	private function _prepareTariTour() {
 		/** @var \common\components\tour\tari\Tour $tour */
 		$tour = $this->sourceTourData;
+		if (null === $tour) {
+			$query = new Query();
+			$query->select([])->from(Yii::$app->tariApi::COLLECTION_TOURS);
+			$tour = $query
+				->andWhere([\common\components\tour\tari\Tour::ATTR_TOUR_ID => $this->sourceId])
+				->one();
+		}
+
 		$this->title = $tour[TariTour::ATTR_TOUR_NAME];
 		$this->description = $tour[TariTour::ATTR_DESCRIPTION];
 

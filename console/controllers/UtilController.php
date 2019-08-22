@@ -359,6 +359,5 @@ class UtilController extends Controller {
 		if ($done == $total) {
 			echo "\n";
 		}
-
 	}
 }
