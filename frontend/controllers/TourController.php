@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\base\helpers\StringHelper;
 use common\components\FrontendMenuController;
 use common\components\tour\CommonTour;
+use common\components\UserRequestsHistory;
 use common\forms\tour\SearchForm;
 use common\modules\seo\models\Seo;
 use Yii;
@@ -28,10 +29,18 @@ class TourController extends FrontendMenuController {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function actionIndex() {
+		$history = new UserRequestsHistory();
 		$form = new SearchForm();
 
 		if (Yii::$app->request->isPjax) {
 			$form->load(Yii::$app->request->post());
+			$history->setRequestToHistory($form->attributes);
+		}
+		else {
+			$lastQuery = $history->getRequestFromHistory();
+			if (false !== $lastQuery) {
+				$form->attributes = $lastQuery;
+			}
 		}
 
 		$form->search();
