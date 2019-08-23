@@ -1,9 +1,5 @@
 <?php
 
-use common\components\RemoteImageCache;
-use frontend\controllers\TourController;
-use common\base\helpers\StringHelper;
-
 /**
  * @author Исаков Владислав <visakov@biletur.ru>
  *
@@ -15,4 +11,5 @@ use common\base\helpers\StringHelper;
 	<div class="result">
 		<div class="loading-widget" style="display: none;"></div>
 		<?= $this->render('__tours', ['tours' => $tours]) ?>
+
 	</div>

@@ -15,12 +15,14 @@
 		var SORT_DAYS = $('.sort.days');
 		var SORT_PRICE_INPUT = $('#searchform-sortby');
 		var SORT_DAYS_INPUT = $('#searchform-sortdaysby');
+		var LOADING_BOTTOM = $('.loading-bottom');
+
 		var methods = {
 			init: function () {
 				$('.tour-block').fadeIn();
-
+				//$('body,html').animate({scrollTop: 0}, 500);
 				//Отображение крутилки подгрузки ajax'ом
-				$(document).on('pjax:send', function() {
+				$(document).on('pjax:send', function () {
 
 					LOADING_WIDGET.show();
 					BLOCK_PANEL_RESULT_LIST.html('');
@@ -31,6 +33,7 @@
 				WAY_POINT_FILTER.click(function () {
 					WAY_POINT_INPUT.val($(this).data('value'));
 					FORM.submit();
+					$('body,html').animate({scrollTop: 0}, 500);
 				});
 
 				//Клик по сортировке по цене
@@ -50,6 +53,7 @@
 				//Подгрузка данных
 				$(window).scroll(function () {
 					if (($(window).scrollTop() + $(window).height() >= $(document).height() - 300) && true !== IS_AJAX) {
+						LOADING_BOTTOM.show();
 						$.ajax({
 							url: LOAD_TOUR_URL,
 							method: "POST",
@@ -62,6 +66,8 @@
 							RESULT_BLOCK.append(data);
 							COUNT_INPUT.val($('.tour-block').length);
 							$('.tour-block').fadeIn();
+							LOADING_BOTTOM.hide();
+
 						});
 					}
 				});

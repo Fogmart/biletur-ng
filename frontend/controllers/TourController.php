@@ -93,6 +93,19 @@ class TourController extends FrontendMenuController {
 		$commonTour->prepare();
 
 		//Регистрируем метатэги
+		$this->view->title = 'Тур: ' . $commonTour->title . ' | ' . Yii::$app->name;
+
+		$this->view->registerMetaTag([
+			'name'    => 'title',
+			'content' => $this->view->title
+		]);
+
+		$this->view->registerMetaTag([
+			'name'    => 'description',
+			'content' => StringHelper::trimSentence($commonTour->description, '150')
+		]);
+
+		//Если есть тэги установленные через админку то приоритет им
 		Seo::registerMetaByObject(CommonTour::class, $commonTour->sourceId, $this->view);
 
 		//Регистрируем каноническую ссылку для поисковиков, чтобы старые ссылки без slug не конфликтовали в индексации

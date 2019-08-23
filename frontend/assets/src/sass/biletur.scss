@@ -2,9 +2,9 @@
 
 $mainBlueColor: #0066b1;
 $mainBlueColorLight: #5492fe;
+$mainContainerLight: #b6dcff;
 $mainRedColor: #dc0531;
 $mainRedColorLight: #ff93aa;
-$mainContainerLight: #b6dcff;
 html,
 body {
 	height: auto;
@@ -545,4 +545,13 @@ span {
 .f-left {
 	float: left;
 	margin-right: 15px;
+}
+
+.loading-bottom {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	width: 400px;
+	height: 70px;
+	overflow: hidden;
+	background: transparent url('/images/loading-bottom.svg') center no-repeat;
 }

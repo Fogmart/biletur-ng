@@ -273,6 +273,7 @@ class CommonTour extends Component {
 		$this->imageOld = Tour::SITE_URL . $tour->image;
 		$this->wayPoints = [];
 		$this->daysCount = $tour->duration;
+		$this->sourceUrl = $tour->url;
 
 		$route = str_replace(["*"], '', $tour->route);
 		$route = preg_replace("/\([^)]+\)/", "", $route);
@@ -290,6 +291,7 @@ class CommonTour extends Component {
 
 				Yii::$app->cache->set($cacheKey, $town, null);
 			}
+
 			if (null === $town) {
 				continue;
 			}
