@@ -33,7 +33,7 @@
 				WAY_POINT_FILTER.click(function () {
 					WAY_POINT_INPUT.val($(this).data('value'));
 					FORM.submit();
-					$('body,html').animate({scrollTop: 0}, 500);
+					$('body,html').animate({scrollTop: 90}, 500);
 				});
 
 				//Клик по сортировке по цене
@@ -53,7 +53,7 @@
 				//Подгрузка данных
 				$(window).scroll(function () {
 					if (($(window).scrollTop() + $(window).height() >= $(document).height() - 300) && true !== IS_AJAX) {
-						LOADING_BOTTOM.show();
+						//LOADING_BOTTOM.show();
 						$.ajax({
 							url: LOAD_TOUR_URL,
 							method: "POST",
@@ -66,8 +66,7 @@
 							RESULT_BLOCK.append(data);
 							COUNT_INPUT.val($('.tour-block').length);
 							$('.tour-block').fadeIn();
-							LOADING_BOTTOM.hide();
-
+							//LOADING_BOTTOM.hide();
 						});
 					}
 				});

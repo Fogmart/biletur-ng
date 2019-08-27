@@ -193,6 +193,7 @@ class CommonTour extends Component {
 				if (null === $commonWayPoint->country) {
 					continue;
 				}
+
 				$this->wayPoints[$commonWayPoint->country][] = $commonWayPoint;
 			}
 
@@ -280,16 +281,21 @@ class CommonTour extends Component {
 		$route = explode("–", $route);
 
 		foreach ($route as $index => $place) {
-			$cacheKey = Yii::$app->cache->buildKey(['$town', trim($place), 2]);
+			$place = trim($place);
+			$cacheKey = Yii::$app->cache->buildKey(['$town', $place, 7]);
 			$town = Yii::$app->cache->get($cacheKey);
 			if (false === $town) {
 				/** @var Town $town */
 				$town = Town::find()
-					->andWhere(['LIKE', Town::tableName() . '.' . Town::ATTR_NAME, trim($place)])
+					->andWhere([Town::tableName() . '.' . Town::ATTR_NAME => $place])
 					->joinWith(Town::REL_COUNTRY, true, 'INNER JOIN')
 					->one();
 
 				Yii::$app->cache->set($cacheKey, $town, null);
+			}
+
+			if (strlen($place) < 4) {
+				continue;
 			}
 
 			if (null === $town) {

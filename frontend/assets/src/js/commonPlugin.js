@@ -15,13 +15,13 @@
 		var methods = {
 			init: function () {
 				//Отображение крутилки подгрузки ajax'ом
-				$(document).on('pjax:send', function() {
+				$(document).on('pjax:send', function () {
 					LOADING_WIDGET.show();
 					BLOCK_PANEL_RESULT_LIST.html('');
 					BLOCK_PANEL.addClass('process');
 				});
 
-				$(document).on('pjax:complete', function() {
+				$(document).on('pjax:complete', function () {
 					LOADING_WIDGET.hide();
 					BLOCK_PANEL.removeClass('process');
 				});
@@ -34,7 +34,7 @@
 						LEFT_MENU.removeClass("fixed");
 					}
 
-					if($(this).scrollTop() > 100) {
+					if ($(this).scrollTop() > 100) {
 						BUTTON_TO_TOP.fadeIn();
 					} else {
 						BUTTON_TO_TOP.fadeOut();
@@ -46,8 +46,8 @@
 					TOWN_SELECT_MODAL.modal('show');
 				});
 
-				BUTTON_TO_TOP.click(function() {
-					$('body,html').animate({scrollTop:0},500);
+				BUTTON_TO_TOP.click(function () {
+					$('body,html').animate({scrollTop: 0}, 500);
 				});
 
 				BUTTON_CLOSE_GEO_MESSAGE.click(function () {
