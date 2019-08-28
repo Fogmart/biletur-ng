@@ -29,8 +29,6 @@ use sem\helpers\Html;
 				</div>
 				<div class="col-md-9 col-xs-12">
 					<?= $tour->description ?>
-
-					<p><?php \common\base\helpers\Dump::d($tour->sourceUrl) ?></p>
 					<br>
 					<?php foreach ($tour->wayPoints as $country => $wayPoints): ?>
 						<b><a href="javascript:" class="way-point-tag" data-value="country_<?= $country ?>"><img width="30" alt="<?= $country ?>" src="<?= $wayPoints[0]->countryFlagImage ?>"></a> <a href="javascript:" class="way-point-tag" data-value="country_<?= $country ?>"><?= $country ?></a>:</b>

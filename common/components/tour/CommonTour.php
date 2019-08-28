@@ -99,6 +99,7 @@ class CommonTour extends Component {
 	/**
 	 * Конвертация тура к общему представлению
 	 *
+	 * @throws \yii\web\NotFoundHttpException
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function prepare() {
@@ -370,7 +371,6 @@ class CommonTour extends Component {
 		$wayPoint->number = 1;
 		$wayPoint->daysCount = 0;
 		$this->wayPoints[$wayPoint->country][] = $wayPoint;
-		//Dump::dDie($this->wayPoints);
 	}
 
 	/**

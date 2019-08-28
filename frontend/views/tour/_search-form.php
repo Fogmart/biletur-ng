@@ -72,8 +72,9 @@ use yii\web\JsExpression;
 				'formatter' => new yii\web\JsExpression("function(val) {
 						var priceMin = new Number(val[0]);
 						var priceMax = new Number(val[1]);
+						
 						return 'Цена: ' + priceMin.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ') + ' - ' + priceMax.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ') + ' руб';
-			        }")
+					}")
 			],
 			'pluginEvents'  => [
 				'slideStop' => new JsExpression("function() { $('#w0').submit(); }")
