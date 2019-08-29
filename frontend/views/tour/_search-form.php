@@ -23,7 +23,7 @@ use yii\web\JsExpression;
 <?= $htmlForm->field($form, $form::ATTR_SORT_DAYS_BY)->hiddenInput()->label(false) ?>
 <div class="row">
 	<div class="col-xs-4">
-		<?= $htmlForm->field($form, $form::ATTR_TOUR_TO)->widget(Select2::class, [
+		<?= $htmlForm->field($form, $form::ATTR_TOUR_TO, ['template' => "{input}"])->widget(Select2::class, [
 			'data'          => $form->getTourToPaths(),
 			'language'      => 'ru',
 			'options'       => [
@@ -42,7 +42,7 @@ use yii\web\JsExpression;
 	</div>
 	<div class="col-xs-2">
 		<?=
-		$htmlForm->field($form, $form::ATTR_FILTER_TOUR_TYPE)->widget(
+		$htmlForm->field($form, $form::ATTR_FILTER_TOUR_TYPE, ['template' => "{input}"])->widget(
 			Select2::class, [
 				'data'          => ArrayHelper::map($form->getTypes(), 'ID', 'NAME'),
 				'options'       => [
@@ -61,7 +61,7 @@ use yii\web\JsExpression;
 		?>
 	</div>
 	<div class="col-xs-2">
-		<?= $htmlForm->field($form, $form::ATTR_PRICE_RANGE)->widget(Slider::class, [
+		<?= $htmlForm->field($form, $form::ATTR_PRICE_RANGE, ['template' => "{input}"])->widget(Slider::class, [
 			'sliderColor'   => Slider::TYPE_GREY,
 			'pluginOptions' => [
 				'min'       => $form->priceMinMax[0],
@@ -83,7 +83,7 @@ use yii\web\JsExpression;
 		?>
 	</div>
 	<div class="col-xs-offset-1 col-xs-2">
-		<?= $htmlForm->field($form, $form::FILTER_DAYS_COUNT)->widget(Slider::class, [
+		<?= $htmlForm->field($form, $form::FILTER_DAYS_COUNT, ['template' => "{input}"])->widget(Slider::class, [
 			'sliderColor'   => Slider::TYPE_GREY,
 			'pluginOptions' => [
 				'min'       => $form->daysMinMax[0],
@@ -94,8 +94,9 @@ use yii\web\JsExpression;
 				'formatter' => new yii\web\JsExpression("function(val) {
 						var min = new Number(val[0]);
 						var max = new Number(val[1]);
+						
 						return 'Длительность: ' + min + ' - ' + max + ' дней';
-			        }")
+					}")
 			],
 			'pluginEvents'  => [
 				'slideStop' => new JsExpression("function() { $('#w0').submit(); }")

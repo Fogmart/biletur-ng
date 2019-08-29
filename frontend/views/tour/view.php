@@ -5,6 +5,7 @@
  * @var \common\components\tour\CommonTour $tour
  */
 
+use common\base\helpers\Dump;
 use common\components\RemoteImageCache;
 use common\components\tour\CommonTour;
 use sem\helpers\Html;
@@ -19,3 +20,6 @@ use sem\helpers\Html;
 	<?php endif ?>
 	<?= $tour->description ?>
 </div>
+<?php
+Dump::dDie($tour);
+?>

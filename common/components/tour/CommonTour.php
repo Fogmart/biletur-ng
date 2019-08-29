@@ -347,6 +347,7 @@ class CommonTour extends Component {
 		$this->description = $tour[TariTour::ATTR_DESCRIPTION];
 
 		//$this->daysCount = (int)$this->sourceTourAdditionalData[count($this->sourceTourAdditionalData) - 1]['Day'];
+
 		$this->beginDate = $tour[TariTour::ATTR_TOUR_DATE];
 		$this->endDate = $tour[TariTour::ATTR_TOUR_DATE];
 		$this->imageOld = $tour[TariTour::ATTR_IMAGE];
@@ -371,6 +372,10 @@ class CommonTour extends Component {
 		$wayPoint->number = 1;
 		$wayPoint->daysCount = 0;
 		$this->wayPoints[$wayPoint->country][] = $wayPoint;
+	}
+
+	private function _prepareTourvisor() {
+
 	}
 
 	/**
