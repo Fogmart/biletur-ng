@@ -1,6 +1,6 @@
 (function ($) {
 	$.fn.searchExcursionPlugin = function () {
-		var methods = {
+		const methods = {
 			init: function () {
 				$('.page-num').click(function () {
 					$('#searchform-page').val($(this).data('num'));

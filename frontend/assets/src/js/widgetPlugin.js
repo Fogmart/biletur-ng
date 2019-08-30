@@ -1,5 +1,5 @@
 (function ($) {
-	var methods = {
+	const methods = {
 		init: function (params) {
 			if (window.addEventListener) {
 				window.addEventListener('load', $(this).widgetPlugin('getDocHeight', $(this)), false);

@@ -1,18 +1,18 @@
 (function ($) {
 	$.fn.commonPlugin = function () {
 
-		var LOADING_WIDGET = $('.loading-widget');
-		var BLOCK_PANEL = $('.block-panel');
-		var BLOCK_PANEL_RESULT_LIST = $('.block-panel .result .list');
-		var LEFT_MENU = $('.left-menu');
-		var TOWN_INPUT = $('.town-input');
-		var TOWN_SELECT_MODAL = $('#modal-towns');
-		var BUTTON_TO_TOP = $('#scrollUp');
-		var BUTTON_CLOSE_GEO_MESSAGE = $('.close-geo-message');
-		var BUTTON_OPEN_GEO_MODAL = $('.select-geo-city');
-		var GEO_MESSAGE = $('.dropdown-city');
+		const LOADING_WIDGET = $('.loading-widget');
+		const BLOCK_PANEL = $('.block-panel');
+		const BLOCK_PANEL_RESULT_LIST = $('.block-panel .result .list');
+		const LEFT_MENU = $('.left-menu');
+		const TOWN_INPUT = $('.town-input');
+		const TOWN_SELECT_MODAL = $('#modal-towns');
+		const BUTTON_TO_TOP = $('#scrollUp');
+		const BUTTON_CLOSE_GEO_MESSAGE = $('.close-geo-message');
+		const BUTTON_OPEN_GEO_MODAL = $('.select-geo-city');
+		const GEO_MESSAGE = $('.dropdown-city');
 
-		var methods = {
+		const methods = {
 			init: function () {
 				//Отображение крутилки подгрузки ajax'ом
 				$(document).on('pjax:send', function () {

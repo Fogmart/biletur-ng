@@ -1,23 +1,23 @@
 (function ($) {
 	$.fn.searchTourPlugin = function () {
-		var LOADING_WIDGET = $('.loading-widget');
-		var BLOCK_PANEL = $('.block-panel');
-		var BLOCK_PANEL_RESULT_LIST = $('.block-panel .result .list');
-		var FORM = $('#w0');
-		var WAY_POINT_FILTER = $('.way-point-tag');
-		var WAY_POINT_INPUT = $('#searchform-tourto');
-		var COUNT_INPUT = $('#searchform-count');
-		var LOAD_TOUR_URL = $('.load-tour-url').data('url');
-		var RESULT_BLOCK = $('.result');
-		var TOUR_SEARCH_FORM = $('#w0');
-		var IS_AJAX = false;
-		var SORT_PRICE = $('.sort.price');
-		var SORT_DAYS = $('.sort.days');
-		var SORT_PRICE_INPUT = $('#searchform-sortby');
-		var SORT_DAYS_INPUT = $('#searchform-sortdaysby');
-		var LOADING_BOTTOM = $('.loading-bottom');
+		const LOADING_WIDGET = $('.loading-widget');
+		const BLOCK_PANEL = $('.block-panel');
+		const BLOCK_PANEL_RESULT_LIST = $('.block-panel .result .list');
+		const FORM = $('#w0');
+		const WAY_POINT_FILTER = $('.way-point-tag');
+		const WAY_POINT_INPUT = $('#searchform-tourto');
+		const COUNT_INPUT = $('#searchform-count');
+		const LOAD_TOUR_URL = $('.load-tour-url').data('url');
+		const RESULT_BLOCK = $('.result');
+		const TOUR_SEARCH_FORM = $('#w0');
+		const IS_AJAX = false;
+		const SORT_PRICE = $('.sort.price');
+		const SORT_DAYS = $('.sort.days');
+		const SORT_PRICE_INPUT = $('#searchform-sortby');
+		const SORT_DAYS_INPUT = $('#searchform-sortdaysby');
+		const LOADING_BOTTOM = $('.loading-bottom');
 
-		var methods = {
+		const methods = {
 			init: function () {
 				$('.tour-block').fadeIn();
 				//$('body,html').animate({scrollTop: 0}, 500);
