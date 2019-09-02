@@ -11,40 +11,41 @@ use common\models\oracle\scheme\DspBaseModel;
  * Модель таблицы SNS.ORGS
  *
  * Поля таблицы:
- * @property string                                           $ID
- * @property int                                              $PREID
- * @property int                                              $PARID
- * @property string                                           $ID1C
- * @property string                                           $IDAURA
- * @property string                                           $NAME
- * @property string                                           $ORGTYPE
- * @property int                                              $CRCCNVTYPE
- * @property string                                           $ORGFORM
- * @property string                                           $INN
- * @property string                                           $KPP
- * @property string                                           $OKONH
- * @property string                                           $OKPO
- * @property string                                           $GRP
- * @property string                                           $PHONE
- * @property string                                           $FAX
- * @property string                                           $EMAIL
- * @property int                                              $ISSUPPLIER
- * @property int                                              $ISPAYALL
- * @property int                                              $ISDEMO
- * @property string                                           $SRVFILID
- * @property string                                           $ENDDATE
- * @property string                                           $WHOCRT
- * @property string                                           $WHNCRT
- * @property string                                           $WHOCHNG
- * @property string                                           $WHNCHNG
- * @property string                                           $WEBSITE
- * @property string                                           $WHNUPD
+ * @property string                                         $ID
+ * @property int                                            $PREID
+ * @property int                                            $PARID
+ * @property string                                         $ID1C
+ * @property string                                         $IDAURA
+ * @property string                                         $NAME
+ * @property string                                         $ORGTYPE
+ * @property int                                            $CRCCNVTYPE
+ * @property string                                         $ORGFORM
+ * @property string                                         $INN
+ * @property string                                         $KPP
+ * @property string                                         $OKONH
+ * @property string                                         $OKPO
+ * @property string                                         $GRP
+ * @property string                                         $PHONE
+ * @property string                                         $FAX
+ * @property string                                         $EMAIL
+ * @property int                                            $ISSUPPLIER
+ * @property int                                            $ISPAYALL
+ * @property int                                            $ISDEMO
+ * @property string                                         $SRVFILID
+ * @property string                                         $ENDDATE
+ * @property string                                         $WHOCRT
+ * @property string                                         $WHNCRT
+ * @property string                                         $WHOCHNG
+ * @property string                                         $WHNCHNG
+ * @property string                                         $WEBSITE
+ * @property string                                         $WHNUPD
  *
  *
- * @property \common\models\oracle\scheme\sns\DspOrgAddrs $legalAddress
- * @property \common\models\oracle\scheme\sns\DspOrgAddrs $localAddress
- * @property \common\models\oracle\scheme\sns\DspOrgAcnts $account
- * @property \common\models\oracle\scheme\sns\DspOrgDogs  $dogs
+ * @property \common\models\oracle\scheme\sns\DspOrgAddrs   $legalAddress
+ * @property \common\models\oracle\scheme\sns\DspOrgAddrs   $localAddress
+ * @property \common\models\oracle\scheme\sns\DspOrgAddrs[] $address
+ * @property \common\models\oracle\scheme\sns\DspOrgAcnts   $account
+ * @property \common\models\oracle\scheme\sns\DspOrgDogs    $dogs
  */
 class DspOrgs extends DspBaseModel {
 
@@ -132,6 +133,19 @@ class DspOrgs extends DspBaseModel {
 			->andWhere([DspOrgAddrs::ATTR_ADDR_TYPE_ID => 2])
 			->andWhere([DspOrgAddrs::ATTR_ACTIVE => 1]);
 	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function getAddress() {
+		return $this->hasOne(DspOrgAddrs::class, [DspOrgAddrs::ATTR_ORGID => 'ID'])
+			->andWhere([DspOrgAddrs::ATTR_ACTIVE => 1]);
+	}
+
+	const REL_ADDRESS = 'address';
+
 
 	/**
 	 * @return \yii\db\ActiveQuery

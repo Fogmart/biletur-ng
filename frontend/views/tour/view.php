@@ -11,7 +11,8 @@ use common\components\tour\CommonTour;
 use sem\helpers\Html;
 
 ?>
-<h3><?= $tour->title ?></h3>
+
+	<h3><?= $tour->title ?></h3>
 <div class="clearfix">
 	<?php if (null !== $tour->image): ?>
 		<?= Html::img(Yii::$app->imageresize->getUrl($tour->image, 195, 195), ['class' => 'img-rounded f-left']); ?>
