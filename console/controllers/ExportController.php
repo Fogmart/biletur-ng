@@ -6,6 +6,8 @@ use bupy7\xml\constructor\XmlConstructor;
 use common\models\oracle\scheme\sns\DspOrgs;
 use yii\console\Controller;
 
+/** @noinspection PhpUnused */
+
 /**
  * Экспорт данных
  *
@@ -14,6 +16,8 @@ use yii\console\Controller;
  * @author  Исаков Владислав <visakov@biletur.ru>
  */
 class ExportController extends Controller {
+
+	/** @noinspection PhpUnused */
 
 	/**
 	 * Выгрузка справочника организаций из ДСП в MOM
@@ -46,7 +50,7 @@ class ExportController extends Controller {
 					'elements' => [
 						[
 							'tag'     => 'type',
-							'content' => 'LEGAL'
+							'content' => $addressType
 						],
 						[
 							'tag'     => 'zip',
@@ -181,7 +185,6 @@ class ExportController extends Controller {
 					]
 				];
 			}
-
 
 			$orgNodes[] = [
 				'tag'      => 'organization',
