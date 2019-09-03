@@ -25,6 +25,7 @@ use common\models\oracle\scheme\DspBaseModel;
  * @property string                                         $ROOM
  * @property string                                         $REMARK
  * @property string                                         $ADDRESS
+ * @property string                                         $ADDRTYPE
  *
  *
  * @property-read \common\models\oracle\scheme\sns\DspTowns $city

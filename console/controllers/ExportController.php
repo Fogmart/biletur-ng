@@ -3,7 +3,6 @@
 namespace console\controllers;
 
 use bupy7\xml\constructor\XmlConstructor;
-use common\base\helpers\StringHelper;
 use common\models\oracle\scheme\sns\DspOrgs;
 use yii\console\Controller;
 
@@ -28,6 +27,15 @@ class ExportController extends Controller {
 		foreach ($orgs as $org) {
 			$addresses = [];
 			foreach ($org->address as $address) {
+				if (null === $address->city) {
+					continue;
+				}
+
+				$addressType = trim($address->ADDRTYPE);
+				if ($addressType == 'POST') {
+					$addressType = 'CONTACT';
+				}
+
 				$addresses[] = [
 					'tag'      => 'item',
 					'elements' => [
@@ -37,7 +45,7 @@ class ExportController extends Controller {
 						],
 						[
 							'tag'     => 'zip',
-							'content' => $address->ZIP
+							'content' => trim($address->ZIP)
 						],
 						[
 							'tag'     => 'country',
@@ -55,20 +63,7 @@ class ExportController extends Controller {
 										],
 										[
 											'tag'     => 'value',
-											'content' => $address->REGION
-										]
-									]
-								],
-								[
-									'tag'      => 'item',
-									'elements' => [
-										[
-											'tag'     => 'locale',
-											'content' => 'EN',
-										],
-										[
-											'tag'     => 'value',
-											'content' => StringHelper::transliterate($address->REGION)
+											'content' => trim($address->REGION)
 										]
 									]
 								]
@@ -76,7 +71,7 @@ class ExportController extends Controller {
 						],
 						[
 							'tag'     => 'city',
-							'content' => $address->city->IATACODE
+							'content' => trim($address->city->IATACODE)
 						],
 						[
 							'tag'      => 'town',
@@ -90,7 +85,7 @@ class ExportController extends Controller {
 										],
 										[
 											'tag'     => 'value',
-											'content' => $address->city->NAME
+											'content' => trim($address->city->NAME)
 										]
 									]
 								],
@@ -103,7 +98,7 @@ class ExportController extends Controller {
 										],
 										[
 											'tag'     => 'value',
-											'content' => $address->city->ENAME
+											'content' => trim($address->city->ENAME)
 										]
 									]
 								]
@@ -121,23 +116,10 @@ class ExportController extends Controller {
 										],
 										[
 											'tag'     => 'value',
-											'content' => $address->STREET
+											'content' => trim($address->STREET)
 										]
 									]
 								],
-								[
-									'tag'      => 'item',
-									'elements' => [
-										[
-											'tag'     => 'locale',
-											'content' => 'EN',
-										],
-										[
-											'tag'     => 'value',
-											'content' => StringHelper::transliterate($address->STREET)
-										]
-									]
-								]
 							]
 						],
 						[
@@ -152,23 +134,10 @@ class ExportController extends Controller {
 										],
 										[
 											'tag'     => 'value',
-											'content' => $address->HOUSE
+											'content' => trim($address->HOUSE)
 										]
 									]
 								],
-								[
-									'tag'      => 'item',
-									'elements' => [
-										[
-											'tag'     => 'locale',
-											'content' => 'EN',
-										],
-										[
-											'tag'     => 'value',
-											'content' => $address->HOUSE
-										]
-									]
-								]
 							]
 						],
 					]
@@ -185,7 +154,7 @@ class ExportController extends Controller {
 						],
 						[
 							'tag'     => 'sense',
-							'content' => $org->WEBSITE
+							'content' => trim($org->WEBSITE)
 						],
 					]
 				],
@@ -198,7 +167,7 @@ class ExportController extends Controller {
 						],
 						[
 							'tag'     => 'sense',
-							'content' => $org->EMAIL
+							'content' => trim($org->EMAIL)
 						],
 					]
 				],
@@ -209,13 +178,15 @@ class ExportController extends Controller {
 				'elements' => [
 					[
 						'tag'     => 'code',
-						'content' => $org->IDAURA
+						'content' => trim($org->IDAURA)
 					],
 					[
 						'tag'      => 'types',
 						'elements' => [
-							'tag'     => 'item',
-							'content' => 'CORPORATE_CLIENT'
+							[
+								'tag'     => 'item',
+								'content' => 'CORPORATE_CLIENT'
+							]
 						]
 					],
 					[
@@ -230,23 +201,10 @@ class ExportController extends Controller {
 									],
 									[
 										'tag'     => 'value',
-										'content' => $org->NAME
+										'content' => trim($org->NAME)
 									],
 								]
 							],
-							[
-								'tag'      => 'item',
-								'elements' => [
-									[
-										'tag'     => 'locale',
-										'content' => 'EN'
-									],
-									[
-										'tag'     => 'value',
-										'content' => StringHelper::transliterate($org->NAME)
-									],
-								]
-							]
 						]
 					],
 					[
@@ -261,40 +219,27 @@ class ExportController extends Controller {
 									],
 									[
 										'tag'     => 'value',
-										'content' => $org->NAME
+										'content' => trim($org->NAME)
 									],
 								]
 							],
-							[
-								'tag'      => 'item',
-								'elements' => [
-									[
-										'tag'     => 'locale',
-										'content' => 'EN'
-									],
-									[
-										'tag'     => 'value',
-										'content' => StringHelper::transliterate($org->NAME)
-									],
-								]
-							]
 						]
 					],
 					[
 						'tag'     => 'legalForm',
-						'content' => $org->ORGFORM
+						'content' => trim($org->ORGFORM)
 					],
 					[
 						'tag'     => 'inn',
-						'content' => $org->INN
+						'content' => trim($org->INN)
 					],
 					[
 						'tag'     => 'kpp',
-						'content' => $org->KPP
+						'content' => trim($org->KPP)
 					],
 					[
 						'tag'     => 'okpo',
-						'content' => $org->OKPO
+						'content' => trim($org->OKPO)
 					],
 					[
 						'tag'     => 'foreign',
@@ -313,8 +258,10 @@ class ExportController extends Controller {
 		}
 
 		$in = [
-			'tag'      => 'organizations',
-			'elements' => $orgNodes
+			[
+				'tag'      => 'organizations',
+				'elements' => $orgNodes
+			]
 		];
 
 		$xmlStr = $xml->fromArray($in)->toOutput();

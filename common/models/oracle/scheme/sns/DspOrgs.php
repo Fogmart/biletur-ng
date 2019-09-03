@@ -140,7 +140,7 @@ class DspOrgs extends DspBaseModel {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function getAddress() {
-		return $this->hasOne(DspOrgAddrs::class, [DspOrgAddrs::ATTR_ORGID => 'ID'])
+		return $this->hasMany(DspOrgAddrs::class, [DspOrgAddrs::ATTR_ORGID => 'ID'])
 			->andWhere([DspOrgAddrs::ATTR_ACTIVE => 1]);
 	}
 
