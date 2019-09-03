@@ -2,13 +2,11 @@
 
 namespace frontend\controllers;
 
-use common\base\helpers\Dump;
 use common\base\helpers\StringHelper;
 use common\components\FrontendMenuController;
 use common\components\tour\CommonTour;
 use common\components\UserRequestsHistory;
 use common\forms\tour\SearchForm;
-use common\models\oracle\scheme\sns\DspOrgs;
 use common\modules\seo\models\Seo;
 use Yii;
 use yii\web\Response;
@@ -31,20 +29,6 @@ class TourController extends FrontendMenuController {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function actionIndex() {
-		$orgs = DspOrgs::find()
-			->andWhere(['IS NOT', DspOrgs::ATTR_IDAURA, null])
-			->joinWith(DspOrgs::REL_ADDRESS)
-			->limit(100)
-			->all();
-		foreach ($orgs as $org) {
-			$addresses = [];
-
-			foreach ($org->address as $address) {
-				Dump::dDie($address);
-			}
-		}
-
-
 		$history = new UserRequestsHistory();
 		$form = new SearchForm();
 

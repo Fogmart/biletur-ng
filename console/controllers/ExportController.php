@@ -15,6 +15,11 @@ use yii\console\Controller;
  */
 class ExportController extends Controller {
 
+	/**
+	 * Выгрузка справочника организаций из ДСП в MOM
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
 	public function actionOrgs2Mom() {
 		/** @var DspOrgs[] $orgs */
 		$orgs = DspOrgs::find()
