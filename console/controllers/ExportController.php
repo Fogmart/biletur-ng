@@ -144,8 +144,9 @@ class ExportController extends Controller {
 				];
 			}
 
-			$communications = [
-				[
+			$communications = [];
+			if (!empty(trim($org->WEBSITE))) {
+				$communications[] = [
 					'tag'      => 'item',
 					'elements' => [
 						[
@@ -157,8 +158,11 @@ class ExportController extends Controller {
 							'content' => trim($org->WEBSITE)
 						],
 					]
-				],
-				[
+				];
+			}
+
+			if (!empty(trim($org->EMAIL))) {
+				$communications[] = [
 					'tag'      => 'item',
 					'elements' => [
 						[
@@ -170,8 +174,9 @@ class ExportController extends Controller {
 							'content' => trim($org->EMAIL)
 						],
 					]
-				],
-			];
+				];
+			}
+
 
 			$orgNodes[] = [
 				'tag'      => 'organization',
@@ -243,7 +248,7 @@ class ExportController extends Controller {
 					],
 					[
 						'tag'     => 'foreign',
-						'content' => false
+						'content' => 'false'
 					],
 					[
 						'tag'      => 'communications',
