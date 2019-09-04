@@ -10,12 +10,12 @@
 		const LOAD_TOUR_URL = $('.load-tour-url').data('url');
 		const RESULT_BLOCK = $('.result');
 		const TOUR_SEARCH_FORM = $('#w0');
-		const IS_AJAX = false;
 		const SORT_PRICE = $('.sort.price');
 		const SORT_DAYS = $('.sort.days');
 		const SORT_PRICE_INPUT = $('#searchform-sortby');
 		const SORT_DAYS_INPUT = $('#searchform-sortdaysby');
 		const LOADING_BOTTOM = $('.loading-bottom');
+		var IS_AJAX = false;
 
 		const methods = {
 			init: function () {

@@ -27,7 +27,7 @@ class ExportController extends Controller {
 	public function actionOrgs2Mom() {
 		/** @var DspOrgs[] $orgs */
 		$orgs = DspOrgs::find()
-			->andWhere(['IS NOT', DspOrgs::ATTR_IDAURA, null])
+			->andWhere(['IS NOT', DspOrgs::ATTR_IDAURA, null]) //может и не нужно
 			->joinWith(DspOrgs::REL_ADDRESS)
 			->joinWith(DspOrgs::REL_SABRE_ID, true, 'INNER JOIN')
 			->all();
