@@ -46,6 +46,7 @@ use common\models\oracle\scheme\DspBaseModel;
  * @property \common\models\oracle\scheme\sns\DspOrgAddrs[] $address
  * @property \common\models\oracle\scheme\sns\DspOrgAcnts   $account
  * @property \common\models\oracle\scheme\sns\DspOrgDogs    $dogs
+ * @property \common\models\oracle\scheme\sns\DspOrgExtId   $sabreId
  */
 class DspOrgs extends DspBaseModel {
 
@@ -164,4 +165,17 @@ class DspOrgs extends DspBaseModel {
 	public function getDogs() {
 		return $this->hasMany(DspOrgDogs::class, [DspOrgDogs::ATTR_ORGID => 'ID'])->orderBy(DspOrgDogs::ATTR_DOG_DATE);
 	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function getSabreId() {
+		return $this->hasOne(DspOrgExtId::class, [DspOrgExtId::ATTR_ORG_ID => static::ATTR_ID])
+			->andWhere([DspOrgExtId::ATTR_EXT_SYS_ID => DspOrgExtId::EXT_SYS_SABRE]);
+	}
+
+	const REL_SABRE_ID = 'sabreId';
+
 }

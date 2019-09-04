@@ -29,6 +29,7 @@ class ExportController extends Controller {
 		$orgs = DspOrgs::find()
 			->andWhere(['IS NOT', DspOrgs::ATTR_IDAURA, null])
 			->joinWith(DspOrgs::REL_ADDRESS)
+			->joinWith(DspOrgs::REL_SABRE_ID, true, 'INNER JOIN')
 			->all();
 
 		$xml = new XmlConstructor();
@@ -191,7 +192,7 @@ class ExportController extends Controller {
 				'elements' => [
 					[
 						'tag'     => 'code',
-						'content' => trim($org->IDAURA)
+						'content' => trim($org->sabreId->EXTID)
 					],
 					[
 						'tag'      => 'types',

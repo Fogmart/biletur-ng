@@ -81,6 +81,7 @@ class TourController extends FrontendMenuController {
 	 *
 	 * @return string
 	 *
+	 * @throws \yii\web\NotFoundHttpException
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function actionView($id, $src = CommonTour::SOURCE_BILETUR, $slug = null) {
