@@ -134,6 +134,9 @@ class UtilController extends Controller {
 		}
 	}
 
+	/**
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
 	public function actionCsvConv() {
 		$csv = Yii::getAlias('@tourTransData') . DIRECTORY_SEPARATOR . '660.csv';
 
