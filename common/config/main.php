@@ -139,7 +139,7 @@ return [
 		],
 		'ipgeobase'        => [
 			'class'      => IpGeoBase::class,
-			'useLocalDB' => false,
+			'useLocalDB' => true,
 		],
 		'authManager'      => [
 			'class'        => 'yii\rbac\DbManager',

@@ -151,6 +151,8 @@ class SearchForm extends Model {
 	 *
 	 * @return \common\components\tour\CommonTour[]
 	 *
+	 * @throws \yii\web\NotFoundHttpException
+	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function search($onlyBiletur = false) {
@@ -191,6 +193,9 @@ class SearchForm extends Model {
 	 * Возможные направления туров
 	 *
 	 * @return array
+	 *
+	 * @throws \yii\base\InvalidConfigException
+	 * @throws \yii\mongodb\Exception
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
@@ -355,6 +360,7 @@ class SearchForm extends Model {
 	 *
 	 * @return CommonTour[]
 	 *
+	 * @throws \yii\web\NotFoundHttpException
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	private function _searchBiletur() {
@@ -410,6 +416,8 @@ class SearchForm extends Model {
 	 *
 	 * @return array
 	 *
+	 * @throws \yii\web\NotFoundHttpException
+	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	private function _searchTransTour() {
@@ -456,6 +464,8 @@ class SearchForm extends Model {
 	 * Поиск в Таритур
 	 *
 	 * @return CommonTour[]
+	 *
+	 * @throws \yii\web\NotFoundHttpException
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */

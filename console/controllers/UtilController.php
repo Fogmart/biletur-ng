@@ -150,6 +150,7 @@ class UtilController extends Controller {
 			$email = $row[6];
 			$validator = new EmailValidator();
 			$companyName = explode('/', $row[1]);
+
 			if ($validator->validate($email)) {
 				$validRecords[] = [$row[6], $companyName[0]];
 			}
