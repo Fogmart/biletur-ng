@@ -266,6 +266,28 @@ class ExportController extends Controller {
 					[
 						'tag'      => 'addresses',
 						'elements' => $addresses
+					],
+					[
+						'tag'      => 'metadata',
+						'elements' => [
+							[
+								'tag'      => 'item',
+								'elements' => [
+									[
+										'tag'     => 'key',
+										'content' => 'KEY_ACCOUNTING_SYSTEM_CODE'
+									],
+									[
+										'tag'     => 'value',
+										'content' => $org->ID1C
+									],
+									[
+										'tag'     => 'remarks',
+										'content' => 'Код в 1С'
+									]
+								]
+							]
+						]
 					]
 				]
 			];

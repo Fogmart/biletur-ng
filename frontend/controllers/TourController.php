@@ -26,6 +26,8 @@ class TourController extends FrontendMenuController {
 	 *
 	 * @return string
 	 *
+	 * @throws \yii\web\NotFoundHttpException
+	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function actionIndex() {
@@ -52,6 +54,8 @@ class TourController extends FrontendMenuController {
 	 * Подгрузка при скролле
 	 *
 	 * @return string
+	 *
+	 * @throws \yii\web\NotFoundHttpException
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
