@@ -1,15 +1,14 @@
 <?php
-
 namespace console\controllers;
 
 use bupy7\xml\constructor\XmlConstructor;
 use common\models\oracle\scheme\sns\DspOrgs;
 use yii\console\Controller;
 
-/** @noinspection PhpUnused */
-
 /**
  * Экспорт данных
+ *
+ * @noinspection PhpUnused
  *
  * @package console\controllers
  *
@@ -20,7 +19,7 @@ class ExportController extends Controller {
 	/** @noinspection PhpUnused */
 
 	/**
-	 * Выгрузка справочника организаций из ДСП в MOM
+	 * Выгрузка справочника организаций из ДСП в Mid Office Manager
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
@@ -279,7 +278,7 @@ class ExportController extends Controller {
 									],
 									[
 										'tag'     => 'value',
-										'content' => $org->ID1C
+										'content' => trim($org->ID1C)
 									],
 									[
 										'tag'     => 'remarks',

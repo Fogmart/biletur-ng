@@ -23,7 +23,6 @@
 				//$('body,html').animate({scrollTop: 0}, 500);
 				//Отображение крутилки подгрузки ajax'ом
 				$(document).on('pjax:send', function () {
-
 					LOADING_WIDGET.show();
 					BLOCK_PANEL_RESULT_LIST.html('');
 					BLOCK_PANEL.addClass('process');
