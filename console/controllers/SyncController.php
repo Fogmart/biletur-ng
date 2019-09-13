@@ -243,7 +243,6 @@ class SyncController extends Controller {
 		/** @var \common\components\tour\tari\Resort[] $resorts */
 		$resorts = Yii::$app->tariApi->request(Yii::$app->tariApi::METHOD_GET_RESORTS);
 
-
 		$params[Yii::$app->tariApi::PARAM_DATE_FROM] = date(DateHelper::INTL_FORMAT_DATE_RU);
 
 		/** @var \common\components\tour\tari\Tour[] $tours */

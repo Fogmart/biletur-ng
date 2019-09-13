@@ -1,0 +1,4 @@
+
+Api-key авторизации устанавливаем в:
+Name: etm-auth-key
+In: header
