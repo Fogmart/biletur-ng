@@ -1,12 +1,13 @@
 <?php
 
+namespace common\modules\api\etm\components;
+
 use yii\base\Component;
 
 /**
  * @author Исаков Владислав <visakov@biletur.ru>
  */
 class EtmApi extends Component {
-
 	public $url;
 	public $apiKey;
 

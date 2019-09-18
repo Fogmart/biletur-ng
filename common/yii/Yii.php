@@ -30,6 +30,7 @@ class Yii extends BaseYii {
  * @property-read \common\modules\api\tripster\components\TripsterApi   $tripsterApi
  * @property-read \common\modules\api\taritour\components\TariApi       $tariApi
  * @property-read \common\modules\api\tourvisor\components\TourVisorApi $tourVisorApi
+ * @property-read \common\modules\api\etm\components\EtmApi             $etmApi
  * @property-read \yii\mongodb\Connection                               $mongodb
  * @property-read \iutbay\yii2imagecache\ImageCache                     $imageCache
  * @property-read fgh151\opengraph\OpenGraph                            $opengraph
