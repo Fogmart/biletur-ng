@@ -31,6 +31,7 @@ class TourController extends FrontendMenuController {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function actionIndex() {
+
 		$history = new UserRequestsHistory();
 		$form = new SearchForm();
 

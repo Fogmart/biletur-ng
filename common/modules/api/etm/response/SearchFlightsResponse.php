@@ -1,6 +1,6 @@
 <?php
 
-namespace common\modules\api\etm\respone;
+namespace common\modules\api\etm\response;
 
 /**
  * Ответ при поиске авиарейсов
