@@ -56,5 +56,18 @@ class Segment {
 	/** @var int */
 	public $stops;
 
+	/** @var \common\modules\api\etm\response\offers\entities\FlightInfo[] */
+	public $flights_info;
 
+	/** @var string */
+	public $tarif;
+
+	/** @var string */
+	public $class;
+
+	/** @var string */
+	public $price;
+
+	/** @var string */
+	public $baggage;
 }
