@@ -22,12 +22,14 @@ class EtmApi extends Component {
 	 */
 	public function sendRequest($method, $query, $isPost) {
 		$url = $this->url . $method;
+		$query = json_encode($query);
 
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_POST, $isPost);
-		curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($query));
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $query);
 		curl_setopt($curl, CURLOPT_HEADER, [
 			'Content-Type: application/json',
+			'Content-Length: ' . strlen($query),
 			'etm-auth-key: ' . $this->apiKey
 		]);
 		curl_setopt($curl, CURLOPT_URL, $url);
