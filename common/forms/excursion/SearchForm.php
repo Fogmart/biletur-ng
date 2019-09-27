@@ -2,14 +2,15 @@
 
 namespace common\forms\excursion;
 
-use common\base\helpers\Dump;
 use common\components\excursion\CommonExcursion;
+use common\components\excursion\CommonGuide;
+use common\components\excursion\CommonPrice;
+use common\components\excursion\CommonPriceDiscount;
 use common\modules\api\tripster\components\TripsterApi;
 use sem\helpers\ArrayHelper;
 use Yii;
 use yii\base\Model;
 use yii\validators\NumberValidator;
-use yii\validators\RequiredValidator;
 use yii\validators\StringValidator;
 
 /**
@@ -137,8 +138,38 @@ class SearchForm extends Model {
 			$commonExcursion->rating = $tripsterExcursion->rating;
 			$commonExcursion->popularity = $tripsterExcursion->popularity;
 			$commonExcursion->reviewCount = $tripsterExcursion->review_count;
-			$commonExcursion->price = $tripsterExcursion->price->value_string;
+
+			$commonExcursion->price = new CommonPrice();
+			$commonExcursion->price->value = $tripsterExcursion->price->value;
+			$commonExcursion->price->valueString = $tripsterExcursion->price->value_string;
+			$commonExcursion->price->unitString = $tripsterExcursion->price->unit_string;
+			$commonExcursion->price->currency = $tripsterExcursion->price->currency;
+
+			switch ($commonExcursion->price->currency) {
+				case 'RUB':
+					$commonExcursion->price->currency = '&#8381;';
+					break;
+				case 'EUR':
+					$commonExcursion->price->currency = '&#8364;';
+					break;
+				default:
+
+					break;
+			}
+
+			if (null !== $tripsterExcursion->price->discount) {
+				$commonExcursion->price->discount = new CommonPriceDiscount();
+				$commonExcursion->price->discount->value = $tripsterExcursion->price->discount->value;
+				$commonExcursion->price->discount->oldPrice = $tripsterExcursion->price->discount->original_price;
+			}
+
 			$commonExcursion->city = $tripsterExcursion->city->name_ru;
+
+			$commonExcursion->guide = new CommonGuide();
+			$commonExcursion->guide->firstName = $tripsterExcursion->guide->first_name;
+			$commonExcursion->guide->url = $tripsterExcursion->guide->url;
+			$commonExcursion->guide->avatarSmall = $tripsterExcursion->guide->avatar->small;
+			$commonExcursion->guide->avatarMedium = $tripsterExcursion->guide->avatar->medium;
 
 			if (array_key_exists('photos', $tripsterExcursion)) {
 				$commonExcursion->image = $tripsterExcursion->photos[0]->medium;

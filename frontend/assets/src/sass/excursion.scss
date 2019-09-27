@@ -1,48 +1,80 @@
 .excursion-block {
+	box-shadow: 0px 0px 10px rgba(13, 42, 58, 0.50);
+	padding: 0px 15px 0px 0px;
+	overflow: hidden;
+
+	.name {
+		margin-top: 15px;
+		width: 1000px;
+
+		a {
+			color: #000;
+			font-size: 26px;
+			font-weight: bolder;
+		}
+	}
+
+	.annotation {
+		margin-top: 20px;
+		margin-bottom: 20px;
+		font-size: 22px;
+		color: #0066b1;
+	}
+
 	.rating {
-		margin-top: 10px;
+		margin-top: 20px;
+
+		.guide {
+			a:hover {
+				text-decoration: none;
+			}
+
+			display: inline;
+		}
+
+		.rating-container {
+			margin-left: 100px;
+			display: inline;
+		}
+
+		.review-count {
+			color: #000;
+			font-weight: bolder;
+		}
 	}
 
 	.duration {
 		position: absolute;
-		background-color: #5492FE;
-		opacity: .9;
-		color: #fff;
-		font-weight: bolder;
+		top: 20px;
+		right: 20px;
+		border-radius: 5px;
 		padding: 5px 10px 5px 10px;
+		background-color: #e52634;
+		color: #fff;
 	}
 
 	.price {
 		position: absolute;
-		background-color: #5492FE;
-		opacity: .9;
-		color: #fff;
-		font-weight: bolder;
-		padding: 5px 10px 5px 10px;
+		bottom: 10px;
+		left: 450px;
+
+		.current-price {
+			font-size: 20px;
+			color: #e52634;
+		}
+
+		.old-price {
+			text-decoration: line-through;
+		}
 	}
 
 	@media (min-width: 768px) {
-		.price {
-			top: 100px;
-		}
-		.duration {
-			top: 50px;
-		}
+
 	}
 	@media (min-width: 992px) {
-		.price {
-			top: 150px;
-		}
-		.duration {
-			top: 100px;
-		}
+
 	}
 	@media (min-width: 1200px) {
-		.price {
-			top: 200px;
-		}
-		.duration {
-			top: 150px;
-		}
+
 	}
 }

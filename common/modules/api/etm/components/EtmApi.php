@@ -1,5 +1,4 @@
 <?php
-
 namespace common\modules\api\etm\components;
 
 use yii\base\Component;
@@ -33,6 +32,7 @@ class EtmApi extends Component {
 			'Content-Length: ' . strlen($query),
 			'etm-auth-key: ' . $this->apiKey
 		]);
+
 		curl_setopt($curl, CURLOPT_URL, $url);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		$out = curl_exec($curl);

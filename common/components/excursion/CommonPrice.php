@@ -27,4 +27,5 @@ class CommonPrice extends Component {
 
 	/** @var \common\components\excursion\CommonPriceDiscount */
 	public $discount;
+
 }

@@ -64,6 +64,9 @@ class CommonExcursion extends Component {
 	/** @var \common\components\excursion\CommonCity */
 	public $city;
 
+	/** @var \common\components\excursion\CommonGuide */
+	public $guide;
+
 	/** @var array */
 	public $tags;
 

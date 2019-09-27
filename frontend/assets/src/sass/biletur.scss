@@ -3,8 +3,9 @@
 $mainBlueColor: #0066b1;
 $mainBlueColorLight: #5492fe;
 $mainContainerLight: #b6dcff;
-$mainRedColor: #dc0531;
+$mainRedColor: #e52634;
 $mainRedColorLight: #ff93aa;
+
 html,
 body {
 	height: auto;
@@ -427,7 +428,7 @@ a.desc:after {
 }
 
 .rating-container .filled-stars {
-	color: $mainBlueColorLight !important;
+	color: #ffdd11 !important;
 	white-space: nowrap;
 	-webkit-text-stroke: 1px #fff !important;
 	text-shadow: 1px 1px #999;

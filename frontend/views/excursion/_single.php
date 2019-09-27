@@ -10,10 +10,17 @@ use kartik\rating\StarRating;
  */
 ?>
 <div class="excursion-block">
-    <a target="_blank" href="<?= $excursion->url ?>" rel="nofollow">
-        <img class="img img-rounded img-responsive" src="<?= $excursion->image ?>">
-    </a>
-    <div class="rating">
+	<div class="col-xs-5" style="margin-left: -20px;">
+		<a target="_blank" href="<?= $excursion->url ?>" rel="nofollow">
+			<img class="img img-responsive" src="<?= $excursion->image ?>">
+		</a>
+	</div>
+	<div class="name"><a target="_blank" href="<?= $excursion->url ?>" rel="nofollow"><?= $excursion->name ?></a></div>
+	<div class="duration visible-lg visible-md visible-sm"><i class="glyphicon glyphicon-time"> </i> <?= $excursion->duration ?> часа</div>
+	<div class="rating">
+		<div class="guide">
+			<a target="_blank" href="<?= $excursion->guide->url ?>" rel="nofollow"><img src="<?= $excursion->guide->avatarMedium ?>" class="img-circle" width="70"> <b><?= $excursion->guide->firstName ?></b></a>
+		</div>
 		<?= StarRating::widget([
 			'name'          => 'rating',
 			'value'         => $excursion->rating,
@@ -23,9 +30,15 @@ use kartik\rating\StarRating;
 				'size'        => 'xs',
 			]
 		]); ?>
-    </div>
-    <div class="name"><a target="_blank" href="<?= $excursion->url ?>" rel="nofollow"><h4><?= $excursion->name ?></h4></a></div>
-    <div class="annotation"><?= $excursion->annotation ?></div>
-    <div class="duration visible-lg visible-md visible-sm">Продолжительность: <?= $excursion->duration ?> ч.</div>
-    <div class="price visible-lg visible-md visible-sm"><?= $excursion->price ?></div>
+		<span class="review-count"><?= $excursion->reviewCount ?> отзывов</span>
+	</div>
+
+	<div class="annotation"><?= $excursion->annotation ?></div>
+
+	<div class="price">
+		<?php if (null !== $excursion->price->discount): ?>
+			<span class="old-price"><?= $excursion->price->discount->oldPrice ?></span>
+		<?php endif ?>
+		<span class="current-price"><?= $excursion->price->currency ?> <?= $excursion->price->value ?></span> <span class="current-price-unit"><?= $excursion->price->unitString ?></span>
+	</div>
 </div>

@@ -6,7 +6,7 @@
  * @var \common\forms\excursion\SearchForm $form
  */
 
-$numOfCols = 3;
+$numOfCols = 1;
 $rowCount = 0;
 $bootstrapColWidth = 12 / $numOfCols;
 ?>
