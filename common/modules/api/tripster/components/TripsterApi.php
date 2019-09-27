@@ -41,7 +41,7 @@ class TripsterApi extends Component implements Configurable {
 	const TYPE_PRIVATE = 'private';
 
 	const COMMON_TYPE_LINK = [
-		self::TYPE_GROUP => CommonExcursion::TYPE_GROUP,
+		self::TYPE_GROUP   => CommonExcursion::TYPE_GROUP,
 		self::TYPE_PRIVATE => CommonExcursion::TYPE_PRIVATE,
 	];
 
@@ -132,7 +132,6 @@ class TripsterApi extends Component implements Configurable {
 				]
 			]);
 
-			// Получаем данные и закрывааем соединение
 			$results = curl_exec($curl);
 
 			curl_close($curl);
@@ -140,6 +139,41 @@ class TripsterApi extends Component implements Configurable {
 			$results = json_decode($results);
 
 			Yii::$app->cache->set($cacheKey, $results, 3600 * 24 * 7);
+		}
+
+		return $results;
+	}
+
+	/**
+	 * Получение расписания для экскурссии
+	 *
+	 * @param int $id
+	 *
+	 * @return mixed
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function getSchedule($id) {
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $id]);
+		$results = Yii::$app->cache->get($cacheKey);
+		if (false === $results) {
+			$curl = curl_init($this->_url . '/experiences/' . $id . '/schedule/');
+
+			curl_setopt_array($curl, [
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_HTTPHEADER     => [
+					'Authorization: Token ' . $this->_token,
+					'Content-Type: application/json'
+				]
+			]);
+
+			$results = curl_exec($curl);
+
+			curl_close($curl);
+
+			$results = json_decode($results);
+
+			Yii::$app->cache->set($cacheKey, $results, 3600 * 24);
 		}
 
 		return $results;

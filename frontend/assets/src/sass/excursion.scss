@@ -68,6 +68,23 @@
 		}
 	}
 
+	.schedule-block {
+		position: absolute;
+		bottom: 15px;
+		right: 30px;
+
+		.schedule {
+
+			display: inline;
+			background-color: #95bede;
+			padding: 5px 10px 5px 10px;
+			color: #0066b1;
+
+			.time {
+				color: #000;
+			}
+		}
+	}
 	@media (min-width: 768px) {
 
 	}

@@ -67,6 +67,9 @@ class CommonExcursion extends Component {
 	/** @var \common\components\excursion\CommonGuide */
 	public $guide;
 
+	/** @var \common\components\excursion\CommonSchedule[] */
+	public $schedule;
+
 	/** @var array */
 	public $tags;
 

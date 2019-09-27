@@ -18,6 +18,9 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
    	<?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+	<style>
+		@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+	</style>
 	<?php $this->head() ?>
 	<?= $this->render('_counters') ?>
 </head>

@@ -6,6 +6,7 @@ use common\components\excursion\CommonExcursion;
 use common\components\excursion\CommonGuide;
 use common\components\excursion\CommonPrice;
 use common\components\excursion\CommonPriceDiscount;
+use common\components\excursion\CommonSchedule;
 use common\modules\api\tripster\components\TripsterApi;
 use sem\helpers\ArrayHelper;
 use Yii;
@@ -152,6 +153,9 @@ class SearchForm extends Model {
 				case 'EUR':
 					$commonExcursion->price->currency = '&#8364;';
 					break;
+				case 'USD':
+					$commonExcursion->price->currency = '&#36;';
+					break;
 				default:
 
 					break;
@@ -177,10 +181,30 @@ class SearchForm extends Model {
 
 			$commonExcursion->type = TripsterApi::COMMON_TYPE_LINK[$tripsterExcursion->type];
 
+
+			$schedule = $api->getSchedule($commonExcursion->id);
+			$commonSchedules = [];
+
+			foreach ($schedule->schedule as $date => $times) {
+				foreach ($times as $time) {
+					$commonSchedule = new CommonSchedule();
+					$commonSchedule->date = $date;
+
+					if ($time->type == 'slot') {
+						$commonSchedule->timeStart = $time->time;
+					}
+					else {
+						$commonSchedule->timeStart = $time->time_start;
+					}
+
+					$commonSchedules[$date] = $commonSchedule;
+				}
+			}
+
+			$commonExcursion->schedule = $commonSchedules;
+
 			$commonExcursions[] = $commonExcursion;
-
 		}
-
 
 		return $commonExcursions;
 	}

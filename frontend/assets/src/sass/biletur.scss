@@ -10,7 +10,10 @@ html,
 body {
 	height: auto;
 	background-color: #f0f0f0;
-	font-family: 'Museo\ Sans';
+	#font-family: 'Museo\ Sans';
+	font-family: 'Roboto', sans-serif;
+	letter-spacing: normal;
+	line-height: normal;
 }
 
 .wrap {
