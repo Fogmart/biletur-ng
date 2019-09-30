@@ -84,6 +84,10 @@ class StringHelper extends \yii\helpers\StringHelper {
 	/** @var string международный символ валюты рубля в виде html-сущности */
 	const CURRENCY_RUB_SIGN = '&#8381;';
 
+	const CURRENCY_EUR_SIGN = '&#8364;';
+
+	const CURRENCY_USD_SIGN = '&#36;;';
+
 	/**
 	 * отформатировать цену
 	 *

@@ -2,6 +2,7 @@
 
 namespace common\forms\excursion;
 
+use common\base\helpers\StringHelper;
 use common\components\excursion\CommonExcursion;
 use common\components\excursion\CommonGuide;
 use common\components\excursion\CommonPrice;
@@ -148,13 +149,13 @@ class SearchForm extends Model {
 
 			switch ($commonExcursion->price->currency) {
 				case 'RUB':
-					$commonExcursion->price->currency = '&#8381;';
+					$commonExcursion->price->currency = StringHelper::CURRENCY_RUB_SIGN;
 					break;
 				case 'EUR':
-					$commonExcursion->price->currency = '&#8364;';
+					$commonExcursion->price->currency = StringHelper::CURRENCY_EUR_SIGN;
 					break;
 				case 'USD':
-					$commonExcursion->price->currency = '&#36;';
+					$commonExcursion->price->currency = StringHelper::CURRENCY_USD_SIGN;
 					break;
 				default:
 
