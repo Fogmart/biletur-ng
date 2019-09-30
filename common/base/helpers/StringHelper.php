@@ -86,7 +86,7 @@ class StringHelper extends \yii\helpers\StringHelper {
 
 	const CURRENCY_EUR_SIGN = '&#8364;';
 
-	const CURRENCY_USD_SIGN = '&#36;;';
+	const CURRENCY_USD_SIGN = '&#36;';
 
 	/**
 	 * отформатировать цену
