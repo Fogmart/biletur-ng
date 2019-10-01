@@ -69,6 +69,11 @@ class SearchForm extends Model {
 		];
 	}
 
+	/**
+	 * @return array|bool|\common\components\excursion\CommonExcursion[]
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
 	public function search() {
 		$this->result = $this->_searchTripster();
 

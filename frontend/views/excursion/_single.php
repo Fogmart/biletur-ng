@@ -13,6 +13,7 @@ use kartik\rating\StarRating;
 <div class="excursion-block">
 	<?php if (null !== $excursion->price->discount): ?>
 		<div class="discount-label">
+			Скидка<br>
 			<?= $excursion->price->discount->value * 100 ?>%
 		</div>
 	<?php endif ?>

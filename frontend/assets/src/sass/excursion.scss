@@ -93,15 +93,18 @@
 
 	.discount-label {
 		position: absolute;
-		top: -10px;
+		top: -18px;
 		left: 250px;
-		width: 90px;
-		height: 90px;
+		width: 150px;
+		height: 170px;
+		text-align: center;
 		background: url(/images/red-label.svg) no-repeat;
 		color: #fff;
-		font-size: 17px;
+		font-size: 15px;
+		font-weight: bolder;
 		z-index: 99;
-		padding: 20px 10px 10px 30px;
+		padding-top: 30px;
+		padding-left: 10px;
 	}
 
 	@media (min-width: 768px) {
