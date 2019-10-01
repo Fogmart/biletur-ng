@@ -16,7 +16,7 @@ use yii\web\JsExpression;
 <?php $htmlForm = ActiveForm::begin(['options' => ['data-pjax' => true]]); ?>
 
 <div class="row">
-    <div class="col-xs-4 col-xs-offset-3">
+	<div class="col-xs-4 col-xs-offset-3">
 		<?=
 		$htmlForm->field($form, $form::ATTR_CITY)->widget(Select2::class, [
 			'model'         => $form,
@@ -51,10 +51,10 @@ use yii\web\JsExpression;
 			],
 		])->label(false);
 		?>
-    </div>
-    <div class="col-xs-2">
+	</div>
+	<div class="col-xs-2">
 		<?= Html::submitButton('Найти', ['class' => 'btn btn-primary', 'id' => 'search-button']) ?>
-    </div>
+	</div>
 </div>
 
 <?= $htmlForm->field($form, $form::ATTR_PAGE)->hiddenInput()->label(false) ?>

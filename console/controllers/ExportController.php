@@ -1,4 +1,5 @@
 <?php
+
 namespace console\controllers;
 
 use bupy7\xml\constructor\XmlConstructor;
@@ -10,26 +11,49 @@ use yii\console\Controller;
  *
  * @noinspection PhpUnused
  *
- * @package console\controllers
+ * @package      console\controllers
  *
- * @author  Исаков Владислав <visakov@biletur.ru>
+ * @author       Исаков Владислав <visakov@biletur.ru>
  */
 class ExportController extends Controller {
 
 	/** @noinspection PhpUnused */
 
+
 	/**
-	 * Выгрузка справочника организаций из ДСП в Mid Office Manager
+	 * Выгрузка организаций в Mid Office Manager
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
-	public function actionOrgs2Mom() {
+	public function actionOrgsToMom() {
 		/** @var DspOrgs[] $orgs */
 		$orgs = DspOrgs::find()
-			->andWhere(['IS NOT', DspOrgs::ATTR_IDAURA, null]) //может и не нужно
+			->andWhere([DspOrgs::ATTR_ISSUPPLIER => 0])
 			->joinWith(DspOrgs::REL_ADDRESS)
 			->joinWith(DspOrgs::REL_SABRE_ID, true, 'INNER JOIN')
 			->all();
+
+		/** @var DspOrgs[] $suppliers */
+		$suppliers = DspOrgs::find()
+			->andWhere([DspOrgs::ATTR_ISSUPPLIER => 1])
+			->joinWith(DspOrgs::REL_ADDRESS)
+			->joinWith(DspOrgs::REL_SABRE_ID, true, 'INNER JOIN')
+			->all();
+
+		static::_orgsToXml($orgs, 'CORPORATE_CLIENT');
+		static::_orgsToXml($suppliers, 'BLANK_OWNER');
+
+	}
+
+	/**
+	 * Формирование XML
+	 *
+	 * @param DspOrgs[] $orgs
+	 * @param string    $type
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	private static function _orgsToXml($orgs, $type) {
 
 		$xml = new XmlConstructor();
 		$orgNodes = [];
@@ -198,7 +222,7 @@ class ExportController extends Controller {
 						'elements' => [
 							[
 								'tag'     => 'item',
-								'content' => 'CORPORATE_CLIENT'
+								'content' => $type
 							]
 						]
 					],
@@ -301,6 +325,6 @@ class ExportController extends Controller {
 
 		$xmlStr = $xml->fromArray($in)->toOutput();
 
-		file_put_contents('orgs.xml', $xmlStr);
+		file_put_contents($type . '.xml', $xmlStr);
 	}
 }

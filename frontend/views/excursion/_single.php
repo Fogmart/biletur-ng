@@ -23,7 +23,7 @@ use kartik\rating\StarRating;
 		</a>
 	</div>
 	<div class="name"><a target="_blank" href="<?= $excursion->url ?>" rel="nofollow"><?= $excursion->name ?></a></div>
-	<div class="duration visible-lg visible-md visible-sm"><i class="glyphicon glyphicon-time"> </i> <?= $excursion->duration ?> ч.</div>
+	<div class="duration"><i class="glyphicon glyphicon-time"> </i> <?= $excursion->duration ?> ч.</div>
 	<div class="rating">
 		<div class="guide">
 			<a target="_blank" href="<?= $excursion->guide->url ?>" rel="nofollow"><img src="<?= $excursion->guide->avatarMedium ?>" class="img-circle" width="50"> <b><?= $excursion->guide->firstName ?></b></a>
