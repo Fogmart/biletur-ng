@@ -33,7 +33,7 @@ $bootstrapColWidth = 12 / $numOfCols;
         </div>
 	<?php endif ?>
 
-    <div class="list">
+	<div class="list excursion-list">
         <div class="row">
 			<?php foreach ($form->result as $excursion): ?>
                 <div class="col-xs-<?= $bootstrapColWidth ?>">

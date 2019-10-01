@@ -11,6 +11,11 @@ use kartik\rating\StarRating;
  */
 ?>
 <div class="excursion-block">
+	<?php if (null !== $excursion->price->discount): ?>
+		<div class="discount-label">
+			<?= $excursion->price->discount->value * 100 ?>%
+		</div>
+	<?php endif ?>
 	<div class="col-xs-5" style="margin-left: -20px;">
 		<a target="_blank" href="<?= $excursion->url ?>" rel="nofollow">
 			<img class="img img-responsive" src="<?= $excursion->image ?>">

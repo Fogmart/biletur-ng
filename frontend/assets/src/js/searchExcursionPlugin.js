@@ -13,7 +13,7 @@
 					if ($(this).hasClass('active')) {
 						$('#searchform-citytag').val('');
 						$('#searchform-page').val(1);
-					}else {
+					} else {
 						$('#searchform-citytag').val($(this).data('id'));
 						$('#searchform-page').val(1);
 					}
