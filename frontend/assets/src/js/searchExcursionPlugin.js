@@ -30,6 +30,8 @@
 					return true;
 				});
 
+				SHOW_MORE_BUTTON.unbind('click');
+
 				SHOW_MORE_BUTTON.click(function () {
 					SHOW_MORE_BUTTON.hide();
 					LOADING_WIDGET.show();

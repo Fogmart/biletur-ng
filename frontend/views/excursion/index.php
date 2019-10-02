@@ -30,9 +30,6 @@ use yii\widgets\Pjax;
 	</div>
 </div>
 <?php Pjax::end(); ?>
-<?php
-$this->registerJs('$(".result").searchExcursionPlugin();');
-?>
 <div class="row">
 	<div class="col-xs-12 text-center">
 		<button class="btn btn-lg btn-show-more">Показать еще</button>
