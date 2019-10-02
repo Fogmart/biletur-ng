@@ -15,7 +15,11 @@ use yii\web\JsExpression;
 ?>
 <?php $htmlForm = ActiveForm::begin(['options' => ['data-pjax' => true]]); ?>
 
+<?= $htmlForm->field($form, $form::ATTR_PAGE)->hiddenInput()->label(false) ?>
+<?= $htmlForm->field($form, $form::ATTR_CITY_TAG)->hiddenInput()->label(false) ?>
+<?= $htmlForm->field($form, $form::ATTR_CITY_NAME)->hiddenInput()->label(false) ?>
 <div class="row">
+
 	<div class="col-xs-4 col-xs-offset-3">
 		<?=
 		$htmlForm->field($form, $form::ATTR_CITY)->widget(Select2::class, [
@@ -57,7 +61,4 @@ use yii\web\JsExpression;
 	</div>
 </div>
 
-<?= $htmlForm->field($form, $form::ATTR_PAGE)->hiddenInput()->label(false) ?>
-<?= $htmlForm->field($form, $form::ATTR_CITY_TAG)->hiddenInput()->label(false) ?>
-<?= $htmlForm->field($form, $form::ATTR_CITY_NAME)->hiddenInput()->label(false) ?>
 <?php ActiveForm::end(); ?>

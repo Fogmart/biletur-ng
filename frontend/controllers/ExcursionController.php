@@ -16,6 +16,7 @@ use yii\web\Response;
 class ExcursionController extends FrontendMenuController {
 
 	const ACTION_INDEX = '';
+	const ACTION_LOAD = 'load';
 	const ACTION_FIND_BY_NAME = 'find-by-name';
 
 	/**
@@ -38,6 +39,32 @@ class ExcursionController extends FrontendMenuController {
 		$form->search();
 
 		return $this->render('index', ['form' => $form]);
+	}
+
+	/**
+	 * Подгрузка при скролле
+	 *
+	 * @return string
+	 *
+	 * @throws \yii\web\NotFoundHttpException
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function actionLoad() {
+		$this->layout = false;
+		Yii::$app->response->format = Response::FORMAT_JSON;
+
+		$form = new SearchForm();
+
+		if (Yii::$app->request->isAjax) {
+			$form->load(Yii::$app->request->post());
+		}
+
+		$form->isLoad = true;
+
+		$form->search();
+
+		return $this->render('__excursions', ['excursions' => $form->result]);
 	}
 
 	/**

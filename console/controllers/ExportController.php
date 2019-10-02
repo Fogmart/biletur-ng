@@ -42,7 +42,6 @@ class ExportController extends Controller {
 
 		static::_orgsToXml($orgs, 'CORPORATE_CLIENT');
 		static::_orgsToXml($suppliers, 'BLANK_OWNER');
-
 	}
 
 	/**

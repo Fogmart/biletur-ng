@@ -53,6 +53,10 @@ class SearchForm extends Model {
 	/** @var int Кол-во страниц */
 	public $pageCount = 0;
 
+	/** @var bool Подгрузка ли это */
+	public $isLoad = false;
+	const ATTR_IS_LOAD = 'isLoad';
+
 	const API_SOURCE_TRIPSTER = 0;
 
 	/**
@@ -108,6 +112,10 @@ class SearchForm extends Model {
 
 		$response = $api->sendRequest($api::METHOD_EXPERIENCES, $params);
 
+		if (!array_key_exists('results', $response)) {
+			return false;
+		}
+
 		foreach ($response->results as $excursion) {
 			$excursion->url = $excursion->url . $api::UTM;
 
@@ -123,12 +131,7 @@ class SearchForm extends Model {
 
 		ksort($this->tags);
 
-		$this->pageCount = ceil((int)$response->count / $api::PAGE_SIZE);
 		$commonExcursions = [];
-
-		if (!array_key_exists('results', $response)) {
-			return false;
-		}
 
 		//Конвертируем в Common объекты
 		foreach ($response->results as $tripsterExcursion) {

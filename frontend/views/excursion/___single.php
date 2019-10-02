@@ -7,7 +7,7 @@ use kartik\rating\StarRating;
  * @author Исаков Владислав <visakov@biletur.ru>
  *
  * @var \common\components\excursion\CommonExcursion $excursion
- *
+ * @var \yii\web\View                                $this
  */
 ?>
 <div class="excursion-block">

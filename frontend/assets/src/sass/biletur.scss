@@ -132,6 +132,7 @@ body {
 		a {
 			color: #fff;
 		}
+
 		line-height: 2;
 	}
 }
@@ -408,26 +409,31 @@ a.desc:after {
 	-ms-user-select: none;
 	user-select: none;
 	display: inline-block;
-	font-size: 14px;
-	margin-right: 10px;
+	font-size: 13px;
+	margin-right: 5px;
 	margin-bottom: 10px;
-	border-radius: 20px;
-	color: #fff;
+	border-radius: 5px 5px 5px 0px;
+	border: 1px solid $mainBlueColor;
+	color: $mainBlueColor;
 	padding: 4px 15px 5px;
-	background-color: rgba(0, 0, 0, .25);
+	background-color: transparent;
 	text-decoration: none;
+	box-shadow: 3px 2px 4px rgba(13, 42, 58, .7);
 	-webkit-transition: color, background-color .3s;
 	-o-transition: color, background-color .3s;
 	transition: color, background-color .3s;
 }
 
 .tags .tag:hover {
-	background-color: rgba(0, 0, 0, .99);
+	background-color: $mainBlueColor;
+	opacity: .5;
+	color: #fff;
 }
 
 .tags .tag.active {
 	background-color: $mainBlueColor;
-	opacity: .75;
+	opacity: .5;
+	color: #fff;
 }
 
 .rating-container .filled-stars {
@@ -556,4 +562,23 @@ span {
 	height: 70px;
 	overflow: hidden;
 	background: transparent url('/images/loading-bottom.svg') center no-repeat;
+}
+
+.btn-show-more {
+	background-color: $mainRedColor;
+	width: 60%;
+	color: #fff;
+	font-weight: bolder;
+
+	&:hover {
+		color: #fff;
+	}
+
+	&:focus {
+		color: #fff;
+	}
+
+	&:active {
+		color: #fff;
+	}
 }
