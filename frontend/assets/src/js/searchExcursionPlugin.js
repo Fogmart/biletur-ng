@@ -3,7 +3,6 @@
 		const SHOW_MORE_BUTTON = $('.btn-show-more');
 		const LOAD_URL = $('.load-excursion-url').data('url');
 		const SEARCH_FORM = $('#w0');
-		const RESULT_BLOCK = $('.excursion-list');
 		const LOADING_WIDGET = $('.loading-widget');
 		const BLOCK_PANEL = $('.block-panel');
 		var PAGE_INPUT = $('#searchform-page');
@@ -32,6 +31,7 @@
 				});
 
 				SHOW_MORE_BUTTON.click(function () {
+					SHOW_MORE_BUTTON.hide();
 					LOADING_WIDGET.show();
 					BLOCK_PANEL.addClass('process');
 					PAGE_INPUT.val(parseInt(PAGE_INPUT.val(), 10) + 1);
@@ -41,14 +41,12 @@
 						async: true,
 						data: SEARCH_FORM.serialize()
 					}).done(function (data) {
-						if (data.length === 0) {
-
-						} else {
-							RESULT_BLOCK.append(data);
+						if (data !== false) {
+							SHOW_MORE_BUTTON.show();
+							$('.excursion-list').append(data);
 							LOADING_WIDGET.hide();
 							BLOCK_PANEL.removeClass('process');
 							$('.excursion-block').fadeIn();
-
 						}
 					});
 				});

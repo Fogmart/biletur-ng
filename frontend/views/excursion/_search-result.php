@@ -33,6 +33,6 @@
 		</div>
 	</div>
 <?php
-$this->registerJs('$(".result").searchExcursionPlugin();');
+
 $this->registerJs('$(this).commonPlugin();');
 ?>

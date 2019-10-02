@@ -64,6 +64,10 @@ class ExcursionController extends FrontendMenuController {
 
 		$form->search();
 
+		if ($form->result === false) {
+			return false;
+		}
+
 		return $this->render('__excursions', ['excursions' => $form->result]);
 	}
 
