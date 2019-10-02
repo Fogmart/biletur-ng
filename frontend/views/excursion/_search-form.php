@@ -32,7 +32,7 @@ use yii\web\JsExpression;
 				'class'    => 'biletur-text-input'
 			],
 			'pluginEvents'  => [
-				"select2:select" => "function() { $('#w0').submit(); }",
+				"select2:select" => "function() { $('#searchform-citytag').val(''); $('#w0').submit(); }",
 			],
 			'pluginOptions' => [
 				'placeholder'        => 'Город, страна...',
