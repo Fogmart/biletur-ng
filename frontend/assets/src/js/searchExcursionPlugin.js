@@ -49,6 +49,13 @@
 							LOADING_WIDGET.hide();
 							BLOCK_PANEL.removeClass('process');
 							$('.excursion-block').fadeIn();
+							$('input[name="rating"]').rating(
+								{
+									"displayOnly": true,
+									'showCaption': false,
+									"size": "xs"
+								}
+							);
 						}
 					});
 				});

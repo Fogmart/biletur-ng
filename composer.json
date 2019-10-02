@@ -53,7 +53,8 @@
     "noam148/yii2-image-resize": "*",
     "sunra/php-simple-html-dom-parser": "1.5.2",
     "ext-simplexml": "*",
-    "bupy7/xml-constructor": "*"
+    "bupy7/xml-constructor": "*",
+    "yii2mod/yii2-star-rating": "*"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",
