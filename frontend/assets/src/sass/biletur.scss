@@ -57,6 +57,27 @@ body {
 			.result {
 				min-height: 300px;
 			}
+
+			h2 {
+				font-family: 'PantonDemo-Light';
+				color: $mainBlueColor;
+				text-transform: uppercase;
+				font-weight: 700;
+				margin-top: 0px;
+				display: inline;
+			}
+
+			.block-logo {
+				margin-bottom: 15px;
+				display: inline;
+			}
+
+			.v-line {
+				display: inline;
+				margin-right: 10px;
+				margin-left: 10px;
+				margin-bottom: 15px;
+			}
 		}
 
 		.block-panel.process {
@@ -586,29 +607,18 @@ span {
 .select2-selection__arrow {
 	border-color: $mainRedColor !important;
 	color: #fff;
-	width: 44px !important;
-	background: url(/images/search-icon-sm.png) 9px no-repeat $mainRedColor;
+	width: 60px !important;
+	background: url(/images/search-icon-2.svg) 16px no-repeat $mainRedColor;
 	cursor: pointer !important;
+	border-top-right-radius: 6px !important;
+	border-bottom-right-radius: 6px !important;
 
 	b {
 		border: unset !important;
 	}
 }
 
-
 .lbl-sm-blue {
 	margin-left: 10px;
 	color: $mainBlueColor;
-}
-
-.panel-header {
-	height: 70px;
-	background-color: #fff;
-	text-transform: uppercase;
-	color: $mainBlueColor;
-	padding: 5px 20px 10px 20px;
-
-	h2 {
-		font-weight: bolder;
-	}
 }

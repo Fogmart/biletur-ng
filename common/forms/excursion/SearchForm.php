@@ -38,6 +38,9 @@ class SearchForm extends Model {
 	public $country;
 	const ATTR_COUNTRY = 'country';
 
+	const SORT_POPULARITY = '-popularity';
+	const SORT_PRICE = 'price';
+
 	/** @var string */
 	public $source = self::API_SOURCE_TRIPSTER;
 	const ATTR_SOURCE = 'source';

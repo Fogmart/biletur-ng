@@ -14,11 +14,10 @@ use yii\widgets\Pjax;
 <?php Pjax::begin(); ?>
 <div class="row">
 	<div class="col-xs-12">
-		<div class="panel-header">
-			<h2>Экскурсии</h2>
-		</div>
 		<div class="block-panel">
-				<?= $this->render('_search-form', ['form' => $form]) ?>
+			<img class="block-logo" src="/images/excursion-logo.svg" height="30"> <img class="v-line" src="/images/v-line.svg" height="30">
+			<h2>Экскурсии</h2>
+			<?= $this->render('_search-form', ['form' => $form]) ?>
 		</div>
 	</div>
 </div>

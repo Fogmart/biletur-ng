@@ -84,3 +84,24 @@
 	url('/fonts/calibri.svg#calibri') format('svg');
 }
 
+@font-face {
+	font-family: 'PantonDemo-Light';
+	src: url('/fonts/PantonDemo-Light.eot');
+	src: url('/fonts/PantonDemo-Light.eot?#iefix') format('embedded-opentype'),
+	url('/fonts/PantonDemo-Light.ttf') format('truetype'),
+	url('/fonts/PantonDemo-Light.woff') format('woff'),
+	url('/fonts/PantonDemo-Light.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'PantonDemo-Black';
+	src: url('/fonts/PantonDemo-Black.eot');
+	src: url('/fonts/PantonDemo-Black.eot?#iefix') format('embedded-opentype'),
+	url('/fonts/PantonDemo-Black.ttf') format('truetype'),
+	url('/fonts/PantonDemo-Black.woff') format('woff'),
+	url('/fonts/PantonDemo-Black.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}

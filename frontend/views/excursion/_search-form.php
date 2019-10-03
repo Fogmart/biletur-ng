@@ -19,8 +19,7 @@ use yii\web\JsExpression;
 <?= $htmlForm->field($form, $form::ATTR_CITY_TAG)->hiddenInput()->label(false) ?>
 <?= $htmlForm->field($form, $form::ATTR_CITY_NAME)->hiddenInput()->label(false) ?>
 <div class="row">
-
-	<div class="col-xs-4">
+	<div class="col-xs-6">
 		<span class="lbl-sm-blue">Направление</span>
 		<?=
 		$htmlForm->field($form, $form::ATTR_CITY)->widget(Select2::class, [
