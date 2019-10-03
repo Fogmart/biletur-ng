@@ -24,8 +24,7 @@ use yii\web\JsExpression;
 		],
 		'watch'   => [
 			'childCount' => new JsExpression("function() {console.log('watch')}")
-		]
-		,
+		],
 		'methods' => [
 			'addChildAge'    => new JsExpression("function() {console.log('add child age')}"),
 			'removeChildAge' => new JsExpression("function() {console.log('add child age')}")
