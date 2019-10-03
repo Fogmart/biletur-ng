@@ -412,7 +412,7 @@ a.desc:after {
 	font-size: 13px;
 	margin-right: 5px;
 	margin-bottom: 10px;
-	border-radius: 5px 5px 5px 0px;
+	border-radius: 10px 10px 10px 0px;
 	border: 1px solid $mainBlueColor;
 	color: $mainBlueColor;
 	padding: 4px 15px 5px;
@@ -580,5 +580,35 @@ span {
 
 	&:active {
 		color: #fff;
+	}
+}
+
+.select2-selection__arrow {
+	border-color: $mainRedColor !important;
+	color: #fff;
+	width: 44px !important;
+	background: url(/images/search-icon-sm.png) 9px no-repeat $mainRedColor;
+	cursor: pointer !important;
+
+	b {
+		border: unset !important;
+	}
+}
+
+
+.lbl-sm-blue {
+	margin-left: 10px;
+	color: $mainBlueColor;
+}
+
+.panel-header {
+	height: 70px;
+	background-color: #fff;
+	text-transform: uppercase;
+	color: $mainBlueColor;
+	padding: 5px 20px 10px 20px;
+
+	h2 {
+		font-weight: bolder;
 	}
 }

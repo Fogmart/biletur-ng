@@ -20,7 +20,8 @@ use yii\web\JsExpression;
 <?= $htmlForm->field($form, $form::ATTR_CITY_NAME)->hiddenInput()->label(false) ?>
 <div class="row">
 
-	<div class="col-xs-4 col-xs-offset-3">
+	<div class="col-xs-4">
+		<span class="lbl-sm-blue">Направление</span>
 		<?=
 		$htmlForm->field($form, $form::ATTR_CITY)->widget(Select2::class, [
 			'model'         => $form,
@@ -57,7 +58,7 @@ use yii\web\JsExpression;
 		?>
 	</div>
 	<div class="col-xs-2">
-		<?= Html::submitButton('Найти', ['class' => 'btn btn-primary', 'id' => 'search-button']) ?>
+		<?= Html::submitButton('Найти', ['class' => 'btn btn-primary', 'id' => 'search-button', 'style' => 'display: none;']) ?>
 	</div>
 </div>
 
