@@ -1,5 +1,7 @@
 (function ($) {
+	'use strict';
 	$.fn.commonPlugin = function () {
+		const LS_PARAM_IS_ADD_FILTER_HIDDEN = 'is-add-filters-hidden';
 
 		const LOADING_WIDGET = $('.loading-widget');
 		const BLOCK_PANEL = $('.block-panel');
@@ -10,20 +12,30 @@
 		const BUTTON_TO_TOP = $('#scrollUp');
 		const BUTTON_CLOSE_GEO_MESSAGE = $('.close-geo-message');
 		const BUTTON_OPEN_GEO_MODAL = $('.select-geo-city');
+		const BUTTON_HIDE_FILTERS = $('.hide-filters-block');
 		const GEO_MESSAGE = $('.dropdown-city');
+		const ADDITIONAL_FILTERS = $('.additional-filters');
 
 		const methods = {
 			init: function () {
+				//Проверка не скрывал ли пользователь панель фильтров
+				if ('true' === localStorage.getItem(LS_PARAM_IS_ADD_FILTER_HIDDEN)) {
+					ADDITIONAL_FILTERS.hide();
+					BUTTON_HIDE_FILTERS.html('Показать доп.фильтры');
+				}
+
 				//Отображение крутилки подгрузки ajax'ом
 				$(document).on('pjax:send', function () {
 					LOADING_WIDGET.show();
 					BLOCK_PANEL_RESULT_LIST.html('');
 					BLOCK_PANEL.addClass('process');
+					$('.btn-show-more').hide();
 				});
 
 				$(document).on('pjax:complete', function () {
 					LOADING_WIDGET.hide();
 					BLOCK_PANEL.removeClass('process');
+					$('.btn-show-more').show();
 				});
 
 				//Фиксация меню, скрытие/показ кнопки "наверх"
@@ -52,6 +64,17 @@
 
 				BUTTON_CLOSE_GEO_MESSAGE.click(function () {
 					GEO_MESSAGE.hide();
+				});
+
+				BUTTON_HIDE_FILTERS.click(function () {
+					ADDITIONAL_FILTERS.toggle();
+					if (ADDITIONAL_FILTERS.is(':visible')) {
+						localStorage.setItem(LS_PARAM_IS_ADD_FILTER_HIDDEN, 'false')
+						BUTTON_HIDE_FILTERS.html('Скрыть доп.фильтры');
+					} else {
+						localStorage.setItem(LS_PARAM_IS_ADD_FILTER_HIDDEN, 'true')
+						BUTTON_HIDE_FILTERS.html('Показать доп.фильтры');
+					}
 				});
 
 				BUTTON_OPEN_GEO_MODAL.click(function () {

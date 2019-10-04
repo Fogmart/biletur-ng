@@ -1,11 +1,12 @@
 (function ($) {
+	'use strict';
 	$.fn.searchExcursionPlugin = function () {
 		const SHOW_MORE_BUTTON = $('.btn-show-more');
 		const LOAD_URL = $('.load-excursion-url').data('url');
 		const SEARCH_FORM = $('#w0');
 		const LOADING_WIDGET = $('.loading-widget');
 		const BLOCK_PANEL = $('.block-panel');
-		var PAGE_INPUT = $('#searchform-page');
+		let PAGE_INPUT = $('#searchform-page');
 
 		const methods = {
 			init: function () {

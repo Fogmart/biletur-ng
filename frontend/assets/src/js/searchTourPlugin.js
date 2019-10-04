@@ -1,4 +1,5 @@
 (function ($) {
+	'use strict';
 	$.fn.searchTourPlugin = function () {
 		const LOADING_WIDGET = $('.loading-widget');
 		const BLOCK_PANEL = $('.block-panel');

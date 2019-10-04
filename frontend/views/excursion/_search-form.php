@@ -60,5 +60,27 @@ use yii\web\JsExpression;
 		<?= Html::submitButton('Найти', ['class' => 'btn btn-primary', 'id' => 'search-button', 'style' => 'display: none;']) ?>
 	</div>
 </div>
+<?php if (count($form->tags) > 0): ?>
+	<div class="row additional-filters">
+		<div class="col-xs-12 tags">
+			<?php
+			$active = '';
+			if (empty($form->cityTag)) {
+				$active = ' active';
+			}
+			?>
+			<a href="#" class="tag <?= $active ?>" data-id="">Все экскурсии</a>
+			<?php foreach ($form->tags as $tag): ?>
+				<?php
+				$active = '';
+				if ($form->cityTag == $tag->id) {
+					$active = ' active';
+				}
+				?>
+				<a href="#" class="tag <?= $active ?>" data-id="<?= $tag->id ?>"><?= $tag->name ?> [<?= $tag->experience_count ?>]</a>
+			<?php endforeach; ?>
+		</div>
+	</div>
+<?php endif ?>
 
 <?php ActiveForm::end(); ?>

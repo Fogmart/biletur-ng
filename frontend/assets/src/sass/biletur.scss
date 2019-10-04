@@ -78,10 +78,27 @@ body {
 				margin-left: 10px;
 				margin-bottom: 15px;
 			}
+
+			&.filter-panel {
+				border-bottom-left-radius: 0px;
+				border-bottom-right-radius: 0px;
+			}
 		}
 
 		.block-panel.process {
 			opacity: 0.60;
+		}
+
+		.hide-filters-block {
+			cursor: pointer;
+			text-align: center;
+			border-bottom-left-radius: 8px;
+			border-bottom-right-radius: 8px;
+			background-color: $mainBlueColor;
+			box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.45);
+			padding: 10px 15px 10px 15px;
+			color: #fff;
+			font-size: 18px;
 		}
 
 		.content-header {

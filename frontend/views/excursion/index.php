@@ -14,10 +14,13 @@ use yii\widgets\Pjax;
 <?php Pjax::begin(); ?>
 <div class="row">
 	<div class="col-xs-12">
-		<div class="block-panel">
+		<div class="block-panel filter-panel">
 			<img class="block-logo" src="/images/excursion-logo.svg" height="30"> <img class="v-line" src="/images/v-line.svg" height="30">
 			<h2>Экскурсии</h2>
 			<?= $this->render('_search-form', ['form' => $form]) ?>
+		</div>
+		<div class="hide-filters-block">
+			Скрыть доп.фильтры
 		</div>
 	</div>
 </div>
