@@ -5,8 +5,6 @@
     RewriteRule /$ /%1 [R,L]
 </IfModule>
 
-
-
 Header set Access-Control-Allow-Origin "*"
 
 <IfModule mod_rewrite.c>

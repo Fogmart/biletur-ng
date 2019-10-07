@@ -26,9 +26,7 @@ use yii\widgets\Pjax;
 </div>
 <div class="row">
 	<div class="col-xs-12">
-		<div class="block-panel">
-				<?= $this->render('_search-result', ['form' => $form]) ?>
-		</div>
+		<?= $this->render('_search-result', ['form' => $form]) ?>
 	</div>
 </div>
 <?php Pjax::end(); ?>

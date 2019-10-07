@@ -2,7 +2,9 @@
 
 namespace common\forms\excursion;
 
+use common\base\helpers\Dump;
 use common\base\helpers\StringHelper;
+use common\components\CurrencySync;
 use common\components\excursion\CommonExcursion;
 use common\components\excursion\CommonGuide;
 use common\components\excursion\CommonPrice;
@@ -45,8 +47,12 @@ class SearchForm extends Model {
 	public $source = self::API_SOURCE_TRIPSTER;
 	const ATTR_SOURCE = 'source';
 
+	/** @var int */
 	public $page = 1;
 	const ATTR_PAGE = 'page';
+
+	/** @var array Минимальная и максимальная цена для фильтра */
+	public $priceMinMax = [];
 
 	/** @var CommonExcursion[] Экскурсии */
 	public $result = [];
@@ -158,18 +164,23 @@ class SearchForm extends Model {
 			$commonExcursion->price->unitString = $tripsterExcursion->price->unit_string;
 			$commonExcursion->price->currency = $tripsterExcursion->price->currency;
 
+			$this->priceMinMax[] = $tripsterExcursion->price->value;
+
 			switch ($commonExcursion->price->currency) {
 				case 'RUB':
 					$commonExcursion->price->currency = StringHelper::CURRENCY_RUB_SIGN;
+					$this->priceMinMax[] = $tripsterExcursion->price->value;
 					break;
 				case 'EUR':
 					$commonExcursion->price->currency = StringHelper::CURRENCY_EUR_SIGN;
+					$this->priceMinMax[] = $tripsterExcursion->price->value * CurrencySync::getCurRate('EUR');
 					break;
 				case 'USD':
+					$this->priceMinMax[] = $tripsterExcursion->price->value * CurrencySync::getCurRate('USD');
 					$commonExcursion->price->currency = StringHelper::CURRENCY_USD_SIGN;
 					break;
 				default:
-
+					$this->priceMinMax[] = $tripsterExcursion->price->value;
 					break;
 			}
 
@@ -192,7 +203,6 @@ class SearchForm extends Model {
 			}
 
 			$commonExcursion->type = TripsterApi::COMMON_TYPE_LINK[$tripsterExcursion->type];
-
 
 			$schedule = $api->getSchedule($commonExcursion->id);
 			$commonSchedules = [];
@@ -217,6 +227,9 @@ class SearchForm extends Model {
 
 			$commonExcursions[] = $commonExcursion;
 		}
+		CurrencySync::getCurRate('EUR');
+		sort($this->priceMinMax);
+		Dump::dDie($this->priceMinMax);
 
 		return $commonExcursions;
 	}
