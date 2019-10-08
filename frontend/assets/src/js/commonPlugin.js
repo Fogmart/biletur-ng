@@ -16,6 +16,8 @@
 		const GEO_MESSAGE = $('.dropdown-city');
 		const ADDITIONAL_FILTERS = $('.additional-filters');
 
+		const POPUP_FILTER_SELECTOR = 'a.popup-filter';
+
 		const methods = {
 			init: function () {
 				//Проверка не скрывал ли пользователь панель фильтров
@@ -64,6 +66,10 @@
 
 				BUTTON_CLOSE_GEO_MESSAGE.click(function () {
 					GEO_MESSAGE.hide();
+				});
+
+				$(POPUP_FILTER_SELECTOR).click(function () {
+					console.log('sss');
 				});
 
 				BUTTON_HIDE_FILTERS.click(function () {

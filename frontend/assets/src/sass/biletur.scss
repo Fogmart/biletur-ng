@@ -537,17 +537,18 @@ span {
 		margin-top: 6px !important;
 
 		.slider-selection {
-			background: #b4c0ff !important;
+			background: #0e66af !important;
+			opacity: .75;
 		}
 
 		.slider-handle {
-			top: -8px;
-			width: 30px;
-			height: 30px;
+			top: -3px;
+			width: 25px;
+			height: 25px;
 			margin-left: -15px;
 
 			&.round {
-				background: url("/images/favicon.ico") transparent;
+				background: url("/images/sl-point-2.svg") transparent;
 				border-radius: 0px;
 			}
 		}
@@ -639,3 +640,44 @@ span {
 	margin-left: 10px;
 	color: $mainBlueColor;
 }
+
+a.popup-filter {
+	position: relative;
+	display: inline;
+}
+
+a.popup-filter span {
+	position: absolute;
+	padding: 50px 20px 20px 20px;
+	width: 240px;
+	color: #000000;
+	background: #FFFFFF;
+	height: 130px;
+	line-height: 30px;
+	text-align: center;
+	visibility: hidden;
+	border-radius: 6px;
+	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.45);
+}
+
+a.popup-filter span:after {
+	content: '';
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	margin-left: -8px;
+	width: 0;
+	height: 0;
+	border-bottom: 8px solid #FFFFFF;
+	border-right: 8px solid transparent;
+	border-left: 8px solid transparent;
+}
+
+a:hover.popup-filter span {
+	visibility: visible;
+	top: 30px;
+	left: 50%;
+	margin-left: -76px;
+	z-index: 999;
+}
+

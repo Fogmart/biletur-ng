@@ -2,7 +2,6 @@
 
 namespace common\forms\excursion;
 
-use common\base\helpers\Dump;
 use common\base\helpers\StringHelper;
 use common\components\CurrencySync;
 use common\components\excursion\CommonExcursion;
@@ -15,6 +14,7 @@ use sem\helpers\ArrayHelper;
 use Yii;
 use yii\base\Model;
 use yii\validators\NumberValidator;
+use yii\validators\SafeValidator;
 use yii\validators\StringValidator;
 
 /**
@@ -51,6 +51,10 @@ class SearchForm extends Model {
 	public $page = 1;
 	const ATTR_PAGE = 'page';
 
+	/** @var string */
+	public $priceRange;
+	const ATTR_PRICE_RANGE = 'priceRange';
+
 	/** @var array Минимальная и максимальная цена для фильтра */
 	public $priceMinMax = [];
 
@@ -79,6 +83,7 @@ class SearchForm extends Model {
 			[static::ATTR_CITY_NAME, StringValidator::class],
 			[static::ATTR_CITY_TAG, StringValidator::class],
 			[static::ATTR_PAGE, NumberValidator::class],
+			[static::ATTR_PRICE_RANGE, SafeValidator::class],
 		];
 	}
 
@@ -164,8 +169,6 @@ class SearchForm extends Model {
 			$commonExcursion->price->unitString = $tripsterExcursion->price->unit_string;
 			$commonExcursion->price->currency = $tripsterExcursion->price->currency;
 
-			$this->priceMinMax[] = $tripsterExcursion->price->value;
-
 			switch ($commonExcursion->price->currency) {
 				case 'RUB':
 					$commonExcursion->price->currency = StringHelper::CURRENCY_RUB_SIGN;
@@ -173,14 +176,14 @@ class SearchForm extends Model {
 					break;
 				case 'EUR':
 					$commonExcursion->price->currency = StringHelper::CURRENCY_EUR_SIGN;
-					$this->priceMinMax[] = $tripsterExcursion->price->value * CurrencySync::getCurRate('EUR');
+					$this->priceMinMax[] = round($tripsterExcursion->price->value * CurrencySync::getCurRate('EUR'), 0);
 					break;
 				case 'USD':
-					$this->priceMinMax[] = $tripsterExcursion->price->value * CurrencySync::getCurRate('USD');
+					$this->priceMinMax[] = round($tripsterExcursion->price->value * CurrencySync::getCurRate('USD'), 0);
 					$commonExcursion->price->currency = StringHelper::CURRENCY_USD_SIGN;
 					break;
 				default:
-					$this->priceMinMax[] = $tripsterExcursion->price->value;
+					$this->priceMinMax[] = [$tripsterExcursion->price->currency => $tripsterExcursion->price->value];
 					break;
 			}
 
@@ -227,9 +230,13 @@ class SearchForm extends Model {
 
 			$commonExcursions[] = $commonExcursion;
 		}
-		CurrencySync::getCurRate('EUR');
+
 		sort($this->priceMinMax);
-		Dump::dDie($this->priceMinMax);
+
+		$this->priceMinMax = [
+			$this->priceMinMax[0],
+			$this->priceMinMax[count($this->priceMinMax) - 1]
+		];
 
 		return $commonExcursions;
 	}

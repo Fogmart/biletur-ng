@@ -8,6 +8,7 @@
 
 use frontend\controllers\ExcursionController;
 use kartik\select2\Select2;
+use kartik\slider\Slider;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
 use yii\web\JsExpression;
@@ -19,7 +20,7 @@ use yii\web\JsExpression;
 <?= $htmlForm->field($form, $form::ATTR_CITY_TAG)->hiddenInput()->label(false) ?>
 <?= $htmlForm->field($form, $form::ATTR_CITY_NAME)->hiddenInput()->label(false) ?>
 <div class="row">
-	<div class="col-xs-6">
+	<div class="col-xs-4">
 		<span class="lbl-sm-blue">Направление</span>
 		<?=
 		$htmlForm->field($form, $form::ATTR_CITY)->widget(Select2::class, [
@@ -43,12 +44,12 @@ use yii\web\JsExpression;
 				],
 				'escapeMarkup'       => new JsExpression('function (markup) { return markup; }'),
 				'templateResult'     => new JsExpression(' function (data) {
-                     if (data.type == "devider") { 
-                        return data.text; 
-                     }
-                     
-                     return data.text;
-                }'),
+					if (data.type == "devider") { 
+						return data.text; 
+					}
+
+					return data.text;
+				}'),
 				'templateSelection'  => new JsExpression('function (data) { return data.text; }'),
 				'allowClear'         => true,
 				'minimumInputLength' => 3,
@@ -56,8 +57,37 @@ use yii\web\JsExpression;
 		])->label(false);
 		?>
 	</div>
+
 	<div class="col-xs-2">
 		<?= Html::submitButton('Найти', ['class' => 'btn btn-primary', 'id' => 'search-button', 'style' => 'display: none;']) ?>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-4 col-xs-offset-2">
+		<a class="popup-filter" href="#">Цена
+			<span>
+				Цена
+				<?= $htmlForm->field($form, $form::ATTR_PRICE_RANGE, ['template' => "{input}"])->widget(Slider::class, [
+					'sliderColor'   => Slider::TYPE_GREY,
+					'pluginOptions' => [
+						'min'       => $form->priceMinMax[0],
+						'max'       => $form->priceMinMax[1],
+						'step'      => 100,
+						'range'     => true,
+						'tooltip'   => 'always',
+						'formatter' => new yii\web\JsExpression("function(val) {
+						var priceMin = new Number(val[0]);
+						var priceMax = new Number(val[1]);
+						
+						return 'Цена: ' + priceMin.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ') + ' - ' + priceMax.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ') + ' руб';
+					}")
+					],
+					'pluginEvents'  => [
+						'slideStop' => new JsExpression("function() { $('#w0').submit(); }")
+					],
+				])->label(false);
+				?></span>
+		</a>
 	</div>
 </div>
 <?php if (count($form->tags) > 0): ?>
