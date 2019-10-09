@@ -62,10 +62,11 @@ use yii\web\JsExpression;
 		<?= Html::submitButton('Найти', ['class' => 'btn btn-primary', 'id' => 'search-button', 'style' => 'display: none;']) ?>
 	</div>
 </div>
-<div class="row">
-	<div class="col-xs-11 col-xs-offset-1">
-		<span class="popup-filter-h">Фильтры</span> <a class="popup-filter" href="javascript:;"><i class="glyphicon glyphicon-tag"></i> Цена <i class="glyphicon glyphicon-chevron-down"></i>
-			<span>
+<?php if (!empty($form->city) || !empty($form->cityName)): ?>
+	<div class="row">
+		<div class="col-xs-11 col-xs-offset-1">
+			<span class="popup-filter-h">Фильтры</span> <a class="popup-filter" href="javascript:;"><i class="glyphicon glyphicon-tag"></i> Цена <i class="glyphicon glyphicon-chevron-down"></i>
+				<span>
 				<?= $htmlForm->field($form, $form::ATTR_PRICE_RANGE, ['template' => "{input}"])->widget(Slider::class, [
 					'sliderColor'   => Slider::TYPE_GREY,
 					'pluginOptions' => [
@@ -73,7 +74,7 @@ use yii\web\JsExpression;
 						'max'       => $form->priceMinMax[1],
 						'step'      => 50,
 						'range'     => true,
-						'tooltip'   => 'always',
+						'tooltip'   => 'hide',
 						'formatter' => new yii\web\JsExpression("function(val) {
 						var priceMin = new Number(val[0]);
 						var priceMax = new Number(val[1]);
@@ -82,26 +83,61 @@ use yii\web\JsExpression;
 					}")
 					],
 					'pluginEvents'  => [
+						'slideStop' => new JsExpression("function() { $('#w0').submit(); }"),
+						'slide'     => new JsExpression("function(el) {
+								let priceRange = $('#searchform-pricerange').val().split(',');
+								$('#price-min').val(priceRange[0]);
+								$('#price-max').val(priceRange[1]);
+						 }"),
+					],
+				])->label(false);
+				?>
+
+				<input disabled type="text" class="price-slider-input" id="price-min" value="<?= $form->priceMinMax[0] ?>">
+				<input disabled type="text" class="price-slider-input" id="price-max" value="<?= $form->priceMinMax[1] ?>">
+			</span>
+			</a>
+			<a class="popup-filter" href="javascript:;"><i class="glyphicon glyphicon-time"></i> Длительность <i class="glyphicon glyphicon-chevron-down"></i>
+				<span>
+				<?= $htmlForm->field($form, $form::ATTR_TIME_RANGE, ['template' => "{input}"])->widget(Slider::class, [
+					'sliderColor'   => Slider::TYPE_GREY,
+					'pluginOptions' => [
+						'min'       => $form->timeMinMax[0],
+						'max'       => $form->timeMinMax[1],
+						'step'      => 1,
+						'range'     => true,
+						'tooltip'   => 'hide',
+						'formatter' => new yii\web\JsExpression("function(val) {
+						var priceMin = new Number(val[0]);
+						var priceMax = new Number(val[1]);
+						
+						return priceMin.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ') + ' - ' + priceMax.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ') + ' ч.';
+					}")
+					],
+					'pluginEvents'  => [
 						'slideStop' => new JsExpression("function() { $('#w0').submit(); }")
 					],
 				])->label(false);
-				?></span>
-		</a>
-		<a class="popup-filter" href="javascript:;"><i class="glyphicon glyphicon-time"></i> Длительность <i class="glyphicon glyphicon-chevron-down"></i>
-			<span>
+				?>
+
+				<input disabled type="text" class="time-slider-input" id="price-min" value="<?= explode(',', $form->timeRange)[0] ?>">
+				<input disabled type="text" class="time-slider-input" id="price-max" value="<?= explode(',', $form->timeRange)[1] ?>">
+
+			</span>
+			</a>
+			<a class="popup-filter" href="javascript:;">Популярные <i class="glyphicon glyphicon-chevron-down"></i>
+				<span>
 				dfdfdf
 			</span>
-		</a>
-		<a class="popup-filter" href="javascript:;">Популярные <i class="glyphicon glyphicon-chevron-down"></i>
-			<span>
-				dfdfdf
-			</span>
-		</a>
+			</a>
+		</div>
 	</div>
-</div>
+<?php endif ?>
+
 <?php if (count($form->tags) > 0): ?>
 	<div class="row additional-filters">
 		<div class="col-xs-12 tags">
+			<hr>
 			<?php
 			$active = '';
 			if (empty($form->cityTag)) {

@@ -55,8 +55,15 @@ class SearchForm extends Model {
 	public $priceRange;
 	const ATTR_PRICE_RANGE = 'priceRange';
 
+	/** @var string */
+	public $timeRange;
+	const ATTR_TIME_RANGE = 'timeRange';
+
 	/** @var array Минимальная и максимальная цена для фильтра */
 	public $priceMinMax = [];
+
+	/** @var array Минимальная и максимальная продолжительность для фильтра */
+	public $timeMinMax = [];
 
 	/** @var CommonExcursion[] Экскурсии */
 	public $result = [];
@@ -84,6 +91,7 @@ class SearchForm extends Model {
 			[static::ATTR_CITY_TAG, StringValidator::class],
 			[static::ATTR_PAGE, NumberValidator::class],
 			[static::ATTR_PRICE_RANGE, SafeValidator::class],
+			[static::ATTR_TIME_RANGE, SafeValidator::class],
 		];
 	}
 
@@ -123,14 +131,37 @@ class SearchForm extends Model {
 		}
 
 		$params[$api::PARAM_SORTING] = '-popularity';
+		$excursions = [];
 
-		$response = $api->sendRequest($api::METHOD_EXPERIENCES, $params);
+		//Если нет города то грузим первые 20, кторые отдает трипстер, иначе загружаем все по 100 штук в массив и отдаем слайсом
+		if (empty($this->city) && empty($this->cityName)) {
+			$params[$api::PAGE_SIZE] = 20;
+			$page_results = $api->sendRequest($api::METHOD_EXPERIENCES, $params);
+			$excursions = $page_results->results;
+		}
+		else {
+			$page = 1;
+			$params[$api::PAGE_SIZE] = 100;
+			while (true) {
+				$params[$api::PARAM_PAGE] = $page;
+				$page_results = $api->sendRequest($api::METHOD_EXPERIENCES, $params);
 
-		if (!array_key_exists('results', $response)) {
-			return false;
+				// Добавляем экскурсии к общему массиву экскурсий
+				if (!property_exists($page_results, 'results')) {
+					break;
+				}
+
+				$excursions = array_merge($excursions, $page_results->results);
+
+				// Если это последняя страница — заканчиваем, иначе запрашиваем следующую
+				if (!array_key_exists('next', $page_results)) {
+					break;
+				}
+				$page++;
+			}
 		}
 
-		foreach ($response->results as $excursion) {
+		foreach ($excursions as $excursion) {
 			$excursion->url = $excursion->url . $api::UTM;
 
 			$excursion->city->url = $excursion->city->url . $api::UTM;
@@ -148,7 +179,7 @@ class SearchForm extends Model {
 		$commonExcursions = [];
 
 		//Конвертируем в Common объекты
-		foreach ($response->results as $tripsterExcursion) {
+		foreach ($excursions as $tripsterExcursion) {
 			$commonExcursion = new CommonExcursion();
 			$commonExcursion->id = $tripsterExcursion->id;
 			$commonExcursion->name = $tripsterExcursion->title;
@@ -173,17 +204,23 @@ class SearchForm extends Model {
 				case 'RUB':
 					$commonExcursion->price->currency = StringHelper::CURRENCY_RUB_SIGN;
 					$this->priceMinMax[] = $tripsterExcursion->price->value;
+					$commonExcursion->price->rubPrice = $tripsterExcursion->price->value;
 					break;
 				case 'EUR':
 					$commonExcursion->price->currency = StringHelper::CURRENCY_EUR_SIGN;
-					$this->priceMinMax[] = round($tripsterExcursion->price->value * CurrencySync::getCurRate('EUR'), 0);
+					$rubPrice = round($tripsterExcursion->price->value * CurrencySync::getCurRate('EUR'), 0);
+					$this->priceMinMax[] = $rubPrice;
+					$commonExcursion->price->rubPrice = $rubPrice;
 					break;
 				case 'USD':
-					$this->priceMinMax[] = round($tripsterExcursion->price->value * CurrencySync::getCurRate('USD'), 0);
 					$commonExcursion->price->currency = StringHelper::CURRENCY_USD_SIGN;
+					$rubPrice = round($tripsterExcursion->price->value * CurrencySync::getCurRate('USD'), 0);
+					$this->priceMinMax[] = $rubPrice;
+					$commonExcursion->price->rubPrice = $rubPrice;
 					break;
 				default:
-					$this->priceMinMax[] = [$tripsterExcursion->price->currency => $tripsterExcursion->price->value];
+					$this->priceMinMax[] = $tripsterExcursion->price->value;
+					$commonExcursion->price->rubPrice = $tripsterExcursion->price->value;
 					break;
 			}
 
@@ -229,16 +266,39 @@ class SearchForm extends Model {
 			$commonExcursion->schedule = $commonSchedules;
 
 			$commonExcursions[] = $commonExcursion;
+			$this->timeMinMax[] = round($commonExcursion->duration, 0);
 		}
 
 		sort($this->priceMinMax);
+		sort($this->timeMinMax);
 
 		$this->priceMinMax = [
 			$this->priceMinMax[0],
 			$this->priceMinMax[count($this->priceMinMax) - 1]
 		];
 
-		return $commonExcursions;
+		$this->timeMinMax = [
+			$this->timeMinMax[0],
+			$this->timeMinMax[count($this->timeMinMax) - 1]
+		];
+
+		if (!empty($this->city) || !empty($this->cityName)) {
+			$this->timeRange = implode(',', $this->timeMinMax);
+		}
+
+		//Фильтруем массив по цене
+		if (null !== ($this->priceRange)) {
+			$priceRange = explode(',', $this->priceRange);
+			/** @var CommonExcursion $excursion */
+			foreach ($commonExcursions as $index => $excursion) {
+				if ($excursion->price->rubPrice < $priceRange[0] || $excursion->price->rubPrice > $priceRange[1]) {
+					unset($commonExcursions[$index]);
+				}
+			}
+		}
+
+		//Оттдаем постранично
+		return array_slice($commonExcursions, $this->page, 10);
 	}
 
 	/**

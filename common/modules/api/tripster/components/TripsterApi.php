@@ -66,7 +66,7 @@ class TripsterApi extends Component implements Configurable {
 
 	const UTM = '?exp_partner=biletur&utm_source=biletur&utm_campaign=affiliates&utm_medium=api';
 
-	const PAGE_SIZE = 10;
+	const PAGE_SIZE = 20;
 
 	/**
 	 * @param array $config
@@ -119,11 +119,12 @@ class TripsterApi extends Component implements Configurable {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function sendRequest($resource, array $parameters = []) {
-		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $resource, $parameters, 2]);
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $resource, $parameters, 3]);
 		$results = Yii::$app->cache->get($cacheKey);
 		if (false === $results) {
-			$query_string = http_build_query(array_merge($parameters, ['page_size' => static::PAGE_SIZE]));
+			$query_string = http_build_query($parameters);
 			$curl = curl_init("$this->_url/$resource/?$query_string");
+
 			curl_setopt_array($curl, [
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_HTTPHEADER     => [

@@ -7,9 +7,17 @@
 		const LOADING_WIDGET = $('.loading-widget');
 		const BLOCK_PANEL = $('.block-panel');
 		let PAGE_INPUT = $('#searchform-page');
+		let PRICE_SLIDER_INPUT = $('#searchform-pricerange');
 
 		const methods = {
 			init: function () {
+
+				if (PRICE_SLIDER_INPUT.length) {
+					let priceRange = PRICE_SLIDER_INPUT.val().split(',');
+					$('#price-min').val(priceRange[0]);
+					$('#price-max').val(priceRange[1]);
+				}
+
 				$('.tag').click(function () {
 					if ($(this).hasClass('active')) {
 						$('#searchform-citytag').val('');
