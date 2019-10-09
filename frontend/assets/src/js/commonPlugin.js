@@ -68,8 +68,17 @@
 					GEO_MESSAGE.hide();
 				});
 
+				//Открытие попап-фильтров
 				$(POPUP_FILTER_SELECTOR).click(function () {
-					console.log('sss');
+
+
+					let popupFilter = $(this).find('span');
+					if (popupFilter.hasClass('active')) {
+						popupFilter.removeClass('active');
+					} else {
+						$(POPUP_FILTER_SELECTOR).find('span').removeClass('active');
+						popupFilter.addClass('active');
+					}
 				});
 
 				BUTTON_HIDE_FILTERS.click(function () {

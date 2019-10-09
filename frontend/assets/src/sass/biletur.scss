@@ -641,9 +641,29 @@ span {
 	color: $mainBlueColor;
 }
 
+.popup-filter-h {
+	color: #22415d;
+	margin-right: 20px;
+	font-weight: bolder;
+}
+
 a.popup-filter {
 	position: relative;
 	display: inline;
+	background-color: #22415d;
+	padding: 5px 10px 5px 10px;
+	font-weight: bolder;
+	color: #fff;
+	border-radius: 6px;
+	margin-right: 20px;
+
+	&:hover, &:focus, &:active {
+		text-decoration: none;
+	}
+
+	.glyphicon {
+		top: 3px;
+	}
 }
 
 a.popup-filter span {
@@ -664,7 +684,7 @@ a.popup-filter span:after {
 	content: '';
 	position: absolute;
 	bottom: 100%;
-	left: 50%;
+	left: 45%;
 	margin-left: -8px;
 	width: 0;
 	height: 0;
@@ -673,10 +693,10 @@ a.popup-filter span:after {
 	border-left: 8px solid transparent;
 }
 
-a:hover.popup-filter span {
+a.popup-filter span.active {
 	visibility: visible;
-	top: 30px;
-	left: 50%;
+	top: 35px;
+	left: 0;
 	margin-left: -76px;
 	z-index: 999;
 }

@@ -63,16 +63,15 @@ use yii\web\JsExpression;
 	</div>
 </div>
 <div class="row">
-	<div class="col-xs-4 col-xs-offset-2">
-		<a class="popup-filter" href="#">Цена
+	<div class="col-xs-11 col-xs-offset-1">
+		<span class="popup-filter-h">Фильтры</span> <a class="popup-filter" href="javascript:;"><i class="glyphicon glyphicon-tag"></i> Цена <i class="glyphicon glyphicon-chevron-down"></i>
 			<span>
-				Цена
 				<?= $htmlForm->field($form, $form::ATTR_PRICE_RANGE, ['template' => "{input}"])->widget(Slider::class, [
 					'sliderColor'   => Slider::TYPE_GREY,
 					'pluginOptions' => [
 						'min'       => $form->priceMinMax[0],
 						'max'       => $form->priceMinMax[1],
-						'step'      => 100,
+						'step'      => 50,
 						'range'     => true,
 						'tooltip'   => 'always',
 						'formatter' => new yii\web\JsExpression("function(val) {
@@ -87,6 +86,16 @@ use yii\web\JsExpression;
 					],
 				])->label(false);
 				?></span>
+		</a>
+		<a class="popup-filter" href="javascript:;"><i class="glyphicon glyphicon-time"></i> Длительность <i class="glyphicon glyphicon-chevron-down"></i>
+			<span>
+				dfdfdf
+			</span>
+		</a>
+		<a class="popup-filter" href="javascript:;">Популярные <i class="glyphicon glyphicon-chevron-down"></i>
+			<span>
+				dfdfdf
+			</span>
 		</a>
 	</div>
 </div>
