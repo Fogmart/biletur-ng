@@ -115,13 +115,18 @@ use yii\web\JsExpression;
 					}")
 					],
 					'pluginEvents'  => [
-						'slideStop' => new JsExpression("function() { $('#w0').submit(); }")
+						'slideStop' => new JsExpression("function() { $('#w0').submit(); }"),
+						'slide'     => new JsExpression("function(el) {
+								let timeRange = $('#searchform-timerange').val().split(',');
+								$('#time-min').val(timeRange[0]);
+								$('#time-max').val(timeRange[1]);
+						 }"),
 					],
 				])->label(false);
 				?>
 
-				<input disabled type="text" class="time-slider-input" id="price-min" value="<?= explode(',', $form->timeRange)[0] ?>">
-				<input disabled type="text" class="time-slider-input" id="price-max" value="<?= explode(',', $form->timeRange)[1] ?>">
+				<input disabled type="text" class="time-slider-input" id="time-min" value="<?= $form->timeMinMax[0] ?>">
+				<input disabled type="text" class="time-slider-input" id="time-max" value="<?= $form->timeMinMax[1] ?>">
 
 			</span>
 			</a>

@@ -282,16 +282,23 @@ class SearchForm extends Model {
 			$this->timeMinMax[count($this->timeMinMax) - 1]
 		];
 
-		if (!empty($this->city) || !empty($this->cityName)) {
-			$this->timeRange = implode(',', $this->timeMinMax);
-		}
-
 		//Фильтруем массив по цене
 		if (null !== ($this->priceRange)) {
 			$priceRange = explode(',', $this->priceRange);
 			/** @var CommonExcursion $excursion */
 			foreach ($commonExcursions as $index => $excursion) {
 				if ($excursion->price->rubPrice < $priceRange[0] || $excursion->price->rubPrice > $priceRange[1]) {
+					unset($commonExcursions[$index]);
+				}
+			}
+		}
+
+		//Фильтруем массив по длительности
+		if (null !== ($this->timeRange)) {
+			$timeRange = explode(',', $this->timeRange);
+			/** @var CommonExcursion $excursion */
+			foreach ($commonExcursions as $index => $excursion) {
+				if ($excursion->duration < $timeRange[0] || $excursion->duration > $timeRange[1]) {
 					unset($commonExcursions[$index]);
 				}
 			}

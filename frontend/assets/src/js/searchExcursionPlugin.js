@@ -8,14 +8,22 @@
 		const BLOCK_PANEL = $('.block-panel');
 		let PAGE_INPUT = $('#searchform-page');
 		let PRICE_SLIDER_INPUT = $('#searchform-pricerange');
+		let TIME_SLIDER_INPUT = $('#searchform-timerange');
 
 		const methods = {
 			init: function () {
-
+				//Восстановление значений к инпутах слайдера цены
 				if (PRICE_SLIDER_INPUT.length) {
 					let priceRange = PRICE_SLIDER_INPUT.val().split(',');
 					$('#price-min').val(priceRange[0]);
 					$('#price-max').val(priceRange[1]);
+				}
+
+				//Восстановление значений к инпутах слайдера длительности
+				if (TIME_SLIDER_INPUT.length) {
+					let timeRange = TIME_SLIDER_INPUT.val().split(',');
+					$('#time-min').val(timeRange[0]);
+					$('#time-max').val(timeRange[1]);
 				}
 
 				$('.tag').click(function () {
