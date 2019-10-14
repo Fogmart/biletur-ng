@@ -6,9 +6,12 @@
 		const SEARCH_FORM = $('#w0');
 		const LOADING_WIDGET = $('.loading-widget');
 		const BLOCK_PANEL = $('.block-panel');
+
 		let PAGE_INPUT = $('#searchform-page');
 		let PRICE_SLIDER_INPUT = $('#searchform-pricerange');
 		let TIME_SLIDER_INPUT = $('#searchform-timerange');
+		let SORT_TYPE_CONTROLS = $('.sort-type');
+		let SORT_TYPE_HIDDEN_INPUT = $('#searchform-sorttype');
 
 		const methods = {
 			init: function () {
@@ -45,6 +48,13 @@
 					$('#searchform-citytag').val('');
 
 					return true;
+				});
+
+				//Нажатие на тип сортировки
+				SORT_TYPE_CONTROLS.click(function () {
+					SORT_TYPE_HIDDEN_INPUT.val($(this).data('id'));
+
+					SEARCH_FORM.submit();
 				});
 
 				SHOW_MORE_BUTTON.unbind('click');

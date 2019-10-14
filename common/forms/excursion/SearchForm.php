@@ -40,8 +40,19 @@ class SearchForm extends Model {
 	public $country;
 	const ATTR_COUNTRY = 'country';
 
-	const SORT_POPULARITY = '-popularity';
-	const SORT_PRICE = 'price';
+	const SORT_POPULARITY = 0; //'-popularity'
+	const SORT_PRICE = 1; // 'price'
+	const SORT_REVIEW_COUNT = 2; //'review_count'
+
+	const SORT_NAMES = [
+		self::SORT_POPULARITY   => 'Популярные',
+		self::SORT_PRICE        => 'Дешевые',
+		self::SORT_REVIEW_COUNT => 'Обсуждаемые',
+	];
+
+	/** @var int */
+	public $sortType = self::SORT_POPULARITY;
+	const ATTR_SORT_TYPE = 'sortType';
 
 	/** @var string */
 	public $source = self::API_SOURCE_TRIPSTER;
@@ -58,6 +69,10 @@ class SearchForm extends Model {
 	/** @var string */
 	public $timeRange;
 	const ATTR_TIME_RANGE = 'timeRange';
+
+	/** @var int Подходит детям */
+	public $isChildFriendly = 0;
+	const ATTR_IS_CHILD_FRIENDLY = 'isChildFriendly';
 
 	/** @var array Минимальная и максимальная цена для фильтра */
 	public $priceMinMax = [];
@@ -79,6 +94,8 @@ class SearchForm extends Model {
 
 	const API_SOURCE_TRIPSTER = 0;
 
+	const PER_PAGE = 10;
+
 	/**
 	 * @return array
 	 *
@@ -92,6 +109,19 @@ class SearchForm extends Model {
 			[static::ATTR_PAGE, NumberValidator::class],
 			[static::ATTR_PRICE_RANGE, SafeValidator::class],
 			[static::ATTR_TIME_RANGE, SafeValidator::class],
+			[static::ATTR_SORT_TYPE, SafeValidator::class],
+			[static::ATTR_IS_CHILD_FRIENDLY, SafeValidator::class],
+		];
+	}
+
+	/**
+	 * @return array
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function attributeLabels() {
+		return [
+			static::ATTR_IS_CHILD_FRIENDLY => 'Подходит для детей'
 		];
 	}
 
@@ -130,12 +160,18 @@ class SearchForm extends Model {
 			$params[$api::PARAM_PAGE] = $this->page;
 		}
 
-		$params[$api::PARAM_SORTING] = '-popularity';
+		if ($this->sortType == $this::SORT_POPULARITY) {
+			$params[$api::PARAM_SORTING] = '-popularity';
+		}
+		elseif ($this->sortType == $this::SORT_PRICE) {
+			$params[$api::PARAM_SORTING] = 'price';
+		}
+
 		$excursions = [];
 
-		//Если нет города то грузим первые 20, кторые отдает трипстер, иначе загружаем все по 100 штук в массив и отдаем слайсом
+		//Если нет города то грузим первые static::PER_PAGE, кторые отдает трипстер, иначе загружаем все по 100 штук в массив и отдаем слайсом
 		if (empty($this->city) && empty($this->cityName)) {
-			$params[$api::PAGE_SIZE] = 20;
+			$params[$api::PAGE_SIZE] = static::PER_PAGE;
 			$page_results = $api->sendRequest($api::METHOD_EXPERIENCES, $params);
 			$excursions = $page_results->results;
 		}
@@ -304,8 +340,22 @@ class SearchForm extends Model {
 			}
 		}
 
+		//Фильтруем подходящие для детей
+		if ('1' == $this->isChildFriendly) {
+			foreach ($commonExcursions as $index => $excursion) {
+				if (false == $excursion->childFriendly) {
+					unset($commonExcursions[$index]);
+				}
+			}
+		}
+
 		//Оттдаем постранично
-		return array_slice($commonExcursions, $this->page, 10);
+		$from = 1;
+		if ($this->page > 1) {
+			$from = ($this->page - 1) * static::PER_PAGE;
+		}
+
+		return array_slice($commonExcursions, $from, static::PER_PAGE);
 	}
 
 	/**
@@ -318,10 +368,6 @@ class SearchForm extends Model {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function getLastAutocompleteCityTripster($cityName = null) {
-		if (null !== $cityName) {
-
-		}
-
 		$cacheKey = Yii::$app->cache->buildKey([TripsterApi::class . TripsterApi::AUTOCOMPLETE_TYPE_CITY, Yii::$app->session->id]);
 		$result = Yii::$app->cache->get($cacheKey);
 

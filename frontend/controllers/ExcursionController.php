@@ -60,8 +60,6 @@ class ExcursionController extends FrontendMenuController {
 			$form->load(Yii::$app->request->post());
 		}
 
-		//$form->isLoad = true;
-
 		$form->search();
 
 		if ($form->result === false) {

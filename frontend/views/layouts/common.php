@@ -57,6 +57,7 @@ AppAsset::register($this);
 <a id="scrollUp" href="javascript:;" style="display: none;"><span class="glyphicon glyphicon-chevron-up"></span></a>
 <?= $this->render('_footer') ?>
 <?= $this->registerJs('$(this).commonPlugin();') ?>
+<?= $this->registerJs('$(this).layoutPlugin();') ?>
 <?php $this->endBody() ?>
 </body>
 </html>

@@ -54,7 +54,8 @@
     "sunra/php-simple-html-dom-parser": "1.5.2",
     "ext-simplexml": "*",
     "bupy7/xml-constructor": "*",
-    "yii2mod/yii2-star-rating": "*"
+    "yii2mod/yii2-star-rating": "*",
+    "kartik-v/yii2-checkbox-x": "*"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",

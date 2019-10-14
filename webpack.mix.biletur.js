@@ -3,6 +3,7 @@ const mix = require('laravel-mix');
 
 //Конфиг для основного сайта ----------------------------------------------------------------------
 mix.ts('frontend/assets/src/ts/test.ts', 'frontend/web/js/biletur.js')
+	.js('frontend/assets/src/js/layoutPlugin.js', 'frontend/web/js/biletur.js')
 .js('frontend/assets/src/js/commonPlugin.js', 'frontend/web/js/biletur.js')
 .js('frontend/assets/src/js/searchTourPlugin.js', 'frontend/web/js/biletur.js')
 .js('frontend/assets/src/js/searchExcursionPlugin.js', 'frontend/web/js/biletur.js')
