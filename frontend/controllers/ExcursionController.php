@@ -62,7 +62,7 @@ class ExcursionController extends FrontendMenuController {
 
 		$form->search();
 
-		if ($form->result === false) {
+		if ($form->result === false || count($form->result) === 0) {
 			return false;
 		}
 

@@ -46,10 +46,10 @@
 				BUTTON_HIDE_FILTERS.click(function () {
 					ADDITIONAL_FILTERS.toggle();
 					if (ADDITIONAL_FILTERS.is(':visible')) {
-						localStorage.setItem(LS_PARAM_IS_ADD_FILTER_HIDDEN, 'false')
+						localStorage.setItem(LS_PARAM_IS_ADD_FILTER_HIDDEN, 'false');
 						BUTTON_HIDE_FILTERS.html('Скрыть доп.фильтры');
 					} else {
-						localStorage.setItem(LS_PARAM_IS_ADD_FILTER_HIDDEN, 'true')
+						localStorage.setItem(LS_PARAM_IS_ADD_FILTER_HIDDEN, 'true');
 						BUTTON_HIDE_FILTERS.html('Показать доп.фильтры');
 					}
 				});

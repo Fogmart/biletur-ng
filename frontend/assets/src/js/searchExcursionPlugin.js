@@ -53,7 +53,7 @@
 				//Нажатие на тип сортировки
 				SORT_TYPE_CONTROLS.click(function () {
 					SORT_TYPE_HIDDEN_INPUT.val($(this).data('id'));
-
+					PAGE_INPUT.val(1);
 					SEARCH_FORM.submit();
 				});
 
@@ -70,11 +70,11 @@
 						async: true,
 						data: SEARCH_FORM.serialize()
 					}).done(function (data) {
+						LOADING_WIDGET.hide();
+						BLOCK_PANEL.removeClass('process');
 						if (data !== false) {
 							SHOW_MORE_BUTTON.show();
 							$('.excursion-list').append(data);
-							LOADING_WIDGET.hide();
-							BLOCK_PANEL.removeClass('process');
 							$('.excursion-block').fadeIn();
 							$('input[name="rating"]').rating(
 								{

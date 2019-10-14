@@ -35,7 +35,7 @@ use yii\web\JsExpression;
 				'class'    => 'biletur-text-input'
 			],
 			'pluginEvents'  => [
-				"select2:select" => "function() { $('#searchform-citytag').val(''); $('#w0').submit(); }",
+				"select2:select" => "function() { $('#searchform-page').val(1); $('#searchform-citytag').val(''); $('#w0').submit(); }",
 			],
 			'pluginOptions' => [
 				'placeholder'        => 'Город, страна...',
@@ -66,7 +66,7 @@ use yii\web\JsExpression;
 				'threeState' => false
 			],
 			'pluginEvents'  => [
-				'change' => new JsExpression("function() { $('#w0').submit(); }"),
+				'change' => new JsExpression("function() { $('#searchform-page').val(1); $('#w0').submit(); }"),
 			],
 		])->label(false); ?>
 	</div>
@@ -95,7 +95,7 @@ use yii\web\JsExpression;
 						}")
 						],
 						'pluginEvents'  => [
-							'slideStop' => new JsExpression("function() { $('#w0').submit(); }"),
+							'slideStop' => new JsExpression("function() { $('#searchform-page').val(1); $('#w0').submit(); }"),
 							'slide'     => new JsExpression("function(el) {
 									let priceRange = $('#searchform-pricerange').val().split(',');
 									$('#price-min').val(priceRange[0]);
@@ -127,7 +127,7 @@ use yii\web\JsExpression;
 						}")
 						],
 						'pluginEvents'  => [
-							'slideStop' => new JsExpression("function() { $('#w0').submit(); }"),
+							'slideStop' => new JsExpression("function() { $('#searchform-page').val(1); $('#w0').submit(); }"),
 							'slide'     => new JsExpression("function(el) {
 									let timeRange = $('#searchform-timerange').val().split(',');
 									$('#time-min').val(timeRange[0]);
