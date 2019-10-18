@@ -46,7 +46,7 @@ AppAsset::register($this);
 				<li>Вакансии</li>
 			</ul>
 		</div>
-		<div style="margin-left: 220px">
+		<div style="margin-left: 20px; margin-bottom:10px;">
 			<?= $this->render('_header') ?>
 		</div>
 		<div class="inner-container">

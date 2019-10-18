@@ -8,7 +8,6 @@ use common\components\excursion\CommonExcursion;
 use common\components\excursion\CommonGuide;
 use common\components\excursion\CommonPrice;
 use common\components\excursion\CommonPriceDiscount;
-use common\components\excursion\CommonSchedule;
 use common\modules\api\tripster\components\TripsterApi;
 use sem\helpers\ArrayHelper;
 use Yii;
@@ -166,6 +165,9 @@ class SearchForm extends Model {
 		elseif ($this->sortType == $this::SORT_PRICE) {
 			$params[$api::PARAM_SORTING] = 'price';
 		}
+		else {
+			$params[$api::PARAM_SORTING] = '-popularity';
+		}
 
 		$excursions = [];
 
@@ -193,13 +195,13 @@ class SearchForm extends Model {
 				if (!array_key_exists('next', $page_results)) {
 					break;
 				}
+
 				$page++;
 			}
 		}
 
 		foreach ($excursions as $excursion) {
 			$excursion->url = $excursion->url . $api::UTM;
-
 			$excursion->city->url = $excursion->city->url . $api::UTM;
 			$excursion->city->country->url = $excursion->city->country->url . $api::UTM;
 			$excursion->guide->url = $excursion->guide->url . $api::UTM;
@@ -279,28 +281,28 @@ class SearchForm extends Model {
 			}
 
 			$commonExcursion->type = TripsterApi::COMMON_TYPE_LINK[$tripsterExcursion->type];
+			/*
+						$schedule = $api->getSchedule($commonExcursion->id);
+						$commonSchedules = [];
 
-			$schedule = $api->getSchedule($commonExcursion->id);
-			$commonSchedules = [];
+						foreach ($schedule->schedule as $date => $times) {
+							foreach ($times as $time) {
+								$commonSchedule = new CommonSchedule();
+								$commonSchedule->date = $date;
 
-			foreach ($schedule->schedule as $date => $times) {
-				foreach ($times as $time) {
-					$commonSchedule = new CommonSchedule();
-					$commonSchedule->date = $date;
+								if ($time->type == 'slot') {
+									$commonSchedule->timeStart = $time->time;
+								}
+								else {
+									$commonSchedule->timeStart = $time->time_start;
+								}
 
-					if ($time->type == 'slot') {
-						$commonSchedule->timeStart = $time->time;
-					}
-					else {
-						$commonSchedule->timeStart = $time->time_start;
-					}
+								$commonSchedules[$date] = $commonSchedule;
+							}
+						}
 
-					$commonSchedules[$date] = $commonSchedule;
-				}
-			}
-
-			$commonExcursion->schedule = $commonSchedules;
-
+						$commonExcursion->schedule = $commonSchedules;
+			*/
 			$commonExcursions[] = $commonExcursion;
 			$this->timeMinMax[] = round($commonExcursion->duration, 0);
 		}

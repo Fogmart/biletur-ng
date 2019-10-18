@@ -1,6 +1,5 @@
 <?php
 
-use common\base\helpers\DateHelper;
 use kartik\rating\StarRating;
 
 /**
@@ -41,18 +40,7 @@ use kartik\rating\StarRating;
 	</div>
 
 	<div class="annotation"><?= $excursion->annotation ?></div>
-	<div class="schedule-block">
-		<?php $i = 0; ?>
-		<?php foreach ($excursion->schedule as $date => $times): ?>
-			<div class="schedule"><?= DateHelper::intlFormat($date, DateHelper::INTL_FORMAT_DATE_RU_EX) ?>, <span class="time"><?= $times->timeStart ?></span></div>
-			<?php
-			$i++;
-			if ($i === 2) {
-				break;
-			}
-			?>
-		<?php endforeach ?>
-	</div>
+
 	<div class="price">
 		<?php if (null !== $excursion->price->discount): ?>
 			<span class="old-price"><?= $excursion->price->currency ?> <?= $excursion->price->discount->oldPrice ?></span>

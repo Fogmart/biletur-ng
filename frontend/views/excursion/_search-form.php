@@ -16,7 +16,6 @@ use yii\web\JsExpression;
 
 ?>
 <?php $htmlForm = ActiveForm::begin(['options' => ['data-pjax' => true]]); ?>
-
 <?= $htmlForm->field($form, $form::ATTR_PAGE)->hiddenInput()->label(false) ?>
 <?= $htmlForm->field($form, $form::ATTR_CITY_TAG)->hiddenInput()->label(false) ?>
 <?= $htmlForm->field($form, $form::ATTR_CITY_NAME)->hiddenInput()->label(false) ?>
@@ -35,7 +34,7 @@ use yii\web\JsExpression;
 				'class'    => 'biletur-text-input'
 			],
 			'pluginEvents'  => [
-				"select2:select" => "function() { $('#searchform-page').val(1); $('#searchform-citytag').val(''); $('#w0').submit(); }",
+				"select2:select" => new JsExpression("function() { $('#searchform-page').val(1); $('#searchform-citytag').val(''); $('#w0').submit();}")
 			],
 			'pluginOptions' => [
 				'placeholder'        => 'Город, страна...',
@@ -98,8 +97,8 @@ use yii\web\JsExpression;
 							'slideStop' => new JsExpression("function() { $('#searchform-page').val(1); $('#w0').submit(); }"),
 							'slide'     => new JsExpression("function(el) {
 									let priceRange = $('#searchform-pricerange').val().split(',');
-									$('#price-min').val(priceRange[0]);
-									$('#price-max').val(priceRange[1]);
+									$('#price-min').val(priceRange[0] + ' руб.');
+									$('#price-max').val(priceRange[1] + ' руб.');
 							 }"),
 						],
 					])->label(false);
@@ -130,8 +129,8 @@ use yii\web\JsExpression;
 							'slideStop' => new JsExpression("function() { $('#searchform-page').val(1); $('#w0').submit(); }"),
 							'slide'     => new JsExpression("function(el) {
 									let timeRange = $('#searchform-timerange').val().split(',');
-									$('#time-min').val(timeRange[0]);
-									$('#time-max').val(timeRange[1]);
+									$('#time-min').val(timeRange[0] + ' ч.');
+									$('#time-max').val(timeRange[1] + ' ч.');
 							 }"),
 						],
 					])->label(false);

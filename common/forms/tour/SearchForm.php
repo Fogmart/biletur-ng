@@ -89,11 +89,11 @@ class SearchForm extends Model {
 	/** @var int Сортировка от большего */
 	const SORT_TYPE_MAX = 1;
 
-	/** @var int Сортировка по-молчанию(Первые наши туры) */
+	/** @var int Сортировка по-умолчанию(Первые наши туры) */
 	const SORT_TYPE_DEFAULT = 2;
 
 	//Параметры пагинации
-	const ITEMS_PER_PAGE = 15;
+	const ITEMS_PER_PAGE = 10;
 
 	/**
 	 * @inheritDoc
@@ -176,7 +176,7 @@ class SearchForm extends Model {
 		//Сортируем
 		$this->_sort();
 
-		//Разрезаем на пагинацию для подгрузку аяксом
+		//Разрезаем на пагинацию для подгрузки аяксом
 		$this->_slice();
 
 		return $this->result;

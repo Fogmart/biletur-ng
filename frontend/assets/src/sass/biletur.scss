@@ -83,6 +83,11 @@ body {
 				border-bottom-left-radius: 0px;
 				border-bottom-right-radius: 0px;
 				overflow: unset;
+
+				&.r-footer {
+					border-bottom-left-radius: 8px;
+					border-bottom-right-radius: 8px;
+				}
 			}
 		}
 
@@ -350,7 +355,7 @@ a.desc:after {
 
 .biletur-text-input {
 	padding: 5px 10px 5px 10px;
-	border-radius: 8px;
+	border-radius: 5px;
 	border: 1px solid $mainBlueColor;
 	color: $mainBlueColor;
 	font-weight: bolder;
@@ -710,3 +715,15 @@ a.popup-filter span.active {
 	margin-top: 0;
 }
 
+.tour-item {
+	background-color: #fff;
+	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.45);
+	padding: 10px 15px 10px 10px;
+	#border-radius: 8px;
+	margin-bottom: 20px;
+	height: 300px;
+
+	.cover {
+
+	}
+}
