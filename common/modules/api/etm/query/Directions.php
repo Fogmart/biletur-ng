@@ -1,6 +1,7 @@
 <?php
 
 namespace common\modules\api\etm\query;
+
 /**
  * @author Исаков Владислав <visakov@biletur.ru>
  */

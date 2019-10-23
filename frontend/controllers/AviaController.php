@@ -1,7 +1,13 @@
 <?php
+
 namespace frontend\controllers;
 
 use common\components\FrontendMenuController;
+use common\forms\etm\SearchForm;
+use common\modules\api\etm\components\EtmApi;
+use common\modules\api\etm\query\Offers;
+use Yii;
+use yii\web\Response;
 
 /**
  *
@@ -18,8 +24,41 @@ class AviaController extends FrontendMenuController {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function actionIndex() {
+		$form = new SearchForm();
+
+		if (Yii::$app->request->isPjax) {
+			$form->load(Yii::$app->request->post());
+		}
+
+		$form->search();
+
+		return $this->render('index', ['form' => $form]);
+	}
 
 
-		return $this->render('index');
+	/**
+	 * Запрос результата поиска по идентификатору запроса ETM
+	 *
+	 * @param int $requestId
+	 *
+	 * @return \common\modules\api\etm\response\offers\OffersResponse
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function getResult($requestId) {
+		$this->layout = false;
+		Yii::$app->response->format = Response::FORMAT_JSON;
+
+		$query = new Offers();
+		$query->request_id = $requestId;
+		$query->currency = 'RUB';
+		$query->sort = Offers::SORT_PRICE;
+
+		$api = new EtmApi();
+
+		/** @var \common\modules\api\etm\response\offers\OffersResponse $response */
+		$response = $api->sendRequest(EtmApi::METHOD_OFFERS, $query, true);
+
+		return $response;
 	}
 }

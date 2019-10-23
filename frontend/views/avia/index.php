@@ -1,81 +1,25 @@
 <?php
+
+use yii\widgets\Pjax;
+
 /**
  * @author Исаков Владислав <visakov@biletur.ru>
  */
 
 ?>
-<div class="content-header text-center">
-    <h1>Поиск авиабилетов</h1>
-</div>
-<div class="row">
-    <div class="col-xs-12">
-        <div class="block-panel">
-            <table class="table table-hover table-striped table-condensed colored-tbl">
-                <tr class="green-tr">
-                    <td class="left-cell-green">1</td>
-                    <td>1</td>
-                    <td class="right-cell-green">1</td>
-                </tr>
-                <tr class="green-tr">
-                    <td class="left-cell-green">1</td>
-                    <td>1</td>
-                    <td class="right-cell-green">1</td>
-                </tr>
-                <tr class="green-tr">
-                    <td class="left-cell-green">1</td>
-                    <td>1</td>
-                    <td class="right-cell-green">1</td>
-                </tr>
-
-            </table>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-12">
-        <div class="block-panel">
-            <table class="table table-hover table-striped table-bordered table-condensed colored-tbl">
-                <tr class="green-tr">
-                    <td class="left-cell-green">1</td>
-                    <td>1</td>
-                    <td class="right-cell-green">1</td>
-                </tr>
-                <tr class="green-tr">
-                    <td class="left-cell-green">1</td>
-                    <td>1</td>
-                    <td class="right-cell-green">1</td>
-                </tr>
-                <tr class="green-tr">
-                    <td class="left-cell-green">1</td>
-                    <td>1</td>
-                    <td class="right-cell-green">1</td>
-                </tr>
-                <tr class="red-tr">
-                    <td class="left-cell-red">1</td>
-                    <td>1</td>
-                    <td class="right-cell-red">1</td>
-                </tr>
-                <tr class="red-tr">
-                    <td class="left-cell-red">1</td>
-                    <td>1</td>
-                    <td class="right-cell-red">1</td>
-                </tr>
-                <tr class="red-tr">
-                    <td class="left-cell-red">1</td>
-                    <td>1</td>
-                    <td class="right-cell-red">1</td>
-                </tr>
-                <tr class="red-tr">
-                    <td class="left-cell-red">1</td>
-                    <td>1</td>
-                    <td class="right-cell-red">1</td>
-                </tr>
-                <tr class="red-tr">
-                    <td class="left-cell-red">1</td>
-                    <td>1</td>
-                    <td class="right-cell-red">1</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>
+<?php Pjax::begin(); ?>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="block-panel">
+				<img class="block-logo" src="/images/excursion-logo.svg" height="30"> <img class="v-line" src="/images/v-line.svg" height="30">
+				<h2>Авиабилеты</h2>
+				<?= $this->render('_search-form', ['form' => $form]) ?>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<?= $this->render('_search-result', ['form' => $form]) ?>
+		</div>
+	</div>
+<?php Pjax::end(); ?>

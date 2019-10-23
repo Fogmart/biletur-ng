@@ -6,7 +6,7 @@ namespace common\modules\api\etm\query;
  */
 class SearchFlights {
 
-	/** @var \common\modules\api\etm\Directions[] */
+	/** @var \common\modules\api\etm\query\Directions[] */
 	public $directions;
 
 	/** @var int */

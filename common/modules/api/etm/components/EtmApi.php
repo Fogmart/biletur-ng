@@ -1,16 +1,60 @@
 <?php
+
 namespace common\modules\api\etm\components;
 
+use Yii;
 use yii\base\Component;
+use yii\base\Configurable;
 
 /**
  * @author Исаков Владислав <visakov@biletur.ru>
  */
-class EtmApi extends Component {
-	public $url;
-	public $apiKey;
+class EtmApi extends Component implements Configurable {
+	private $_url;
+	private $_apiKey;
 
 	const METHOD_SEARCH = 'search';
+	const METHOD_OFFERS = 'offers';
+
+	/**
+	 * @param array $config
+	 *
+	 * @author Isakov Vlad <visakov@biletur.ru>
+	 *
+	 * TripsterApi constructor.
+	 */
+	public function __construct($config = []) {
+		if (!empty($config)) {
+			Yii::configure($this, $config);
+		}
+		parent::__construct($config);
+	}
+
+	/**
+	 * @param string $value
+	 *
+	 * @return $this
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function setUrl($value) {
+		$this->_url = $value;
+
+		return $this;
+	}
+
+	/**
+	 * @param string $value
+	 *
+	 * @return $this
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function setApiKey($value) {
+		$this->_apiKey = $value;
+
+		return $this;
+	}
 
 	/**
 	 * @param string $method
@@ -21,7 +65,7 @@ class EtmApi extends Component {
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
 	public function sendRequest($method, $query, $isPost) {
-		$url = $this->url . $method;
+		$url = $this->_url . $method;
 		$query = json_encode($query);
 
 		$curl = curl_init();
@@ -30,7 +74,7 @@ class EtmApi extends Component {
 		curl_setopt($curl, CURLOPT_HEADER, [
 			'Content-Type: application/json',
 			'Content-Length: ' . strlen($query),
-			'etm-auth-key: ' . $this->apiKey
+			'etm-auth-key: ' . $this->_apiKey
 		]);
 
 		curl_setopt($curl, CURLOPT_URL, $url);
