@@ -47,6 +47,10 @@ class SearchForm extends Model {
 	public $isFixedDate = false;
 	const ATTR_IS_FIXED_DATE = 'isFixedDate';
 
+	/** @var int */
+	public $maxPrice;
+	const ATTR_MAX_PRICE = 'maxPrice';
+
 	/** @var \common\modules\api\etm\response\SearchFlightsResponse */
 	public $result;
 
@@ -69,6 +73,24 @@ class SearchForm extends Model {
 	}
 
 	/**
+	 * @return array
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public function attributeLabels() {
+		return [
+			static::ATTR_AIRPORT_FROM  => 'Аэропорт вылета',
+			static::ATTR_AIRPORT_TO    => 'Аэропорт прилета',
+			static::ATTR_DATE          => 'Дата',
+			static::ATTR_ADULT_COUNT   => 'Кол-во взрослых',
+			static::ATTR_CHILD_COUNT   => 'Кол-во детей',
+			static::ATTR_IS_DIRECT     => 'Прямой рейс',
+			static::ATTR_CLASS         => 'Класс обслуживания',
+			static::ATTR_IS_FIXED_DATE => 'Фиксированная дата',
+		];
+	}
+
+	/**
 	 * Поиск в ETM
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
@@ -80,7 +102,6 @@ class SearchForm extends Model {
 		$query->directions->departure_code = $this->airportFrom;
 		$query->directions->arrival_code = $this->airportTo;
 		$query->directions->date = $this->date;
-
 		$query->child_qnt = $this->childCount;
 		$query->adult_qnt = $this->adultCount;
 		$query->direct = $this->isDirect;
@@ -92,5 +113,4 @@ class SearchForm extends Model {
 		/** @var \common\modules\api\etm\response\SearchFlightsResponse $response */
 		$this->result = $api->sendRequest(EtmApi::METHOD_SEARCH, $query, true);
 	}
-
 }

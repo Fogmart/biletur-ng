@@ -1,12 +1,14 @@
 <?php
 
+use frontend\controllers\AviaController;
 use yii\widgets\Pjax;
 
 /**
  * @author Исаков Владислав <visakov@biletur.ru>
  */
-
 ?>
+	<div class="load-offers-url" data-url="<?= AviaController::getActionUrl(AviaController::ACTION_GET_RESULT) ?>"></div>
+	<div class="offer-request-id" data-id=""></div>
 <?php Pjax::begin(); ?>
 	<div class="row">
 		<div class="col-xs-12">

@@ -15,6 +15,7 @@ use yii\web\Response;
  */
 class AviaController extends FrontendMenuController {
 	const ACTION_INDEX = '';
+	const ACTION_GET_RESULT = 'get-result';
 
 	/**
 	 * Точка входа Авиа
@@ -45,7 +46,7 @@ class AviaController extends FrontendMenuController {
 	 *
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
-	public function getResult($requestId) {
+	public function actionGetResult($requestId) {
 		$this->layout = false;
 		Yii::$app->response->format = Response::FORMAT_JSON;
 
