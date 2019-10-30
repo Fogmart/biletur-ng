@@ -2,8 +2,8 @@
 
 namespace common\models\oracle\scheme\arr;
 
-use common\models\oracle\scheme\DspBaseModel;
 use common\components\helpers\LArray;
+use common\models\oracle\scheme\DspBaseModel;
 use Yii;
 use yii\caching\TagDependency;
 use yii\db\ActiveQuery;
@@ -34,6 +34,11 @@ use yii\db\Query;
  *
  */
 class ARRAirport extends DspBaseModel {
+
+	const ATTR_AP_ID = 'AP_ID';
+	const ATTR_AP_IATA = 'AP_IATA';
+	const ATTR_AP_CODE = 'AP_CODE';
+	const ATTR_S_NAME = 'SNAME';
 
 	/**
 	 * Получение массива идентификаторов АУРЫ аэрпортов для города ДСП

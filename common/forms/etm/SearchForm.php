@@ -5,7 +5,11 @@ namespace common\forms\etm;
 use common\modules\api\etm\components\EtmApi;
 use common\modules\api\etm\query\Directions;
 use common\modules\api\etm\query\SearchFlights;
+use Yii;
 use yii\base\Model;
+use yii\validators\DateValidator;
+use yii\validators\NumberValidator;
+use yii\validators\RequiredValidator;
 use yii\validators\SafeValidator;
 
 /**
@@ -23,17 +27,25 @@ class SearchForm extends Model {
 	public $airportTo;
 	const ATTR_AIRPORT_TO = 'airportTo';
 
-	/** @var string Дата */
+	/** @var string Дата туда */
 	public $date;
 	const ATTR_DATE = 'date';
 
+	/** @var string Дата обратно */
+	public $backDate;
+	const ATTR_BACK_DATE = 'backDate';
+
 	/** @var int Кол-во взрослых */
-	public $adultCount;
+	public $adultCount = 1;
 	const ATTR_ADULT_COUNT = 'adultCount';
 
 	/** @var int Кол-во детей */
-	public $childCount;
+	public $childCount = 0;
 	const ATTR_CHILD_COUNT = 'childCount';
+
+	/** @var int Кол-во инфантов */
+	public $infantCount = 0;
+	const ATTR_INFANT_COUNT = 'infantCount';
 
 	/** @var bool Прямой рейс */
 	public $isDirect = false;
@@ -51,6 +63,12 @@ class SearchForm extends Model {
 	public $maxPrice;
 	const ATTR_MAX_PRICE = 'maxPrice';
 
+	/** @var array Классы обслуживания */
+	const CLASSES = [
+		'E',
+		'B'
+	];
+
 	/** @var \common\modules\api\etm\response\SearchFlightsResponse */
 	public $result;
 
@@ -61,14 +79,22 @@ class SearchForm extends Model {
 	 */
 	public function rules() {
 		return [
-			[static::ATTR_AIRPORT_FROM, SafeValidator::class],
-			[static::ATTR_AIRPORT_TO, SafeValidator::class],
-			[static::ATTR_DATE, SafeValidator::class],
-			[static::ATTR_ADULT_COUNT, SafeValidator::class],
-			[static::ATTR_CHILD_COUNT, SafeValidator::class],
+			[static::ATTR_AIRPORT_FROM, RequiredValidator::class],
+			[static::ATTR_AIRPORT_TO, RequiredValidator::class],
+			[static::ATTR_DATE, RequiredValidator::class],
+			[static::ATTR_CLASS, RequiredValidator::class],
+			[static::ATTR_ADULT_COUNT, RequiredValidator::class],
+			[static::ATTR_CHILD_COUNT, RequiredValidator::class],
+			[static::ATTR_INFANT_COUNT, RequiredValidator::class],
+
+			[static::ATTR_ADULT_COUNT, NumberValidator::class],
+			[static::ATTR_CHILD_COUNT, NumberValidator::class],
+			[static::ATTR_INFANT_COUNT, NumberValidator::class],
+
 			[static::ATTR_IS_DIRECT, SafeValidator::class],
-			[static::ATTR_CLASS, SafeValidator::class],
 			[static::ATTR_IS_FIXED_DATE, SafeValidator::class],
+			[static::ATTR_DATE, DateValidator::class, 'format' => 'Y-m-d'],
+			[static::ATTR_BACK_DATE, DateValidator::class, 'format' => 'Y-m-d'],
 		];
 	}
 
@@ -108,9 +134,21 @@ class SearchForm extends Model {
 		$query->class = $this->class;
 		$query->flexible = $this->isFixedDate;
 
-		$api = new EtmApi();
-
 		/** @var \common\modules\api\etm\response\SearchFlightsResponse $response */
-		$this->result = $api->sendRequest(EtmApi::METHOD_SEARCH, $query, true);
+		$this->result['from'] = Yii::$app->etmApi->sendRequest(EtmApi::METHOD_SEARCH, $query, true);
+		$this->result['back'] = null;
+
+		//Если заполнена дата возврата то меняем местами направления и даты, и делаем еще один запрос
+		if (!empty($this->backDate)) {
+			$query->directions = new Directions();
+			$query->directions->departure_code = $this->airportTo;
+			$query->directions->arrival_code = $this->airportFrom;
+			$query->directions->date = $this->backDate;
+
+			/** @var \common\modules\api\etm\response\SearchFlightsResponse $response */
+			$this->result['back'] = Yii::$app->etmApi->sendRequest(EtmApi::METHOD_SEARCH, $query, true);
+		}
+
+
 	}
 }

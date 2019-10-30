@@ -2,6 +2,7 @@
 
 namespace common\modules\api\etm\components;
 
+use common\base\helpers\Dump;
 use Yii;
 use yii\base\Component;
 use yii\base\Configurable;
@@ -15,6 +16,7 @@ class EtmApi extends Component implements Configurable {
 
 	const METHOD_SEARCH = 'search';
 	const METHOD_OFFERS = 'offers';
+	const METHOD_AIRLINES = 'airlines';
 
 	/**
 	 * @param array $config
@@ -81,6 +83,8 @@ class EtmApi extends Component implements Configurable {
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		$out = curl_exec($curl);
 		curl_close($curl);
+
+		Dump::dDie($out);
 
 		return json_decode($out);
 	}
