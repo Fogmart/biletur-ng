@@ -3,9 +3,11 @@
 namespace common\modules\api\etm\query;
 
 /**
+ * Класс для направления при поиске предложений рейсов
+ *
  * @author Исаков Владислав <visakov@biletur.ru>
  */
-class Directions {
+class Direction {
 	/** @var string` */
 	public $departure_code;
 
@@ -16,13 +18,13 @@ class Directions {
 	public $date;
 
 	/** @var string */
-	public $time;
+//	public $time; //под вопросом
 
 	/** @var array Время суток для вылета */
-	const TIME = [
+	/*const TIME = [
 		'M',
 		'N',
 		'A',
 		'E'
-	];
+	];*/
 }

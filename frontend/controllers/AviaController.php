@@ -61,10 +61,8 @@ class AviaController extends FrontendMenuController {
 		$query->currency = 'RUB';
 		$query->sort = Offers::SORT_PRICE;
 
-		$api = new EtmApi();
-
 		/** @var \common\modules\api\etm\response\offers\OffersResponse $response */
-		$response = $api->sendRequest(EtmApi::METHOD_OFFERS, $query, true);
+		$response = Yii::$app->etmApi->sendRequest(EtmApi::METHOD_OFFERS, $query, false);
 
 		return $response;
 	}
@@ -84,7 +82,9 @@ class AviaController extends FrontendMenuController {
 
 		/** @var ARRAirport[] $airports */
 		$airports = ARRAirport::find()
+			->select([ARRAirport::ATTR_AP_IATA, ARRAirport::ATTR_S_NAME])
 			->andWhere(['LIKE', new Expression('upper("' . ARRAirport::ATTR_S_NAME . '")'), mb_strtoupper($q)])
+			->andWhere(['IS NOT', ARRAirport::ATTR_AP_IATA, null])
 			->all();
 
 		$result = [];

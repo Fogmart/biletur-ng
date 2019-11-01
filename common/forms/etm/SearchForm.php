@@ -2,8 +2,9 @@
 
 namespace common\forms\etm;
 
+use common\base\helpers\Dump;
 use common\modules\api\etm\components\EtmApi;
-use common\modules\api\etm\query\Directions;
+use common\modules\api\etm\query\Direction;
 use common\modules\api\etm\query\SearchFlights;
 use Yii;
 use yii\base\Model;
@@ -43,30 +44,30 @@ class SearchForm extends Model {
 	public $childCount = 0;
 	const ATTR_CHILD_COUNT = 'childCount';
 
-	/** @var int Кол-во инфантов */
+	/** @var int Кол-во младенцев */
 	public $infantCount = 0;
 	const ATTR_INFANT_COUNT = 'infantCount';
 
 	/** @var bool Прямой рейс */
-	public $isDirect = false;
+	public $isDirect = 0;
 	const ATTR_IS_DIRECT = 'isDirect';
 
 	/** @var string Класс обслуживания */
-	public $class;
+	public $class = 'E';
 	const ATTR_CLASS = 'class';
 
 	/** @var bool Искать на фиксированную дату */
-	public $isFixedDate = false;
+	public $isFixedDate = 0;
 	const ATTR_IS_FIXED_DATE = 'isFixedDate';
 
-	/** @var int */
+	/** @var int Максимальная цена */
 	public $maxPrice;
 	const ATTR_MAX_PRICE = 'maxPrice';
 
 	/** @var array Классы обслуживания */
 	const CLASSES = [
-		'E',
-		'B'
+		'E' => 'E',
+		'B' => 'B'
 	];
 
 	/** @var \common\modules\api\etm\response\SearchFlightsResponse */
@@ -110,6 +111,7 @@ class SearchForm extends Model {
 			static::ATTR_DATE          => 'Дата',
 			static::ATTR_ADULT_COUNT   => 'Кол-во взрослых',
 			static::ATTR_CHILD_COUNT   => 'Кол-во детей',
+			static::ATTR_INFANT_COUNT  => 'Кол-во младенцев',
 			static::ATTR_IS_DIRECT     => 'Прямой рейс',
 			static::ATTR_CLASS         => 'Класс обслуживания',
 			static::ATTR_IS_FIXED_DATE => 'Фиксированная дата',
@@ -123,32 +125,52 @@ class SearchForm extends Model {
 	 */
 	public function search() {
 		$query = new SearchFlights();
+		$direction = new Direction();
 
-		$query->directions = new Directions();
-		$query->directions->departure_code = $this->airportFrom;
-		$query->directions->arrival_code = $this->airportTo;
-		$query->directions->date = $this->date;
-		$query->child_qnt = $this->childCount;
-		$query->adult_qnt = $this->adultCount;
-		$query->direct = $this->isDirect;
+		$direction->departure_code = $this->airportFrom;
+		$direction->arrival_code = $this->airportTo;
+		$direction->date = $this->date;
+		$query->directions[] = $direction;
+		$query->child_qnt = (int)$this->childCount;
+		$query->adult_qnt = (int)$this->adultCount;
+		$query->infant_qnt = (int)$this->infantCount;
+		$query->direct = (bool)$this->isDirect;
 		$query->class = $this->class;
-		$query->flexible = $this->isFixedDate;
+		$query->flexible = (bool)$this->isFixedDate;
 
-		/** @var \common\modules\api\etm\response\SearchFlightsResponse $response */
-		$this->result['from'] = Yii::$app->etmApi->sendRequest(EtmApi::METHOD_SEARCH, $query, true);
-		$this->result['back'] = null;
-
-		//Если заполнена дата возврата то меняем местами направления и даты, и делаем еще один запрос
+		//Если заполнена дата возврата то меняем местами направления и даты, и добавляем еще одно направление
 		if (!empty($this->backDate)) {
-			$query->directions = new Directions();
-			$query->directions->departure_code = $this->airportTo;
-			$query->directions->arrival_code = $this->airportFrom;
-			$query->directions->date = $this->backDate;
-
-			/** @var \common\modules\api\etm\response\SearchFlightsResponse $response */
-			$this->result['back'] = Yii::$app->etmApi->sendRequest(EtmApi::METHOD_SEARCH, $query, true);
+			$direction = new Direction();
+			$direction->departure_code = $this->airportTo;
+			$direction->arrival_code = $this->airportFrom;
+			$direction->date = $this->backDate;
+			$query->directions[] = $direction;
 		}
 
+		$query = static::_prepareQuery($query);
 
+		/** @var \common\modules\api\etm\response\SearchFlightsResponse $response */
+		$this->result = Yii::$app->etmApi->sendRequest(EtmApi::METHOD_SEARCH, $query, true);
+
+		Dump::dDie($this->result);
+	}
+
+	/**
+	 * Очистка обьекта запроса от незаполненных полей
+	 *
+	 * @param SearchFlights $query
+	 *
+	 * @return \common\modules\api\etm\query\SearchFlights
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	private static function _prepareQuery(SearchFlights $query): SearchFlights {
+		foreach ($query as $property => $value) {
+			if (null === $value) {
+				unset($query->$property);
+			}
+		}
+
+		return $query;
 	}
 }

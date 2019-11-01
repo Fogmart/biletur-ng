@@ -64,6 +64,27 @@ class ARRAirport extends DspBaseModel {
 	}
 
 	/**
+	 * Название аэропорта по коду IATA
+	 *
+	 * @param string $code
+	 *
+	 * @return string|null
+	 *
+	 * @author Исаков Владислав <visakov@biletur.ru>
+	 */
+	public static function getNameByIataCode($code) {
+		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $code]);
+		$name = Yii::$app->cache->get($cacheKey);
+		if (false === $name) {
+			$name = static::find()->select([static::ATTR_S_NAME])->where([static::ATTR_AP_IATA => $code])->scalar();
+
+			Yii::$app->cache->set($cacheKey, $name);
+		}
+
+		return $name;
+	}
+
+	/**
 	 * @return string
 	 */
 	public static function tableName() {

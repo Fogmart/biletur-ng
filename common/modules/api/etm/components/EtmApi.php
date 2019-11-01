@@ -2,7 +2,6 @@
 
 namespace common\modules\api\etm\components;
 
-use common\base\helpers\Dump;
 use Yii;
 use yii\base\Component;
 use yii\base\Configurable;
@@ -60,13 +59,13 @@ class EtmApi extends Component implements Configurable {
 
 	/**
 	 * @param string $method
-	 * @param string $query
+	 * @param object $query
 	 * @param bool   $isPost
 	 *
 	 * @return mixed
 	 * @author Исаков Владислав <visakov@biletur.ru>
 	 */
-	public function sendRequest($method, $query, $isPost) {
+	public function sendRequest(string $method, object $query, bool $isPost): object {
 		$url = $this->_url . $method;
 		$query = json_encode($query);
 
@@ -82,10 +81,14 @@ class EtmApi extends Component implements Configurable {
 		curl_setopt($curl, CURLOPT_URL, $url);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		$out = curl_exec($curl);
+
+		$headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
+
+		//$header = substr($out, 0, $headerSize); //может пригодится
+		$body = substr($out, $headerSize);
+
 		curl_close($curl);
 
-		Dump::dDie($out);
-
-		return json_decode($out);
+		return json_decode($body);
 	}
 }

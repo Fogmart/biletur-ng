@@ -54,7 +54,6 @@ interface ILinkedModels {
 	 */
 	public static function getLinkedFields();
 
-
 	/**
 	 * Получение сконвертированного значения поля.
 	 * Если конвертировать нечего то должен содержать 'return $data';

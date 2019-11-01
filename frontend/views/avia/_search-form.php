@@ -1,11 +1,14 @@
 <?php
 
+use common\base\helpers\StringHelper;
+use common\models\oracle\scheme\arr\ARRAirport;
 use frontend\controllers\AviaController;
 use kartik\checkbox\CheckboxX;
 use kartik\date\DatePicker;
 use kartik\form\ActiveForm;
 use kartik\helpers\Html;
 use kartik\select2\Select2;
+use kartik\touchspin\TouchSpin;
 use yii\web\JsExpression;
 
 /**
@@ -21,6 +24,7 @@ use yii\web\JsExpression;
 			$htmlForm->field($form, $form::ATTR_AIRPORT_FROM)->widget(Select2::class, [
 				'model'         => $form,
 				'attribute'     => $form::ATTR_AIRPORT_FROM,
+				'data'          => [$form->airportFrom => StringHelper::ucfirst(ARRAirport::getNameByIataCode($form->airportFrom))],
 				'options'       => [
 					'multiple' => false,
 					'prompt'   => 'Нет',
@@ -34,6 +38,7 @@ use yii\web\JsExpression;
 						'data'     => new JsExpression('function(params) { return {q:params.term}; }')
 					],
 					'escapeMarkup'       => new JsExpression('function (markup) { return markup; }'),
+					'templateResult'     => new JsExpression('function(data) { return data.text; }'),
 					'templateSelection'  => new JsExpression('function (data) { return data.text; }'),
 					'allowClear'         => false,
 					'minimumInputLength' => 3,
@@ -46,13 +51,13 @@ use yii\web\JsExpression;
 			$htmlForm->field($form, $form::ATTR_AIRPORT_TO)->widget(Select2::class, [
 				'model'         => $form,
 				'attribute'     => $form::ATTR_AIRPORT_TO,
+				'data'          => [$form->airportTo => StringHelper::ucfirst(ARRAirport::getNameByIataCode($form->airportTo))],
 				'options'       => [
 					'multiple' => false,
 					'prompt'   => 'Нет',
 					'class'    => 'biletur-text-input'
 				],
 				'pluginOptions' => [
-
 					'placeholder'        => 'Куда',
 					'ajax'               => [
 						'url'      => AviaController::getActionUrl(AviaController::ACTION_GET_AIRPORT),
@@ -89,7 +94,9 @@ use yii\web\JsExpression;
 					'class'       => 'biletur-text-input'
 				],
 				'pluginOptions' => [
-					'autoclose' => true
+					'startDate' => date('Y-m-d'),
+					'autoclose' => true,
+					'format'    => 'yyyy-mm-dd',
 				]
 			])->label(false)
 			?>
@@ -126,17 +133,41 @@ use yii\web\JsExpression;
 		</div>
 	</div>
 	<div class="row additional-filters">
-		<div class="col-xs-3">
-			<?= $htmlForm->field($form, $form::ATTR_CLASS)->dropDownList($form::CLASSES) ?>
+		<div class="col-xs-2">
+			<?= $htmlForm->field($form, $form::ATTR_CLASS)->dropDownList($form::CLASSES, ['class' => 'biletur-text-input']) ?>
 		</div>
-		<div class="col-xs-3">
-			<?= $htmlForm->field($form, $form::ATTR_ADULT_COUNT)->textInput() ?>
+		<div class="col-xs-2">
+			<?= $htmlForm->field($form, $form::ATTR_ADULT_COUNT)->widget(TouchSpin::class, [
+				'options'       => ['class' => 'biletur-text-input'],
+				'pluginOptions' => [
+					'verticalbuttons' => true,
+					'min'             => 1,
+					'max'             => 10,
+				]
+			]);
+			?>
 		</div>
-		<div class="col-xs-3">
-			<?= $htmlForm->field($form, $form::ATTR_CHILD_COUNT)->textInput() ?>
+		<div class="col-xs-2">
+			<?= $htmlForm->field($form, $form::ATTR_CHILD_COUNT)->widget(TouchSpin::class, [
+				'options'       => ['class' => 'biletur-text-input'],
+				'pluginOptions' => [
+					'verticalbuttons' => true,
+					'min'             => 0,
+					'max'             => 10,
+				]
+			]);
+			?>
 		</div>
-		<div class="col-xs-3">
-			<?= $htmlForm->field($form, $form::ATTR_INFANT_COUNT)->textInput() ?>
+		<div class="col-xs-2">
+			<?= $htmlForm->field($form, $form::ATTR_INFANT_COUNT)->widget(TouchSpin::class, [
+				'options'       => ['class' => 'biletur-text-input'],
+				'pluginOptions' => [
+					'verticalbuttons' => true,
+					'min'             => 0,
+					'max'             => 10,
+				]
+			]);
+			?>
 		</div>
 	</div>
 <?php ActiveForm::end(); ?>
