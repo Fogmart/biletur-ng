@@ -76,7 +76,10 @@ class ARRAirport extends DspBaseModel {
 		$cacheKey = Yii::$app->cache->buildKey([__METHOD__, $code]);
 		$name = Yii::$app->cache->get($cacheKey);
 		if (false === $name) {
-			$name = static::find()->select([static::ATTR_S_NAME])->where([static::ATTR_AP_IATA => $code])->scalar();
+			$name = static::find()
+				->select([static::ATTR_S_NAME])
+				->where([static::ATTR_AP_IATA => $code])
+				->scalar();
 
 			Yii::$app->cache->set($cacheKey, $name);
 		}

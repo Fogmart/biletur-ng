@@ -152,7 +152,7 @@ class SearchForm extends Model {
 		/** @var \common\modules\api\etm\response\SearchFlightsResponse $response */
 		$this->result = Yii::$app->etmApi->sendRequest(EtmApi::METHOD_SEARCH, $query, true);
 
-		Dump::dDie($this->result);
+		Dump::d($this->result);
 	}
 
 	/**
